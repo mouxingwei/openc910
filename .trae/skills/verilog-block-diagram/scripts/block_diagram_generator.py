@@ -105,6 +105,10 @@ class BlockDiagramGenerator:
                 r'module\s+(\w+)\s*(?:#\s*\((.*?)\))?\s*\((.*?)\);',
                 re.DOTALL
             ),
+            'module_simple': re.compile(
+                r'module\s+(\w+)\s*\((.*?)\);',
+                re.DOTALL
+            ),
             'endmodule': re.compile(r'endmodule'),
             'instance': re.compile(
                 r'(\w+)\s+(?:#\s*\((.*?)\)\s+)?(\w+)\s*\((.*?)\)\s*;',
@@ -156,9 +160,14 @@ class BlockDiagramGenerator:
         ports = []
         module_match = self.patterns['module'].search(content)
         if not module_match:
+            module_match = self.patterns['module_simple'].search(content)
+        if not module_match:
             return ports
         
-        port_section = module_match.group(3) or ""
+        port_section = module_match.group(2) if len(module_match.groups()) == 2 else module_match.group(3)
+        if not port_section:
+            port_section = ""
+        
         for match in self.patterns['port_def'].finditer(port_section):
             direction = match.group(1)
             msb = int(match.group(2)) if match.group(2) else 0
@@ -173,6 +182,46 @@ class BlockDiagramGenerator:
                 lsb=lsb,
                 width=width
             ))
+        
+        if ports:
+            return ports
+        
+        port_names = re.findall(r'(\w+)\s*(?:,|\))', port_section)
+        if port_names:
+            endmodule_match = self.patterns['endmodule'].search(content)
+            module_body_end = endmodule_match.start() if endmodule_match else len(content)
+            module_body = content[module_match.end():module_body_end]
+            
+            port_decl_pattern = re.compile(
+                r'(input|output|inout)\s+(?:wire\s+|reg\s+)?(?:\[(\d+)\s*:\s*(\d+)\]\s+)?(\w+)\s*;'
+            )
+            
+            declared_ports = {}
+            for match in port_decl_pattern.finditer(module_body):
+                direction = match.group(1)
+                msb = int(match.group(2)) if match.group(2) else 0
+                lsb = int(match.group(3)) if match.group(3) else 0
+                name = match.group(4)
+                width = msb - lsb + 1 if match.group(2) else 1
+                declared_ports[name] = {
+                    'direction': direction,
+                    'msb': msb,
+                    'lsb': lsb,
+                    'width': width
+                }
+            
+            for name in port_names:
+                name = name.strip()
+                if name and name in declared_ports:
+                    port_info = declared_ports[name]
+                    ports.append(Port(
+                        name=name,
+                        direction=port_info['direction'],
+                        msb=port_info['msb'],
+                        lsb=port_info['lsb'],
+                        width=port_info['width']
+                    ))
+        
         return ports
     
     def parse_instances(self, content: str, current_level: int) -> List[HierarchyInfo]:
@@ -229,10 +278,14 @@ class BlockDiagramGenerator:
         
         if module_name:
             module_match = self.patterns['module'].search(content)
+            if not module_match:
+                module_match = self.patterns['module_simple'].search(content)
             if module_match and module_match.group(1) != module_name:
                 return None
         
         module_match = self.patterns['module'].search(content)
+        if not module_match:
+            module_match = self.patterns['module_simple'].search(content)
         if not module_match:
             return None
         
