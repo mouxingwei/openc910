@@ -1,0 +1,197 @@
+{
+  "module": "axi_slave128",
+  "timing_diagrams": [
+    {
+      "pattern_type": "valid_ready",
+      "description": "arvalid_s0 和 arready_s0 构成 Valid-Ready 握手协议",
+      "wavedrom": {
+        "signal": [
+          {
+            "name": "pll_core_cpuclk",
+            "wave": "p..........."
+          },
+          {
+            "name": "arvalid_s0",
+            "wave": "01..0......"
+          },
+          {
+            "name": "arready_s0",
+            "wave": "0..1.0....."
+          }
+        ],
+        "head": {
+          "text": "axi_slave128 Valid-Ready 握手时序"
+        },
+        "config": {
+          "hscale": 2
+        }
+      }
+    },
+    {
+      "pattern_type": "valid_ready",
+      "description": "awvalid_s0 和 awready_s0 构成 Valid-Ready 握手协议",
+      "wavedrom": {
+        "signal": [
+          {
+            "name": "pll_core_cpuclk",
+            "wave": "p..........."
+          },
+          {
+            "name": "awvalid_s0",
+            "wave": "01..0......"
+          },
+          {
+            "name": "awready_s0",
+            "wave": "0..1.0....."
+          }
+        ],
+        "head": {
+          "text": "axi_slave128 Valid-Ready 握手时序"
+        },
+        "config": {
+          "hscale": 2
+        }
+      }
+    },
+    {
+      "pattern_type": "valid_ready",
+      "description": "bvalid_s0 和 bready_s0 构成 Valid-Ready 握手协议",
+      "wavedrom": {
+        "signal": [
+          {
+            "name": "pll_core_cpuclk",
+            "wave": "p..........."
+          },
+          {
+            "name": "bvalid_s0",
+            "wave": "01..0......"
+          },
+          {
+            "name": "bready_s0",
+            "wave": "0..1.0....."
+          }
+        ],
+        "head": {
+          "text": "axi_slave128 Valid-Ready 握手时序"
+        },
+        "config": {
+          "hscale": 2
+        }
+      }
+    },
+    {
+      "pattern_type": "valid_ready",
+      "description": "rvalid_s0 和 rready_s0 构成 Valid-Ready 握手协议",
+      "wavedrom": {
+        "signal": [
+          {
+            "name": "pll_core_cpuclk",
+            "wave": "p..........."
+          },
+          {
+            "name": "rvalid_s0",
+            "wave": "01..0......"
+          },
+          {
+            "name": "rready_s0",
+            "wave": "0..1.0....."
+          }
+        ],
+        "head": {
+          "text": "axi_slave128 Valid-Ready 握手时序"
+        },
+        "config": {
+          "hscale": 2
+        }
+      }
+    },
+    {
+      "pattern_type": "axi_read",
+      "description": "AXI 读通道",
+      "wavedrom": {
+        "signal": [
+          {
+            "name": "pll_core_cpuclk",
+            "wave": "p..................."
+          },
+          {
+            "name": "arvalid_s0",
+            "wave": "01..........0......"
+          },
+          {
+            "name": "arready_s0",
+            "wave": "0.1.0.............."
+          },
+          {
+            "name": "araddr_s0",
+            "wave": "x.=.x..............",
+            "data": [
+              "ADDR"
+            ]
+          },
+          {
+            "name": "rvalid_s0",
+            "wave": "0..........01.0...."
+          },
+          {
+            "name": "rready_s0",
+            "wave": "0............1.0..."
+          },
+          {
+            "name": "rdata_s0",
+            "wave": "x..........=.x.....",
+            "data": [
+              "DATA"
+            ]
+          }
+        ],
+        "head": {
+          "text": "axi_slave128 AXI 读通道时序"
+        },
+        "config": {
+          "hscale": 1.5
+        }
+      }
+    },
+    {
+      "pattern_type": "reset",
+      "description": "复位时序",
+      "wavedrom": {
+        "signal": [
+          {
+            "name": "pll_core_cpuclk",
+            "wave": "p..........."
+          },
+          {
+            "name": "pad_cpu_rst_b",
+            "wave": "01.........."
+          },
+          {
+            "name": "rdata_s0",
+            "wave": "x..=.==.=..",
+            "data": [
+              "D0",
+              "D1",
+              "D2"
+            ]
+          },
+          {
+            "name": "wdata_s0",
+            "wave": "x..=.==.=..",
+            "data": [
+              "D0",
+              "D1",
+              "D2"
+            ]
+          }
+        ],
+        "head": {
+          "text": "axi_slave128 复位时序"
+        },
+        "config": {
+          "hscale": 2
+        }
+      }
+    }
+  ]
+}
