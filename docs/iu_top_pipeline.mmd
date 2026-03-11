@@ -1,0 +1,42 @@
+%% ct_iu_top 流水线图
+%% 生成时间: 2026-03-11
+%% OpenC910 整数单元三发射流水线
+
+flowchart LR
+    subgraph PIPELINE["IU 多发射流水线"]
+        direction LR
+        
+        subgraph PIPE0["Pipe0 - 主执行"]
+            direction LR
+            P0_RF["RF<br/>读寄存器"] --> P0_EX1["EX1<br/>执行"]
+            P0_EX1 --> P0_WB["WB<br/>写回"]
+        end
+        
+        subgraph PIPE1["Pipe1 - 乘法/ALU"]
+            direction LR
+            P1_RF["RF<br/>读寄存器"] --> P1_EX1["EX1"]
+            P1_EX1 --> P1_EX2["EX2"]
+            P1_EX2 --> P1_EX3["EX3"]
+            P1_EX3 --> P1_EX4["EX4"]
+            P1_EX4 --> P1_WB["WB"]
+        end
+        
+        subgraph PIPE2["Pipe2 - 分支"]
+            direction LR
+            P2_RF["RF<br/>读寄存器"] --> P2_EX1["EX1"]
+            P2_EX1 --> P2_EX2["EX2"]
+            P2_EX2 --> P2_WB["WB"]
+        end
+    end
+    
+    IDU_DISPATCH["IDU<br/>指令分发"] --> P0_RF
+    IDU_DISPATCH --> P1_RF
+    IDU_DISPATCH --> P2_RF
+    
+    P0_WB --> RBUS["RBUS<br/>结果总线"]
+    P1_WB --> RBUS
+    P2_WB --> RBUS
+    
+    P0_RF -.->|前递| P0_RF
+    P1_EX2 -.->|前递| P1_RF
+    P2_EX2 -.->|分支修正| IFU["IFU"]
