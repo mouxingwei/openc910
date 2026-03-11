@@ -109,6 +109,10 @@ class BlockDiagramGenerator:
                 r'module\s+(\w+)\s*\((.*?)\);',
                 re.DOTALL
             ),
+            'module_header': re.compile(
+                r'module\s+(\w+)\s*\(',
+                re.DOTALL
+            ),
             'endmodule': re.compile(r'endmodule'),
             'instance': re.compile(
                 r'(\w+)\s+(?:#\s*\((.*?)\)\s+)?(\w+)\s*\((.*?)\)\s*;',
@@ -158,15 +162,27 @@ class BlockDiagramGenerator:
     
     def parse_module_ports(self, content: str) -> List[Port]:
         ports = []
-        module_match = self.patterns['module'].search(content)
-        if not module_match:
-            module_match = self.patterns['module_simple'].search(content)
-        if not module_match:
+        module_header_match = self.patterns['module_header'].search(content)
+        if not module_header_match:
             return ports
         
-        port_section = module_match.group(2) if len(module_match.groups()) == 2 else module_match.group(3)
-        if not port_section:
-            port_section = ""
+        module_start = module_header_match.end()
+        endmodule_match = self.patterns['endmodule'].search(content)
+        module_body_end = endmodule_match.start() if endmodule_match else len(content)
+        module_body = content[module_start:module_body_end]
+        
+        paren_count = 0
+        port_list_end = 0
+        for i, char in enumerate(module_body):
+            if char == '(':
+                paren_count += 1
+            elif char == ')':
+                paren_count -= 1
+                if paren_count == 0:
+                    port_list_end = i
+                    break
+        
+        port_section = module_body[:port_list_end] if port_list_end > 0 else ""
         
         for match in self.patterns['port_def'].finditer(port_section):
             direction = match.group(1)
@@ -188,10 +204,6 @@ class BlockDiagramGenerator:
         
         port_names = re.findall(r'(\w+)\s*(?:,|\))', port_section)
         if port_names:
-            endmodule_match = self.patterns['endmodule'].search(content)
-            module_body_end = endmodule_match.start() if endmodule_match else len(content)
-            module_body = content[module_match.end():module_body_end]
-            
             port_decl_pattern = re.compile(
                 r'(input|output|inout)\s+(?:wire\s+|reg\s+)?(?:\[(\d+)\s*:\s*(\d+)\]\s+)?(\w+)\s*;'
             )
@@ -276,20 +288,15 @@ class BlockDiagramGenerator:
         if not content:
             return None
         
-        if module_name:
-            module_match = self.patterns['module'].search(content)
-            if not module_match:
-                module_match = self.patterns['module_simple'].search(content)
-            if module_match and module_match.group(1) != module_name:
-                return None
-        
-        module_match = self.patterns['module'].search(content)
-        if not module_match:
-            module_match = self.patterns['module_simple'].search(content)
-        if not module_match:
+        module_header_match = self.patterns['module_header'].search(content)
+        if not module_header_match:
             return None
         
-        actual_module_name = module_match.group(1)
+        actual_module_name = module_header_match.group(1)
+        
+        if module_name and actual_module_name != module_name:
+            return None
+        
         ports = self.parse_module_ports(content)
         
         root = ModuleNode(
@@ -578,18 +585,55 @@ if __name__ == '__main__':
     import sys
     
     if len(sys.argv) < 2:
-        print("用法: python block_diagram_generator.py <verilog_file> [module_name] [search_dir]")
+        print("用法: python block_diagram_generator.py <verilog_file> [--output-dir <dir>]")
         sys.exit(1)
     
     file_path = sys.argv[1]
-    module_name = sys.argv[2] if len(sys.argv) > 2 else None
-    search_dir = sys.argv[3] if len(sys.argv) > 3 else None
+    module_name = None
+    output_dir = None
     
-    search_dirs = [search_dir] if search_dir else [os.path.dirname(file_path)]
+    i = 2
+    while i < len(sys.argv):
+        if sys.argv[i] == '--output-dir' and i + 1 < len(sys.argv):
+            output_dir = sys.argv[i + 1]
+            i += 2
+        else:
+            if module_name is None:
+                module_name = sys.argv[i]
+            i += 1
     
-    md_content, mermaid, ascii_art = generate_block_diagram(file_path, module_name, search_dirs)
+    search_dirs = [os.path.dirname(file_path)]
     
-    if md_content:
-        print(md_content)
-    else:
+    generator = BlockDiagramGenerator(max_depth=3)
+    
+    all_files = generator.find_verilog_files(os.path.dirname(file_path))
+    generator.build_module_cache(all_files)
+    
+    root = generator.parse_hierarchy(file_path, module_name)
+    
+    if not root:
         print("无法解析模块")
+        sys.exit(1)
+    
+    md_content = generator.generate_markdown_doc(root)
+    mermaid_content = generator.generate_mermaid(root)
+    ascii_content = generator.generate_ascii(root)
+    
+    if output_dir:
+        os.makedirs(output_dir, exist_ok=True)
+        
+        module_name_actual = root.module_name
+        
+        md_path = os.path.join(output_dir, f"{module_name_actual}_block_diagram.md")
+        with open(md_path, 'w', encoding='utf-8') as f:
+            f.write(md_content)
+        
+        mmd_path = os.path.join(output_dir, f"{module_name_actual}_block_diagram.mmd")
+        with open(mmd_path, 'w', encoding='utf-8') as f:
+            f.write(mermaid_content)
+        
+        print(f"生成完成:")
+        print(f"  md: {md_path}")
+        print(f"  mmd: {mmd_path}")
+    else:
+        print(md_content)
