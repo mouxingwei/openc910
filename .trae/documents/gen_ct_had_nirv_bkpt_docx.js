@@ -212,6 +212,6 @@ const doc = new Document({
 });
 
 Packer.toBuffer(doc).then(buffer => {
-    fs.writeFileSync("d:\code\openc910\.trae\documents/ct_had_nirv_bkpt_top.docx", buffer);
+    fs.writeFileSync("d:/code/openc910/.trae/documents/ct_had_nirv_bkpt_top.docx", buffer);
     console.log("Generated: ct_had_nirv_bkpt_top.docx");
 });

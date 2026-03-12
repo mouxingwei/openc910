@@ -397,6 +397,6 @@ const doc = new Document({
 });
 
 Packer.toBuffer(doc).then(buffer => {
-    fs.writeFileSync("d:\code\openc910\.trae\documents/ct_core_top.docx", buffer);
+    fs.writeFileSync("d:/code/openc910/.trae/documents/ct_core_top.docx", buffer);
     console.log("Generated: ct_core_top.docx");
 });

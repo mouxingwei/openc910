@@ -158,6 +158,6 @@ const doc = new Document({
 });
 
 Packer.toBuffer(doc).then(buffer => {
-    fs.writeFileSync("d:\code\openc910\.trae\documents/gated_clk_cell_top.docx", buffer);
+    fs.writeFileSync("d:/code/openc910/.trae/documents/gated_clk_cell_top.docx", buffer);
     console.log("Generated: gated_clk_cell_top.docx");
 });

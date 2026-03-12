@@ -134,6 +134,6 @@ const doc = new Document({
 });
 
 Packer.toBuffer(doc).then(buffer => {
-    fs.writeFileSync("d:\code\openc910\.trae\documents/BUFGCE_top.docx", buffer);
+    fs.writeFileSync("d:/code/openc910/.trae/documents/BUFGCE_top.docx", buffer);
     console.log("Generated: BUFGCE_top.docx");
 });

@@ -433,6 +433,6 @@ const doc = new Document({
 });
 
 Packer.toBuffer(doc).then(buffer => {
-    fs.writeFileSync("d:\code\openc910\.trae\documents/ct_mmu_top_top.docx", buffer);
+    fs.writeFileSync("d:/code/openc910/.trae/documents/ct_mmu_top_top.docx", buffer);
     console.log("Generated: ct_mmu_top_top.docx");
 });

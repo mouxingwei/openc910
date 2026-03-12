@@ -253,6 +253,6 @@ const doc = new Document({
 });
 
 Packer.toBuffer(doc).then(buffer => {
-    fs.writeFileSync("d:\code\openc910\.trae\documents/ct_pmp_acc_top.docx", buffer);
+    fs.writeFileSync("d:/code/openc910/.trae/documents/ct_pmp_acc_top.docx", buffer);
     console.log("Generated: ct_pmp_acc_top.docx");
 });

@@ -367,6 +367,6 @@ const doc = new Document({
 });
 
 Packer.toBuffer(doc).then(buffer => {
-    fs.writeFileSync("d:\code\openc910\.trae\documents/ct_biu_other_io_sync_top.docx", buffer);
+    fs.writeFileSync("d:/code/openc910/.trae/documents/ct_biu_other_io_sync_top.docx", buffer);
     console.log("Generated: ct_biu_other_io_sync_top.docx");
 });

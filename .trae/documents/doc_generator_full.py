@@ -660,7 +660,7 @@ const doc = new Document({{
 }});
 
 Packer.toBuffer(doc).then(buffer => {{
-    fs.writeFileSync("{self.output_dir}/{module.name}_top.docx", buffer);
+    fs.writeFileSync("{self.output_dir.replace(chr(92), '/')}/{module.name}_top.docx", buffer);
     console.log("Generated: {module.name}_top.docx");
 }});
 '''
