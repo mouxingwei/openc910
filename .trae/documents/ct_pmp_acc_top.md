@@ -12,7 +12,7 @@
 
 ### 1.2 功能描述
 
-ct_pmp_acc 模块的功能描述。
+物理内存保护 (Physical Memory Protection)，(访问控制)，主要信号: 配置信号、状态信号、地址信号
 
 ### 1.3 设计特点
 
@@ -26,26 +26,37 @@ ct_pmp_acc 模块的功能描述。
 
 | 信号名 | 方向 | 位宽 | 描述 |
 |--------|------|------|------|
-| cp0_pmp_mpp | input | 2 | |
-| cur_priv_mode | input | 2 | |
-| mmu_pmp_pa_y | input | 28 | |
-| pmp_mprv_status_y | input | 1 | |
-| pmpaddr0_value | input | 29 | |
-| pmpaddr1_value | input | 29 | |
-| pmpaddr2_value | input | 29 | |
-| pmpaddr3_value | input | 29 | |
-| pmpaddr4_value | input | 29 | |
-| pmpaddr5_value | input | 29 | |
-| pmpaddr6_value | input | 29 | |
-| pmpaddr7_value | input | 29 | |
-| pmpcfg0_value | input | 64 | |
-| pmpcfg2_value | input | 64 | |
+| cp0_pmp_mpp | input | 2 |  |
+| cur_priv_mode | input | 2 |  |
+| mmu_pmp_pa_y | input | 28 |  |
+| pmp_mprv_status_y | input | 1 | 状态信号 |
+| pmpaddr0_value | input | 29 | 地址信号 |
+| pmpaddr1_value | input | 29 | 地址信号 |
+| pmpaddr2_value | input | 29 | 地址信号 |
+| pmpaddr3_value | input | 29 | 地址信号 |
+| pmpaddr4_value | input | 29 | 地址信号 |
+| pmpaddr5_value | input | 29 | 地址信号 |
+| pmpaddr6_value | input | 29 | 地址信号 |
+| pmpaddr7_value | input | 29 | 地址信号 |
+| pmpcfg0_value | input | 64 | 配置信号 |
+| pmpcfg2_value | input | 64 | 配置信号 |
 
 ### 2.2 输出端口
 
 | 信号名 | 方向 | 位宽 | 描述 |
 |--------|------|------|------|
-| pmp_mmu_flg_y | output | 4 | |
+| pmp_mmu_flg_y | output | 4 |  |
+
+### 2.5 接口时序图
+
+```mermaid
+sequenceDiagram
+    participant M as 主机
+    participant S as 从机
+    M->>S: req
+    S->>M: ack
+    M->>S: data
+```
 
 ## 3. 模块框图
 
@@ -218,14 +229,14 @@ graph TD
 
 | 层级 | 模块名 | 实例名 | 功能描述 |
 |------|--------|--------|----------|
-| 1 | ct_pmp_comp_hit | x_ct_pmp_comp_hit_0 | |
-| 1 | ct_pmp_comp_hit | x_ct_pmp_comp_hit_1 | |
-| 1 | ct_pmp_comp_hit | x_ct_pmp_comp_hit_2 | |
-| 1 | ct_pmp_comp_hit | x_ct_pmp_comp_hit_3 | |
-| 1 | ct_pmp_comp_hit | x_ct_pmp_comp_hit_4 | |
-| 1 | ct_pmp_comp_hit | x_ct_pmp_comp_hit_5 | |
-| 1 | ct_pmp_comp_hit | x_ct_pmp_comp_hit_6 | |
-| 1 | ct_pmp_comp_hit | x_ct_pmp_comp_hit_7 | |
+| 1 | ct_pmp_comp_hit | x_ct_pmp_comp_hit_0 | 物理内存保护 |
+| 1 | ct_pmp_comp_hit | x_ct_pmp_comp_hit_1 | 物理内存保护 |
+| 1 | ct_pmp_comp_hit | x_ct_pmp_comp_hit_2 | 物理内存保护 |
+| 1 | ct_pmp_comp_hit | x_ct_pmp_comp_hit_3 | 物理内存保护 |
+| 1 | ct_pmp_comp_hit | x_ct_pmp_comp_hit_4 | 物理内存保护 |
+| 1 | ct_pmp_comp_hit | x_ct_pmp_comp_hit_5 | 物理内存保护 |
+| 1 | ct_pmp_comp_hit | x_ct_pmp_comp_hit_6 | 物理内存保护 |
+| 1 | ct_pmp_comp_hit | x_ct_pmp_comp_hit_7 | 物理内存保护 |
 
 ## 7. 修订历史
 

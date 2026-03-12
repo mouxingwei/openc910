@@ -12,7 +12,7 @@
 
 ### 1.2 功能描述
 
-ct_lsu_top 模块的功能描述。
+访存单元 (Load/Store Unit)，主要信号: 操作码、地址信号、读使能、数据信号、有效信号
 
 ### 1.3 设计特点
 
@@ -25,73 +25,84 @@ ct_lsu_top 模块的功能描述。
 
 | 信号名 | 方向 | 位宽 | 描述 |
 |--------|------|------|------|
-| biu_lsu_ac_addr | input | 40 | |
-| biu_lsu_ac_prot | input | 3 | |
-| biu_lsu_ac_req | input | 1 | |
-| biu_lsu_ac_snoop | input | 4 | |
-| biu_lsu_ar_ready | input | 1 | |
-| biu_lsu_aw_vb_grnt | input | 1 | |
-| biu_lsu_aw_wmb_grnt | input | 1 | |
-| biu_lsu_b_id | input | 5 | |
-| biu_lsu_b_resp | input | 2 | |
-| biu_lsu_b_vld | input | 1 | |
-| biu_lsu_cd_ready | input | 1 | |
-| biu_lsu_cr_ready | input | 1 | |
-| biu_lsu_r_data | input | 128 | |
-| biu_lsu_r_id | input | 5 | |
-| biu_lsu_r_last | input | 1 | |
-| biu_lsu_r_resp | input | 4 | |
-| biu_lsu_r_vld | input | 1 | |
-| biu_lsu_w_vb_grnt | input | 1 | |
-| biu_lsu_w_wmb_grnt | input | 1 | |
-| cp0_lsu_amr | input | 1 | |
-| cp0_lsu_amr2 | input | 1 | |
-| cp0_lsu_cb_aclr_dis | input | 1 | |
-| cp0_lsu_corr_dis | input | 1 | |
-| cp0_lsu_ctc_flush_dis | input | 1 | |
-| cp0_lsu_da_fwd_dis | input | 1 | |
-| cp0_lsu_dcache_clr | input | 1 | |
-| cp0_lsu_dcache_en | input | 1 | |
-| cp0_lsu_dcache_inv | input | 1 | |
-| cp0_lsu_dcache_pref_dist | input | 2 | |
-| cp0_lsu_dcache_pref_en | input | 1 | |
+| biu_lsu_ac_addr | input | 40 | 地址信号 |
+| biu_lsu_ac_prot | input | 3 |  |
+| biu_lsu_ac_req | input | 1 | 请求信号 |
+| biu_lsu_ac_snoop | input | 4 | 操作码 |
+| biu_lsu_ar_ready | input | 1 | 就绪信号 |
+| biu_lsu_aw_vb_grnt | input | 1 |  |
+| biu_lsu_aw_wmb_grnt | input | 1 |  |
+| biu_lsu_b_id | input | 5 |  |
+| biu_lsu_b_resp | input | 2 | 读使能 |
+| biu_lsu_b_vld | input | 1 | 有效信号 |
+| biu_lsu_cd_ready | input | 1 | 就绪信号 |
+| biu_lsu_cr_ready | input | 1 | 就绪信号 |
+| biu_lsu_r_data | input | 128 | 数据信号 |
+| biu_lsu_r_id | input | 5 |  |
+| biu_lsu_r_last | input | 1 |  |
+| biu_lsu_r_resp | input | 4 | 读使能 |
+| biu_lsu_r_vld | input | 1 | 有效信号 |
+| biu_lsu_w_vb_grnt | input | 1 |  |
+| biu_lsu_w_wmb_grnt | input | 1 |  |
+| cp0_lsu_amr | input | 1 |  |
+| cp0_lsu_amr2 | input | 1 |  |
+| cp0_lsu_cb_aclr_dis | input | 1 |  |
+| cp0_lsu_corr_dis | input | 1 |  |
+| cp0_lsu_ctc_flush_dis | input | 1 | 刷新信号 |
+| cp0_lsu_da_fwd_dis | input | 1 | 前递信号 |
+| cp0_lsu_dcache_clr | input | 1 |  |
+| cp0_lsu_dcache_en | input | 1 | 使能信号 |
+| cp0_lsu_dcache_inv | input | 1 | 输入信号 |
+| cp0_lsu_dcache_pref_dist | input | 2 | 读使能 |
+| cp0_lsu_dcache_pref_en | input | 1 | 使能信号 |
 | ... | ... | ... | 共212个输入端口 |
 
 ### 2.2 输出端口
 
 | 信号名 | 方向 | 位宽 | 描述 |
 |--------|------|------|------|
-| lsu_biu_ac_empty | output | 1 | |
-| lsu_biu_ac_ready | output | 1 | |
-| lsu_biu_ar_addr | output | 40 | |
-| lsu_biu_ar_bar | output | 2 | |
-| lsu_biu_ar_burst | output | 2 | |
-| lsu_biu_ar_cache | output | 4 | |
-| lsu_biu_ar_domain | output | 2 | |
-| lsu_biu_ar_dp_req | output | 1 | |
-| lsu_biu_ar_id | output | 5 | |
-| lsu_biu_ar_len | output | 2 | |
-| lsu_biu_ar_lock | output | 1 | |
-| lsu_biu_ar_prot | output | 3 | |
-| lsu_biu_ar_req | output | 1 | |
-| lsu_biu_ar_req_gate | output | 1 | |
-| lsu_biu_ar_size | output | 3 | |
-| lsu_biu_ar_snoop | output | 4 | |
-| lsu_biu_ar_user | output | 3 | |
-| lsu_biu_aw_req_gate | output | 1 | |
-| lsu_biu_aw_st_addr | output | 40 | |
-| lsu_biu_aw_st_bar | output | 2 | |
-| lsu_biu_aw_st_burst | output | 2 | |
-| lsu_biu_aw_st_cache | output | 4 | |
-| lsu_biu_aw_st_domain | output | 2 | |
-| lsu_biu_aw_st_dp_req | output | 1 | |
-| lsu_biu_aw_st_id | output | 5 | |
-| lsu_biu_aw_st_len | output | 2 | |
-| lsu_biu_aw_st_lock | output | 1 | |
-| lsu_biu_aw_st_prot | output | 3 | |
-| lsu_biu_aw_st_req | output | 1 | |
-| lsu_biu_aw_st_size | output | 3 | |
+| lsu_biu_ac_empty | output | 1 | 空标志 |
+| lsu_biu_ac_ready | output | 1 | 就绪信号 |
+| lsu_biu_ar_addr | output | 40 | 地址信号 |
+| lsu_biu_ar_bar | output | 2 |  |
+| lsu_biu_ar_burst | output | 2 | 复位信号 |
+| lsu_biu_ar_cache | output | 4 |  |
+| lsu_biu_ar_domain | output | 2 | 输入信号 |
+| lsu_biu_ar_dp_req | output | 1 | 请求信号 |
+| lsu_biu_ar_id | output | 5 |  |
+| lsu_biu_ar_len | output | 2 | 使能信号 |
+| lsu_biu_ar_lock | output | 1 | 锁定信号 |
+| lsu_biu_ar_prot | output | 3 |  |
+| lsu_biu_ar_req | output | 1 | 请求信号 |
+| lsu_biu_ar_req_gate | output | 1 | 请求信号 |
+| lsu_biu_ar_size | output | 3 |  |
+| lsu_biu_ar_snoop | output | 4 | 操作码 |
+| lsu_biu_ar_user | output | 3 |  |
+| lsu_biu_aw_req_gate | output | 1 | 请求信号 |
+| lsu_biu_aw_st_addr | output | 40 | 地址信号 |
+| lsu_biu_aw_st_bar | output | 2 |  |
+| lsu_biu_aw_st_burst | output | 2 | 复位信号 |
+| lsu_biu_aw_st_cache | output | 4 |  |
+| lsu_biu_aw_st_domain | output | 2 | 输入信号 |
+| lsu_biu_aw_st_dp_req | output | 1 | 请求信号 |
+| lsu_biu_aw_st_id | output | 5 |  |
+| lsu_biu_aw_st_len | output | 2 | 使能信号 |
+| lsu_biu_aw_st_lock | output | 1 | 锁定信号 |
+| lsu_biu_aw_st_prot | output | 3 |  |
+| lsu_biu_aw_st_req | output | 1 | 请求信号 |
+| lsu_biu_aw_st_size | output | 3 |  |
 | ... | ... | ... | 共282个输出端口 |
+
+### 2.5 接口时序图
+
+```mermaid
+sequenceDiagram
+    participant M as 主机
+    participant S as 从机
+    M->>S: req
+    S->>M: ack
+    M->>S: data
+```
 
 ## 3. 模块框图
 
@@ -280,26 +291,26 @@ graph TD
 
 | 层级 | 模块名 | 实例名 | 功能描述 |
 |------|--------|--------|----------|
-| 1 | ct_lsu_ld_ag | x_ct_lsu_ld_ag | |
-| 1 | ct_lsu_st_ag | x_ct_lsu_st_ag | |
-| 1 | ct_lsu_sd_ex1 | x_ct_lsu_sd_ex1 | |
-| 1 | ct_lsu_mcic | x_ct_lsu_mcic | |
-| 1 | ct_lsu_dcache_arb | x_ct_lsu_dcache_arb | |
-| 1 | ct_lsu_dcache_top | x_ct_lsu_dcache_top | |
-| 1 | ct_lsu_ld_dc | x_ct_lsu_ld_dc | |
-| 1 | ct_lsu_st_dc | x_ct_lsu_st_dc | |
-| 1 | ct_lsu_lq | x_ct_lsu_lq | |
-| 1 | ct_lsu_sq | x_ct_lsu_sq | |
-| 1 | ct_lsu_ld_da | x_ct_lsu_ld_da | |
-| 1 | ct_lsu_st_da | x_ct_lsu_st_da | |
-| 1 | ct_lsu_rb | x_ct_lsu_rb | |
-| 1 | ct_lsu_wmb | x_ct_lsu_wmb | |
-| 1 | ct_lsu_wmb_ce | x_ct_lsu_wmb_ce | |
-| 1 | ct_lsu_ld_wb | x_ct_lsu_ld_wb | |
-| 1 | ct_lsu_st_wb | x_ct_lsu_st_wb | |
-| 1 | ct_lsu_lfb | x_ct_lsu_lfb | |
-| 1 | ct_lsu_vb | x_ct_lsu_vb | |
-| 1 | ct_lsu_vb_sdb_data | x_ct_lsu_vb_sdb_data | |
+| 1 | ct_lsu_ld_ag | x_ct_lsu_ld_ag | 访存单元 |
+| 1 | ct_lsu_st_ag | x_ct_lsu_st_ag | 访存单元 |
+| 1 | ct_lsu_sd_ex1 | x_ct_lsu_sd_ex1 | 访存单元 |
+| 1 | ct_lsu_mcic | x_ct_lsu_mcic | 访存单元 |
+| 1 | ct_lsu_dcache_arb | x_ct_lsu_dcache_arb | 访存单元 |
+| 1 | ct_lsu_dcache_top | x_ct_lsu_dcache_top | 访存单元 |
+| 1 | ct_lsu_ld_dc | x_ct_lsu_ld_dc | 访存单元 |
+| 1 | ct_lsu_st_dc | x_ct_lsu_st_dc | 访存单元 |
+| 1 | ct_lsu_lq | x_ct_lsu_lq | 访存单元 |
+| 1 | ct_lsu_sq | x_ct_lsu_sq | 访存单元 |
+| 1 | ct_lsu_ld_da | x_ct_lsu_ld_da | 访存单元 |
+| 1 | ct_lsu_st_da | x_ct_lsu_st_da | 访存单元 |
+| 1 | ct_lsu_rb | x_ct_lsu_rb | 访存单元 |
+| 1 | ct_lsu_wmb | x_ct_lsu_wmb | 访存单元 |
+| 1 | ct_lsu_wmb_ce | x_ct_lsu_wmb_ce | 访存单元 |
+| 1 | ct_lsu_ld_wb | x_ct_lsu_ld_wb | 访存单元 |
+| 1 | ct_lsu_st_wb | x_ct_lsu_st_wb | 访存单元 |
+| 1 | ct_lsu_lfb | x_ct_lsu_lfb | 访存单元 |
+| 1 | ct_lsu_vb | x_ct_lsu_vb | 访存单元 |
+| 1 | ct_lsu_vb_sdb_data | x_ct_lsu_vb_sdb_data | 访存单元 |
 | ... | ... | ... | 共32个实例 |
 
 ## 7. 修订历史

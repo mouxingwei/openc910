@@ -13,7 +13,7 @@
 
 ### 1.2 功能描述
 
-ct_mmu_arb 模块的功能描述。
+内存管理单元 (Memory Management Unit)，(仲裁器)，主要信号: 授权信号、使能信号、操作码、输入信号、选择信号
 
 ### 1.3 设计特点
 
@@ -28,61 +28,61 @@ ct_mmu_arb 模块的功能描述。
 
 | 信号名 | 方向 | 位宽 | 描述 |
 |--------|------|------|------|
-| cp0_mmu_icg_en | input | 1 | |
-| cp0_mmu_no_op_req | input | 1 | |
-| cpurst_b | input | 1 | |
-| dutlb_arb_cmplt | input | 1 | |
-| dutlb_arb_load | input | 1 | |
-| dutlb_arb_req | input | 1 | |
-| dutlb_arb_vpn | input | 27 | |
-| dutlb_xx_mmu_off | input | 1 | |
-| forever_cpuclk | input | 1 | |
-| iutlb_arb_cmplt | input | 1 | |
-| iutlb_arb_req | input | 1 | |
-| iutlb_arb_vpn | input | 27 | |
-| jtlb_arb_cmp_va | input | 1 | |
-| jtlb_arb_par_clr | input | 1 | |
-| jtlb_arb_pfu_cmplt | input | 1 | |
-| jtlb_arb_pfu_vpn | input | 27 | |
-| jtlb_arb_sel_1g | input | 1 | |
-| jtlb_arb_sel_2m | input | 1 | |
-| jtlb_arb_sel_4k | input | 1 | |
-| jtlb_arb_tc_miss | input | 1 | |
-| jtlb_arb_type | input | 3 | |
-| jtlb_arb_vpn | input | 27 | |
-| lsu_mmu_va2_vld | input | 1 | |
-| pad_yy_icg_scan_en | input | 1 | |
-| ptw_arb_bank_sel | input | 4 | |
-| ptw_arb_data_din | input | 42 | |
-| ptw_arb_fifo_din | input | 4 | |
-| ptw_arb_pgs | input | 3 | |
-| ptw_arb_req | input | 1 | |
-| ptw_arb_tag_din | input | 48 | |
+| cp0_mmu_icg_en | input | 1 | 使能信号 |
+| cp0_mmu_no_op_req | input | 1 | 请求信号 |
+| cpurst_b | input | 1 | 复位信号 |
+| dutlb_arb_cmplt | input | 1 |  |
+| dutlb_arb_load | input | 1 |  |
+| dutlb_arb_req | input | 1 | 请求信号 |
+| dutlb_arb_vpn | input | 27 |  |
+| dutlb_xx_mmu_off | input | 1 |  |
+| forever_cpuclk | input | 1 | 时钟信号 |
+| iutlb_arb_cmplt | input | 1 |  |
+| iutlb_arb_req | input | 1 | 请求信号 |
+| iutlb_arb_vpn | input | 27 |  |
+| jtlb_arb_cmp_va | input | 1 |  |
+| jtlb_arb_par_clr | input | 1 |  |
+| jtlb_arb_pfu_cmplt | input | 1 |  |
+| jtlb_arb_pfu_vpn | input | 27 |  |
+| jtlb_arb_sel_1g | input | 1 | 选择信号 |
+| jtlb_arb_sel_2m | input | 1 | 选择信号 |
+| jtlb_arb_sel_4k | input | 1 | 选择信号 |
+| jtlb_arb_tc_miss | input | 1 | 未命中信号 |
+| jtlb_arb_type | input | 3 |  |
+| jtlb_arb_vpn | input | 27 |  |
+| lsu_mmu_va2_vld | input | 1 | 有效信号 |
+| pad_yy_icg_scan_en | input | 1 | 使能信号 |
+| ptw_arb_bank_sel | input | 4 | 选择信号 |
+| ptw_arb_data_din | input | 42 | 数据信号 |
+| ptw_arb_fifo_din | input | 4 | 输入信号 |
+| ptw_arb_pgs | input | 3 |  |
+| ptw_arb_req | input | 1 | 请求信号 |
+| ptw_arb_tag_din | input | 48 | 标签信号 |
 | ... | ... | ... | 共45个输入端口 |
 
 ### 2.2 输出端口
 
 | 信号名 | 方向 | 位宽 | 描述 |
 |--------|------|------|------|
-| arb_dutlb_grant | output | 1 | |
-| arb_iutlb_grant | output | 1 | |
-| arb_jtlb_acc_type | output | 3 | |
-| arb_jtlb_bank_sel | output | 4 | |
-| arb_jtlb_cmp_with_va | output | 1 | |
-| arb_jtlb_data_din | output | 42 | |
-| arb_jtlb_fifo_din | output | 4 | |
-| arb_jtlb_fifo_write | output | 1 | |
-| arb_jtlb_idx | output | 9 | |
-| arb_jtlb_req | output | 1 | |
-| arb_jtlb_tag_din | output | 48 | |
-| arb_jtlb_vpn | output | 27 | |
-| arb_jtlb_write | output | 1 | |
-| arb_ptw_grant | output | 1 | |
-| arb_ptw_mask | output | 1 | |
-| arb_tlboper_grant | output | 1 | |
-| arb_top_cur_st | output | 2 | |
-| arb_top_tlboper_on | output | 1 | |
-| mmu_yy_xx_no_op | output | 1 | |
+| arb_dutlb_grant | output | 1 | 授权信号 |
+| arb_iutlb_grant | output | 1 | 授权信号 |
+| arb_jtlb_acc_type | output | 3 |  |
+| arb_jtlb_bank_sel | output | 4 | 选择信号 |
+| arb_jtlb_cmp_with_va | output | 1 |  |
+| arb_jtlb_data_din | output | 42 | 数据信号 |
+| arb_jtlb_fifo_din | output | 4 | 输入信号 |
+| arb_jtlb_fifo_write | output | 1 |  |
+| arb_jtlb_idx | output | 9 |  |
+| arb_jtlb_req | output | 1 | 请求信号 |
+| arb_jtlb_tag_din | output | 48 | 标签信号 |
+| arb_jtlb_vpn | output | 27 |  |
+| arb_jtlb_write | output | 1 |  |
+| arb_ptw_grant | output | 1 | 授权信号 |
+| arb_ptw_mask | output | 1 | 掩码信号 |
+| arb_tlboper_grant | output | 1 | 操作码 |
+| arb_top_cur_st | output | 2 | 操作码 |
+| arb_top_tlboper_on | output | 1 | 操作码 |
+| mmu_yy_xx_no_op | output | 1 | 操作码 |
 
 ### 2.4 参数列表
 
@@ -96,6 +96,17 @@ ct_mmu_arb 模块的功能描述。
 | TAG_WIDTH | 1+VPN_WIDTH+ASID_WIDTH+PGS_WIDTH+1 | 1 | |
 | DATA_WIDTH | PPN_WIDTH+FLG_WIDTH | 1 | |
 | ARB_IDLE | 2'b00 | 1 | |
+
+### 2.5 接口时序图
+
+```mermaid
+sequenceDiagram
+    participant M as 主机
+    participant S as 从机
+    M->>S: req
+    S->>M: ack
+    M->>S: data
+```
 
 ## 3. 模块框图
 
@@ -286,7 +297,7 @@ graph TD
 
 | 层级 | 模块名 | 实例名 | 功能描述 |
 |------|--------|--------|----------|
-| 1 | gated_clk_cell | x_jtlb_arb_gateclk | |
+| 1 | gated_clk_cell | x_jtlb_arb_gateclk |  |
 
 ## 7. 修订历史
 

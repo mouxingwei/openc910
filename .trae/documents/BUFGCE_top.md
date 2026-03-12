@@ -12,7 +12,7 @@
 
 ### 1.2 功能描述
 
-BUFGCE 模块的功能描述。
+BUFGCE 模块
 
 ### 1.3 设计特点
 
@@ -25,14 +25,25 @@ BUFGCE 模块的功能描述。
 
 | 信号名 | 方向 | 位宽 | 描述 |
 |--------|------|------|------|
-| I | input | 1 | |
-| CE | input | 1 | |
+| I | input | 1 |  |
+| CE | input | 1 |  |
 
 ### 2.2 输出端口
 
 | 信号名 | 方向 | 位宽 | 描述 |
 |--------|------|------|------|
-| O | output | 1 | |
+| O | output | 1 |  |
+
+### 2.5 接口时序图
+
+```mermaid
+sequenceDiagram
+    participant M as 主机
+    participant S as 从机
+    M->>S: req
+    S->>M: ack
+    M->>S: data
+```
 
 ## 3. 模块框图
 

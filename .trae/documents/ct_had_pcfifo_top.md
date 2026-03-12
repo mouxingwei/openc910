@@ -13,7 +13,7 @@
 
 ### 1.2 功能描述
 
-ct_had_pcfifo 模块的功能描述。
+硬件调试 (Hardware Debug)，(PC先进先出)，主要信号: 使能信号、时钟信号、数据信号、程序计数器、复位信号
 
 ### 1.3 设计特点
 
@@ -27,23 +27,23 @@ ct_had_pcfifo 模块的功能描述。
 
 | 信号名 | 方向 | 位宽 | 描述 |
 |--------|------|------|------|
-| cpuclk | input | 1 | |
-| cpurst_b | input | 1 | |
-| ctrl_pcfifo_ren | input | 1 | |
-| ctrl_pcfifo_wen | input | 1 | |
-| mmu_xx_mmu_en | input | 1 | |
-| rtu_had_xx_pcfifo_inst0_chgflow | input | 1 | |
-| rtu_had_xx_pcfifo_inst0_next_pc | input | 39 | |
-| rtu_had_xx_pcfifo_inst1_chgflow | input | 1 | |
-| rtu_had_xx_pcfifo_inst1_next_pc | input | 39 | |
-| rtu_had_xx_pcfifo_inst2_chgflow | input | 1 | |
-| rtu_had_xx_pcfifo_inst2_next_pc | input | 39 | |
+| cpuclk | input | 1 | 时钟信号 |
+| cpurst_b | input | 1 | 复位信号 |
+| ctrl_pcfifo_ren | input | 1 | 使能信号 |
+| ctrl_pcfifo_wen | input | 1 | 使能信号 |
+| mmu_xx_mmu_en | input | 1 | 使能信号 |
+| rtu_had_xx_pcfifo_inst0_chgflow | input | 1 | 程序计数器 |
+| rtu_had_xx_pcfifo_inst0_next_pc | input | 39 | 程序计数器 |
+| rtu_had_xx_pcfifo_inst1_chgflow | input | 1 | 程序计数器 |
+| rtu_had_xx_pcfifo_inst1_next_pc | input | 39 | 程序计数器 |
+| rtu_had_xx_pcfifo_inst2_chgflow | input | 1 | 程序计数器 |
+| rtu_had_xx_pcfifo_inst2_next_pc | input | 39 | 程序计数器 |
 
 ### 2.2 输出端口
 
 | 信号名 | 方向 | 位宽 | 描述 |
 |--------|------|------|------|
-| pcfifo_regs_data | output | 64 | |
+| pcfifo_regs_data | output | 64 | 数据信号 |
 
 ### 2.4 参数列表
 
@@ -53,6 +53,17 @@ ct_had_pcfifo 模块的功能描述。
 | DATAW | 64 | 1 | |
 | DEPTH | 16 | 1 | |
 | PTR_WIDTH | 5 | 1 | |
+
+### 2.5 接口时序图
+
+```mermaid
+sequenceDiagram
+    participant M as 主机
+    participant S as 从机
+    M->>S: req
+    S->>M: ack
+    M->>S: data
+```
 
 ## 3. 模块框图
 

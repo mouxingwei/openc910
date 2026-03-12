@@ -13,7 +13,7 @@
 
 ### 1.2 功能描述
 
-ct_mmu_ptw 模块的功能描述。
+内存管理单元 (Memory Management Unit)，(页表遍历)，主要信号: 授权信号、使能信号、错误信号、掩码信号、时钟信号
 
 ### 1.3 设计特点
 
@@ -28,65 +28,65 @@ ct_mmu_ptw 模块的功能描述。
 
 | 信号名 | 方向 | 位宽 | 描述 |
 |--------|------|------|------|
-| arb_ptw_grant | input | 1 | |
-| arb_ptw_mask | input | 1 | |
-| cp0_mmu_icg_en | input | 1 | |
-| cp0_mmu_maee | input | 1 | |
-| cp0_mmu_mpp | input | 2 | |
-| cp0_mmu_mprv | input | 1 | |
-| cp0_mmu_mxr | input | 1 | |
-| cp0_mmu_sum | input | 1 | |
-| cp0_yy_priv_mode | input | 2 | |
-| cpurst_b | input | 1 | |
-| dutlb_ptw_wfc | input | 1 | |
-| forever_cpuclk | input | 1 | |
-| hpcp_mmu_cnt_en | input | 1 | |
-| iutlb_ptw_wfc | input | 1 | |
-| jtlb_ptw_req | input | 1 | |
-| jtlb_ptw_type | input | 3 | |
-| jtlb_ptw_vpn | input | 27 | |
-| jtlb_xx_fifo | input | 12 | |
-| lsu_mmu_bus_error | input | 1 | |
-| lsu_mmu_data | input | 64 | |
-| lsu_mmu_data_vld | input | 1 | |
-| pad_yy_icg_scan_en | input | 1 | |
-| pmp_mmu_flg3 | input | 4 | |
-| regs_ptw_cur_asid | input | 16 | |
-| regs_ptw_satp_ppn | input | 28 | |
-| sysmap_mmu_flg3 | input | 5 | |
-| sysmap_mmu_hit3 | input | 8 | |
-| tlboper_ptw_abort | input | 1 | |
+| arb_ptw_grant | input | 1 | 授权信号 |
+| arb_ptw_mask | input | 1 | 掩码信号 |
+| cp0_mmu_icg_en | input | 1 | 使能信号 |
+| cp0_mmu_maee | input | 1 |  |
+| cp0_mmu_mpp | input | 2 |  |
+| cp0_mmu_mprv | input | 1 |  |
+| cp0_mmu_mxr | input | 1 |  |
+| cp0_mmu_sum | input | 1 |  |
+| cp0_yy_priv_mode | input | 2 |  |
+| cpurst_b | input | 1 | 复位信号 |
+| dutlb_ptw_wfc | input | 1 |  |
+| forever_cpuclk | input | 1 | 时钟信号 |
+| hpcp_mmu_cnt_en | input | 1 | 使能信号 |
+| iutlb_ptw_wfc | input | 1 |  |
+| jtlb_ptw_req | input | 1 | 请求信号 |
+| jtlb_ptw_type | input | 3 |  |
+| jtlb_ptw_vpn | input | 27 |  |
+| jtlb_xx_fifo | input | 12 |  |
+| lsu_mmu_bus_error | input | 1 | 错误信号 |
+| lsu_mmu_data | input | 64 | 数据信号 |
+| lsu_mmu_data_vld | input | 1 | 有效信号 |
+| pad_yy_icg_scan_en | input | 1 | 使能信号 |
+| pmp_mmu_flg3 | input | 4 |  |
+| regs_ptw_cur_asid | input | 16 | 读使能 |
+| regs_ptw_satp_ppn | input | 28 | 读使能 |
+| sysmap_mmu_flg3 | input | 5 |  |
+| sysmap_mmu_hit3 | input | 8 | 命中信号 |
+| tlboper_ptw_abort | input | 1 | 操作码 |
 
 ### 2.2 输出端口
 
 | 信号名 | 方向 | 位宽 | 描述 |
 |--------|------|------|------|
-| mmu_hpcp_jtlb_miss | output | 1 | |
-| mmu_lsu_data_req | output | 1 | |
-| mmu_lsu_data_req_addr | output | 40 | |
-| mmu_lsu_data_req_size | output | 1 | |
-| mmu_pmp_fetch3 | output | 1 | |
-| mmu_pmp_pa3 | output | 28 | |
-| mmu_sysmap_pa3 | output | 28 | |
-| ptw_arb_bank_sel | output | 4 | |
-| ptw_arb_data_din | output | 42 | |
-| ptw_arb_fifo_din | output | 4 | |
-| ptw_arb_pgs | output | 3 | |
-| ptw_arb_req | output | 1 | |
-| ptw_arb_tag_din | output | 48 | |
-| ptw_arb_vpn | output | 27 | |
-| ptw_jtlb_dmiss | output | 1 | |
-| ptw_jtlb_imiss | output | 1 | |
-| ptw_jtlb_pmiss | output | 1 | |
-| ptw_jtlb_ref_acc_err | output | 1 | |
-| ptw_jtlb_ref_cmplt | output | 1 | |
-| ptw_jtlb_ref_data_vld | output | 1 | |
-| ptw_jtlb_ref_flg | output | 14 | |
-| ptw_jtlb_ref_pgflt | output | 1 | |
-| ptw_jtlb_ref_pgs | output | 3 | |
-| ptw_jtlb_ref_ppn | output | 28 | |
-| ptw_top_cur_st | output | 4 | |
-| ptw_top_imiss | output | 1 | |
+| mmu_hpcp_jtlb_miss | output | 1 | 程序计数器 |
+| mmu_lsu_data_req | output | 1 | 请求信号 |
+| mmu_lsu_data_req_addr | output | 40 | 请求信号 |
+| mmu_lsu_data_req_size | output | 1 | 请求信号 |
+| mmu_pmp_fetch3 | output | 1 |  |
+| mmu_pmp_pa3 | output | 28 |  |
+| mmu_sysmap_pa3 | output | 28 |  |
+| ptw_arb_bank_sel | output | 4 | 选择信号 |
+| ptw_arb_data_din | output | 42 | 数据信号 |
+| ptw_arb_fifo_din | output | 4 | 输入信号 |
+| ptw_arb_pgs | output | 3 |  |
+| ptw_arb_req | output | 1 | 请求信号 |
+| ptw_arb_tag_din | output | 48 | 标签信号 |
+| ptw_arb_vpn | output | 27 |  |
+| ptw_jtlb_dmiss | output | 1 | 未命中信号 |
+| ptw_jtlb_imiss | output | 1 | 未命中信号 |
+| ptw_jtlb_pmiss | output | 1 | 未命中信号 |
+| ptw_jtlb_ref_acc_err | output | 1 | 读使能 |
+| ptw_jtlb_ref_cmplt | output | 1 | 读使能 |
+| ptw_jtlb_ref_data_vld | output | 1 | 有效信号 |
+| ptw_jtlb_ref_flg | output | 14 | 读使能 |
+| ptw_jtlb_ref_pgflt | output | 1 | 读使能 |
+| ptw_jtlb_ref_pgs | output | 3 | 读使能 |
+| ptw_jtlb_ref_ppn | output | 28 | 读使能 |
+| ptw_top_cur_st | output | 4 | 操作码 |
+| ptw_top_imiss | output | 1 | 操作码 |
 
 ### 2.4 参数列表
 
@@ -104,6 +104,17 @@ ct_mmu_ptw 模块的功能描述。
 | TAG_WIDTH | 1+VPN_WIDTH+ASID_WIDTH+PGS_WIDTH+1 | 1 | |
 | DATA_WIDTH | PPN_WIDTH+FLG_WIDTH | 1 | |
 | PTW_IDLE | 5'b00000 | 1 | |
+
+### 2.5 接口时序图
+
+```mermaid
+sequenceDiagram
+    participant M as 主机
+    participant S as 从机
+    M->>S: req
+    S->>M: ack
+    M->>S: data
+```
 
 ## 3. 模块框图
 
@@ -295,7 +306,7 @@ graph TD
 
 | 层级 | 模块名 | 实例名 | 功能描述 |
 |------|--------|--------|----------|
-| 1 | gated_clk_cell | x_ptw_gateclk | |
+| 1 | gated_clk_cell | x_ptw_gateclk |  |
 
 ## 7. 修订历史
 

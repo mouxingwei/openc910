@@ -12,7 +12,7 @@
 
 ### 1.2 功能描述
 
-ct_had_private_top 模块的功能描述。
+硬件调试 (Hardware Debug)，主要信号: 使能信号、程序计数器、读使能、输入信号、时钟信号
 
 ### 1.3 设计特点
 
@@ -25,73 +25,84 @@ ct_had_private_top 模块的功能描述。
 
 | 信号名 | 方向 | 位宽 | 描述 |
 |--------|------|------|------|
-| biu_had_coreid | input | 2 | |
-| biu_had_sdb_req_b | input | 1 | |
-| cp0_had_cpuid_0 | input | 32 | |
-| cp0_had_debug_info | input | 4 | |
-| cp0_had_lpmd_b | input | 2 | |
-| cp0_had_trace_pm_wdata | input | 2 | |
-| cp0_had_trace_pm_wen | input | 1 | |
-| cp0_yy_priv_mode | input | 2 | |
-| cpuclk | input | 1 | |
-| cpurst_b | input | 1 | |
-| forever_coreclk | input | 1 | |
-| idu_had_debug_info | input | 50 | |
-| idu_had_id_inst0_info | input | 40 | |
-| idu_had_id_inst0_vld | input | 1 | |
-| idu_had_id_inst1_info | input | 40 | |
-| idu_had_id_inst1_vld | input | 1 | |
-| idu_had_id_inst2_info | input | 40 | |
-| idu_had_id_inst2_vld | input | 1 | |
-| idu_had_iq_empty | input | 1 | |
-| idu_had_pipe_stall | input | 1 | |
-| idu_had_pipeline_empty | input | 1 | |
-| idu_had_wb_data | input | 64 | |
-| idu_had_wb_vld | input | 1 | |
-| ifu_had_debug_info | input | 83 | |
-| ifu_had_no_inst | input | 1 | |
-| ifu_had_no_op | input | 1 | |
-| ifu_had_reset_on | input | 1 | |
-| ir_corex_wdata | input | 64 | |
-| iu_had_debug_info | input | 10 | |
-| lsu_had_debug_info | input | 184 | |
+| biu_had_coreid | input | 2 | 读使能 |
+| biu_had_sdb_req_b | input | 1 | 请求信号 |
+| cp0_had_cpuid_0 | input | 32 |  |
+| cp0_had_debug_info | input | 4 | 输入信号 |
+| cp0_had_lpmd_b | input | 2 |  |
+| cp0_had_trace_pm_wdata | input | 2 | 数据信号 |
+| cp0_had_trace_pm_wen | input | 1 | 使能信号 |
+| cp0_yy_priv_mode | input | 2 |  |
+| cpuclk | input | 1 | 时钟信号 |
+| cpurst_b | input | 1 | 复位信号 |
+| forever_coreclk | input | 1 | 时钟信号 |
+| idu_had_debug_info | input | 50 | 输入信号 |
+| idu_had_id_inst0_info | input | 40 | 指令信号 |
+| idu_had_id_inst0_vld | input | 1 | 有效信号 |
+| idu_had_id_inst1_info | input | 40 | 指令信号 |
+| idu_had_id_inst1_vld | input | 1 | 有效信号 |
+| idu_had_id_inst2_info | input | 40 | 指令信号 |
+| idu_had_id_inst2_vld | input | 1 | 有效信号 |
+| idu_had_iq_empty | input | 1 | 空标志 |
+| idu_had_pipe_stall | input | 1 | 暂停信号 |
+| idu_had_pipeline_empty | input | 1 | 输入信号 |
+| idu_had_wb_data | input | 64 | 数据信号 |
+| idu_had_wb_vld | input | 1 | 有效信号 |
+| ifu_had_debug_info | input | 83 | 输入信号 |
+| ifu_had_no_inst | input | 1 | 指令信号 |
+| ifu_had_no_op | input | 1 | 操作码 |
+| ifu_had_reset_on | input | 1 | 复位信号 |
+| ir_corex_wdata | input | 64 | 数据信号 |
+| iu_had_debug_info | input | 10 | 输入信号 |
+| lsu_had_debug_info | input | 184 | 输入信号 |
 | ... | ... | ... | 共105个输入端口 |
 
 ### 2.2 输出端口
 
 | 信号名 | 方向 | 位宽 | 描述 |
 |--------|------|------|------|
-| had_biu_jdb_pm | output | 2 | |
-| had_cp0_xx_dbg | output | 1 | |
-| had_idu_debug_id_inst_en | output | 1 | |
-| had_idu_wbbr_data | output | 64 | |
-| had_idu_wbbr_vld | output | 1 | |
-| had_ifu_ir | output | 32 | |
-| had_ifu_ir_vld | output | 1 | |
-| had_ifu_pc | output | 39 | |
-| had_ifu_pcload | output | 1 | |
-| had_lsu_bus_trace_en | output | 1 | |
-| had_lsu_dbg_en | output | 1 | |
-| had_rtu_data_bkpt_dbgreq | output | 1 | |
-| had_rtu_dbg_disable | output | 1 | |
-| had_rtu_dbg_req_en | output | 1 | |
-| had_rtu_debug_retire_info_en | output | 1 | |
-| had_rtu_event_dbgreq | output | 1 | |
-| had_rtu_fdb | output | 1 | |
-| had_rtu_hw_dbgreq | output | 1 | |
-| had_rtu_hw_dbgreq_gateclk | output | 1 | |
-| had_rtu_inst_bkpt_dbgreq | output | 1 | |
-| had_rtu_non_irv_bkpt_dbgreq | output | 1 | |
-| had_rtu_pop1_disa | output | 1 | |
-| had_rtu_trace_dbgreq | output | 1 | |
-| had_rtu_trace_en | output | 1 | |
-| had_rtu_xx_jdbreq | output | 1 | |
-| had_rtu_xx_tme | output | 1 | |
-| had_xx_clk_en | output | 1 | |
-| had_yy_xx_bkpta_base | output | 40 | |
-| had_yy_xx_bkpta_mask | output | 8 | |
-| had_yy_xx_bkpta_rc | output | 1 | |
+| had_biu_jdb_pm | output | 2 |  |
+| had_cp0_xx_dbg | output | 1 |  |
+| had_idu_debug_id_inst_en | output | 1 | 使能信号 |
+| had_idu_wbbr_data | output | 64 | 数据信号 |
+| had_idu_wbbr_vld | output | 1 | 有效信号 |
+| had_ifu_ir | output | 32 |  |
+| had_ifu_ir_vld | output | 1 | 有效信号 |
+| had_ifu_pc | output | 39 | 程序计数器 |
+| had_ifu_pcload | output | 1 | 程序计数器 |
+| had_lsu_bus_trace_en | output | 1 | 使能信号 |
+| had_lsu_dbg_en | output | 1 | 使能信号 |
+| had_rtu_data_bkpt_dbgreq | output | 1 | 请求信号 |
+| had_rtu_dbg_disable | output | 1 |  |
+| had_rtu_dbg_req_en | output | 1 | 请求信号 |
+| had_rtu_debug_retire_info_en | output | 1 | 使能信号 |
+| had_rtu_event_dbgreq | output | 1 | 请求信号 |
+| had_rtu_fdb | output | 1 |  |
+| had_rtu_hw_dbgreq | output | 1 | 请求信号 |
+| had_rtu_hw_dbgreq_gateclk | output | 1 | 时钟信号 |
+| had_rtu_inst_bkpt_dbgreq | output | 1 | 请求信号 |
+| had_rtu_non_irv_bkpt_dbgreq | output | 1 | 请求信号 |
+| had_rtu_pop1_disa | output | 1 | 操作码 |
+| had_rtu_trace_dbgreq | output | 1 | 请求信号 |
+| had_rtu_trace_en | output | 1 | 使能信号 |
+| had_rtu_xx_jdbreq | output | 1 | 请求信号 |
+| had_rtu_xx_tme | output | 1 |  |
+| had_xx_clk_en | output | 1 | 时钟信号 |
+| had_yy_xx_bkpta_base | output | 40 |  |
+| had_yy_xx_bkpta_mask | output | 8 | 掩码信号 |
+| had_yy_xx_bkpta_rc | output | 1 |  |
 | ... | ... | ... | 共38个输出端口 |
+
+### 2.5 接口时序图
+
+```mermaid
+sequenceDiagram
+    participant M as 主机
+    participant S as 从机
+    M->>S: req
+    S->>M: ack
+    M->>S: data
+```
 
 ## 3. 模块框图
 
@@ -267,18 +278,18 @@ graph TD
 
 | 层级 | 模块名 | 实例名 | 功能描述 |
 |------|--------|--------|----------|
-| 1 | ct_had_bkpt | x_ct_had_bkpta | |
-| 1 | ct_had_bkpt | x_ct_had_bkptb | |
-| 1 | ct_had_ctrl | x_ct_had_ctrl | |
-| 1 | ct_had_ddc_ctrl | x_ct_had_ddc_ctrl | |
-| 1 | ct_had_ddc_dp | x_ct_had_ddc_dp | |
-| 1 | ct_had_pcfifo | x_ct_had_pcfifo | |
-| 1 | ct_had_regs | x_ct_had_regs | |
-| 1 | ct_had_trace | x_ct_had_trace | |
-| 1 | ct_had_event | x_ct_had_event | |
-| 1 | ct_had_dbg_info | x_ct_had_dbg_info | |
-| 1 | ct_had_nirv_bkpt | x_ct_had_nirv_bkpt | |
-| 1 | ct_had_private_ir | x_ct_had_private_ir | |
+| 1 | ct_had_bkpt | x_ct_had_bkpta | 硬件调试 |
+| 1 | ct_had_bkpt | x_ct_had_bkptb | 硬件调试 |
+| 1 | ct_had_ctrl | x_ct_had_ctrl | 硬件调试 |
+| 1 | ct_had_ddc_ctrl | x_ct_had_ddc_ctrl | 硬件调试 |
+| 1 | ct_had_ddc_dp | x_ct_had_ddc_dp | 硬件调试 |
+| 1 | ct_had_pcfifo | x_ct_had_pcfifo | 硬件调试 |
+| 1 | ct_had_regs | x_ct_had_regs | 硬件调试 |
+| 1 | ct_had_trace | x_ct_had_trace | 硬件调试 |
+| 1 | ct_had_event | x_ct_had_event | 硬件调试 |
+| 1 | ct_had_dbg_info | x_ct_had_dbg_info | 硬件调试 |
+| 1 | ct_had_nirv_bkpt | x_ct_had_nirv_bkpt | 硬件调试 |
+| 1 | ct_had_private_ir | x_ct_had_private_ir | 硬件调试 |
 
 ## 7. 修订历史
 

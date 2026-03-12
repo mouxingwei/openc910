@@ -13,7 +13,7 @@
 
 ### 1.2 功能描述
 
-ct_biu_write_channel 模块的功能描述。
+总线接口单元 (Bus Interface Unit)，(通道)，主要信号: 应答信号、使能信号、操作码、地址信号、锁定信号
 
 ### 1.3 设计特点
 
@@ -27,72 +27,72 @@ ct_biu_write_channel 模块的功能描述。
 
 | 信号名 | 方向 | 位宽 | 描述 |
 |--------|------|------|------|
-| bcpuclk | input | 1 | |
-| bus_arb_w_fifo_clk | input | 1 | |
-| coreclk | input | 1 | |
-| cpurst_b | input | 1 | |
-| pad_biu_awready | input | 1 | |
-| pad_biu_back_ready | input | 1 | |
-| pad_biu_bid | input | 5 | |
-| pad_biu_bresp | input | 2 | |
-| pad_biu_bvalid | input | 1 | |
-| pad_biu_wns_awready | input | 1 | |
-| pad_biu_wns_wready | input | 1 | |
-| pad_biu_wready | input | 1 | |
-| pad_biu_ws_awready | input | 1 | |
-| pad_biu_ws_wready | input | 1 | |
-| round_wcpuclk | input | 1 | |
-| st_awaddr | input | 40 | |
-| st_awbar | input | 2 | |
-| st_awburst | input | 2 | |
-| st_awcache | input | 4 | |
-| st_awcpuclk | input | 1 | |
-| st_awdomain | input | 2 | |
-| st_awid | input | 5 | |
-| st_awlen | input | 2 | |
-| st_awlock | input | 1 | |
-| st_awprot | input | 3 | |
-| st_awsize | input | 3 | |
-| st_awsnoop | input | 3 | |
-| st_awunique | input | 1 | |
-| st_awuser | input | 1 | |
-| st_awvalid | input | 1 | |
+| bcpuclk | input | 1 | 时钟信号 |
+| bus_arb_w_fifo_clk | input | 1 | 时钟信号 |
+| coreclk | input | 1 | 时钟信号 |
+| cpurst_b | input | 1 | 复位信号 |
+| pad_biu_awready | input | 1 | 就绪信号 |
+| pad_biu_back_ready | input | 1 | 应答信号 |
+| pad_biu_bid | input | 5 |  |
+| pad_biu_bresp | input | 2 | 读使能 |
+| pad_biu_bvalid | input | 1 | 有效信号 |
+| pad_biu_wns_awready | input | 1 | 就绪信号 |
+| pad_biu_wns_wready | input | 1 | 就绪信号 |
+| pad_biu_wready | input | 1 | 就绪信号 |
+| pad_biu_ws_awready | input | 1 | 就绪信号 |
+| pad_biu_ws_wready | input | 1 | 就绪信号 |
+| round_wcpuclk | input | 1 | 时钟信号 |
+| st_awaddr | input | 40 | 地址信号 |
+| st_awbar | input | 2 |  |
+| st_awburst | input | 2 | 复位信号 |
+| st_awcache | input | 4 |  |
+| st_awcpuclk | input | 1 | 时钟信号 |
+| st_awdomain | input | 2 | 输入信号 |
+| st_awid | input | 5 |  |
+| st_awlen | input | 2 | 使能信号 |
+| st_awlock | input | 1 | 锁定信号 |
+| st_awprot | input | 3 |  |
+| st_awsize | input | 3 |  |
+| st_awsnoop | input | 3 | 操作码 |
+| st_awunique | input | 1 |  |
+| st_awuser | input | 1 |  |
+| st_awvalid | input | 1 | 有效信号 |
 | ... | ... | ... | 共59个输入端口 |
 
 ### 2.2 输出端口
 
 | 信号名 | 方向 | 位宽 | 描述 |
 |--------|------|------|------|
-| biu_lsu_b_id | output | 5 | |
-| biu_lsu_b_resp | output | 2 | |
-| biu_lsu_b_vld | output | 1 | |
-| biu_pad_awaddr | output | 40 | |
-| biu_pad_awbar | output | 2 | |
-| biu_pad_awburst | output | 2 | |
-| biu_pad_awcache | output | 4 | |
-| biu_pad_awdomain | output | 2 | |
-| biu_pad_awid | output | 5 | |
-| biu_pad_awlen | output | 2 | |
-| biu_pad_awlock | output | 1 | |
-| biu_pad_awprot | output | 3 | |
-| biu_pad_awsize | output | 3 | |
-| biu_pad_awsnoop | output | 3 | |
-| biu_pad_awunique | output | 1 | |
-| biu_pad_awuser | output | 1 | |
-| biu_pad_awvalid | output | 1 | |
-| biu_pad_back | output | 1 | |
-| biu_pad_bready | output | 1 | |
-| biu_pad_wdata | output | 128 | |
-| biu_pad_werr | output | 1 | |
-| biu_pad_wlast | output | 1 | |
-| biu_pad_wns | output | 1 | |
-| biu_pad_wstrb | output | 16 | |
-| biu_pad_wvalid | output | 1 | |
-| bus_arb_w_fifo_clk_en | output | 1 | |
-| round_w_clk_en | output | 1 | |
-| st_aw_clk_en | output | 1 | |
-| st_awready | output | 1 | |
-| st_w_clk_en | output | 1 | |
+| biu_lsu_b_id | output | 5 |  |
+| biu_lsu_b_resp | output | 2 | 读使能 |
+| biu_lsu_b_vld | output | 1 | 有效信号 |
+| biu_pad_awaddr | output | 40 | 地址信号 |
+| biu_pad_awbar | output | 2 |  |
+| biu_pad_awburst | output | 2 | 复位信号 |
+| biu_pad_awcache | output | 4 |  |
+| biu_pad_awdomain | output | 2 | 输入信号 |
+| biu_pad_awid | output | 5 |  |
+| biu_pad_awlen | output | 2 | 使能信号 |
+| biu_pad_awlock | output | 1 | 锁定信号 |
+| biu_pad_awprot | output | 3 |  |
+| biu_pad_awsize | output | 3 |  |
+| biu_pad_awsnoop | output | 3 | 操作码 |
+| biu_pad_awunique | output | 1 |  |
+| biu_pad_awuser | output | 1 |  |
+| biu_pad_awvalid | output | 1 | 有效信号 |
+| biu_pad_back | output | 1 | 应答信号 |
+| biu_pad_bready | output | 1 | 就绪信号 |
+| biu_pad_wdata | output | 128 | 数据信号 |
+| biu_pad_werr | output | 1 | 写使能 |
+| biu_pad_wlast | output | 1 |  |
+| biu_pad_wns | output | 1 |  |
+| biu_pad_wstrb | output | 16 |  |
+| biu_pad_wvalid | output | 1 | 有效信号 |
+| bus_arb_w_fifo_clk_en | output | 1 | 时钟信号 |
+| round_w_clk_en | output | 1 | 时钟信号 |
+| st_aw_clk_en | output | 1 | 时钟信号 |
+| st_awready | output | 1 | 就绪信号 |
+| st_w_clk_en | output | 1 | 时钟信号 |
 | ... | ... | ... | 共37个输出端口 |
 
 ### 2.4 参数列表
@@ -103,6 +103,17 @@ ct_biu_write_channel 模块的功能描述。
 | WLU | 3'b001 | 1 | |
 | EVICT | 3'b100 | 1 | |
 | W_FIFO_ENTRY | 12 | 1 | |
+
+### 2.5 接口时序图
+
+```mermaid
+sequenceDiagram
+    participant M as 主机
+    participant S as 从机
+    M->>S: req
+    S->>M: ack
+    M->>S: data
+```
 
 ## 3. 模块框图
 

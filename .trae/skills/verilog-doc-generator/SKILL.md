@@ -194,8 +194,151 @@ python scripts/verilog_parser.py <file.v> --output parse_result.json --pretty
     "comments": {
         "header": "模块功能说明...",
         "inline": {}
-    }
+    },
+    "inferred_description": "整数执行单元，负责ALU运算、分支跳转和乘除法操作"
 }
+```
+
+### 步骤 2.5：功能描述推断
+
+**推断优先级（从高到低）：**
+
+1. **文件头注释** - 解析 `/** ... */` 或 `// ...` 格式的模块头注释
+2. **模块名推断** - 根据模块名前缀/后缀推断功能
+3. **信号名推断** - 分析关键信号名推断功能
+4. **子模块推断** - 根据子模块类型推断功能
+5. **代码结构推断** - 分析 always 块和 assign 语句推断功能
+
+**模块名前缀映射表：**
+
+| 前缀 | 功能描述 |
+|------|----------|
+| ct_ifu | 取指单元 (Instruction Fetch Unit) |
+| ct_idu | 译码单元 (Instruction Decode Unit) |
+| ct_iu | 整数执行单元 (Integer Execution Unit) |
+| ct_lsu | 访存单元 (Load/Store Unit) |
+| ct_mmu | 内存管理单元 (Memory Management Unit) |
+| ct_vfpu | 向量浮点单元 (Vector Floating Point Unit) |
+| ct_rtu | 退休单元 (Retirement Unit) |
+| ct_cp0 | 协处理器0 (Coprocessor 0) |
+| ct_biu | 总线接口单元 (Bus Interface Unit) |
+| ct_had | 硬件调试 (Hardware Debug) |
+| ct_hpcp | 硬件性能计数器 (Hardware Performance Counter) |
+| ct_pmp | 物理内存保护 (Physical Memory Protection) |
+| ct_rst | 复位控制 (Reset Control) |
+| ct_clk | 时钟控制 (Clock Control) |
+
+**模块名后缀映射表：**
+
+| 后缀 | 功能描述 |
+|------|----------|
+| _top | 顶层模块 |
+| _ctrl | 控制逻辑 |
+| _dp | 数据通路 |
+| _dec | 译码逻辑 |
+| _enc | 编码逻辑 |
+| _arb | 仲裁器 |
+| _buf | 缓冲器 |
+| _fifo | 先进先出队列 |
+| _reg | 寄存器文件 |
+| _ram | 随机存取存储器 |
+| _rom | 只读存储器 |
+| _alu | 算术逻辑单元 |
+| _mul | 乘法器 |
+| _div | 除法器 |
+| _addrgen | 地址生成 |
+| _pcgen | PC生成 |
+| _bht | 分支历史表 |
+| _btb | 分支目标缓冲 |
+| _ras | 返回地址栈 |
+| _tlb | 地址转换缓冲 |
+| _cache | 缓存 |
+| _ag | 地址生成 |
+| _wb | 写回 |
+| _rob | 重排序缓冲 |
+
+**信号名关键词映射表：**
+
+| 关键词 | 功能推断 |
+|--------|----------|
+| clk, clock | 时钟信号 |
+| rst, reset | 复位信号 |
+| req, request | 请求信号 |
+| ack, acknowledge | 应答信号 |
+| valid, vld | 有效信号 |
+| ready, rdy | 就绪信号 |
+| enable, en | 使能信号 |
+| addr, address | 地址信号 |
+| data, dat | 数据信号 |
+| cmd, command | 命令信号 |
+| status, stat | 状态信号 |
+| ctrl, control | 控制信号 |
+| cfg, config | 配置信号 |
+| interrupt, irq | 中断信号 |
+| exception, excp | 异常信号 |
+
+**功能描述推断算法：**
+
+```python
+def infer_module_description(module_name, ports, instances, comments, always_blocks):
+    # 1. 优先使用文件头注释
+    if comments.get('header'):
+        return extract_description_from_comment(comments['header'])
+    
+    # 2. 模块名前缀匹配
+    for prefix, desc in MODULE_PREFIX_MAP.items():
+        if module_name.startswith(prefix):
+            base_desc = desc
+            break
+    else:
+        base_desc = ""
+    
+    # 3. 模块名后缀匹配补充
+    suffix_desc = ""
+    for suffix, desc in MODULE_SUFFIX_MAP.items():
+        if module_name.endswith(suffix):
+            suffix_desc = desc
+            break
+    
+    # 4. 信号名分析补充
+    signal_hints = analyze_port_names(ports)
+    
+    # 5. 子模块分析补充
+    submodule_hints = analyze_instances(instances)
+    
+    # 6. 组合生成完整描述
+    return combine_descriptions(base_desc, suffix_desc, signal_hints, submodule_hints)
+```
+
+**端口描述推断：**
+
+```python
+def infer_port_description(port_name, port_direction, port_width):
+    # 信号名关键词匹配
+    for keyword, desc in SIGNAL_KEYWORD_MAP.items():
+        if keyword in port_name.lower():
+            return desc
+    
+    # 常见信号名模式
+    patterns = {
+        r'.*_clk.*': '时钟信号',
+        r'.*_rst.*': '复位信号',
+        r'.*_en.*': '使能信号',
+        r'.*_valid.*': '有效指示',
+        r'.*_ready.*': '就绪指示',
+        r'.*_req.*': '请求信号',
+        r'.*_ack.*': '应答信号',
+        r'.*_addr.*': '地址信号',
+        r'.*_data.*': '数据信号',
+        r'.*_wen.*': '写使能',
+        r'.*_ren.*': '读使能',
+    }
+    
+    for pattern, desc in patterns.items():
+        if re.match(pattern, port_name, re.IGNORECASE):
+            return desc
+    
+    return ""
 ```
 
 ### 步骤 3：调用子 SKILL 生成图表
@@ -325,7 +468,7 @@ python scripts/verilog_parser.py <file.v> --output parse_result.json --pretty
 
 **2. 模块接口说明**
 
-分为输入端口和输出端口：
+分为输入端口、输出端口和接口时序：
 
 ```markdown
 ## 2. 模块接口说明
@@ -337,6 +480,18 @@ python scripts/verilog_parser.py <file.v> --output parse_result.json --pretty
 ### 2.2 输出端口
 
 | 信号名 | 方向 | 位宽 | 描述 |
+
+### 2.3 接口时序图
+
+调用 verilog-timing-diagram 生成的 Mermaid 时序图 + PNG 图片：
+
+#### 2.3.1 握手协议时序
+
+Mermaid 时序图 + PNG 图片
+
+#### 2.3.2 数据传输时序
+
+Mermaid 时序图 + PNG 图片
 ```
 
 **3. 模块框图**
@@ -395,23 +550,7 @@ python scripts/verilog_parser.py <file.v> --output parse_result.json --pretty
 
 调用 verilog-state-diagram 生成的 Mermaid 图 + PNG 图片（如检测到状态机）
 
-**6. 接口时序图**（如适用）
-
-调用 verilog-timing-diagram 生成的 Mermaid 时序图 + PNG 图片：
-
-```markdown
-## 6. 接口时序图
-
-### 6.1 握手协议时序
-
-Mermaid 时序图 + PNG 图片
-
-### 6.2 数据传输时序
-
-Mermaid 时序图 + PNG 图片
-```
-
-**7. 内部关键信号列表**
+**6. 内部关键信号列表**
 
 分为寄存器信号和线网信号：
 
@@ -427,35 +566,35 @@ Mermaid 时序图 + PNG 图片
 | 信号名 | 位宽 | 描述 |
 ```
 
-**8. 数据结构定义**（如适用）
+**7. 数据结构定义**（如适用）
 
 定义模块使用的关键数据结构：
 
 ```markdown
-## 8. 数据结构定义
+## 7. 数据结构定义
 
-### 8.1 状态编码
+### 7.1 状态编码
 
 | 状态名 | 编码值 | 描述 |
 
-### 8.2 控制字格式
+### 7.2 控制字格式
 
 | 位域 | 名称 | 描述 |
 
-### 8.3 配置寄存器
+### 7.3 配置寄存器
 
 | 寄存器名 | 地址 | 位宽 | 描述 |
 ```
 
-**9. 模块表项设置**（如适用）
+**8. 模块表项设置**（如适用）
 
 ```markdown
-## 9. 模块表项设置
+## 8. 模块表项设置
 
 | 表项名称 | 域段内容 | RAM资源 | 说明 |
 ```
 
-**10. 子模块方案**
+**9. 子模块方案**
 
 调用 `verilog-file-tree` 生成模块例化树，显示最多3层子模块。
 
@@ -517,28 +656,28 @@ graph TD
 - 添加子模块功能说明
 - 添加子模块文档链接
 
-**11. 可测试性设计**（如适用）
+**10. 可测试性设计**（如适用）
 
 ```markdown
-## 11. 可测试性设计
+## 10. 可测试性设计
 
-### 11.1 测试信号
+### 10.1 测试信号
 
 | 信号名 | 方向 | 位宽 | 描述 |
 
-### 11.2 调试接口
+### 10.2 调试接口
 
 调试接口说明。
 
-### 11.3 扫描链支持
+### 10.3 扫描链支持
 
 扫描链配置说明。
 ```
 
-**12. 修订历史**
+**11. 修订历史**
 
 ```markdown
-## 12. 修订历史
+## 11. 修订历史
 
 | 版本 | 日期 | 作者 | 说明 |
 |------|------|------|------|

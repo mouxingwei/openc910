@@ -12,7 +12,7 @@
 
 ### 1.2 功能描述
 
-ct_had_nirv_bkpt 模块的功能描述。
+硬件调试 (Hardware Debug)，(断点)，主要信号: 使能信号、读使能、刷新信号、时钟信号、指令信号
 
 ### 1.3 设计特点
 
@@ -25,27 +25,38 @@ ct_had_nirv_bkpt 模块的功能描述。
 
 | 信号名 | 方向 | 位宽 | 描述 |
 |--------|------|------|------|
-| cpuclk | input | 1 | |
-| cpurst_b | input | 1 | |
-| ctrl_bkpta_en | input | 1 | |
-| ctrl_bkptb_en | input | 1 | |
-| regs_xx_nirven | input | 1 | |
-| rtu_had_inst0_non_irv_bkpt | input | 4 | |
-| rtu_had_inst1_non_irv_bkpt | input | 4 | |
-| rtu_had_inst2_non_irv_bkpt | input | 4 | |
-| rtu_had_xx_split_inst | input | 1 | |
-| rtu_yy_xx_dbgon | input | 1 | |
-| rtu_yy_xx_flush | input | 1 | |
-| rtu_yy_xx_retire0_normal | input | 1 | |
-| rtu_yy_xx_retire1 | input | 1 | |
-| rtu_yy_xx_retire2 | input | 1 | |
+| cpuclk | input | 1 | 时钟信号 |
+| cpurst_b | input | 1 | 复位信号 |
+| ctrl_bkpta_en | input | 1 | 使能信号 |
+| ctrl_bkptb_en | input | 1 | 使能信号 |
+| regs_xx_nirven | input | 1 | 使能信号 |
+| rtu_had_inst0_non_irv_bkpt | input | 4 | 指令信号 |
+| rtu_had_inst1_non_irv_bkpt | input | 4 | 指令信号 |
+| rtu_had_inst2_non_irv_bkpt | input | 4 | 指令信号 |
+| rtu_had_xx_split_inst | input | 1 | 指令信号 |
+| rtu_yy_xx_dbgon | input | 1 |  |
+| rtu_yy_xx_flush | input | 1 | 刷新信号 |
+| rtu_yy_xx_retire0_normal | input | 1 | 读使能 |
+| rtu_yy_xx_retire1 | input | 1 | 读使能 |
+| rtu_yy_xx_retire2 | input | 1 | 读使能 |
 
 ### 2.2 输出端口
 
 | 信号名 | 方向 | 位宽 | 描述 |
 |--------|------|------|------|
-| nirv_bkpta | output | 1 | |
-| non_irv_bkpt_vld | output | 1 | |
+| nirv_bkpta | output | 1 |  |
+| non_irv_bkpt_vld | output | 1 | 有效信号 |
+
+### 2.5 接口时序图
+
+```mermaid
+sequenceDiagram
+    participant M as 主机
+    participant S as 从机
+    M->>S: req
+    S->>M: ack
+    M->>S: data
+```
 
 ## 3. 模块框图
 

@@ -12,7 +12,7 @@
 
 ### 1.2 功能描述
 
-ct_biu_lowpower 模块的功能描述。
+总线接口单元 (Bus Interface Unit)，(低功耗)，主要信号: 读使能、时钟信号、使能信号、操作码
 
 ### 1.3 设计特点
 
@@ -25,42 +25,53 @@ ct_biu_lowpower 模块的功能描述。
 
 | 信号名 | 方向 | 位宽 | 描述 |
 |--------|------|------|------|
-| bus_arb_w_fifo_clk_en | input | 1 | |
-| coreclk | input | 1 | |
-| cp0_biu_icg_en | input | 1 | |
-| forever_coreclk | input | 1 | |
-| pad_yy_icg_scan_en | input | 1 | |
-| read_ar_clk_en | input | 1 | |
-| read_busy | input | 1 | |
-| read_r_clk_en | input | 1 | |
-| round_w_clk_en | input | 1 | |
-| snoop_ac_clk_en | input | 1 | |
-| snoop_cd_clk_en | input | 1 | |
-| snoop_cr_clk_en | input | 1 | |
-| st_aw_clk_en | input | 1 | |
-| st_w_clk_en | input | 1 | |
-| vict_aw_clk_en | input | 1 | |
-| vict_w_clk_en | input | 1 | |
-| write_b_clk_en | input | 1 | |
-| write_busy | input | 1 | |
+| bus_arb_w_fifo_clk_en | input | 1 | 时钟信号 |
+| coreclk | input | 1 | 时钟信号 |
+| cp0_biu_icg_en | input | 1 | 使能信号 |
+| forever_coreclk | input | 1 | 时钟信号 |
+| pad_yy_icg_scan_en | input | 1 | 使能信号 |
+| read_ar_clk_en | input | 1 | 时钟信号 |
+| read_busy | input | 1 | 读使能 |
+| read_r_clk_en | input | 1 | 时钟信号 |
+| round_w_clk_en | input | 1 | 时钟信号 |
+| snoop_ac_clk_en | input | 1 | 时钟信号 |
+| snoop_cd_clk_en | input | 1 | 时钟信号 |
+| snoop_cr_clk_en | input | 1 | 时钟信号 |
+| st_aw_clk_en | input | 1 | 时钟信号 |
+| st_w_clk_en | input | 1 | 时钟信号 |
+| vict_aw_clk_en | input | 1 | 时钟信号 |
+| vict_w_clk_en | input | 1 | 时钟信号 |
+| write_b_clk_en | input | 1 | 时钟信号 |
+| write_busy | input | 1 |  |
 
 ### 2.2 输出端口
 
 | 信号名 | 方向 | 位宽 | 描述 |
 |--------|------|------|------|
-| accpuclk | output | 1 | |
-| arcpuclk | output | 1 | |
-| bcpuclk | output | 1 | |
-| biu_yy_xx_no_op | output | 1 | |
-| bus_arb_w_fifo_clk | output | 1 | |
-| cdcpuclk | output | 1 | |
-| crcpuclk | output | 1 | |
-| rcpuclk | output | 1 | |
-| round_wcpuclk | output | 1 | |
-| st_awcpuclk | output | 1 | |
-| st_wcpuclk | output | 1 | |
-| vict_awcpuclk | output | 1 | |
-| vict_wcpuclk | output | 1 | |
+| accpuclk | output | 1 | 时钟信号 |
+| arcpuclk | output | 1 | 时钟信号 |
+| bcpuclk | output | 1 | 时钟信号 |
+| biu_yy_xx_no_op | output | 1 | 操作码 |
+| bus_arb_w_fifo_clk | output | 1 | 时钟信号 |
+| cdcpuclk | output | 1 | 时钟信号 |
+| crcpuclk | output | 1 | 时钟信号 |
+| rcpuclk | output | 1 | 时钟信号 |
+| round_wcpuclk | output | 1 | 时钟信号 |
+| st_awcpuclk | output | 1 | 时钟信号 |
+| st_wcpuclk | output | 1 | 时钟信号 |
+| vict_awcpuclk | output | 1 | 时钟信号 |
+| vict_wcpuclk | output | 1 | 时钟信号 |
+
+### 2.5 接口时序图
+
+```mermaid
+sequenceDiagram
+    participant M as 主机
+    participant S as 从机
+    M->>S: req
+    S->>M: ack
+    M->>S: data
+```
 
 ## 3. 模块框图
 
@@ -212,18 +223,18 @@ graph TD
 
 | 层级 | 模块名 | 实例名 | 功能描述 |
 |------|--------|--------|----------|
-| 1 | gated_clk_cell | x_read_channel_ar_gated_cell | |
-| 1 | gated_clk_cell | x_read_channel_r_gated_cell | |
-| 1 | gated_clk_cell | x_write_channel_vict_aw_gated_cell | |
-| 1 | gated_clk_cell | x_write_channel_st_aw_gated_cell | |
-| 1 | gated_clk_cell | x_write_channel_vict_w_gated_cell | |
-| 1 | gated_clk_cell | x_write_channel_st_w_gated_cell | |
-| 1 | gated_clk_cell | x_write_channel_round_w_gated_cell | |
-| 1 | gated_clk_cell | x_lsu_bus_arb_w_fifo_gated_clk | |
-| 1 | gated_clk_cell | x_write_channel_b_gated_cell | |
-| 1 | gated_clk_cell | x_snoop_channel_ac_gated_cell | |
-| 1 | gated_clk_cell | x_snoop_channel_cr_gated_cell | |
-| 1 | gated_clk_cell | x_snoop_channel_cd_gated_cell | |
+| 1 | gated_clk_cell | x_read_channel_ar_gated_cell |  |
+| 1 | gated_clk_cell | x_read_channel_r_gated_cell |  |
+| 1 | gated_clk_cell | x_write_channel_vict_aw_gated_cell |  |
+| 1 | gated_clk_cell | x_write_channel_st_aw_gated_cell |  |
+| 1 | gated_clk_cell | x_write_channel_vict_w_gated_cell |  |
+| 1 | gated_clk_cell | x_write_channel_st_w_gated_cell |  |
+| 1 | gated_clk_cell | x_write_channel_round_w_gated_cell |  |
+| 1 | gated_clk_cell | x_lsu_bus_arb_w_fifo_gated_clk |  |
+| 1 | gated_clk_cell | x_write_channel_b_gated_cell |  |
+| 1 | gated_clk_cell | x_snoop_channel_ac_gated_cell |  |
+| 1 | gated_clk_cell | x_snoop_channel_cr_gated_cell |  |
+| 1 | gated_clk_cell | x_snoop_channel_cd_gated_cell |  |
 
 ## 7. 修订历史
 

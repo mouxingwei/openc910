@@ -13,7 +13,7 @@
 
 ### 1.2 功能描述
 
-ct_pmp_regs 模块的功能描述。
+物理内存保护 (Physical Memory Protection)，(寄存器)，主要信号: 使能信号、地址信号、配置信号、选择信号、时钟信号
 
 ### 1.3 设计特点
 
@@ -27,33 +27,44 @@ ct_pmp_regs 模块的功能描述。
 
 | 信号名 | 方向 | 位宽 | 描述 |
 |--------|------|------|------|
-| cp0_pmp_wdata | input | 64 | |
-| cpuclk | input | 1 | |
-| cpurst_b | input | 1 | |
-| pmp_csr_sel | input | 18 | |
-| pmp_csr_wen | input | 18 | |
+| cp0_pmp_wdata | input | 64 | 数据信号 |
+| cpuclk | input | 1 | 时钟信号 |
+| cpurst_b | input | 1 | 复位信号 |
+| pmp_csr_sel | input | 18 | 选择信号 |
+| pmp_csr_wen | input | 18 | 使能信号 |
 
 ### 2.2 输出端口
 
 | 信号名 | 方向 | 位宽 | 描述 |
 |--------|------|------|------|
-| pmp_cp0_data | output | 64 | |
-| pmpaddr0_value | output | 29 | |
-| pmpaddr1_value | output | 29 | |
-| pmpaddr2_value | output | 29 | |
-| pmpaddr3_value | output | 29 | |
-| pmpaddr4_value | output | 29 | |
-| pmpaddr5_value | output | 29 | |
-| pmpaddr6_value | output | 29 | |
-| pmpaddr7_value | output | 29 | |
-| pmpcfg0_value | output | 64 | |
-| pmpcfg2_value | output | 64 | |
+| pmp_cp0_data | output | 64 | 数据信号 |
+| pmpaddr0_value | output | 29 | 地址信号 |
+| pmpaddr1_value | output | 29 | 地址信号 |
+| pmpaddr2_value | output | 29 | 地址信号 |
+| pmpaddr3_value | output | 29 | 地址信号 |
+| pmpaddr4_value | output | 29 | 地址信号 |
+| pmpaddr5_value | output | 29 | 地址信号 |
+| pmpaddr6_value | output | 29 | 地址信号 |
+| pmpaddr7_value | output | 29 | 地址信号 |
+| pmpcfg0_value | output | 64 | 配置信号 |
+| pmpcfg2_value | output | 64 | 配置信号 |
 
 ### 2.4 参数列表
 
 | 参数名 | 默认值 | 位宽 | 描述 |
 |--------|--------|------|------|
 | ADDR_WIDTH | 28+1 | 1 | |
+
+### 2.5 接口时序图
+
+```mermaid
+sequenceDiagram
+    participant M as 主机
+    participant S as 从机
+    M->>S: req
+    S->>M: ack
+    M->>S: data
+```
 
 ## 3. 模块框图
 

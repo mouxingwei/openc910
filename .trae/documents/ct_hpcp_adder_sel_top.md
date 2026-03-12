@@ -12,7 +12,7 @@
 
 ### 1.2 功能描述
 
-ct_hpcp_adder_sel 模块的功能描述。
+硬件性能计数器 (Hardware Performance Counter)，主要信号: 使能信号
 
 ### 1.3 设计特点
 
@@ -24,43 +24,54 @@ ct_hpcp_adder_sel 模块的功能描述。
 
 | 信号名 | 方向 | 位宽 | 描述 |
 |--------|------|------|------|
-| event01_adder | input | 4 | |
-| event02_adder | input | 4 | |
-| event03_adder | input | 4 | |
-| event04_adder | input | 4 | |
-| event05_adder | input | 4 | |
-| event06_adder | input | 4 | |
-| event07_adder | input | 4 | |
-| event08_adder | input | 4 | |
-| event09_adder | input | 4 | |
-| event10_adder | input | 4 | |
-| event11_adder | input | 4 | |
-| event12_adder | input | 4 | |
-| event13_adder | input | 4 | |
-| event14_adder | input | 4 | |
-| event15_adder | input | 4 | |
-| event16_adder | input | 4 | |
-| event17_adder | input | 4 | |
-| event18_adder | input | 4 | |
-| event19_adder | input | 4 | |
-| event20_adder | input | 4 | |
-| event21_adder | input | 4 | |
-| event22_adder | input | 4 | |
-| event23_adder | input | 4 | |
-| event24_adder | input | 4 | |
-| event25_adder | input | 4 | |
-| event26_adder | input | 4 | |
-| event27_adder | input | 4 | |
-| event28_adder | input | 4 | |
-| event29_adder | input | 4 | |
-| event30_adder | input | 4 | |
+| event01_adder | input | 4 | 使能信号 |
+| event02_adder | input | 4 | 使能信号 |
+| event03_adder | input | 4 | 使能信号 |
+| event04_adder | input | 4 | 使能信号 |
+| event05_adder | input | 4 | 使能信号 |
+| event06_adder | input | 4 | 使能信号 |
+| event07_adder | input | 4 | 使能信号 |
+| event08_adder | input | 4 | 使能信号 |
+| event09_adder | input | 4 | 使能信号 |
+| event10_adder | input | 4 | 使能信号 |
+| event11_adder | input | 4 | 使能信号 |
+| event12_adder | input | 4 | 使能信号 |
+| event13_adder | input | 4 | 使能信号 |
+| event14_adder | input | 4 | 使能信号 |
+| event15_adder | input | 4 | 使能信号 |
+| event16_adder | input | 4 | 使能信号 |
+| event17_adder | input | 4 | 使能信号 |
+| event18_adder | input | 4 | 使能信号 |
+| event19_adder | input | 4 | 使能信号 |
+| event20_adder | input | 4 | 使能信号 |
+| event21_adder | input | 4 | 使能信号 |
+| event22_adder | input | 4 | 使能信号 |
+| event23_adder | input | 4 | 使能信号 |
+| event24_adder | input | 4 | 使能信号 |
+| event25_adder | input | 4 | 使能信号 |
+| event26_adder | input | 4 | 使能信号 |
+| event27_adder | input | 4 | 使能信号 |
+| event28_adder | input | 4 | 使能信号 |
+| event29_adder | input | 4 | 使能信号 |
+| event30_adder | input | 4 | 使能信号 |
 | ... | ... | ... | 共43个输入端口 |
 
 ### 2.2 输出端口
 
 | 信号名 | 方向 | 位宽 | 描述 |
 |--------|------|------|------|
-| mhpmcntx_adder | output | 4 | |
+| mhpmcntx_adder | output | 4 | 计数器 |
+
+### 2.5 接口时序图
+
+```mermaid
+sequenceDiagram
+    participant M as 主机
+    participant S as 从机
+    M->>S: req
+    S->>M: ack
+    M->>S: data
+```
 
 ## 3. 模块框图
 

@@ -12,7 +12,7 @@
 
 ### 1.2 功能描述
 
-ct_biu_top 模块的功能描述。
+总线接口单元 (Bus Interface Unit)，主要信号: 有效信号、读使能、输入信号、数据信号、程序计数器
 
 ### 1.3 设计特点
 
@@ -25,73 +25,84 @@ ct_biu_top 模块的功能描述。
 
 | 信号名 | 方向 | 位宽 | 描述 |
 |--------|------|------|------|
-| coreclk | input | 1 | |
-| cp0_biu_icg_en | input | 1 | |
-| cp0_biu_lpmd_b | input | 2 | |
-| cp0_biu_op | input | 16 | |
-| cp0_biu_sel | input | 1 | |
-| cp0_biu_wdata | input | 64 | |
-| cpurst_b | input | 1 | |
-| forever_coreclk | input | 1 | |
-| had_biu_jdb_pm | input | 2 | |
-| hpcp_biu_cnt_en | input | 4 | |
-| hpcp_biu_op | input | 16 | |
-| hpcp_biu_sel | input | 1 | |
-| hpcp_biu_wdata | input | 64 | |
-| ifu_biu_r_ready | input | 1 | |
-| ifu_biu_rd_addr | input | 40 | |
-| ifu_biu_rd_burst | input | 2 | |
-| ifu_biu_rd_cache | input | 4 | |
-| ifu_biu_rd_domain | input | 2 | |
-| ifu_biu_rd_id | input | 1 | |
-| ifu_biu_rd_len | input | 2 | |
-| ifu_biu_rd_prot | input | 3 | |
-| ifu_biu_rd_req | input | 1 | |
-| ifu_biu_rd_req_gate | input | 1 | |
-| ifu_biu_rd_size | input | 3 | |
-| ifu_biu_rd_snoop | input | 4 | |
-| ifu_biu_rd_user | input | 2 | |
-| lsu_biu_ac_empty | input | 1 | |
-| lsu_biu_ac_ready | input | 1 | |
-| lsu_biu_ar_addr | input | 40 | |
-| lsu_biu_ar_bar | input | 2 | |
+| coreclk | input | 1 | 时钟信号 |
+| cp0_biu_icg_en | input | 1 | 使能信号 |
+| cp0_biu_lpmd_b | input | 2 |  |
+| cp0_biu_op | input | 16 | 操作码 |
+| cp0_biu_sel | input | 1 | 选择信号 |
+| cp0_biu_wdata | input | 64 | 数据信号 |
+| cpurst_b | input | 1 | 复位信号 |
+| forever_coreclk | input | 1 | 时钟信号 |
+| had_biu_jdb_pm | input | 2 |  |
+| hpcp_biu_cnt_en | input | 4 | 使能信号 |
+| hpcp_biu_op | input | 16 | 程序计数器 |
+| hpcp_biu_sel | input | 1 | 选择信号 |
+| hpcp_biu_wdata | input | 64 | 数据信号 |
+| ifu_biu_r_ready | input | 1 | 就绪信号 |
+| ifu_biu_rd_addr | input | 40 | 地址信号 |
+| ifu_biu_rd_burst | input | 2 | 复位信号 |
+| ifu_biu_rd_cache | input | 4 |  |
+| ifu_biu_rd_domain | input | 2 | 输入信号 |
+| ifu_biu_rd_id | input | 1 |  |
+| ifu_biu_rd_len | input | 2 | 使能信号 |
+| ifu_biu_rd_prot | input | 3 |  |
+| ifu_biu_rd_req | input | 1 | 请求信号 |
+| ifu_biu_rd_req_gate | input | 1 | 请求信号 |
+| ifu_biu_rd_size | input | 3 |  |
+| ifu_biu_rd_snoop | input | 4 | 操作码 |
+| ifu_biu_rd_user | input | 2 |  |
+| lsu_biu_ac_empty | input | 1 | 空标志 |
+| lsu_biu_ac_ready | input | 1 | 就绪信号 |
+| lsu_biu_ar_addr | input | 40 | 地址信号 |
+| lsu_biu_ar_bar | input | 2 |  |
 | ... | ... | ... | 共126个输入端口 |
 
 ### 2.2 输出端口
 
 | 信号名 | 方向 | 位宽 | 描述 |
 |--------|------|------|------|
-| biu_cp0_apb_base | output | 40 | |
-| biu_cp0_cmplt | output | 1 | |
-| biu_cp0_coreid | output | 3 | |
-| biu_cp0_me_int | output | 1 | |
-| biu_cp0_ms_int | output | 1 | |
-| biu_cp0_mt_int | output | 1 | |
-| biu_cp0_rdata | output | 128 | |
-| biu_cp0_rvba | output | 40 | |
-| biu_cp0_se_int | output | 1 | |
-| biu_cp0_ss_int | output | 1 | |
-| biu_cp0_st_int | output | 1 | |
-| biu_had_coreid | output | 2 | |
-| biu_had_sdb_req_b | output | 1 | |
-| biu_hpcp_cmplt | output | 1 | |
-| biu_hpcp_l2of_int | output | 4 | |
-| biu_hpcp_rdata | output | 128 | |
-| biu_hpcp_time | output | 64 | |
-| biu_ifu_rd_data | output | 128 | |
-| biu_ifu_rd_data_vld | output | 1 | |
-| biu_ifu_rd_grnt | output | 1 | |
-| biu_ifu_rd_id | output | 1 | |
-| biu_ifu_rd_last | output | 1 | |
-| biu_ifu_rd_resp | output | 2 | |
-| biu_lsu_ac_addr | output | 40 | |
-| biu_lsu_ac_prot | output | 3 | |
-| biu_lsu_ac_req | output | 1 | |
-| biu_lsu_ac_snoop | output | 4 | |
-| biu_lsu_ar_ready | output | 1 | |
-| biu_lsu_aw_vb_grnt | output | 1 | |
-| biu_lsu_aw_wmb_grnt | output | 1 | |
+| biu_cp0_apb_base | output | 40 |  |
+| biu_cp0_cmplt | output | 1 |  |
+| biu_cp0_coreid | output | 3 | 读使能 |
+| biu_cp0_me_int | output | 1 | 输入信号 |
+| biu_cp0_ms_int | output | 1 | 输入信号 |
+| biu_cp0_mt_int | output | 1 | 输入信号 |
+| biu_cp0_rdata | output | 128 | 数据信号 |
+| biu_cp0_rvba | output | 40 |  |
+| biu_cp0_se_int | output | 1 | 输入信号 |
+| biu_cp0_ss_int | output | 1 | 输入信号 |
+| biu_cp0_st_int | output | 1 | 输入信号 |
+| biu_had_coreid | output | 2 | 读使能 |
+| biu_had_sdb_req_b | output | 1 | 请求信号 |
+| biu_hpcp_cmplt | output | 1 | 程序计数器 |
+| biu_hpcp_l2of_int | output | 4 | 程序计数器 |
+| biu_hpcp_rdata | output | 128 | 数据信号 |
+| biu_hpcp_time | output | 64 | 程序计数器 |
+| biu_ifu_rd_data | output | 128 | 数据信号 |
+| biu_ifu_rd_data_vld | output | 1 | 有效信号 |
+| biu_ifu_rd_grnt | output | 1 |  |
+| biu_ifu_rd_id | output | 1 |  |
+| biu_ifu_rd_last | output | 1 |  |
+| biu_ifu_rd_resp | output | 2 | 读使能 |
+| biu_lsu_ac_addr | output | 40 | 地址信号 |
+| biu_lsu_ac_prot | output | 3 |  |
+| biu_lsu_ac_req | output | 1 | 请求信号 |
+| biu_lsu_ac_snoop | output | 4 | 操作码 |
+| biu_lsu_ar_ready | output | 1 | 就绪信号 |
+| biu_lsu_aw_vb_grnt | output | 1 |  |
+| biu_lsu_aw_wmb_grnt | output | 1 |  |
 | ... | ... | ... | 共98个输出端口 |
+
+### 2.5 接口时序图
+
+```mermaid
+sequenceDiagram
+    participant M as 主机
+    participant S as 从机
+    M->>S: req
+    S->>M: ack
+    M->>S: data
+```
 
 ## 3. 模块框图
 
@@ -246,13 +257,13 @@ graph TD
 
 | 层级 | 模块名 | 实例名 | 功能描述 |
 |------|--------|--------|----------|
-| 1 | ct_biu_req_arbiter | x_ct_biu_req_arbiter | |
-| 1 | ct_biu_read_channel | x_ct_biu_read_channel | |
-| 1 | ct_biu_write_channel | x_ct_biu_write_channel | |
-| 1 | ct_biu_snoop_channel | x_ct_biu_snoop_channel | |
-| 1 | ct_biu_lowpower | x_ct_biu_lowpower | |
-| 1 | ct_biu_csr_req_arbiter | x_ct_biu_csr_req_arbiter | |
-| 1 | ct_biu_other_io_sync | x_ct_biu_other_io_sync | |
+| 1 | ct_biu_req_arbiter | x_ct_biu_req_arbiter | 总线接口单元 |
+| 1 | ct_biu_read_channel | x_ct_biu_read_channel | 总线接口单元 |
+| 1 | ct_biu_write_channel | x_ct_biu_write_channel | 总线接口单元 |
+| 1 | ct_biu_snoop_channel | x_ct_biu_snoop_channel | 总线接口单元 |
+| 1 | ct_biu_lowpower | x_ct_biu_lowpower | 总线接口单元 |
+| 1 | ct_biu_csr_req_arbiter | x_ct_biu_csr_req_arbiter | 总线接口单元 |
+| 1 | ct_biu_other_io_sync | x_ct_biu_other_io_sync | 总线接口单元 |
 
 ## 7. 修订历史
 

@@ -12,7 +12,7 @@
 
 ### 1.2 功能描述
 
-ct_biu_snoop_channel 模块的功能描述。
+总线接口单元 (Bus Interface Unit)，(通道)，主要信号: 复位信号、操作码、地址信号、读使能、错误信号
 
 ### 1.3 设计特点
 
@@ -25,46 +25,57 @@ ct_biu_snoop_channel 模块的功能描述。
 
 | 信号名 | 方向 | 位宽 | 描述 |
 |--------|------|------|------|
-| accpuclk | input | 1 | |
-| cdcpuclk | input | 1 | |
-| cpurst_b | input | 1 | |
-| crcpuclk | input | 1 | |
-| forever_coreclk | input | 1 | |
-| lsu_biu_ac_empty | input | 1 | |
-| lsu_biu_ac_ready | input | 1 | |
-| lsu_biu_cd_data | input | 128 | |
-| lsu_biu_cd_last | input | 1 | |
-| lsu_biu_cd_valid | input | 1 | |
-| lsu_biu_cr_resp | input | 5 | |
-| lsu_biu_cr_valid | input | 1 | |
-| pad_biu_acaddr | input | 40 | |
-| pad_biu_acprot | input | 3 | |
-| pad_biu_acsnoop | input | 4 | |
-| pad_biu_acvalid | input | 1 | |
-| pad_biu_cdready | input | 1 | |
-| pad_biu_crready | input | 1 | |
+| accpuclk | input | 1 | 时钟信号 |
+| cdcpuclk | input | 1 | 时钟信号 |
+| cpurst_b | input | 1 | 复位信号 |
+| crcpuclk | input | 1 | 时钟信号 |
+| forever_coreclk | input | 1 | 时钟信号 |
+| lsu_biu_ac_empty | input | 1 | 空标志 |
+| lsu_biu_ac_ready | input | 1 | 就绪信号 |
+| lsu_biu_cd_data | input | 128 | 数据信号 |
+| lsu_biu_cd_last | input | 1 |  |
+| lsu_biu_cd_valid | input | 1 | 有效信号 |
+| lsu_biu_cr_resp | input | 5 | 读使能 |
+| lsu_biu_cr_valid | input | 1 | 有效信号 |
+| pad_biu_acaddr | input | 40 | 地址信号 |
+| pad_biu_acprot | input | 3 |  |
+| pad_biu_acsnoop | input | 4 | 操作码 |
+| pad_biu_acvalid | input | 1 | 有效信号 |
+| pad_biu_cdready | input | 1 | 就绪信号 |
+| pad_biu_crready | input | 1 | 就绪信号 |
 
 ### 2.2 输出端口
 
 | 信号名 | 方向 | 位宽 | 描述 |
 |--------|------|------|------|
-| biu_lsu_ac_addr | output | 40 | |
-| biu_lsu_ac_prot | output | 3 | |
-| biu_lsu_ac_req | output | 1 | |
-| biu_lsu_ac_snoop | output | 4 | |
-| biu_lsu_cd_ready | output | 1 | |
-| biu_lsu_cr_ready | output | 1 | |
-| biu_pad_acready | output | 1 | |
-| biu_pad_cddata | output | 128 | |
-| biu_pad_cderr | output | 1 | |
-| biu_pad_cdlast | output | 1 | |
-| biu_pad_cdvalid | output | 1 | |
-| biu_pad_crresp | output | 5 | |
-| biu_pad_crvalid | output | 1 | |
-| biu_xx_snoop_vld | output | 1 | |
-| snoop_ac_clk_en | output | 1 | |
-| snoop_cd_clk_en | output | 1 | |
-| snoop_cr_clk_en | output | 1 | |
+| biu_lsu_ac_addr | output | 40 | 地址信号 |
+| biu_lsu_ac_prot | output | 3 |  |
+| biu_lsu_ac_req | output | 1 | 请求信号 |
+| biu_lsu_ac_snoop | output | 4 | 操作码 |
+| biu_lsu_cd_ready | output | 1 | 就绪信号 |
+| biu_lsu_cr_ready | output | 1 | 就绪信号 |
+| biu_pad_acready | output | 1 | 就绪信号 |
+| biu_pad_cddata | output | 128 | 数据信号 |
+| biu_pad_cderr | output | 1 | 错误信号 |
+| biu_pad_cdlast | output | 1 |  |
+| biu_pad_cdvalid | output | 1 | 有效信号 |
+| biu_pad_crresp | output | 5 | 读使能 |
+| biu_pad_crvalid | output | 1 | 有效信号 |
+| biu_xx_snoop_vld | output | 1 | 有效信号 |
+| snoop_ac_clk_en | output | 1 | 时钟信号 |
+| snoop_cd_clk_en | output | 1 | 时钟信号 |
+| snoop_cr_clk_en | output | 1 | 时钟信号 |
+
+### 2.5 接口时序图
+
+```mermaid
+sequenceDiagram
+    participant M as 主机
+    participant S as 从机
+    M->>S: req
+    S->>M: ack
+    M->>S: data
+```
 
 ## 3. 模块框图
 

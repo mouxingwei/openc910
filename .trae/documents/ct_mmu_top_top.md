@@ -12,7 +12,7 @@
 
 ### 1.2 功能描述
 
-ct_mmu_top 模块的功能描述。
+内存管理单元 (Memory Management Unit)，主要信号: 使能信号、读使能、输入信号、选择信号、时钟信号
 
 ### 1.3 设计特点
 
@@ -25,73 +25,84 @@ ct_mmu_top 模块的功能描述。
 
 | 信号名 | 方向 | 位宽 | 描述 |
 |--------|------|------|------|
-| biu_mmu_smp_disable | input | 1 | |
-| cp0_mmu_cskyee | input | 1 | |
-| cp0_mmu_icg_en | input | 1 | |
-| cp0_mmu_maee | input | 1 | |
-| cp0_mmu_mpp | input | 2 | |
-| cp0_mmu_mprv | input | 1 | |
-| cp0_mmu_mxr | input | 1 | |
-| cp0_mmu_no_op_req | input | 1 | |
-| cp0_mmu_ptw_en | input | 1 | |
-| cp0_mmu_reg_num | input | 2 | |
-| cp0_mmu_satp_sel | input | 1 | |
-| cp0_mmu_sum | input | 1 | |
-| cp0_mmu_tlb_all_inv | input | 1 | |
-| cp0_mmu_wdata | input | 64 | |
-| cp0_mmu_wreg | input | 1 | |
-| cp0_yy_priv_mode | input | 2 | |
-| cpurst_b | input | 1 | |
-| forever_cpuclk | input | 1 | |
-| hpcp_mmu_cnt_en | input | 1 | |
-| ifu_mmu_abort | input | 1 | |
-| ifu_mmu_va | input | 63 | |
-| ifu_mmu_va_vld | input | 1 | |
-| lsu_mmu_abort0 | input | 1 | |
-| lsu_mmu_abort1 | input | 1 | |
-| lsu_mmu_bus_error | input | 1 | |
-| lsu_mmu_data | input | 64 | |
-| lsu_mmu_data_vld | input | 1 | |
-| lsu_mmu_id0 | input | 7 | |
-| lsu_mmu_id1 | input | 7 | |
-| lsu_mmu_st_inst0 | input | 1 | |
+| biu_mmu_smp_disable | input | 1 |  |
+| cp0_mmu_cskyee | input | 1 |  |
+| cp0_mmu_icg_en | input | 1 | 使能信号 |
+| cp0_mmu_maee | input | 1 |  |
+| cp0_mmu_mpp | input | 2 |  |
+| cp0_mmu_mprv | input | 1 |  |
+| cp0_mmu_mxr | input | 1 |  |
+| cp0_mmu_no_op_req | input | 1 | 请求信号 |
+| cp0_mmu_ptw_en | input | 1 | 使能信号 |
+| cp0_mmu_reg_num | input | 2 | 读使能 |
+| cp0_mmu_satp_sel | input | 1 | 选择信号 |
+| cp0_mmu_sum | input | 1 |  |
+| cp0_mmu_tlb_all_inv | input | 1 | 输入信号 |
+| cp0_mmu_wdata | input | 64 | 数据信号 |
+| cp0_mmu_wreg | input | 1 | 读使能 |
+| cp0_yy_priv_mode | input | 2 |  |
+| cpurst_b | input | 1 | 复位信号 |
+| forever_cpuclk | input | 1 | 时钟信号 |
+| hpcp_mmu_cnt_en | input | 1 | 使能信号 |
+| ifu_mmu_abort | input | 1 |  |
+| ifu_mmu_va | input | 63 |  |
+| ifu_mmu_va_vld | input | 1 | 有效信号 |
+| lsu_mmu_abort0 | input | 1 |  |
+| lsu_mmu_abort1 | input | 1 |  |
+| lsu_mmu_bus_error | input | 1 | 错误信号 |
+| lsu_mmu_data | input | 64 | 数据信号 |
+| lsu_mmu_data_vld | input | 1 | 有效信号 |
+| lsu_mmu_id0 | input | 7 |  |
+| lsu_mmu_id1 | input | 7 |  |
+| lsu_mmu_st_inst0 | input | 1 | 指令信号 |
 | ... | ... | ... | 共56个输入端口 |
 
 ### 2.2 输出端口
 
 | 信号名 | 方向 | 位宽 | 描述 |
 |--------|------|------|------|
-| mmu_cp0_cmplt | output | 1 | |
-| mmu_cp0_data | output | 64 | |
-| mmu_cp0_satp_data | output | 64 | |
-| mmu_cp0_tlb_done | output | 1 | |
-| mmu_had_debug_info | output | 34 | |
-| mmu_hpcp_dutlb_miss | output | 1 | |
-| mmu_hpcp_iutlb_miss | output | 1 | |
-| mmu_hpcp_jtlb_miss | output | 1 | |
-| mmu_ifu_buf | output | 1 | |
-| mmu_ifu_ca | output | 1 | |
-| mmu_ifu_deny | output | 1 | |
-| mmu_ifu_pa | output | 28 | |
-| mmu_ifu_pavld | output | 1 | |
-| mmu_ifu_pgflt | output | 1 | |
-| mmu_ifu_sec | output | 1 | |
-| mmu_lsu_access_fault0 | output | 1 | |
-| mmu_lsu_access_fault1 | output | 1 | |
-| mmu_lsu_buf0 | output | 1 | |
-| mmu_lsu_buf1 | output | 1 | |
-| mmu_lsu_ca0 | output | 1 | |
-| mmu_lsu_ca1 | output | 1 | |
-| mmu_lsu_data_req | output | 1 | |
-| mmu_lsu_data_req_addr | output | 40 | |
-| mmu_lsu_data_req_size | output | 1 | |
-| mmu_lsu_mmu_en | output | 1 | |
-| mmu_lsu_pa0 | output | 28 | |
-| mmu_lsu_pa0_vld | output | 1 | |
-| mmu_lsu_pa1 | output | 28 | |
-| mmu_lsu_pa1_vld | output | 1 | |
-| mmu_lsu_pa2 | output | 28 | |
+| mmu_cp0_cmplt | output | 1 |  |
+| mmu_cp0_data | output | 64 | 数据信号 |
+| mmu_cp0_satp_data | output | 64 | 数据信号 |
+| mmu_cp0_tlb_done | output | 1 | 完成信号 |
+| mmu_had_debug_info | output | 34 | 输入信号 |
+| mmu_hpcp_dutlb_miss | output | 1 | 程序计数器 |
+| mmu_hpcp_iutlb_miss | output | 1 | 程序计数器 |
+| mmu_hpcp_jtlb_miss | output | 1 | 程序计数器 |
+| mmu_ifu_buf | output | 1 |  |
+| mmu_ifu_ca | output | 1 |  |
+| mmu_ifu_deny | output | 1 | 使能信号 |
+| mmu_ifu_pa | output | 28 |  |
+| mmu_ifu_pavld | output | 1 | 有效信号 |
+| mmu_ifu_pgflt | output | 1 |  |
+| mmu_ifu_sec | output | 1 |  |
+| mmu_lsu_access_fault0 | output | 1 |  |
+| mmu_lsu_access_fault1 | output | 1 |  |
+| mmu_lsu_buf0 | output | 1 |  |
+| mmu_lsu_buf1 | output | 1 |  |
+| mmu_lsu_ca0 | output | 1 |  |
+| mmu_lsu_ca1 | output | 1 |  |
+| mmu_lsu_data_req | output | 1 | 请求信号 |
+| mmu_lsu_data_req_addr | output | 40 | 请求信号 |
+| mmu_lsu_data_req_size | output | 1 | 请求信号 |
+| mmu_lsu_mmu_en | output | 1 | 使能信号 |
+| mmu_lsu_pa0 | output | 28 |  |
+| mmu_lsu_pa0_vld | output | 1 | 有效信号 |
+| mmu_lsu_pa1 | output | 28 |  |
+| mmu_lsu_pa1_vld | output | 1 | 有效信号 |
+| mmu_lsu_pa2 | output | 28 |  |
 | ... | ... | ... | 共55个输出端口 |
+
+### 2.5 接口时序图
+
+```mermaid
+sequenceDiagram
+    participant M as 主机
+    participant S as 从机
+    M->>S: req
+    S->>M: ack
+    M->>S: data
+```
 
 ## 3. 模块框图
 
@@ -273,19 +284,19 @@ graph TD
 
 | 层级 | 模块名 | 实例名 | 功能描述 |
 |------|--------|--------|----------|
-| 1 | gated_clk_cell | x_utlb_gateclk | |
-| 1 | ct_mmu_iutlb | x_ct_mmu_iutlb | |
-| 1 | ct_mmu_dutlb | x_ct_mmu_dutlb | |
-| 1 | ct_mmu_regs | x_ct_mmu_regs | |
-| 1 | ct_mmu_tlboper | x_ct_mmu_tlboper | |
-| 1 | ct_mmu_arb | x_ct_mmu_arb | |
-| 1 | ct_mmu_jtlb | x_ct_mmu_jtlb | |
-| 1 | ct_mmu_ptw | x_ct_mmu_ptw | |
-| 1 | ct_mmu_sysmap | x_ct_mmu_sysmap_0 | |
-| 1 | ct_mmu_sysmap | x_ct_mmu_sysmap_1 | |
-| 1 | ct_mmu_sysmap | x_ct_mmu_sysmap_2 | |
-| 1 | ct_mmu_sysmap | x_ct_mmu_sysmap_3 | |
-| 1 | ct_mmu_sysmap | x_ct_mmu_sysmap_4 | |
+| 1 | gated_clk_cell | x_utlb_gateclk |  |
+| 1 | ct_mmu_iutlb | x_ct_mmu_iutlb | 内存管理单元 |
+| 1 | ct_mmu_dutlb | x_ct_mmu_dutlb | 内存管理单元 |
+| 1 | ct_mmu_regs | x_ct_mmu_regs | 内存管理单元 |
+| 1 | ct_mmu_tlboper | x_ct_mmu_tlboper | 内存管理单元 |
+| 1 | ct_mmu_arb | x_ct_mmu_arb | 内存管理单元 |
+| 1 | ct_mmu_jtlb | x_ct_mmu_jtlb | 内存管理单元 |
+| 1 | ct_mmu_ptw | x_ct_mmu_ptw | 内存管理单元 |
+| 1 | ct_mmu_sysmap | x_ct_mmu_sysmap_0 | 内存管理单元 |
+| 1 | ct_mmu_sysmap | x_ct_mmu_sysmap_1 | 内存管理单元 |
+| 1 | ct_mmu_sysmap | x_ct_mmu_sysmap_2 | 内存管理单元 |
+| 1 | ct_mmu_sysmap | x_ct_mmu_sysmap_3 | 内存管理单元 |
+| 1 | ct_mmu_sysmap | x_ct_mmu_sysmap_4 | 内存管理单元 |
 
 ## 7. 修订历史
 

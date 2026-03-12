@@ -12,7 +12,7 @@
 
 ### 1.2 功能描述
 
-ct_cp0_top 模块的功能描述。
+协处理器0 (Coprocessor 0)，主要信号: 使能信号、操作码、读使能、输入信号、选择信号
 
 ### 1.3 设计特点
 
@@ -24,73 +24,84 @@ ct_cp0_top 模块的功能描述。
 
 | 信号名 | 方向 | 位宽 | 描述 |
 |--------|------|------|------|
-| biu_cp0_apb_base | input | 40 | |
-| biu_cp0_cmplt | input | 1 | |
-| biu_cp0_coreid | input | 3 | |
-| biu_cp0_me_int | input | 1 | |
-| biu_cp0_ms_int | input | 1 | |
-| biu_cp0_mt_int | input | 1 | |
-| biu_cp0_rdata | input | 128 | |
-| biu_cp0_rvba | input | 40 | |
-| biu_cp0_se_int | input | 1 | |
-| biu_cp0_ss_int | input | 1 | |
-| biu_cp0_st_int | input | 1 | |
-| biu_yy_xx_no_op | input | 1 | |
-| cpurst_b | input | 1 | |
-| forever_cpuclk | input | 1 | |
-| had_cp0_xx_dbg | input | 1 | |
-| hpcp_cp0_cmplt | input | 1 | |
-| hpcp_cp0_data | input | 64 | |
-| hpcp_cp0_int_vld | input | 1 | |
-| hpcp_cp0_sce | input | 1 | |
-| idu_cp0_fesr_acc_updt_val | input | 7 | |
-| idu_cp0_fesr_acc_updt_vld | input | 1 | |
-| idu_cp0_rf_func | input | 5 | |
-| idu_cp0_rf_gateclk_sel | input | 1 | |
-| idu_cp0_rf_iid | input | 7 | |
-| idu_cp0_rf_opcode | input | 32 | |
-| idu_cp0_rf_preg | input | 7 | |
-| idu_cp0_rf_sel | input | 1 | |
-| idu_cp0_rf_src0 | input | 64 | |
-| ifu_cp0_bht_inv_done | input | 1 | |
-| ifu_cp0_btb_inv_done | input | 1 | |
+| biu_cp0_apb_base | input | 40 |  |
+| biu_cp0_cmplt | input | 1 |  |
+| biu_cp0_coreid | input | 3 | 读使能 |
+| biu_cp0_me_int | input | 1 | 输入信号 |
+| biu_cp0_ms_int | input | 1 | 输入信号 |
+| biu_cp0_mt_int | input | 1 | 输入信号 |
+| biu_cp0_rdata | input | 128 | 数据信号 |
+| biu_cp0_rvba | input | 40 |  |
+| biu_cp0_se_int | input | 1 | 输入信号 |
+| biu_cp0_ss_int | input | 1 | 输入信号 |
+| biu_cp0_st_int | input | 1 | 输入信号 |
+| biu_yy_xx_no_op | input | 1 | 操作码 |
+| cpurst_b | input | 1 | 复位信号 |
+| forever_cpuclk | input | 1 | 时钟信号 |
+| had_cp0_xx_dbg | input | 1 |  |
+| hpcp_cp0_cmplt | input | 1 | 程序计数器 |
+| hpcp_cp0_data | input | 64 | 数据信号 |
+| hpcp_cp0_int_vld | input | 1 | 有效信号 |
+| hpcp_cp0_sce | input | 1 | 程序计数器 |
+| idu_cp0_fesr_acc_updt_val | input | 7 |  |
+| idu_cp0_fesr_acc_updt_vld | input | 1 | 有效信号 |
+| idu_cp0_rf_func | input | 5 | 功能码 |
+| idu_cp0_rf_gateclk_sel | input | 1 | 时钟信号 |
+| idu_cp0_rf_iid | input | 7 |  |
+| idu_cp0_rf_opcode | input | 32 | 程序计数器 |
+| idu_cp0_rf_preg | input | 7 | 读使能 |
+| idu_cp0_rf_sel | input | 1 | 选择信号 |
+| idu_cp0_rf_src0 | input | 64 | 源信号 |
+| ifu_cp0_bht_inv_done | input | 1 | 输入信号 |
+| ifu_cp0_btb_inv_done | input | 1 | 输入信号 |
 | ... | ... | ... | 共67个输入端口 |
 
 ### 2.2 输出端口
 
 | 信号名 | 方向 | 位宽 | 描述 |
 |--------|------|------|------|
-| cp0_biu_icg_en | output | 1 | |
-| cp0_biu_lpmd_b | output | 2 | |
-| cp0_biu_op | output | 16 | |
-| cp0_biu_sel | output | 1 | |
-| cp0_biu_wdata | output | 64 | |
-| cp0_had_cpuid_0 | output | 32 | |
-| cp0_had_debug_info | output | 4 | |
-| cp0_had_lpmd_b | output | 2 | |
-| cp0_had_trace_pm_wdata | output | 2 | |
-| cp0_had_trace_pm_wen | output | 1 | |
-| cp0_hpcp_icg_en | output | 1 | |
-| cp0_hpcp_index | output | 12 | |
-| cp0_hpcp_int_disable | output | 1 | |
-| cp0_hpcp_mcntwen | output | 32 | |
-| cp0_hpcp_op | output | 4 | |
-| cp0_hpcp_pmdm | output | 1 | |
-| cp0_hpcp_pmds | output | 1 | |
-| cp0_hpcp_pmdu | output | 1 | |
-| cp0_hpcp_sel | output | 1 | |
-| cp0_hpcp_src0 | output | 64 | |
-| cp0_hpcp_wdata | output | 64 | |
-| cp0_idu_cskyee | output | 1 | |
-| cp0_idu_dlb_disable | output | 1 | |
-| cp0_idu_frm | output | 3 | |
-| cp0_idu_fs | output | 2 | |
-| cp0_idu_icg_en | output | 1 | |
-| cp0_idu_iq_bypass_disable | output | 1 | |
-| cp0_idu_rob_fold_disable | output | 1 | |
-| cp0_idu_src2_fwd_disable | output | 1 | |
-| cp0_idu_srcv2_fwd_disable | output | 1 | |
+| cp0_biu_icg_en | output | 1 | 使能信号 |
+| cp0_biu_lpmd_b | output | 2 |  |
+| cp0_biu_op | output | 16 | 操作码 |
+| cp0_biu_sel | output | 1 | 选择信号 |
+| cp0_biu_wdata | output | 64 | 数据信号 |
+| cp0_had_cpuid_0 | output | 32 |  |
+| cp0_had_debug_info | output | 4 | 输入信号 |
+| cp0_had_lpmd_b | output | 2 |  |
+| cp0_had_trace_pm_wdata | output | 2 | 数据信号 |
+| cp0_had_trace_pm_wen | output | 1 | 使能信号 |
+| cp0_hpcp_icg_en | output | 1 | 使能信号 |
+| cp0_hpcp_index | output | 12 | 索引信号 |
+| cp0_hpcp_int_disable | output | 1 | 程序计数器 |
+| cp0_hpcp_mcntwen | output | 32 | 使能信号 |
+| cp0_hpcp_op | output | 4 | 程序计数器 |
+| cp0_hpcp_pmdm | output | 1 | 程序计数器 |
+| cp0_hpcp_pmds | output | 1 | 程序计数器 |
+| cp0_hpcp_pmdu | output | 1 | 程序计数器 |
+| cp0_hpcp_sel | output | 1 | 选择信号 |
+| cp0_hpcp_src0 | output | 64 | 程序计数器 |
+| cp0_hpcp_wdata | output | 64 | 数据信号 |
+| cp0_idu_cskyee | output | 1 |  |
+| cp0_idu_dlb_disable | output | 1 |  |
+| cp0_idu_frm | output | 3 |  |
+| cp0_idu_fs | output | 2 |  |
+| cp0_idu_icg_en | output | 1 | 使能信号 |
+| cp0_idu_iq_bypass_disable | output | 1 | 旁路信号 |
+| cp0_idu_rob_fold_disable | output | 1 |  |
+| cp0_idu_src2_fwd_disable | output | 1 | 源信号 |
+| cp0_idu_srcv2_fwd_disable | output | 1 | 源信号 |
 | ... | ... | ... | 共150个输出端口 |
+
+### 2.5 接口时序图
+
+```mermaid
+sequenceDiagram
+    participant M as 主机
+    participant S as 从机
+    M->>S: req
+    S->>M: ack
+    M->>S: data
+```
 
 ## 3. 模块框图
 
@@ -214,9 +225,9 @@ graph TD
 
 | 层级 | 模块名 | 实例名 | 功能描述 |
 |------|--------|--------|----------|
-| 1 | ct_cp0_iui | x_ct_cp0_iui | |
-| 1 | ct_cp0_regs | x_ct_cp0_regs | |
-| 1 | ct_cp0_lpmd | x_ct_cp0_lpmd | |
+| 1 | ct_cp0_iui | x_ct_cp0_iui | 协处理器0 |
+| 1 | ct_cp0_regs | x_ct_cp0_regs | 协处理器0 |
+| 1 | ct_cp0_lpmd | x_ct_cp0_lpmd | 协处理器0 |
 
 ## 7. 修订历史
 

@@ -13,7 +13,7 @@
 
 ### 1.2 功能描述
 
-ct_mmu_iutlb 模块的功能描述。
+内存管理单元 (Memory Management Unit)，(指令微TLB)，主要信号: 授权信号、使能信号、操作码、读使能、错误信号
 
 ### 1.3 设计特点
 
@@ -28,55 +28,55 @@ ct_mmu_iutlb 模块的功能描述。
 
 | 信号名 | 方向 | 位宽 | 描述 |
 |--------|------|------|------|
-| arb_iutlb_grant | input | 1 | |
-| cp0_mmu_icg_en | input | 1 | |
-| cp0_mmu_no_op_req | input | 1 | |
-| cp0_mmu_sum | input | 1 | |
-| cp0_yy_priv_mode | input | 2 | |
-| cpurst_b | input | 1 | |
-| forever_cpuclk | input | 1 | |
-| hpcp_mmu_cnt_en | input | 1 | |
-| ifu_mmu_abort | input | 1 | |
-| ifu_mmu_va | input | 63 | |
-| ifu_mmu_va_vld | input | 1 | |
-| jtlb_iutlb_acc_err | input | 1 | |
-| jtlb_iutlb_pgflt | input | 1 | |
-| jtlb_iutlb_ref_cmplt | input | 1 | |
-| jtlb_iutlb_ref_pavld | input | 1 | |
-| jtlb_utlb_ref_flg | input | 14 | |
-| jtlb_utlb_ref_pgs | input | 3 | |
-| jtlb_utlb_ref_ppn | input | 28 | |
-| jtlb_utlb_ref_vpn | input | 27 | |
-| lsu_mmu_tlb_va | input | 27 | |
-| pad_yy_icg_scan_en | input | 1 | |
-| pmp_mmu_flg2 | input | 4 | |
-| regs_mmu_en | input | 1 | |
-| regs_utlb_clr | input | 1 | |
-| sysmap_mmu_flg2 | input | 5 | |
-| tlboper_utlb_clr | input | 1 | |
-| tlboper_utlb_inv_va_req | input | 1 | |
-| utlb_clk | input | 1 | |
+| arb_iutlb_grant | input | 1 | 授权信号 |
+| cp0_mmu_icg_en | input | 1 | 使能信号 |
+| cp0_mmu_no_op_req | input | 1 | 请求信号 |
+| cp0_mmu_sum | input | 1 |  |
+| cp0_yy_priv_mode | input | 2 |  |
+| cpurst_b | input | 1 | 复位信号 |
+| forever_cpuclk | input | 1 | 时钟信号 |
+| hpcp_mmu_cnt_en | input | 1 | 使能信号 |
+| ifu_mmu_abort | input | 1 |  |
+| ifu_mmu_va | input | 63 |  |
+| ifu_mmu_va_vld | input | 1 | 有效信号 |
+| jtlb_iutlb_acc_err | input | 1 | 错误信号 |
+| jtlb_iutlb_pgflt | input | 1 |  |
+| jtlb_iutlb_ref_cmplt | input | 1 | 读使能 |
+| jtlb_iutlb_ref_pavld | input | 1 | 有效信号 |
+| jtlb_utlb_ref_flg | input | 14 | 读使能 |
+| jtlb_utlb_ref_pgs | input | 3 | 读使能 |
+| jtlb_utlb_ref_ppn | input | 28 | 读使能 |
+| jtlb_utlb_ref_vpn | input | 27 | 读使能 |
+| lsu_mmu_tlb_va | input | 27 |  |
+| pad_yy_icg_scan_en | input | 1 | 使能信号 |
+| pmp_mmu_flg2 | input | 4 |  |
+| regs_mmu_en | input | 1 | 使能信号 |
+| regs_utlb_clr | input | 1 | 读使能 |
+| sysmap_mmu_flg2 | input | 5 |  |
+| tlboper_utlb_clr | input | 1 | 操作码 |
+| tlboper_utlb_inv_va_req | input | 1 | 请求信号 |
+| utlb_clk | input | 1 | 时钟信号 |
 
 ### 2.2 输出端口
 
 | 信号名 | 方向 | 位宽 | 描述 |
 |--------|------|------|------|
-| iutlb_arb_cmplt | output | 1 | |
-| iutlb_arb_req | output | 1 | |
-| iutlb_arb_vpn | output | 27 | |
-| iutlb_ptw_wfc | output | 1 | |
-| iutlb_top_ref_cur_st | output | 2 | |
-| iutlb_top_scd_updt | output | 1 | |
-| mmu_hpcp_iutlb_miss | output | 1 | |
-| mmu_ifu_buf | output | 1 | |
-| mmu_ifu_ca | output | 1 | |
-| mmu_ifu_deny | output | 1 | |
-| mmu_ifu_pa | output | 28 | |
-| mmu_ifu_pavld | output | 1 | |
-| mmu_ifu_pgflt | output | 1 | |
-| mmu_ifu_sec | output | 1 | |
-| mmu_pmp_pa2 | output | 28 | |
-| mmu_sysmap_pa2 | output | 28 | |
+| iutlb_arb_cmplt | output | 1 |  |
+| iutlb_arb_req | output | 1 | 请求信号 |
+| iutlb_arb_vpn | output | 27 |  |
+| iutlb_ptw_wfc | output | 1 |  |
+| iutlb_top_ref_cur_st | output | 2 | 读使能 |
+| iutlb_top_scd_updt | output | 1 | 操作码 |
+| mmu_hpcp_iutlb_miss | output | 1 | 程序计数器 |
+| mmu_ifu_buf | output | 1 |  |
+| mmu_ifu_ca | output | 1 |  |
+| mmu_ifu_deny | output | 1 | 使能信号 |
+| mmu_ifu_pa | output | 28 |  |
+| mmu_ifu_pavld | output | 1 | 有效信号 |
+| mmu_ifu_pgflt | output | 1 |  |
+| mmu_ifu_sec | output | 1 |  |
+| mmu_pmp_pa2 | output | 28 |  |
+| mmu_sysmap_pa2 | output | 28 |  |
 
 ### 2.4 参数列表
 
@@ -88,6 +88,17 @@ ct_mmu_iutlb 模块的功能描述。
 | PGS_WIDTH | 3 | 1 | |
 | VPN_PERLEL | 9 | 1 | |
 | IDLE | 3'b000 | 1 | |
+
+### 2.5 接口时序图
+
+```mermaid
+sequenceDiagram
+    participant M as 主机
+    participant S as 从机
+    M->>S: req
+    S->>M: ack
+    M->>S: data
+```
 
 ## 3. 模块框图
 
@@ -350,26 +361,26 @@ graph TD
 
 | 层级 | 模块名 | 实例名 | 功能描述 |
 |------|--------|--------|----------|
-| 1 | gated_clk_cell | x_iutlb_gateclk | |
-| 1 | ct_mmu_iplru | x_ct_mmu_iplru | |
-| 1 | gated_clk_cell | x_iutlb_plru_gateclk | |
-| 1 | ct_mmu_iutlb_fst_entry | x_ct_mmu_iutlb_entry0 | |
-| 1 | ct_mmu_iutlb_entry | x_ct_mmu_iutlb_entry1 | |
-| 1 | ct_mmu_iutlb_entry | x_ct_mmu_iutlb_entry2 | |
-| 1 | ct_mmu_iutlb_entry | x_ct_mmu_iutlb_entry3 | |
-| 1 | ct_mmu_iutlb_entry | x_ct_mmu_iutlb_entry4 | |
-| 1 | ct_mmu_iutlb_entry | x_ct_mmu_iutlb_entry5 | |
-| 1 | ct_mmu_iutlb_entry | x_ct_mmu_iutlb_entry6 | |
-| 1 | ct_mmu_iutlb_entry | x_ct_mmu_iutlb_entry7 | |
-| 1 | ct_mmu_iutlb_fst_entry | x_ct_mmu_iutlb_entry8 | |
-| 1 | ct_mmu_iutlb_entry | x_ct_mmu_iutlb_entry9 | |
-| 1 | ct_mmu_iutlb_entry | x_ct_mmu_iutlb_entry10 | |
-| 1 | ct_mmu_iutlb_entry | x_ct_mmu_iutlb_entry11 | |
-| 1 | ct_mmu_iutlb_entry | x_ct_mmu_iutlb_entry12 | |
-| 1 | ct_mmu_iutlb_entry | x_ct_mmu_iutlb_entry13 | |
-| 1 | ct_mmu_iutlb_entry | x_ct_mmu_iutlb_entry14 | |
-| 1 | ct_mmu_iutlb_entry | x_ct_mmu_iutlb_entry15 | |
-| 1 | ct_mmu_iutlb_fst_entry | x_ct_mmu_iutlb_entry16 | |
+| 1 | gated_clk_cell | x_iutlb_gateclk |  |
+| 1 | ct_mmu_iplru | x_ct_mmu_iplru | 内存管理单元 |
+| 1 | gated_clk_cell | x_iutlb_plru_gateclk |  |
+| 1 | ct_mmu_iutlb_fst_entry | x_ct_mmu_iutlb_entry0 | 内存管理单元 |
+| 1 | ct_mmu_iutlb_entry | x_ct_mmu_iutlb_entry1 | 内存管理单元 |
+| 1 | ct_mmu_iutlb_entry | x_ct_mmu_iutlb_entry2 | 内存管理单元 |
+| 1 | ct_mmu_iutlb_entry | x_ct_mmu_iutlb_entry3 | 内存管理单元 |
+| 1 | ct_mmu_iutlb_entry | x_ct_mmu_iutlb_entry4 | 内存管理单元 |
+| 1 | ct_mmu_iutlb_entry | x_ct_mmu_iutlb_entry5 | 内存管理单元 |
+| 1 | ct_mmu_iutlb_entry | x_ct_mmu_iutlb_entry6 | 内存管理单元 |
+| 1 | ct_mmu_iutlb_entry | x_ct_mmu_iutlb_entry7 | 内存管理单元 |
+| 1 | ct_mmu_iutlb_fst_entry | x_ct_mmu_iutlb_entry8 | 内存管理单元 |
+| 1 | ct_mmu_iutlb_entry | x_ct_mmu_iutlb_entry9 | 内存管理单元 |
+| 1 | ct_mmu_iutlb_entry | x_ct_mmu_iutlb_entry10 | 内存管理单元 |
+| 1 | ct_mmu_iutlb_entry | x_ct_mmu_iutlb_entry11 | 内存管理单元 |
+| 1 | ct_mmu_iutlb_entry | x_ct_mmu_iutlb_entry12 | 内存管理单元 |
+| 1 | ct_mmu_iutlb_entry | x_ct_mmu_iutlb_entry13 | 内存管理单元 |
+| 1 | ct_mmu_iutlb_entry | x_ct_mmu_iutlb_entry14 | 内存管理单元 |
+| 1 | ct_mmu_iutlb_entry | x_ct_mmu_iutlb_entry15 | 内存管理单元 |
+| 1 | ct_mmu_iutlb_fst_entry | x_ct_mmu_iutlb_entry16 | 内存管理单元 |
 | ... | ... | ... | 共36个实例 |
 
 ## 7. 修订历史

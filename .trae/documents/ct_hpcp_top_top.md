@@ -13,7 +13,7 @@
 
 ### 1.2 功能描述
 
-ct_hpcp_top 模块的功能描述。
+硬件性能计数器 (Hardware Performance Counter)，主要信号: 复位信号、使能信号、选择信号、时钟信号、数据信号
 
 ### 1.3 设计特点
 
@@ -28,55 +28,55 @@ ct_hpcp_top 模块的功能描述。
 
 | 信号名 | 方向 | 位宽 | 描述 |
 |--------|------|------|------|
-| biu_hpcp_cmplt | input | 1 | |
-| biu_hpcp_l2of_int | input | 4 | |
-| biu_hpcp_rdata | input | 128 | |
-| biu_hpcp_time | input | 64 | |
-| cp0_hpcp_icg_en | input | 1 | |
-| cp0_hpcp_index | input | 12 | |
-| cp0_hpcp_int_disable | input | 1 | |
-| cp0_hpcp_mcntwen | input | 32 | |
-| cp0_hpcp_op | input | 4 | |
-| cp0_hpcp_pmdm | input | 1 | |
-| cp0_hpcp_pmds | input | 1 | |
-| cp0_hpcp_pmdu | input | 1 | |
-| cp0_hpcp_sel | input | 1 | |
-| cp0_hpcp_src0 | input | 64 | |
-| cp0_hpcp_wdata | input | 64 | |
-| cp0_yy_priv_mode | input | 2 | |
-| cpurst_b | input | 1 | |
-| forever_cpuclk | input | 1 | |
-| idu_hpcp_backend_stall | input | 1 | |
-| idu_hpcp_fence_sync_vld | input | 1 | |
-| idu_hpcp_ir_inst0_type | input | 7 | |
-| idu_hpcp_ir_inst0_vld | input | 1 | |
-| idu_hpcp_ir_inst1_type | input | 7 | |
-| idu_hpcp_ir_inst1_vld | input | 1 | |
-| idu_hpcp_ir_inst2_type | input | 7 | |
-| idu_hpcp_ir_inst2_vld | input | 1 | |
-| idu_hpcp_ir_inst3_type | input | 7 | |
-| idu_hpcp_ir_inst3_vld | input | 1 | |
-| idu_hpcp_rf_inst_vld | input | 1 | |
-| idu_hpcp_rf_pipe0_inst_vld | input | 1 | |
+| biu_hpcp_cmplt | input | 1 | 程序计数器 |
+| biu_hpcp_l2of_int | input | 4 | 程序计数器 |
+| biu_hpcp_rdata | input | 128 | 数据信号 |
+| biu_hpcp_time | input | 64 | 程序计数器 |
+| cp0_hpcp_icg_en | input | 1 | 使能信号 |
+| cp0_hpcp_index | input | 12 | 索引信号 |
+| cp0_hpcp_int_disable | input | 1 | 程序计数器 |
+| cp0_hpcp_mcntwen | input | 32 | 使能信号 |
+| cp0_hpcp_op | input | 4 | 程序计数器 |
+| cp0_hpcp_pmdm | input | 1 | 程序计数器 |
+| cp0_hpcp_pmds | input | 1 | 程序计数器 |
+| cp0_hpcp_pmdu | input | 1 | 程序计数器 |
+| cp0_hpcp_sel | input | 1 | 选择信号 |
+| cp0_hpcp_src0 | input | 64 | 程序计数器 |
+| cp0_hpcp_wdata | input | 64 | 数据信号 |
+| cp0_yy_priv_mode | input | 2 |  |
+| cpurst_b | input | 1 | 复位信号 |
+| forever_cpuclk | input | 1 | 时钟信号 |
+| idu_hpcp_backend_stall | input | 1 | 应答信号 |
+| idu_hpcp_fence_sync_vld | input | 1 | 有效信号 |
+| idu_hpcp_ir_inst0_type | input | 7 | 程序计数器 |
+| idu_hpcp_ir_inst0_vld | input | 1 | 有效信号 |
+| idu_hpcp_ir_inst1_type | input | 7 | 程序计数器 |
+| idu_hpcp_ir_inst1_vld | input | 1 | 有效信号 |
+| idu_hpcp_ir_inst2_type | input | 7 | 程序计数器 |
+| idu_hpcp_ir_inst2_vld | input | 1 | 有效信号 |
+| idu_hpcp_ir_inst3_type | input | 7 | 程序计数器 |
+| idu_hpcp_ir_inst3_vld | input | 1 | 有效信号 |
+| idu_hpcp_rf_inst_vld | input | 1 | 有效信号 |
+| idu_hpcp_rf_pipe0_inst_vld | input | 1 | 有效信号 |
 | ... | ... | ... | 共108个输入端口 |
 
 ### 2.2 输出端口
 
 | 信号名 | 方向 | 位宽 | 描述 |
 |--------|------|------|------|
-| hpcp_biu_cnt_en | output | 4 | |
-| hpcp_biu_op | output | 16 | |
-| hpcp_biu_sel | output | 1 | |
-| hpcp_biu_wdata | output | 64 | |
-| hpcp_cp0_cmplt | output | 1 | |
-| hpcp_cp0_data | output | 64 | |
-| hpcp_cp0_int_vld | output | 1 | |
-| hpcp_cp0_sce | output | 1 | |
-| hpcp_idu_cnt_en | output | 1 | |
-| hpcp_ifu_cnt_en | output | 1 | |
-| hpcp_lsu_cnt_en | output | 1 | |
-| hpcp_mmu_cnt_en | output | 1 | |
-| hpcp_rtu_cnt_en | output | 1 | |
+| hpcp_biu_cnt_en | output | 4 | 使能信号 |
+| hpcp_biu_op | output | 16 | 程序计数器 |
+| hpcp_biu_sel | output | 1 | 选择信号 |
+| hpcp_biu_wdata | output | 64 | 数据信号 |
+| hpcp_cp0_cmplt | output | 1 | 程序计数器 |
+| hpcp_cp0_data | output | 64 | 数据信号 |
+| hpcp_cp0_int_vld | output | 1 | 有效信号 |
+| hpcp_cp0_sce | output | 1 | 程序计数器 |
+| hpcp_idu_cnt_en | output | 1 | 使能信号 |
+| hpcp_ifu_cnt_en | output | 1 | 使能信号 |
+| hpcp_lsu_cnt_en | output | 1 | 使能信号 |
+| hpcp_mmu_cnt_en | output | 1 | 使能信号 |
+| hpcp_rtu_cnt_en | output | 1 | 使能信号 |
 
 ### 2.4 参数列表
 
@@ -222,6 +222,17 @@ ct_hpcp_top 模块的功能描述。
 | HPMCNT31 | 12'hC1F | 1 | |
 | EX1 | 2'b01 | 1 | |
 | EX2 | 2'b10 | 1 | |
+
+### 2.5 接口时序图
+
+```mermaid
+sequenceDiagram
+    participant M as 主机
+    participant S as 从机
+    M->>S: req
+    S->>M: ack
+    M->>S: data
+```
 
 ## 3. 模块框图
 
@@ -490,26 +501,26 @@ graph TD
 
 | 层级 | 模块名 | 实例名 | 功能描述 |
 |------|--------|--------|----------|
-| 1 | gated_clk_cell | x_hpcp_gated_clk | |
-| 1 | ct_hpcp_adder_sel | x_ct_hpcp_adder_sel_3 | |
-| 1 | ct_hpcp_adder_sel | x_ct_hpcp_adder_sel_4 | |
-| 1 | ct_hpcp_adder_sel | x_ct_hpcp_adder_sel_5 | |
-| 1 | ct_hpcp_adder_sel | x_ct_hpcp_adder_sel_6 | |
-| 1 | ct_hpcp_adder_sel | x_ct_hpcp_adder_sel_7 | |
-| 1 | ct_hpcp_adder_sel | x_ct_hpcp_adder_sel_8 | |
-| 1 | ct_hpcp_adder_sel | x_ct_hpcp_adder_sel_9 | |
-| 1 | ct_hpcp_adder_sel | x_ct_hpcp_adder_sel_10 | |
-| 1 | ct_hpcp_adder_sel | x_ct_hpcp_adder_sel_11 | |
-| 1 | ct_hpcp_adder_sel | x_ct_hpcp_adder_sel_12 | |
-| 1 | ct_hpcp_adder_sel | x_ct_hpcp_adder_sel_13 | |
-| 1 | ct_hpcp_adder_sel | x_ct_hpcp_adder_sel_14 | |
-| 1 | ct_hpcp_adder_sel | x_ct_hpcp_adder_sel_15 | |
-| 1 | ct_hpcp_adder_sel | x_ct_hpcp_adder_sel_16 | |
-| 1 | ct_hpcp_adder_sel | x_ct_hpcp_adder_sel_17 | |
-| 1 | ct_hpcp_adder_sel | x_ct_hpcp_adder_sel_18 | |
-| 1 | ct_hpcp_cntinten_reg | x_ct_hpcp_cntinten_0 | |
-| 1 | ct_hpcp_cntinten_reg | x_ct_hpcp_cntinten_2 | |
-| 1 | ct_hpcp_cntinten_reg | x_ct_hpcp_cntinten_3 | |
+| 1 | gated_clk_cell | x_hpcp_gated_clk |  |
+| 1 | ct_hpcp_adder_sel | x_ct_hpcp_adder_sel_3 | 硬件性能计数器 |
+| 1 | ct_hpcp_adder_sel | x_ct_hpcp_adder_sel_4 | 硬件性能计数器 |
+| 1 | ct_hpcp_adder_sel | x_ct_hpcp_adder_sel_5 | 硬件性能计数器 |
+| 1 | ct_hpcp_adder_sel | x_ct_hpcp_adder_sel_6 | 硬件性能计数器 |
+| 1 | ct_hpcp_adder_sel | x_ct_hpcp_adder_sel_7 | 硬件性能计数器 |
+| 1 | ct_hpcp_adder_sel | x_ct_hpcp_adder_sel_8 | 硬件性能计数器 |
+| 1 | ct_hpcp_adder_sel | x_ct_hpcp_adder_sel_9 | 硬件性能计数器 |
+| 1 | ct_hpcp_adder_sel | x_ct_hpcp_adder_sel_10 | 硬件性能计数器 |
+| 1 | ct_hpcp_adder_sel | x_ct_hpcp_adder_sel_11 | 硬件性能计数器 |
+| 1 | ct_hpcp_adder_sel | x_ct_hpcp_adder_sel_12 | 硬件性能计数器 |
+| 1 | ct_hpcp_adder_sel | x_ct_hpcp_adder_sel_13 | 硬件性能计数器 |
+| 1 | ct_hpcp_adder_sel | x_ct_hpcp_adder_sel_14 | 硬件性能计数器 |
+| 1 | ct_hpcp_adder_sel | x_ct_hpcp_adder_sel_15 | 硬件性能计数器 |
+| 1 | ct_hpcp_adder_sel | x_ct_hpcp_adder_sel_16 | 硬件性能计数器 |
+| 1 | ct_hpcp_adder_sel | x_ct_hpcp_adder_sel_17 | 硬件性能计数器 |
+| 1 | ct_hpcp_adder_sel | x_ct_hpcp_adder_sel_18 | 硬件性能计数器 |
+| 1 | ct_hpcp_cntinten_reg | x_ct_hpcp_cntinten_0 | 硬件性能计数器 |
+| 1 | ct_hpcp_cntinten_reg | x_ct_hpcp_cntinten_2 | 硬件性能计数器 |
+| 1 | ct_hpcp_cntinten_reg | x_ct_hpcp_cntinten_3 | 硬件性能计数器 |
 | ... | ... | ... | 共113个实例 |
 
 ## 7. 修订历史

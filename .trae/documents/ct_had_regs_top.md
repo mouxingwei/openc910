@@ -13,7 +13,7 @@
 
 ### 1.2 功能描述
 
-ct_had_regs 模块的功能描述。
+硬件调试 (Hardware Debug)，(寄存器)，主要信号: 控制信号、地址信号、读使能、时钟信号、数据信号
 
 ### 1.3 设计特点
 
@@ -27,72 +27,72 @@ ct_had_regs 模块的功能描述。
 
 | 信号名 | 方向 | 位宽 | 描述 |
 |--------|------|------|------|
-| bkpt_regs_mbca | input | 8 | |
-| bkpt_regs_mbcb | input | 8 | |
-| cp0_had_cpuid_0 | input | 32 | |
-| cp0_had_lpmd_b | input | 2 | |
-| cpuclk | input | 1 | |
-| cpurst_b | input | 1 | |
-| ctrl_regs_bkpta_vld | input | 1 | |
-| ctrl_regs_bkptb_vld | input | 1 | |
-| ctrl_regs_exit_dbg | input | 1 | |
-| ctrl_regs_freeze_pcfifo | input | 1 | |
-| ctrl_regs_set_sqa | input | 1 | |
-| ctrl_regs_set_sqb | input | 1 | |
-| ctrl_regs_update_adro | input | 1 | |
-| ctrl_regs_update_dro | input | 1 | |
-| ctrl_regs_update_mbo | input | 1 | |
-| ctrl_regs_update_pro | input | 1 | |
-| ctrl_regs_update_swo | input | 1 | |
-| ctrl_regs_update_to | input | 1 | |
-| dbgfifo_regs_data | input | 64 | |
-| ddc_regs_daddr | input | 64 | |
-| ddc_regs_ddata | input | 64 | |
-| ddc_regs_ffy | input | 1 | |
-| ddc_regs_ir | input | 32 | |
-| ddc_regs_update_csr | input | 1 | |
-| ddc_regs_update_wbbr | input | 1 | |
-| ddc_regs_wbbr | input | 64 | |
-| ddc_xx_update_ir | input | 1 | |
-| idu_had_iq_empty | input | 1 | |
-| idu_had_pipe_stall | input | 1 | |
-| idu_had_pipeline_empty | input | 1 | |
+| bkpt_regs_mbca | input | 8 | 读使能 |
+| bkpt_regs_mbcb | input | 8 | 读使能 |
+| cp0_had_cpuid_0 | input | 32 |  |
+| cp0_had_lpmd_b | input | 2 |  |
+| cpuclk | input | 1 | 时钟信号 |
+| cpurst_b | input | 1 | 复位信号 |
+| ctrl_regs_bkpta_vld | input | 1 | 有效信号 |
+| ctrl_regs_bkptb_vld | input | 1 | 有效信号 |
+| ctrl_regs_exit_dbg | input | 1 | 控制信号 |
+| ctrl_regs_freeze_pcfifo | input | 1 | 控制信号 |
+| ctrl_regs_set_sqa | input | 1 | 控制信号 |
+| ctrl_regs_set_sqb | input | 1 | 控制信号 |
+| ctrl_regs_update_adro | input | 1 | 数据信号 |
+| ctrl_regs_update_dro | input | 1 | 数据信号 |
+| ctrl_regs_update_mbo | input | 1 | 数据信号 |
+| ctrl_regs_update_pro | input | 1 | 数据信号 |
+| ctrl_regs_update_swo | input | 1 | 数据信号 |
+| ctrl_regs_update_to | input | 1 | 数据信号 |
+| dbgfifo_regs_data | input | 64 | 数据信号 |
+| ddc_regs_daddr | input | 64 | 地址信号 |
+| ddc_regs_ddata | input | 64 | 数据信号 |
+| ddc_regs_ffy | input | 1 | 读使能 |
+| ddc_regs_ir | input | 32 | 读使能 |
+| ddc_regs_update_csr | input | 1 | 数据信号 |
+| ddc_regs_update_wbbr | input | 1 | 数据信号 |
+| ddc_regs_wbbr | input | 64 | 读使能 |
+| ddc_xx_update_ir | input | 1 | 数据信号 |
+| idu_had_iq_empty | input | 1 | 空标志 |
+| idu_had_pipe_stall | input | 1 | 暂停信号 |
+| idu_had_pipeline_empty | input | 1 | 输入信号 |
 | ... | ... | ... | 共72个输入端口 |
 
 ### 2.2 输出端口
 
 | 信号名 | 方向 | 位宽 | 描述 |
 |--------|------|------|------|
-| had_biu_jdb_pm | output | 2 | |
-| had_idu_wbbr_data | output | 64 | |
-| had_idu_wbbr_vld | output | 1 | |
-| had_ifu_ir | output | 32 | |
-| had_ifu_pc | output | 39 | |
-| had_yy_xx_bkpta_base | output | 40 | |
-| had_yy_xx_bkpta_mask | output | 8 | |
-| had_yy_xx_bkpta_rc | output | 1 | |
-| had_yy_xx_bkptb_base | output | 40 | |
-| had_yy_xx_bkptb_mask | output | 8 | |
-| had_yy_xx_bkptb_rc | output | 1 | |
-| regs_ctrl_adr | output | 1 | |
-| regs_ctrl_dr | output | 1 | |
-| regs_ctrl_fdb | output | 1 | |
-| regs_ctrl_frzc | output | 1 | |
-| regs_ctrl_pcfifo_frozen | output | 1 | |
-| regs_ctrl_pm | output | 2 | |
-| regs_ctrl_sqa | output | 1 | |
-| regs_ctrl_sqb | output | 1 | |
-| regs_ctrl_sqc | output | 2 | |
-| regs_ctrl_tme | output | 1 | |
-| regs_event_enter_ie | output | 1 | |
-| regs_event_enter_oe | output | 1 | |
-| regs_event_exit_ie | output | 1 | |
-| regs_event_exit_oe | output | 1 | |
-| regs_xx_bca | output | 5 | |
-| regs_xx_bcb | output | 5 | |
-| regs_xx_ddc_en | output | 1 | |
-| regs_xx_nirven | output | 1 | |
-| x_regs_serial_data | output | 64 | |
+| had_biu_jdb_pm | output | 2 |  |
+| had_idu_wbbr_data | output | 64 | 数据信号 |
+| had_idu_wbbr_vld | output | 1 | 有效信号 |
+| had_ifu_ir | output | 32 |  |
+| had_ifu_pc | output | 39 | 程序计数器 |
+| had_yy_xx_bkpta_base | output | 40 |  |
+| had_yy_xx_bkpta_mask | output | 8 | 掩码信号 |
+| had_yy_xx_bkpta_rc | output | 1 |  |
+| had_yy_xx_bkptb_base | output | 40 |  |
+| had_yy_xx_bkptb_mask | output | 8 | 掩码信号 |
+| had_yy_xx_bkptb_rc | output | 1 |  |
+| regs_ctrl_adr | output | 1 | 控制信号 |
+| regs_ctrl_dr | output | 1 | 控制信号 |
+| regs_ctrl_fdb | output | 1 | 控制信号 |
+| regs_ctrl_frzc | output | 1 | 控制信号 |
+| regs_ctrl_pcfifo_frozen | output | 1 | 使能信号 |
+| regs_ctrl_pm | output | 2 | 控制信号 |
+| regs_ctrl_sqa | output | 1 | 控制信号 |
+| regs_ctrl_sqb | output | 1 | 控制信号 |
+| regs_ctrl_sqc | output | 2 | 控制信号 |
+| regs_ctrl_tme | output | 1 | 控制信号 |
+| regs_event_enter_ie | output | 1 | 使能信号 |
+| regs_event_enter_oe | output | 1 | 使能信号 |
+| regs_event_exit_ie | output | 1 | 使能信号 |
+| regs_event_exit_oe | output | 1 | 使能信号 |
+| regs_xx_bca | output | 5 | 读使能 |
+| regs_xx_bcb | output | 5 | 读使能 |
+| regs_xx_ddc_en | output | 1 | 使能信号 |
+| regs_xx_nirven | output | 1 | 使能信号 |
+| x_regs_serial_data | output | 64 | 数据信号 |
 
 ### 2.4 参数列表
 
@@ -100,6 +100,17 @@ ct_had_regs 模块的功能描述。
 |--------|--------|------|------|
 | ADDRW | `PA_WIDTH | 1 | |
 | DATAW | 64 | 1 | |
+
+### 2.5 接口时序图
+
+```mermaid
+sequenceDiagram
+    participant M as 主机
+    participant S as 从机
+    M->>S: req
+    S->>M: ack
+    M->>S: data
+```
 
 ## 3. 模块框图
 

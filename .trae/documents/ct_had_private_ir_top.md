@@ -13,7 +13,7 @@
 
 ### 1.2 功能描述
 
-ct_had_private_ir 模块的功能描述。
+硬件调试 (Hardware Debug)，(寄存器重命名)，主要信号: 控制信号、使能信号、地址信号、读使能、时钟信号
 
 ### 1.3 设计特点
 
@@ -28,49 +28,49 @@ ct_had_private_ir 模块的功能描述。
 
 | 信号名 | 方向 | 位宽 | 描述 |
 |--------|------|------|------|
-| biu_had_coreid | input | 2 | |
-| cpuclk | input | 1 | |
-| cpurst_b | input | 1 | |
-| ctrl_xx_dbg_disable | input | 1 | |
-| forever_coreclk | input | 1 | |
-| ir_corex_wdata | input | 64 | |
-| sm_update_dr | input | 1 | |
-| sm_update_ir | input | 1 | |
+| biu_had_coreid | input | 2 | 读使能 |
+| cpuclk | input | 1 | 时钟信号 |
+| cpurst_b | input | 1 | 复位信号 |
+| ctrl_xx_dbg_disable | input | 1 | 控制信号 |
+| forever_coreclk | input | 1 | 时钟信号 |
+| ir_corex_wdata | input | 64 | 数据信号 |
+| sm_update_dr | input | 1 | 数据信号 |
+| sm_update_ir | input | 1 | 数据信号 |
 
 ### 2.2 输出端口
 
 | 信号名 | 方向 | 位宽 | 描述 |
 |--------|------|------|------|
-| ir_ctrl_exit_dbg_reg | output | 1 | |
-| ir_ctrl_had_clk_en | output | 1 | |
-| ir_xx_baba_reg_sel | output | 1 | |
-| ir_xx_babb_reg_sel | output | 1 | |
-| ir_xx_bama_reg_sel | output | 1 | |
-| ir_xx_bamb_reg_sel | output | 1 | |
-| ir_xx_csr_reg_sel | output | 1 | |
-| ir_xx_daddr_reg_sel | output | 1 | |
-| ir_xx_dbgfifo_reg_sel | output | 1 | |
-| ir_xx_ddata_reg_sel | output | 1 | |
-| ir_xx_eventie_reg_sel | output | 1 | |
-| ir_xx_eventoe_reg_sel | output | 1 | |
-| ir_xx_hcr_reg_sel | output | 1 | |
-| ir_xx_hsr_reg_sel | output | 1 | |
-| ir_xx_id_reg_sel | output | 1 | |
-| ir_xx_ir_reg_sel | output | 1 | |
-| ir_xx_mbca_reg_sel | output | 1 | |
-| ir_xx_mbcb_reg_sel | output | 1 | |
-| ir_xx_mbir_reg_sel | output | 1 | |
-| ir_xx_otc_reg_sel | output | 1 | |
-| ir_xx_pc_reg_sel | output | 1 | |
-| ir_xx_pcfifo_reg_sel | output | 1 | |
-| ir_xx_pipefifo_reg_sel | output | 1 | |
-| ir_xx_pipesel_reg_sel | output | 1 | |
-| ir_xx_wbbr_reg_sel | output | 1 | |
-| ir_xx_wdata | output | 64 | |
-| x_ir_ctrl_dbgfifo_read_pulse | output | 1 | |
-| x_ir_ctrl_pcfifo_read_pulse | output | 1 | |
-| x_ir_ctrl_pipefifo_read_pulse | output | 1 | |
-| x_ir_xx_ex | output | 1 | |
+| ir_ctrl_exit_dbg_reg | output | 1 | 控制信号 |
+| ir_ctrl_had_clk_en | output | 1 | 时钟信号 |
+| ir_xx_baba_reg_sel | output | 1 | 读使能 |
+| ir_xx_babb_reg_sel | output | 1 | 读使能 |
+| ir_xx_bama_reg_sel | output | 1 | 读使能 |
+| ir_xx_bamb_reg_sel | output | 1 | 读使能 |
+| ir_xx_csr_reg_sel | output | 1 | 读使能 |
+| ir_xx_daddr_reg_sel | output | 1 | 地址信号 |
+| ir_xx_dbgfifo_reg_sel | output | 1 | 读使能 |
+| ir_xx_ddata_reg_sel | output | 1 | 数据信号 |
+| ir_xx_eventie_reg_sel | output | 1 | 使能信号 |
+| ir_xx_eventoe_reg_sel | output | 1 | 使能信号 |
+| ir_xx_hcr_reg_sel | output | 1 | 读使能 |
+| ir_xx_hsr_reg_sel | output | 1 | 读使能 |
+| ir_xx_id_reg_sel | output | 1 | 读使能 |
+| ir_xx_ir_reg_sel | output | 1 | 读使能 |
+| ir_xx_mbca_reg_sel | output | 1 | 读使能 |
+| ir_xx_mbcb_reg_sel | output | 1 | 读使能 |
+| ir_xx_mbir_reg_sel | output | 1 | 读使能 |
+| ir_xx_otc_reg_sel | output | 1 | 读使能 |
+| ir_xx_pc_reg_sel | output | 1 | 读使能 |
+| ir_xx_pcfifo_reg_sel | output | 1 | 读使能 |
+| ir_xx_pipefifo_reg_sel | output | 1 | 读使能 |
+| ir_xx_pipesel_reg_sel | output | 1 | 读使能 |
+| ir_xx_wbbr_reg_sel | output | 1 | 读使能 |
+| ir_xx_wdata | output | 64 | 数据信号 |
+| x_ir_ctrl_dbgfifo_read_pulse | output | 1 | 控制信号 |
+| x_ir_ctrl_pcfifo_read_pulse | output | 1 | 控制信号 |
+| x_ir_ctrl_pipefifo_read_pulse | output | 1 | 控制信号 |
+| x_ir_xx_ex | output | 1 |  |
 | ... | ... | ... | 共32个输出端口 |
 
 ### 2.4 参数列表
@@ -102,6 +102,17 @@ ct_had_private_ir 模块的功能描述。
 | DBGFIFO_NUM | 5'd4 | 1 | |
 | PIPEFIFO_NUM | 5'd5 | 1 | |
 | PIPESEL_NUM | 5'd6 | 1 | |
+
+### 2.5 接口时序图
+
+```mermaid
+sequenceDiagram
+    participant M as 主机
+    participant S as 从机
+    M->>S: req
+    S->>M: ack
+    M->>S: data
+```
 
 ## 3. 模块框图
 
@@ -253,8 +264,8 @@ graph TD
 
 | 层级 | 模块名 | 实例名 | 功能描述 |
 |------|--------|--------|----------|
-| 1 | sync_level2pulse | x_ct_had_private_sync_ir | |
-| 1 | sync_level2pulse | x_ct_had_private_sync_dr | |
+| 1 | sync_level2pulse | x_ct_had_private_sync_ir |  |
+| 1 | sync_level2pulse | x_ct_had_private_sync_dr |  |
 
 ## 7. 修订历史
 

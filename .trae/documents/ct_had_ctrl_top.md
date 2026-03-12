@@ -12,7 +12,7 @@
 
 ### 1.2 功能描述
 
-ct_had_ctrl 模块的功能描述。
+硬件调试 (Hardware Debug)，(控制逻辑)，主要信号: 应答信号、使能信号、时钟信号、请求信号、复位信号
 
 ### 1.3 设计特点
 
@@ -25,73 +25,84 @@ ct_had_ctrl 模块的功能描述。
 
 | 信号名 | 方向 | 位宽 | 描述 |
 |--------|------|------|------|
-| biu_had_sdb_req_b | input | 1 | |
-| bkpta_ctrl_data_req | input | 1 | |
-| bkpta_ctrl_data_req_raw | input | 1 | |
-| bkpta_ctrl_inst_req | input | 1 | |
-| bkpta_ctrl_inst_req_raw | input | 1 | |
-| bkpta_ctrl_xx_ack | input | 1 | |
-| bkptb_ctrl_data_req | input | 1 | |
-| bkptb_ctrl_data_req_raw | input | 1 | |
-| bkptb_ctrl_inst_req | input | 1 | |
-| bkptb_ctrl_inst_req_raw | input | 1 | |
-| bkptb_ctrl_xx_ack | input | 1 | |
-| cpuclk | input | 1 | |
-| cpurst_b | input | 1 | |
-| ddc_xx_update_ir | input | 1 | |
-| event_ctrl_enter_dbg | input | 1 | |
-| event_ctrl_exit_dbg | input | 1 | |
-| event_ctrl_had_clk_en | input | 1 | |
-| forever_coreclk | input | 1 | |
-| ir_ctrl_exit_dbg_reg | input | 1 | |
-| ir_ctrl_had_clk_en | input | 1 | |
-| ir_xx_ir_reg_sel | input | 1 | |
-| nirv_bkpta | input | 1 | |
-| non_irv_bkpt_vld | input | 1 | |
-| regs_ctrl_adr | input | 1 | |
-| regs_ctrl_dr | input | 1 | |
-| regs_ctrl_fdb | input | 1 | |
-| regs_ctrl_frzc | input | 1 | |
-| regs_ctrl_pcfifo_frozen | input | 1 | |
-| regs_ctrl_pm | input | 2 | |
-| regs_ctrl_sqa | input | 1 | |
+| biu_had_sdb_req_b | input | 1 | 请求信号 |
+| bkpta_ctrl_data_req | input | 1 | 请求信号 |
+| bkpta_ctrl_data_req_raw | input | 1 | 请求信号 |
+| bkpta_ctrl_inst_req | input | 1 | 请求信号 |
+| bkpta_ctrl_inst_req_raw | input | 1 | 请求信号 |
+| bkpta_ctrl_xx_ack | input | 1 | 应答信号 |
+| bkptb_ctrl_data_req | input | 1 | 请求信号 |
+| bkptb_ctrl_data_req_raw | input | 1 | 请求信号 |
+| bkptb_ctrl_inst_req | input | 1 | 请求信号 |
+| bkptb_ctrl_inst_req_raw | input | 1 | 请求信号 |
+| bkptb_ctrl_xx_ack | input | 1 | 应答信号 |
+| cpuclk | input | 1 | 时钟信号 |
+| cpurst_b | input | 1 | 复位信号 |
+| ddc_xx_update_ir | input | 1 | 数据信号 |
+| event_ctrl_enter_dbg | input | 1 | 使能信号 |
+| event_ctrl_exit_dbg | input | 1 | 使能信号 |
+| event_ctrl_had_clk_en | input | 1 | 时钟信号 |
+| forever_coreclk | input | 1 | 时钟信号 |
+| ir_ctrl_exit_dbg_reg | input | 1 | 控制信号 |
+| ir_ctrl_had_clk_en | input | 1 | 时钟信号 |
+| ir_xx_ir_reg_sel | input | 1 | 读使能 |
+| nirv_bkpta | input | 1 |  |
+| non_irv_bkpt_vld | input | 1 | 有效信号 |
+| regs_ctrl_adr | input | 1 | 控制信号 |
+| regs_ctrl_dr | input | 1 | 控制信号 |
+| regs_ctrl_fdb | input | 1 | 控制信号 |
+| regs_ctrl_frzc | input | 1 | 控制信号 |
+| regs_ctrl_pcfifo_frozen | input | 1 | 使能信号 |
+| regs_ctrl_pm | input | 2 | 控制信号 |
+| regs_ctrl_sqa | input | 1 | 控制信号 |
 | ... | ... | ... | 共50个输入端口 |
 
 ### 2.2 输出端口
 
 | 信号名 | 方向 | 位宽 | 描述 |
 |--------|------|------|------|
-| ctrl_bkpta_en | output | 1 | |
-| ctrl_bkpta_en_raw | output | 1 | |
-| ctrl_bkptb_en | output | 1 | |
-| ctrl_bkptb_en_raw | output | 1 | |
-| ctrl_dbgfifo_ren | output | 1 | |
-| ctrl_event_dbgenter | output | 1 | |
-| ctrl_event_dbgexit | output | 1 | |
-| ctrl_pcfifo_ren | output | 1 | |
-| ctrl_pcfifo_wen | output | 1 | |
-| ctrl_pipefifo_ren | output | 1 | |
-| ctrl_pipefifo_wen | output | 1 | |
-| ctrl_regs_bkpta_vld | output | 1 | |
-| ctrl_regs_bkptb_vld | output | 1 | |
-| ctrl_regs_exit_dbg | output | 1 | |
-| ctrl_regs_freeze_pcfifo | output | 1 | |
-| ctrl_regs_set_sqa | output | 1 | |
-| ctrl_regs_set_sqb | output | 1 | |
-| ctrl_regs_update_adro | output | 1 | |
-| ctrl_regs_update_dro | output | 1 | |
-| ctrl_regs_update_mbo | output | 1 | |
-| ctrl_regs_update_pro | output | 1 | |
-| ctrl_regs_update_swo | output | 1 | |
-| ctrl_regs_update_to | output | 1 | |
-| ctrl_trace_en | output | 1 | |
-| ctrl_xx_dbg_disable | output | 1 | |
-| had_cp0_xx_dbg | output | 1 | |
-| had_ifu_ir_vld | output | 1 | |
-| had_ifu_pcload | output | 1 | |
-| had_rtu_data_bkpt_dbgreq | output | 1 | |
-| had_rtu_dbg_disable | output | 1 | |
+| ctrl_bkpta_en | output | 1 | 使能信号 |
+| ctrl_bkpta_en_raw | output | 1 | 使能信号 |
+| ctrl_bkptb_en | output | 1 | 使能信号 |
+| ctrl_bkptb_en_raw | output | 1 | 使能信号 |
+| ctrl_dbgfifo_ren | output | 1 | 使能信号 |
+| ctrl_event_dbgenter | output | 1 | 使能信号 |
+| ctrl_event_dbgexit | output | 1 | 使能信号 |
+| ctrl_pcfifo_ren | output | 1 | 使能信号 |
+| ctrl_pcfifo_wen | output | 1 | 使能信号 |
+| ctrl_pipefifo_ren | output | 1 | 使能信号 |
+| ctrl_pipefifo_wen | output | 1 | 使能信号 |
+| ctrl_regs_bkpta_vld | output | 1 | 有效信号 |
+| ctrl_regs_bkptb_vld | output | 1 | 有效信号 |
+| ctrl_regs_exit_dbg | output | 1 | 控制信号 |
+| ctrl_regs_freeze_pcfifo | output | 1 | 控制信号 |
+| ctrl_regs_set_sqa | output | 1 | 控制信号 |
+| ctrl_regs_set_sqb | output | 1 | 控制信号 |
+| ctrl_regs_update_adro | output | 1 | 数据信号 |
+| ctrl_regs_update_dro | output | 1 | 数据信号 |
+| ctrl_regs_update_mbo | output | 1 | 数据信号 |
+| ctrl_regs_update_pro | output | 1 | 数据信号 |
+| ctrl_regs_update_swo | output | 1 | 数据信号 |
+| ctrl_regs_update_to | output | 1 | 数据信号 |
+| ctrl_trace_en | output | 1 | 使能信号 |
+| ctrl_xx_dbg_disable | output | 1 | 控制信号 |
+| had_cp0_xx_dbg | output | 1 |  |
+| had_ifu_ir_vld | output | 1 | 有效信号 |
+| had_ifu_pcload | output | 1 | 程序计数器 |
+| had_rtu_data_bkpt_dbgreq | output | 1 | 请求信号 |
+| had_rtu_dbg_disable | output | 1 |  |
 | ... | ... | ... | 共45个输出端口 |
+
+### 2.5 接口时序图
+
+```mermaid
+sequenceDiagram
+    participant M as 主机
+    participant S as 从机
+    M->>S: req
+    S->>M: ack
+    M->>S: data
+```
 
 ## 3. 模块框图
 

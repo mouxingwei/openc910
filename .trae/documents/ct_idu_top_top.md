@@ -12,7 +12,7 @@
 
 ### 1.2 功能描述
 
-ct_idu_top 模块的功能描述。
+译码单元 (Instruction Decode Unit)，主要信号: 源信号、使能信号、旁路信号、时钟信号、开始信号
 
 ### 1.3 设计特点
 
@@ -24,73 +24,84 @@ ct_idu_top 模块的功能描述。
 
 | 信号名 | 方向 | 位宽 | 描述 |
 |--------|------|------|------|
-| cp0_idu_cskyee | input | 1 | |
-| cp0_idu_dlb_disable | input | 1 | |
-| cp0_idu_frm | input | 3 | |
-| cp0_idu_fs | input | 2 | |
-| cp0_idu_icg_en | input | 1 | |
-| cp0_idu_iq_bypass_disable | input | 1 | |
-| cp0_idu_rob_fold_disable | input | 1 | |
-| cp0_idu_src2_fwd_disable | input | 1 | |
-| cp0_idu_srcv2_fwd_disable | input | 1 | |
-| cp0_idu_vill | input | 1 | |
-| cp0_idu_vs | input | 2 | |
-| cp0_idu_vstart | input | 7 | |
-| cp0_idu_zero_delay_move_disable | input | 1 | |
-| cp0_lsu_fencei_broad_dis | input | 1 | |
-| cp0_lsu_fencerw_broad_dis | input | 1 | |
-| cp0_lsu_tlb_broad_dis | input | 1 | |
-| cp0_yy_clk_en | input | 1 | |
-| cp0_yy_hyper | input | 1 | |
-| cpurst_b | input | 1 | |
-| forever_cpuclk | input | 1 | |
-| had_idu_debug_id_inst_en | input | 1 | |
-| had_idu_wbbr_data | input | 64 | |
-| had_idu_wbbr_vld | input | 1 | |
-| hpcp_idu_cnt_en | input | 1 | |
-| ifu_idu_ib_inst0_data | input | 73 | |
-| ifu_idu_ib_inst0_vld | input | 1 | |
-| ifu_idu_ib_inst1_data | input | 73 | |
-| ifu_idu_ib_inst1_vld | input | 1 | |
-| ifu_idu_ib_inst2_data | input | 73 | |
-| ifu_idu_ib_inst2_vld | input | 1 | |
+| cp0_idu_cskyee | input | 1 |  |
+| cp0_idu_dlb_disable | input | 1 |  |
+| cp0_idu_frm | input | 3 |  |
+| cp0_idu_fs | input | 2 |  |
+| cp0_idu_icg_en | input | 1 | 使能信号 |
+| cp0_idu_iq_bypass_disable | input | 1 | 旁路信号 |
+| cp0_idu_rob_fold_disable | input | 1 |  |
+| cp0_idu_src2_fwd_disable | input | 1 | 源信号 |
+| cp0_idu_srcv2_fwd_disable | input | 1 | 源信号 |
+| cp0_idu_vill | input | 1 |  |
+| cp0_idu_vs | input | 2 |  |
+| cp0_idu_vstart | input | 7 | 开始信号 |
+| cp0_idu_zero_delay_move_disable | input | 1 |  |
+| cp0_lsu_fencei_broad_dis | input | 1 | 使能信号 |
+| cp0_lsu_fencerw_broad_dis | input | 1 | 使能信号 |
+| cp0_lsu_tlb_broad_dis | input | 1 |  |
+| cp0_yy_clk_en | input | 1 | 时钟信号 |
+| cp0_yy_hyper | input | 1 |  |
+| cpurst_b | input | 1 | 复位信号 |
+| forever_cpuclk | input | 1 | 时钟信号 |
+| had_idu_debug_id_inst_en | input | 1 | 使能信号 |
+| had_idu_wbbr_data | input | 64 | 数据信号 |
+| had_idu_wbbr_vld | input | 1 | 有效信号 |
+| hpcp_idu_cnt_en | input | 1 | 使能信号 |
+| ifu_idu_ib_inst0_data | input | 73 | 数据信号 |
+| ifu_idu_ib_inst0_vld | input | 1 | 有效信号 |
+| ifu_idu_ib_inst1_data | input | 73 | 数据信号 |
+| ifu_idu_ib_inst1_vld | input | 1 | 有效信号 |
+| ifu_idu_ib_inst2_data | input | 73 | 数据信号 |
+| ifu_idu_ib_inst2_vld | input | 1 | 有效信号 |
 | ... | ... | ... | 共414个输入端口 |
 
 ### 2.2 输出端口
 
 | 信号名 | 方向 | 位宽 | 描述 |
 |--------|------|------|------|
-| idu_cp0_fesr_acc_updt_val | output | 7 | |
-| idu_cp0_fesr_acc_updt_vld | output | 1 | |
-| idu_cp0_rf_func | output | 5 | |
-| idu_cp0_rf_gateclk_sel | output | 1 | |
-| idu_cp0_rf_iid | output | 7 | |
-| idu_cp0_rf_opcode | output | 32 | |
-| idu_cp0_rf_preg | output | 7 | |
-| idu_cp0_rf_sel | output | 1 | |
-| idu_cp0_rf_src0 | output | 64 | |
-| idu_had_debug_info | output | 50 | |
-| idu_had_id_inst0_info | output | 40 | |
-| idu_had_id_inst0_vld | output | 1 | |
-| idu_had_id_inst1_info | output | 40 | |
-| idu_had_id_inst1_vld | output | 1 | |
-| idu_had_id_inst2_info | output | 40 | |
-| idu_had_id_inst2_vld | output | 1 | |
-| idu_had_iq_empty | output | 1 | |
-| idu_had_pipe_stall | output | 1 | |
-| idu_had_pipeline_empty | output | 1 | |
-| idu_had_wb_data | output | 64 | |
-| idu_had_wb_vld | output | 1 | |
-| idu_hpcp_backend_stall | output | 1 | |
-| idu_hpcp_fence_sync_vld | output | 1 | |
-| idu_hpcp_ir_inst0_type | output | 7 | |
-| idu_hpcp_ir_inst0_vld | output | 1 | |
-| idu_hpcp_ir_inst1_type | output | 7 | |
-| idu_hpcp_ir_inst1_vld | output | 1 | |
-| idu_hpcp_ir_inst2_type | output | 7 | |
-| idu_hpcp_ir_inst2_vld | output | 1 | |
-| idu_hpcp_ir_inst3_type | output | 7 | |
+| idu_cp0_fesr_acc_updt_val | output | 7 |  |
+| idu_cp0_fesr_acc_updt_vld | output | 1 | 有效信号 |
+| idu_cp0_rf_func | output | 5 | 功能码 |
+| idu_cp0_rf_gateclk_sel | output | 1 | 时钟信号 |
+| idu_cp0_rf_iid | output | 7 |  |
+| idu_cp0_rf_opcode | output | 32 | 程序计数器 |
+| idu_cp0_rf_preg | output | 7 | 读使能 |
+| idu_cp0_rf_sel | output | 1 | 选择信号 |
+| idu_cp0_rf_src0 | output | 64 | 源信号 |
+| idu_had_debug_info | output | 50 | 输入信号 |
+| idu_had_id_inst0_info | output | 40 | 指令信号 |
+| idu_had_id_inst0_vld | output | 1 | 有效信号 |
+| idu_had_id_inst1_info | output | 40 | 指令信号 |
+| idu_had_id_inst1_vld | output | 1 | 有效信号 |
+| idu_had_id_inst2_info | output | 40 | 指令信号 |
+| idu_had_id_inst2_vld | output | 1 | 有效信号 |
+| idu_had_iq_empty | output | 1 | 空标志 |
+| idu_had_pipe_stall | output | 1 | 暂停信号 |
+| idu_had_pipeline_empty | output | 1 | 输入信号 |
+| idu_had_wb_data | output | 64 | 数据信号 |
+| idu_had_wb_vld | output | 1 | 有效信号 |
+| idu_hpcp_backend_stall | output | 1 | 应答信号 |
+| idu_hpcp_fence_sync_vld | output | 1 | 有效信号 |
+| idu_hpcp_ir_inst0_type | output | 7 | 程序计数器 |
+| idu_hpcp_ir_inst0_vld | output | 1 | 有效信号 |
+| idu_hpcp_ir_inst1_type | output | 7 | 程序计数器 |
+| idu_hpcp_ir_inst1_vld | output | 1 | 有效信号 |
+| idu_hpcp_ir_inst2_type | output | 7 | 程序计数器 |
+| idu_hpcp_ir_inst2_vld | output | 1 | 有效信号 |
+| idu_hpcp_ir_inst3_type | output | 7 | 程序计数器 |
 | ... | ... | ... | 共364个输出端口 |
+
+### 2.5 接口时序图
+
+```mermaid
+sequenceDiagram
+    participant M as 主机
+    participant S as 从机
+    M->>S: req
+    S->>M: ack
+    M->>S: data
+```
 
 ## 3. 模块框图
 
@@ -264,26 +275,26 @@ graph TD
 
 | 层级 | 模块名 | 实例名 | 功能描述 |
 |------|--------|--------|----------|
-| 1 | ct_idu_id_ctrl | x_ct_idu_id_ctrl | |
-| 1 | ct_idu_id_dp | x_ct_idu_id_dp | |
-| 1 | ct_idu_id_fence | x_ct_idu_id_fence | |
-| 1 | ct_idu_ir_ctrl | x_ct_idu_ir_ctrl | |
-| 1 | ct_idu_ir_dp | x_ct_idu_ir_dp | |
-| 1 | ct_idu_ir_rt | x_ct_idu_ir_rt | |
-| 1 | ct_idu_ir_frt | x_ct_idu_ir_frt | |
-| 1 | ct_idu_ir_vrt | x_ct_idu_ir_vrt | |
-| 1 | ct_idu_is_ctrl | x_ct_idu_is_ctrl | |
-| 1 | ct_idu_is_dp | x_ct_idu_is_dp | |
-| 1 | ct_idu_is_aiq0 | x_ct_idu_is_aiq0 | |
-| 1 | ct_idu_is_aiq1 | x_ct_idu_is_aiq1 | |
-| 1 | ct_idu_is_biq | x_ct_idu_is_biq | |
-| 1 | ct_idu_is_lsiq | x_ct_idu_is_lsiq | |
-| 1 | ct_idu_is_sdiq | x_ct_idu_is_sdiq | |
-| 1 | ct_idu_is_viq0 | x_ct_idu_is_viq0 | |
-| 1 | ct_idu_is_viq1 | x_ct_idu_is_viq1 | |
-| 1 | ct_idu_rf_ctrl | x_ct_idu_rf_ctrl | |
-| 1 | ct_idu_rf_dp | x_ct_idu_rf_dp | |
-| 1 | ct_idu_rf_fwd | x_ct_idu_rf_fwd | |
+| 1 | ct_idu_id_ctrl | x_ct_idu_id_ctrl | 译码单元 |
+| 1 | ct_idu_id_dp | x_ct_idu_id_dp | 译码单元 |
+| 1 | ct_idu_id_fence | x_ct_idu_id_fence | 译码单元 |
+| 1 | ct_idu_ir_ctrl | x_ct_idu_ir_ctrl | 译码单元 |
+| 1 | ct_idu_ir_dp | x_ct_idu_ir_dp | 译码单元 |
+| 1 | ct_idu_ir_rt | x_ct_idu_ir_rt | 译码单元 |
+| 1 | ct_idu_ir_frt | x_ct_idu_ir_frt | 译码单元 |
+| 1 | ct_idu_ir_vrt | x_ct_idu_ir_vrt | 译码单元 |
+| 1 | ct_idu_is_ctrl | x_ct_idu_is_ctrl | 译码单元 |
+| 1 | ct_idu_is_dp | x_ct_idu_is_dp | 译码单元 |
+| 1 | ct_idu_is_aiq0 | x_ct_idu_is_aiq0 | 译码单元 |
+| 1 | ct_idu_is_aiq1 | x_ct_idu_is_aiq1 | 译码单元 |
+| 1 | ct_idu_is_biq | x_ct_idu_is_biq | 译码单元 |
+| 1 | ct_idu_is_lsiq | x_ct_idu_is_lsiq | 译码单元 |
+| 1 | ct_idu_is_sdiq | x_ct_idu_is_sdiq | 译码单元 |
+| 1 | ct_idu_is_viq0 | x_ct_idu_is_viq0 | 译码单元 |
+| 1 | ct_idu_is_viq1 | x_ct_idu_is_viq1 | 译码单元 |
+| 1 | ct_idu_rf_ctrl | x_ct_idu_rf_ctrl | 译码单元 |
+| 1 | ct_idu_rf_dp | x_ct_idu_rf_dp | 译码单元 |
+| 1 | ct_idu_rf_fwd | x_ct_idu_rf_fwd | 译码单元 |
 | ... | ... | ... | 共25个实例 |
 
 ## 7. 修订历史

@@ -12,7 +12,7 @@
 
 ### 1.2 功能描述
 
-ct_had_event 模块的功能描述。
+硬件调试 (Hardware Debug)，(事件)，主要信号: 请求信号、时钟信号、使能信号、复位信号
 
 ### 1.3 设计特点
 
@@ -25,28 +25,39 @@ ct_had_event 模块的功能描述。
 
 | 信号名 | 方向 | 位宽 | 描述 |
 |--------|------|------|------|
-| cpuclk | input | 1 | |
-| cpurst_b | input | 1 | |
-| ctrl_event_dbgenter | input | 1 | |
-| ctrl_event_dbgexit | input | 1 | |
-| forever_coreclk | input | 1 | |
-| regs_event_enter_ie | input | 1 | |
-| regs_event_enter_oe | input | 1 | |
-| regs_event_exit_ie | input | 1 | |
-| regs_event_exit_oe | input | 1 | |
-| rtu_yy_xx_dbgon | input | 1 | |
-| x_enter_dbg_req_i | input | 1 | |
-| x_exit_dbg_req_i | input | 1 | |
+| cpuclk | input | 1 | 时钟信号 |
+| cpurst_b | input | 1 | 复位信号 |
+| ctrl_event_dbgenter | input | 1 | 使能信号 |
+| ctrl_event_dbgexit | input | 1 | 使能信号 |
+| forever_coreclk | input | 1 | 时钟信号 |
+| regs_event_enter_ie | input | 1 | 使能信号 |
+| regs_event_enter_oe | input | 1 | 使能信号 |
+| regs_event_exit_ie | input | 1 | 使能信号 |
+| regs_event_exit_oe | input | 1 | 使能信号 |
+| rtu_yy_xx_dbgon | input | 1 |  |
+| x_enter_dbg_req_i | input | 1 | 请求信号 |
+| x_exit_dbg_req_i | input | 1 | 请求信号 |
 
 ### 2.2 输出端口
 
 | 信号名 | 方向 | 位宽 | 描述 |
 |--------|------|------|------|
-| event_ctrl_enter_dbg | output | 1 | |
-| event_ctrl_exit_dbg | output | 1 | |
-| event_ctrl_had_clk_en | output | 1 | |
-| x_enter_dbg_req_o | output | 1 | |
-| x_exit_dbg_req_o | output | 1 | |
+| event_ctrl_enter_dbg | output | 1 | 使能信号 |
+| event_ctrl_exit_dbg | output | 1 | 使能信号 |
+| event_ctrl_had_clk_en | output | 1 | 时钟信号 |
+| x_enter_dbg_req_o | output | 1 | 请求信号 |
+| x_exit_dbg_req_o | output | 1 | 请求信号 |
+
+### 2.5 接口时序图
+
+```mermaid
+sequenceDiagram
+    participant M as 主机
+    participant S as 从机
+    M->>S: req
+    S->>M: ack
+    M->>S: data
+```
 
 ## 3. 模块框图
 

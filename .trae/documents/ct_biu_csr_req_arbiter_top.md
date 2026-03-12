@@ -12,7 +12,7 @@
 
 ### 1.2 功能描述
 
-ct_biu_csr_req_arbiter 模块的功能描述。
+总线接口单元 (Bus Interface Unit)，主要信号: 数据信号、选择信号、操作码、程序计数器
 
 ### 1.3 设计特点
 
@@ -25,26 +25,37 @@ ct_biu_csr_req_arbiter 模块的功能描述。
 
 | 信号名 | 方向 | 位宽 | 描述 |
 |--------|------|------|------|
-| biu_csr_cmplt | input | 1 | |
-| biu_csr_rdata | input | 128 | |
-| cp0_biu_op | input | 16 | |
-| cp0_biu_sel | input | 1 | |
-| cp0_biu_wdata | input | 64 | |
-| hpcp_biu_op | input | 16 | |
-| hpcp_biu_sel | input | 1 | |
-| hpcp_biu_wdata | input | 64 | |
+| biu_csr_cmplt | input | 1 |  |
+| biu_csr_rdata | input | 128 | 数据信号 |
+| cp0_biu_op | input | 16 | 操作码 |
+| cp0_biu_sel | input | 1 | 选择信号 |
+| cp0_biu_wdata | input | 64 | 数据信号 |
+| hpcp_biu_op | input | 16 | 程序计数器 |
+| hpcp_biu_sel | input | 1 | 选择信号 |
+| hpcp_biu_wdata | input | 64 | 数据信号 |
 
 ### 2.2 输出端口
 
 | 信号名 | 方向 | 位宽 | 描述 |
 |--------|------|------|------|
-| biu_cp0_cmplt | output | 1 | |
-| biu_cp0_rdata | output | 128 | |
-| biu_csr_op | output | 16 | |
-| biu_csr_sel | output | 1 | |
-| biu_csr_wdata | output | 64 | |
-| biu_hpcp_cmplt | output | 1 | |
-| biu_hpcp_rdata | output | 128 | |
+| biu_cp0_cmplt | output | 1 |  |
+| biu_cp0_rdata | output | 128 | 数据信号 |
+| biu_csr_op | output | 16 | 操作码 |
+| biu_csr_sel | output | 1 | 选择信号 |
+| biu_csr_wdata | output | 64 | 数据信号 |
+| biu_hpcp_cmplt | output | 1 | 程序计数器 |
+| biu_hpcp_rdata | output | 128 | 数据信号 |
+
+### 2.5 接口时序图
+
+```mermaid
+sequenceDiagram
+    participant M as 主机
+    participant S as 从机
+    M->>S: req
+    S->>M: ack
+    M->>S: data
+```
 
 ## 3. 模块框图
 

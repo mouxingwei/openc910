@@ -12,7 +12,7 @@
 
 ### 1.2 功能描述
 
-ct_had_bkpt 模块的功能描述。
+硬件调试 (Hardware Debug)，(断点)，主要信号: 应答信号、使能信号、读使能、时钟信号、数据信号
 
 ### 1.3 设计特点
 
@@ -25,40 +25,51 @@ ct_had_bkpt 模块的功能描述。
 
 | 信号名 | 方向 | 位宽 | 描述 |
 |--------|------|------|------|
-| cp0_yy_priv_mode | input | 2 | |
-| cpuclk | input | 1 | |
-| cpurst_b | input | 1 | |
-| ctrl_bkpt_en | input | 1 | |
-| ctrl_bkpt_en_raw | input | 1 | |
-| inst_bkpt_dbgreq | input | 1 | |
-| ir_xx_mbc_reg_sel | input | 1 | |
-| ir_xx_wdata | input | 64 | |
-| regs_xx_bc | input | 5 | |
-| regs_xx_nirven | input | 1 | |
-| rtu_had_bkpt_data_st | input | 1 | |
-| rtu_had_data_bkpt_vld | input | 1 | |
-| rtu_had_inst_bkpt_inst_vld | input | 1 | |
-| rtu_had_inst_bkpt_vld | input | 1 | |
-| rtu_had_inst_split | input | 1 | |
-| rtu_had_xx_mbkpt_chgflow | input | 1 | |
-| rtu_had_xx_mbkpt_data_ack | input | 1 | |
-| rtu_had_xx_mbkpt_inst_ack | input | 1 | |
-| rtu_had_xx_split_inst | input | 1 | |
-| rtu_yy_xx_dbgon | input | 1 | |
-| rtu_yy_xx_flush | input | 1 | |
-| rtu_yy_xx_retire0_normal | input | 1 | |
-| x_sm_xx_update_dr_en | input | 1 | |
+| cp0_yy_priv_mode | input | 2 |  |
+| cpuclk | input | 1 | 时钟信号 |
+| cpurst_b | input | 1 | 复位信号 |
+| ctrl_bkpt_en | input | 1 | 使能信号 |
+| ctrl_bkpt_en_raw | input | 1 | 使能信号 |
+| inst_bkpt_dbgreq | input | 1 | 请求信号 |
+| ir_xx_mbc_reg_sel | input | 1 | 读使能 |
+| ir_xx_wdata | input | 64 | 数据信号 |
+| regs_xx_bc | input | 5 | 读使能 |
+| regs_xx_nirven | input | 1 | 使能信号 |
+| rtu_had_bkpt_data_st | input | 1 | 数据信号 |
+| rtu_had_data_bkpt_vld | input | 1 | 有效信号 |
+| rtu_had_inst_bkpt_inst_vld | input | 1 | 有效信号 |
+| rtu_had_inst_bkpt_vld | input | 1 | 有效信号 |
+| rtu_had_inst_split | input | 1 | 指令信号 |
+| rtu_had_xx_mbkpt_chgflow | input | 1 |  |
+| rtu_had_xx_mbkpt_data_ack | input | 1 | 应答信号 |
+| rtu_had_xx_mbkpt_inst_ack | input | 1 | 应答信号 |
+| rtu_had_xx_split_inst | input | 1 | 指令信号 |
+| rtu_yy_xx_dbgon | input | 1 |  |
+| rtu_yy_xx_flush | input | 1 | 刷新信号 |
+| rtu_yy_xx_retire0_normal | input | 1 | 读使能 |
+| x_sm_xx_update_dr_en | input | 1 | 使能信号 |
 
 ### 2.2 输出端口
 
 | 信号名 | 方向 | 位宽 | 描述 |
 |--------|------|------|------|
-| bkpt_ctrl_data_req | output | 1 | |
-| bkpt_ctrl_data_req_raw | output | 1 | |
-| bkpt_ctrl_inst_req | output | 1 | |
-| bkpt_ctrl_inst_req_raw | output | 1 | |
-| bkpt_ctrl_xx_ack | output | 1 | |
-| bkpt_regs_mbc | output | 8 | |
+| bkpt_ctrl_data_req | output | 1 | 请求信号 |
+| bkpt_ctrl_data_req_raw | output | 1 | 请求信号 |
+| bkpt_ctrl_inst_req | output | 1 | 请求信号 |
+| bkpt_ctrl_inst_req_raw | output | 1 | 请求信号 |
+| bkpt_ctrl_xx_ack | output | 1 | 应答信号 |
+| bkpt_regs_mbc | output | 8 | 读使能 |
+
+### 2.5 接口时序图
+
+```mermaid
+sequenceDiagram
+    participant M as 主机
+    participant S as 从机
+    M->>S: req
+    S->>M: ack
+    M->>S: data
+```
 
 ## 3. 模块框图
 

@@ -12,7 +12,7 @@
 
 ### 1.2 功能描述
 
-ct_rst_top 模块的功能描述。
+复位控制 (Reset Control)，主要信号: 时钟信号、复位信号
 
 ### 1.3 设计特点
 
@@ -25,23 +25,34 @@ ct_rst_top 模块的功能描述。
 
 | 信号名 | 方向 | 位宽 | 描述 |
 |--------|------|------|------|
-| forever_coreclk | input | 1 | |
-| pad_core_rst_b | input | 1 | |
-| pad_cpu_rst_b | input | 1 | |
-| pad_yy_mbist_mode | input | 1 | |
-| pad_yy_scan_mode | input | 1 | |
-| pad_yy_scan_rst_b | input | 1 | |
+| forever_coreclk | input | 1 | 时钟信号 |
+| pad_core_rst_b | input | 1 | 复位信号 |
+| pad_cpu_rst_b | input | 1 | 复位信号 |
+| pad_yy_mbist_mode | input | 1 |  |
+| pad_yy_scan_mode | input | 1 |  |
+| pad_yy_scan_rst_b | input | 1 | 复位信号 |
 
 ### 2.2 输出端口
 
 | 信号名 | 方向 | 位宽 | 描述 |
 |--------|------|------|------|
-| fpu_rst_b | output | 1 | |
-| had_rst_b | output | 1 | |
-| idu_rst_b | output | 1 | |
-| ifu_rst_b | output | 1 | |
-| lsu_rst_b | output | 1 | |
-| mmu_rst_b | output | 1 | |
+| fpu_rst_b | output | 1 | 复位信号 |
+| had_rst_b | output | 1 | 复位信号 |
+| idu_rst_b | output | 1 | 复位信号 |
+| ifu_rst_b | output | 1 | 复位信号 |
+| lsu_rst_b | output | 1 | 复位信号 |
+| mmu_rst_b | output | 1 | 复位信号 |
+
+### 2.5 接口时序图
+
+```mermaid
+sequenceDiagram
+    participant M as 主机
+    participant S as 从机
+    M->>S: req
+    S->>M: ack
+    M->>S: data
+```
 
 ## 3. 模块框图
 

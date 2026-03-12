@@ -12,7 +12,7 @@
 
 ### 1.2 功能描述
 
-ct_biu_req_arbiter 模块的功能描述。
+总线接口单元 (Bus Interface Unit)，主要信号: 使能信号、就绪信号、地址信号、锁定信号、操作码
 
 ### 1.3 设计特点
 
@@ -25,73 +25,84 @@ ct_biu_req_arbiter 模块的功能描述。
 
 | 信号名 | 方向 | 位宽 | 描述 |
 |--------|------|------|------|
-| arready | input | 1 | |
-| ifu_biu_rd_addr | input | 40 | |
-| ifu_biu_rd_burst | input | 2 | |
-| ifu_biu_rd_cache | input | 4 | |
-| ifu_biu_rd_domain | input | 2 | |
-| ifu_biu_rd_id | input | 1 | |
-| ifu_biu_rd_len | input | 2 | |
-| ifu_biu_rd_prot | input | 3 | |
-| ifu_biu_rd_req | input | 1 | |
-| ifu_biu_rd_req_gate | input | 1 | |
-| ifu_biu_rd_size | input | 3 | |
-| ifu_biu_rd_snoop | input | 4 | |
-| ifu_biu_rd_user | input | 2 | |
-| lsu_biu_ar_addr | input | 40 | |
-| lsu_biu_ar_bar | input | 2 | |
-| lsu_biu_ar_burst | input | 2 | |
-| lsu_biu_ar_cache | input | 4 | |
-| lsu_biu_ar_domain | input | 2 | |
-| lsu_biu_ar_dp_req | input | 1 | |
-| lsu_biu_ar_id | input | 5 | |
-| lsu_biu_ar_len | input | 2 | |
-| lsu_biu_ar_lock | input | 1 | |
-| lsu_biu_ar_prot | input | 3 | |
-| lsu_biu_ar_req | input | 1 | |
-| lsu_biu_ar_req_gate | input | 1 | |
-| lsu_biu_ar_size | input | 3 | |
-| lsu_biu_ar_snoop | input | 4 | |
-| lsu_biu_ar_user | input | 3 | |
-| lsu_biu_aw_req_gate | input | 1 | |
-| lsu_biu_aw_st_addr | input | 40 | |
+| arready | input | 1 | 就绪信号 |
+| ifu_biu_rd_addr | input | 40 | 地址信号 |
+| ifu_biu_rd_burst | input | 2 | 复位信号 |
+| ifu_biu_rd_cache | input | 4 |  |
+| ifu_biu_rd_domain | input | 2 | 输入信号 |
+| ifu_biu_rd_id | input | 1 |  |
+| ifu_biu_rd_len | input | 2 | 使能信号 |
+| ifu_biu_rd_prot | input | 3 |  |
+| ifu_biu_rd_req | input | 1 | 请求信号 |
+| ifu_biu_rd_req_gate | input | 1 | 请求信号 |
+| ifu_biu_rd_size | input | 3 |  |
+| ifu_biu_rd_snoop | input | 4 | 操作码 |
+| ifu_biu_rd_user | input | 2 |  |
+| lsu_biu_ar_addr | input | 40 | 地址信号 |
+| lsu_biu_ar_bar | input | 2 |  |
+| lsu_biu_ar_burst | input | 2 | 复位信号 |
+| lsu_biu_ar_cache | input | 4 |  |
+| lsu_biu_ar_domain | input | 2 | 输入信号 |
+| lsu_biu_ar_dp_req | input | 1 | 请求信号 |
+| lsu_biu_ar_id | input | 5 |  |
+| lsu_biu_ar_len | input | 2 | 使能信号 |
+| lsu_biu_ar_lock | input | 1 | 锁定信号 |
+| lsu_biu_ar_prot | input | 3 |  |
+| lsu_biu_ar_req | input | 1 | 请求信号 |
+| lsu_biu_ar_req_gate | input | 1 | 请求信号 |
+| lsu_biu_ar_size | input | 3 |  |
+| lsu_biu_ar_snoop | input | 4 | 操作码 |
+| lsu_biu_ar_user | input | 3 |  |
+| lsu_biu_aw_req_gate | input | 1 | 请求信号 |
+| lsu_biu_aw_st_addr | input | 40 | 地址信号 |
 | ... | ... | ... | 共73个输入端口 |
 
 ### 2.2 输出端口
 
 | 信号名 | 方向 | 位宽 | 描述 |
 |--------|------|------|------|
-| araddr | output | 40 | |
-| arbar | output | 2 | |
-| arburst | output | 2 | |
-| arcache | output | 4 | |
-| ardomain | output | 2 | |
-| arid | output | 5 | |
-| arlen | output | 2 | |
-| arlock | output | 1 | |
-| arprot | output | 3 | |
-| arsize | output | 3 | |
-| arsnoop | output | 4 | |
-| aruser | output | 3 | |
-| arvalid | output | 1 | |
-| arvalid_gate | output | 1 | |
-| biu_ifu_rd_grnt | output | 1 | |
-| biu_lsu_ar_ready | output | 1 | |
-| biu_lsu_aw_vb_grnt | output | 1 | |
-| biu_lsu_aw_wmb_grnt | output | 1 | |
-| biu_lsu_w_vb_grnt | output | 1 | |
-| biu_lsu_w_wmb_grnt | output | 1 | |
-| st_awaddr | output | 40 | |
-| st_awbar | output | 2 | |
-| st_awburst | output | 2 | |
-| st_awcache | output | 4 | |
-| st_awdomain | output | 2 | |
-| st_awid | output | 5 | |
-| st_awlen | output | 2 | |
-| st_awlock | output | 1 | |
-| st_awprot | output | 3 | |
-| st_awsize | output | 3 | |
+| araddr | output | 40 | 地址信号 |
+| arbar | output | 2 |  |
+| arburst | output | 2 | 复位信号 |
+| arcache | output | 4 |  |
+| ardomain | output | 2 | 输入信号 |
+| arid | output | 5 |  |
+| arlen | output | 2 | 使能信号 |
+| arlock | output | 1 | 锁定信号 |
+| arprot | output | 3 |  |
+| arsize | output | 3 |  |
+| arsnoop | output | 4 | 操作码 |
+| aruser | output | 3 |  |
+| arvalid | output | 1 | 有效信号 |
+| arvalid_gate | output | 1 | 有效信号 |
+| biu_ifu_rd_grnt | output | 1 |  |
+| biu_lsu_ar_ready | output | 1 | 就绪信号 |
+| biu_lsu_aw_vb_grnt | output | 1 |  |
+| biu_lsu_aw_wmb_grnt | output | 1 |  |
+| biu_lsu_w_vb_grnt | output | 1 |  |
+| biu_lsu_w_wmb_grnt | output | 1 |  |
+| st_awaddr | output | 40 | 地址信号 |
+| st_awbar | output | 2 |  |
+| st_awburst | output | 2 | 复位信号 |
+| st_awcache | output | 4 |  |
+| st_awdomain | output | 2 | 输入信号 |
+| st_awid | output | 5 |  |
+| st_awlen | output | 2 | 使能信号 |
+| st_awlock | output | 1 | 锁定信号 |
+| st_awprot | output | 3 |  |
+| st_awsize | output | 3 |  |
 | ... | ... | ... | 共60个输出端口 |
+
+### 2.5 接口时序图
+
+```mermaid
+sequenceDiagram
+    participant M as 主机
+    participant S as 从机
+    M->>S: req
+    S->>M: ack
+    M->>S: data
+```
 
 ## 3. 模块框图
 

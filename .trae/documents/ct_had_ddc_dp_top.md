@@ -13,7 +13,7 @@
 
 ### 1.2 功能描述
 
-ct_had_ddc_dp 模块的功能描述。
+硬件调试 (Hardware Debug)，(数据通路)，主要信号: 使能信号、地址信号、读使能、时钟信号、数据信号
 
 ### 1.3 设计特点
 
@@ -27,24 +27,24 @@ ct_had_ddc_dp 模块的功能描述。
 
 | 信号名 | 方向 | 位宽 | 描述 |
 |--------|------|------|------|
-| cpuclk | input | 1 | |
-| ddc_ctrl_dp_addr_gen | input | 1 | |
-| ddc_ctrl_dp_addr_sel | input | 1 | |
-| ddc_ctrl_dp_data_sel | input | 1 | |
-| ir_xx_daddr_reg_sel | input | 1 | |
-| ir_xx_ddata_reg_sel | input | 1 | |
-| ir_xx_wdata | input | 64 | |
-| x_sm_xx_update_dr_en | input | 1 | |
+| cpuclk | input | 1 | 时钟信号 |
+| ddc_ctrl_dp_addr_gen | input | 1 | 使能信号 |
+| ddc_ctrl_dp_addr_sel | input | 1 | 地址信号 |
+| ddc_ctrl_dp_data_sel | input | 1 | 数据信号 |
+| ir_xx_daddr_reg_sel | input | 1 | 地址信号 |
+| ir_xx_ddata_reg_sel | input | 1 | 数据信号 |
+| ir_xx_wdata | input | 64 | 数据信号 |
+| x_sm_xx_update_dr_en | input | 1 | 使能信号 |
 
 ### 2.2 输出端口
 
 | 信号名 | 方向 | 位宽 | 描述 |
 |--------|------|------|------|
-| ddc_regs_daddr | output | 64 | |
-| ddc_regs_ddata | output | 64 | |
-| ddc_regs_ffy | output | 1 | |
-| ddc_regs_ir | output | 32 | |
-| ddc_regs_wbbr | output | 64 | |
+| ddc_regs_daddr | output | 64 | 地址信号 |
+| ddc_regs_ddata | output | 64 | 数据信号 |
+| ddc_regs_ffy | output | 1 | 读使能 |
+| ddc_regs_ir | output | 32 | 读使能 |
+| ddc_regs_wbbr | output | 64 | 读使能 |
 
 ### 2.4 参数列表
 
@@ -52,6 +52,17 @@ ct_had_ddc_dp 模块的功能描述。
 |--------|--------|------|------|
 | DATAW | 64 | 1 | |
 | ADDRW | `PA_WIDTH | 1 | |
+
+### 2.5 接口时序图
+
+```mermaid
+sequenceDiagram
+    participant M as 主机
+    participant S as 从机
+    M->>S: req
+    S->>M: ack
+    M->>S: data
+```
 
 ## 3. 模块框图
 

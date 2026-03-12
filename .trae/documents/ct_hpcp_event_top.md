@@ -13,7 +13,7 @@
 
 ### 1.2 功能描述
 
-ct_hpcp_event 模块的功能描述。
+硬件性能计数器 (Hardware Performance Counter)，(事件)，主要信号: 时钟信号、数据信号、使能信号、复位信号
 
 ### 1.3 设计特点
 
@@ -28,19 +28,19 @@ ct_hpcp_event 模块的功能描述。
 
 | 信号名 | 方向 | 位宽 | 描述 |
 |--------|------|------|------|
-| cp0_hpcp_icg_en | input | 1 | |
-| cpurst_b | input | 1 | |
-| eventx_clk_en | input | 1 | |
-| eventx_wen | input | 1 | |
-| forever_cpuclk | input | 1 | |
-| hpcp_wdata | input | 64 | |
-| pad_yy_icg_scan_en | input | 1 | |
+| cp0_hpcp_icg_en | input | 1 | 使能信号 |
+| cpurst_b | input | 1 | 复位信号 |
+| eventx_clk_en | input | 1 | 时钟信号 |
+| eventx_wen | input | 1 | 使能信号 |
+| forever_cpuclk | input | 1 | 时钟信号 |
+| hpcp_wdata | input | 64 | 数据信号 |
+| pad_yy_icg_scan_en | input | 1 | 使能信号 |
 
 ### 2.2 输出端口
 
 | 信号名 | 方向 | 位宽 | 描述 |
 |--------|------|------|------|
-| eventx_value | output | 64 | |
+| eventx_value | output | 64 | 使能信号 |
 
 ### 2.4 参数列表
 
@@ -48,6 +48,17 @@ ct_hpcp_event 模块的功能描述。
 |--------|--------|------|------|
 | HPMCNT_NUM | 42 | 1 | |
 | HPMEVT_WIDTH | 6 | 1 | |
+
+### 2.5 接口时序图
+
+```mermaid
+sequenceDiagram
+    participant M as 主机
+    participant S as 从机
+    M->>S: req
+    S->>M: ack
+    M->>S: data
+```
 
 ## 3. 模块框图
 
@@ -140,7 +151,7 @@ graph TD
 
 | 层级 | 模块名 | 实例名 | 功能描述 |
 |------|--------|--------|----------|
-| 1 | gated_clk_cell | x_gated_clk | |
+| 1 | gated_clk_cell | x_gated_clk |  |
 
 ## 7. 修订历史
 

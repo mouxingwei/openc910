@@ -12,7 +12,7 @@
 
 ### 1.2 功能描述
 
-ct_hpcp_cnt 模块的功能描述。
+硬件性能计数器 (Hardware Performance Counter)，(计数器)，主要信号: 使能信号、时钟信号、数据信号、计数器、复位信号
 
 ### 1.3 设计特点
 
@@ -26,23 +26,34 @@ ct_hpcp_cnt 模块的功能描述。
 
 | 信号名 | 方向 | 位宽 | 描述 |
 |--------|------|------|------|
-| cnt_adder | input | 4 | |
-| cnt_clk_en | input | 1 | |
-| cnt_en | input | 1 | |
-| cnt_wen | input | 1 | |
-| cp0_hpcp_icg_en | input | 1 | |
-| cpurst_b | input | 1 | |
-| forever_cpuclk | input | 1 | |
-| hpcp_cnt_en | input | 1 | |
-| hpcp_wdata | input | 64 | |
-| pad_yy_icg_scan_en | input | 1 | |
+| cnt_adder | input | 4 | 计数器 |
+| cnt_clk_en | input | 1 | 时钟信号 |
+| cnt_en | input | 1 | 使能信号 |
+| cnt_wen | input | 1 | 使能信号 |
+| cp0_hpcp_icg_en | input | 1 | 使能信号 |
+| cpurst_b | input | 1 | 复位信号 |
+| forever_cpuclk | input | 1 | 时钟信号 |
+| hpcp_cnt_en | input | 1 | 使能信号 |
+| hpcp_wdata | input | 64 | 数据信号 |
+| pad_yy_icg_scan_en | input | 1 | 使能信号 |
 
 ### 2.2 输出端口
 
 | 信号名 | 方向 | 位宽 | 描述 |
 |--------|------|------|------|
-| cnt_of | output | 1 | |
-| cnt_value | output | 64 | |
+| cnt_of | output | 1 | 计数器 |
+| cnt_value | output | 64 | 计数器 |
+
+### 2.5 接口时序图
+
+```mermaid
+sequenceDiagram
+    participant M as 主机
+    participant S as 从机
+    M->>S: req
+    S->>M: ack
+    M->>S: data
+```
 
 ## 3. 模块框图
 
@@ -156,7 +167,7 @@ graph TD
 
 | 层级 | 模块名 | 实例名 | 功能描述 |
 |------|--------|--------|----------|
-| 1 | gated_clk_cell | x_gated_clk | |
+| 1 | gated_clk_cell | x_gated_clk |  |
 
 ## 7. 修订历史
 

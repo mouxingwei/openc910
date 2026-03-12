@@ -13,7 +13,7 @@
 
 ### 1.2 功能描述
 
-ct_pmp_top 模块的功能描述。
+物理内存保护 (Physical Memory Protection)，主要信号: 使能信号、读使能、时钟信号、数据信号、复位信号
 
 ### 1.3 设计特点
 
@@ -27,33 +27,33 @@ ct_pmp_top 模块的功能描述。
 
 | 信号名 | 方向 | 位宽 | 描述 |
 |--------|------|------|------|
-| cp0_pmp_icg_en | input | 1 | |
-| cp0_pmp_mpp | input | 2 | |
-| cp0_pmp_mprv | input | 1 | |
-| cp0_pmp_reg_num | input | 5 | |
-| cp0_pmp_wdata | input | 64 | |
-| cp0_pmp_wreg | input | 1 | |
-| cp0_yy_priv_mode | input | 2 | |
-| cpurst_b | input | 1 | |
-| forever_cpuclk | input | 1 | |
-| mmu_pmp_fetch3 | input | 1 | |
-| mmu_pmp_pa0 | input | 28 | |
-| mmu_pmp_pa1 | input | 28 | |
-| mmu_pmp_pa2 | input | 28 | |
-| mmu_pmp_pa3 | input | 28 | |
-| mmu_pmp_pa4 | input | 28 | |
-| pad_yy_icg_scan_en | input | 1 | |
+| cp0_pmp_icg_en | input | 1 | 使能信号 |
+| cp0_pmp_mpp | input | 2 |  |
+| cp0_pmp_mprv | input | 1 |  |
+| cp0_pmp_reg_num | input | 5 | 读使能 |
+| cp0_pmp_wdata | input | 64 | 数据信号 |
+| cp0_pmp_wreg | input | 1 | 读使能 |
+| cp0_yy_priv_mode | input | 2 |  |
+| cpurst_b | input | 1 | 复位信号 |
+| forever_cpuclk | input | 1 | 时钟信号 |
+| mmu_pmp_fetch3 | input | 1 |  |
+| mmu_pmp_pa0 | input | 28 |  |
+| mmu_pmp_pa1 | input | 28 |  |
+| mmu_pmp_pa2 | input | 28 |  |
+| mmu_pmp_pa3 | input | 28 |  |
+| mmu_pmp_pa4 | input | 28 |  |
+| pad_yy_icg_scan_en | input | 1 | 使能信号 |
 
 ### 2.2 输出端口
 
 | 信号名 | 方向 | 位宽 | 描述 |
 |--------|------|------|------|
-| pmp_cp0_data | output | 64 | |
-| pmp_mmu_flg0 | output | 4 | |
-| pmp_mmu_flg1 | output | 4 | |
-| pmp_mmu_flg2 | output | 4 | |
-| pmp_mmu_flg3 | output | 4 | |
-| pmp_mmu_flg4 | output | 4 | |
+| pmp_cp0_data | output | 64 | 数据信号 |
+| pmp_mmu_flg0 | output | 4 |  |
+| pmp_mmu_flg1 | output | 4 |  |
+| pmp_mmu_flg2 | output | 4 |  |
+| pmp_mmu_flg3 | output | 4 |  |
+| pmp_mmu_flg4 | output | 4 |  |
 
 ### 2.4 参数列表
 
@@ -77,6 +77,17 @@ ct_pmp_top 模块的功能描述。
 | PMPADDR13 | 12'h3BD | 1 | |
 | PMPADDR14 | 12'h3BE | 1 | |
 | PMPADDR15 | 12'h3BF | 1 | |
+
+### 2.5 接口时序图
+
+```mermaid
+sequenceDiagram
+    participant M as 主机
+    participant S as 从机
+    M->>S: req
+    S->>M: ack
+    M->>S: data
+```
 
 ## 3. 模块框图
 
@@ -231,13 +242,13 @@ graph TD
 
 | 层级 | 模块名 | 实例名 | 功能描述 |
 |------|--------|--------|----------|
-| 1 | gated_clk_cell | x_pmp_gated_clk | |
-| 1 | ct_pmp_regs | x_ct_pmp_regs | |
-| 1 | ct_pmp_acc | x_ct_pmp_acc0 | |
-| 1 | ct_pmp_acc | x_ct_pmp_acc1 | |
-| 1 | ct_pmp_acc | x_ct_pmp_acc2 | |
-| 1 | ct_pmp_acc | x_ct_pmp_acc3 | |
-| 1 | ct_pmp_acc | x_ct_pmp_acc4 | |
+| 1 | gated_clk_cell | x_pmp_gated_clk |  |
+| 1 | ct_pmp_regs | x_ct_pmp_regs | 物理内存保护 |
+| 1 | ct_pmp_acc | x_ct_pmp_acc0 | 物理内存保护 |
+| 1 | ct_pmp_acc | x_ct_pmp_acc1 | 物理内存保护 |
+| 1 | ct_pmp_acc | x_ct_pmp_acc2 | 物理内存保护 |
+| 1 | ct_pmp_acc | x_ct_pmp_acc3 | 物理内存保护 |
+| 1 | ct_pmp_acc | x_ct_pmp_acc4 | 物理内存保护 |
 
 ## 7. 修订历史
 

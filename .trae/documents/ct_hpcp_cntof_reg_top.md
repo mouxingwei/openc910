@@ -12,7 +12,7 @@
 
 ### 1.2 功能描述
 
-ct_hpcp_cntof_reg 模块的功能描述。
+硬件性能计数器 (Hardware Performance Counter)，(寄存器文件)，主要信号: 使能信号、时钟信号、数据信号、计数器、复位信号
 
 ### 1.3 设计特点
 
@@ -24,18 +24,29 @@ ct_hpcp_cntof_reg 模块的功能描述。
 
 | 信号名 | 方向 | 位宽 | 描述 |
 |--------|------|------|------|
-| cntof_wen_x | input | 1 | |
-| counter_overflow_x | input | 1 | |
-| cpurst_b | input | 1 | |
-| hpcp_clk | input | 1 | |
-| hpcp_wdata_x | input | 1 | |
-| l2cnt_cmplt_ff | input | 1 | |
+| cntof_wen_x | input | 1 | 使能信号 |
+| counter_overflow_x | input | 1 | 计数器 |
+| cpurst_b | input | 1 | 复位信号 |
+| hpcp_clk | input | 1 | 时钟信号 |
+| hpcp_wdata_x | input | 1 | 数据信号 |
+| l2cnt_cmplt_ff | input | 1 | 计数器 |
 
 ### 2.2 输出端口
 
 | 信号名 | 方向 | 位宽 | 描述 |
 |--------|------|------|------|
-| cntof_x | output | 1 | |
+| cntof_x | output | 1 | 计数器 |
+
+### 2.5 接口时序图
+
+```mermaid
+sequenceDiagram
+    participant M as 主机
+    participant S as 从机
+    M->>S: req
+    S->>M: ack
+    M->>S: data
+```
 
 ## 3. 模块框图
 

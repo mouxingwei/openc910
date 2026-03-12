@@ -13,7 +13,7 @@
 
 ### 1.2 功能描述
 
-ct_mmu_jtlb 模块的功能描述。
+内存管理单元 (Memory Management Unit)，(联合TLB)，主要信号: 使能信号、操作码、输入信号、选择信号、数据信号
 
 ### 1.3 设计特点
 
@@ -28,72 +28,72 @@ ct_mmu_jtlb 模块的功能描述。
 
 | 信号名 | 方向 | 位宽 | 描述 |
 |--------|------|------|------|
-| arb_jtlb_acc_type | input | 3 | |
-| arb_jtlb_bank_sel | input | 4 | |
-| arb_jtlb_cmp_with_va | input | 1 | |
-| arb_jtlb_data_din | input | 42 | |
-| arb_jtlb_fifo_din | input | 4 | |
-| arb_jtlb_fifo_write | input | 1 | |
-| arb_jtlb_idx | input | 9 | |
-| arb_jtlb_req | input | 1 | |
-| arb_jtlb_tag_din | input | 48 | |
-| arb_jtlb_vpn | input | 27 | |
-| arb_jtlb_write | input | 1 | |
-| arb_top_cur_st | input | 2 | |
-| cp0_mmu_icg_en | input | 1 | |
-| cp0_mmu_maee | input | 1 | |
-| cp0_mmu_mpp | input | 2 | |
-| cp0_mmu_mprv | input | 1 | |
-| cp0_mmu_mxr | input | 1 | |
-| cp0_mmu_ptw_en | input | 1 | |
-| cp0_mmu_sum | input | 1 | |
-| cp0_yy_priv_mode | input | 2 | |
-| cpurst_b | input | 1 | |
-| dutlb_xx_mmu_off | input | 1 | |
-| forever_cpuclk | input | 1 | |
-| lsu_mmu_va2 | input | 28 | |
-| lsu_mmu_va2_vld | input | 1 | |
-| pad_yy_icg_scan_en | input | 1 | |
-| pmp_mmu_flg4 | input | 4 | |
-| ptw_arb_vpn | input | 27 | |
-| ptw_jtlb_dmiss | input | 1 | |
-| ptw_jtlb_imiss | input | 1 | |
+| arb_jtlb_acc_type | input | 3 |  |
+| arb_jtlb_bank_sel | input | 4 | 选择信号 |
+| arb_jtlb_cmp_with_va | input | 1 |  |
+| arb_jtlb_data_din | input | 42 | 数据信号 |
+| arb_jtlb_fifo_din | input | 4 | 输入信号 |
+| arb_jtlb_fifo_write | input | 1 |  |
+| arb_jtlb_idx | input | 9 |  |
+| arb_jtlb_req | input | 1 | 请求信号 |
+| arb_jtlb_tag_din | input | 48 | 标签信号 |
+| arb_jtlb_vpn | input | 27 |  |
+| arb_jtlb_write | input | 1 |  |
+| arb_top_cur_st | input | 2 | 操作码 |
+| cp0_mmu_icg_en | input | 1 | 使能信号 |
+| cp0_mmu_maee | input | 1 |  |
+| cp0_mmu_mpp | input | 2 |  |
+| cp0_mmu_mprv | input | 1 |  |
+| cp0_mmu_mxr | input | 1 |  |
+| cp0_mmu_ptw_en | input | 1 | 使能信号 |
+| cp0_mmu_sum | input | 1 |  |
+| cp0_yy_priv_mode | input | 2 |  |
+| cpurst_b | input | 1 | 复位信号 |
+| dutlb_xx_mmu_off | input | 1 |  |
+| forever_cpuclk | input | 1 | 时钟信号 |
+| lsu_mmu_va2 | input | 28 |  |
+| lsu_mmu_va2_vld | input | 1 | 有效信号 |
+| pad_yy_icg_scan_en | input | 1 | 使能信号 |
+| pmp_mmu_flg4 | input | 4 |  |
+| ptw_arb_vpn | input | 27 |  |
+| ptw_jtlb_dmiss | input | 1 | 未命中信号 |
+| ptw_jtlb_imiss | input | 1 | 未命中信号 |
 | ... | ... | ... | 共47个输入端口 |
 
 ### 2.2 输出端口
 
 | 信号名 | 方向 | 位宽 | 描述 |
 |--------|------|------|------|
-| jtlb_arb_cmp_va | output | 1 | |
-| jtlb_arb_par_clr | output | 1 | |
-| jtlb_arb_pfu_cmplt | output | 1 | |
-| jtlb_arb_pfu_vpn | output | 27 | |
-| jtlb_arb_sel_1g | output | 1 | |
-| jtlb_arb_sel_2m | output | 1 | |
-| jtlb_arb_sel_4k | output | 1 | |
-| jtlb_arb_tc_miss | output | 1 | |
-| jtlb_arb_type | output | 3 | |
-| jtlb_arb_vpn | output | 27 | |
-| jtlb_dutlb_acc_err | output | 1 | |
-| jtlb_dutlb_pgflt | output | 1 | |
-| jtlb_dutlb_ref_cmplt | output | 1 | |
-| jtlb_dutlb_ref_pavld | output | 1 | |
-| jtlb_iutlb_acc_err | output | 1 | |
-| jtlb_iutlb_pgflt | output | 1 | |
-| jtlb_iutlb_ref_cmplt | output | 1 | |
-| jtlb_iutlb_ref_pavld | output | 1 | |
-| jtlb_ptw_req | output | 1 | |
-| jtlb_ptw_type | output | 3 | |
-| jtlb_ptw_vpn | output | 27 | |
-| jtlb_regs_hit | output | 1 | |
-| jtlb_regs_hit_mult | output | 1 | |
-| jtlb_regs_tlbp_hit_index | output | 11 | |
-| jtlb_tlboper_asid_hit | output | 1 | |
-| jtlb_tlboper_cmplt | output | 1 | |
-| jtlb_tlboper_fifo | output | 4 | |
-| jtlb_tlboper_read_idle | output | 1 | |
-| jtlb_tlboper_sel | output | 4 | |
-| jtlb_tlboper_va_hit | output | 1 | |
+| jtlb_arb_cmp_va | output | 1 |  |
+| jtlb_arb_par_clr | output | 1 |  |
+| jtlb_arb_pfu_cmplt | output | 1 |  |
+| jtlb_arb_pfu_vpn | output | 27 |  |
+| jtlb_arb_sel_1g | output | 1 | 选择信号 |
+| jtlb_arb_sel_2m | output | 1 | 选择信号 |
+| jtlb_arb_sel_4k | output | 1 | 选择信号 |
+| jtlb_arb_tc_miss | output | 1 | 未命中信号 |
+| jtlb_arb_type | output | 3 |  |
+| jtlb_arb_vpn | output | 27 |  |
+| jtlb_dutlb_acc_err | output | 1 | 错误信号 |
+| jtlb_dutlb_pgflt | output | 1 |  |
+| jtlb_dutlb_ref_cmplt | output | 1 | 读使能 |
+| jtlb_dutlb_ref_pavld | output | 1 | 有效信号 |
+| jtlb_iutlb_acc_err | output | 1 | 错误信号 |
+| jtlb_iutlb_pgflt | output | 1 |  |
+| jtlb_iutlb_ref_cmplt | output | 1 | 读使能 |
+| jtlb_iutlb_ref_pavld | output | 1 | 有效信号 |
+| jtlb_ptw_req | output | 1 | 请求信号 |
+| jtlb_ptw_type | output | 3 |  |
+| jtlb_ptw_vpn | output | 27 |  |
+| jtlb_regs_hit | output | 1 | 读使能 |
+| jtlb_regs_hit_mult | output | 1 | 读使能 |
+| jtlb_regs_tlbp_hit_index | output | 11 | 读使能 |
+| jtlb_tlboper_asid_hit | output | 1 | 操作码 |
+| jtlb_tlboper_cmplt | output | 1 | 操作码 |
+| jtlb_tlboper_fifo | output | 4 | 操作码 |
+| jtlb_tlboper_read_idle | output | 1 | 读使能 |
+| jtlb_tlboper_sel | output | 4 | 选择信号 |
+| jtlb_tlboper_va_hit | output | 1 | 操作码 |
 | ... | ... | ... | 共51个输出端口 |
 
 ### 2.4 参数列表
@@ -111,6 +111,17 @@ ct_mmu_jtlb 模块的功能描述。
 | DATA_WIDTH | PPN_WIDTH+FLG_WIDTH | 1 | |
 | READ_IDLE | 3'b000 | 1 | |
 | PFU_IDLE | 2'b00 | 1 | |
+
+### 2.5 接口时序图
+
+```mermaid
+sequenceDiagram
+    participant M as 主机
+    participant S as 从机
+    M->>S: req
+    S->>M: ack
+    M->>S: data
+```
 
 ## 3. 模块框图
 
@@ -314,9 +325,9 @@ graph TD
 
 | 层级 | 模块名 | 实例名 | 功能描述 |
 |------|--------|--------|----------|
-| 1 | gated_clk_cell | x_jtlb_gateclk | |
-| 1 | ct_mmu_jtlb_tag_array | x_ct_mmu_jtlb_tag_array | |
-| 1 | ct_mmu_jtlb_data_array | x_ct_mmu_jtlb_data_array | |
+| 1 | gated_clk_cell | x_jtlb_gateclk |  |
+| 1 | ct_mmu_jtlb_tag_array | x_ct_mmu_jtlb_tag_array | 内存管理单元 |
+| 1 | ct_mmu_jtlb_data_array | x_ct_mmu_jtlb_data_array | 内存管理单元 |
 
 ## 7. 修订历史
 

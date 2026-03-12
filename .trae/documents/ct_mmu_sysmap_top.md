@@ -13,7 +13,7 @@
 
 ### 1.2 功能描述
 
-ct_mmu_sysmap 模块的功能描述。
+内存管理单元 (Memory Management Unit)，(系统映射)，主要信号: 命中信号
 
 ### 1.3 设计特点
 
@@ -28,14 +28,14 @@ ct_mmu_sysmap 模块的功能描述。
 
 | 信号名 | 方向 | 位宽 | 描述 |
 |--------|------|------|------|
-| mmu_sysmap_pa_y | input | 28 | |
+| mmu_sysmap_pa_y | input | 28 |  |
 
 ### 2.2 输出端口
 
 | 信号名 | 方向 | 位宽 | 描述 |
 |--------|------|------|------|
-| sysmap_mmu_flg_y | output | 5 | |
-| sysmap_mmu_hit_y | output | 8 | |
+| sysmap_mmu_flg_y | output | 5 |  |
+| sysmap_mmu_hit_y | output | 8 | 命中信号 |
 
 ### 2.4 参数列表
 
@@ -43,6 +43,17 @@ ct_mmu_sysmap 模块的功能描述。
 |--------|--------|------|------|
 | ADDR_WIDTH | `PA_WIDTH-12 | 1 | |
 | FLG_WIDTH | 5 | 1 | |
+
+### 2.5 接口时序图
+
+```mermaid
+sequenceDiagram
+    participant M as 主机
+    participant S as 从机
+    M->>S: req
+    S->>M: ack
+    M->>S: data
+```
 
 ## 3. 模块框图
 
@@ -200,14 +211,14 @@ graph TD
 
 | 层级 | 模块名 | 实例名 | 功能描述 |
 |------|--------|--------|----------|
-| 1 | ct_mmu_sysmap_hit | x_ct_mmu_sysmap_hit_0 | |
-| 1 | ct_mmu_sysmap_hit | x_ct_mmu_sysmap_hit_1 | |
-| 1 | ct_mmu_sysmap_hit | x_ct_mmu_sysmap_hit_2 | |
-| 1 | ct_mmu_sysmap_hit | x_ct_mmu_sysmap_hit_3 | |
-| 1 | ct_mmu_sysmap_hit | x_ct_mmu_sysmap_hit_4 | |
-| 1 | ct_mmu_sysmap_hit | x_ct_mmu_sysmap_hit_5 | |
-| 1 | ct_mmu_sysmap_hit | x_ct_mmu_sysmap_hit_6 | |
-| 1 | ct_mmu_sysmap_hit | x_ct_mmu_sysmap_hit_7 | |
+| 1 | ct_mmu_sysmap_hit | x_ct_mmu_sysmap_hit_0 | 内存管理单元 |
+| 1 | ct_mmu_sysmap_hit | x_ct_mmu_sysmap_hit_1 | 内存管理单元 |
+| 1 | ct_mmu_sysmap_hit | x_ct_mmu_sysmap_hit_2 | 内存管理单元 |
+| 1 | ct_mmu_sysmap_hit | x_ct_mmu_sysmap_hit_3 | 内存管理单元 |
+| 1 | ct_mmu_sysmap_hit | x_ct_mmu_sysmap_hit_4 | 内存管理单元 |
+| 1 | ct_mmu_sysmap_hit | x_ct_mmu_sysmap_hit_5 | 内存管理单元 |
+| 1 | ct_mmu_sysmap_hit | x_ct_mmu_sysmap_hit_6 | 内存管理单元 |
+| 1 | ct_mmu_sysmap_hit | x_ct_mmu_sysmap_hit_7 | 内存管理单元 |
 
 ## 7. 修订历史
 

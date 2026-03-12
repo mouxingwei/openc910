@@ -13,7 +13,7 @@
 
 ### 1.2 功能描述
 
-ct_mmu_tlboper 模块的功能描述。
+内存管理单元 (Memory Management Unit)，(TLB操作)，主要信号: 使能信号、操作码、读使能、输入信号、选择信号
 
 ### 1.3 设计特点
 
@@ -28,72 +28,72 @@ ct_mmu_tlboper 模块的功能描述。
 
 | 信号名 | 方向 | 位宽 | 描述 |
 |--------|------|------|------|
-| arb_tlboper_grant | input | 1 | |
-| cp0_mmu_icg_en | input | 1 | |
-| cp0_mmu_tlb_all_inv | input | 1 | |
-| cpurst_b | input | 1 | |
-| forever_cpuclk | input | 1 | |
-| jtlb_tlboper_asid_hit | input | 1 | |
-| jtlb_tlboper_cmplt | input | 1 | |
-| jtlb_tlboper_fifo | input | 4 | |
-| jtlb_tlboper_read_idle | input | 1 | |
-| jtlb_tlboper_sel | input | 4 | |
-| jtlb_tlboper_va_hit | input | 1 | |
-| jtlb_xx_tc_read | input | 1 | |
-| lsu_mmu_tlb_all_inv | input | 1 | |
-| lsu_mmu_tlb_asid | input | 16 | |
-| lsu_mmu_tlb_asid_all_inv | input | 1 | |
-| lsu_mmu_tlb_va | input | 27 | |
-| lsu_mmu_tlb_va_all_inv | input | 1 | |
-| lsu_mmu_tlb_va_asid_inv | input | 1 | |
-| pad_yy_icg_scan_en | input | 1 | |
-| regs_jtlb_cur_flg | input | 14 | |
-| regs_jtlb_cur_g | input | 1 | |
-| regs_jtlb_cur_ppn | input | 28 | |
-| regs_tlboper_cur_asid | input | 16 | |
-| regs_tlboper_cur_pgs | input | 3 | |
-| regs_tlboper_cur_vpn | input | 27 | |
-| regs_tlboper_inv_asid | input | 16 | |
-| regs_tlboper_invall | input | 1 | |
-| regs_tlboper_invasid | input | 1 | |
-| regs_tlboper_mir | input | 12 | |
-| regs_tlboper_tlbp | input | 1 | |
+| arb_tlboper_grant | input | 1 | 操作码 |
+| cp0_mmu_icg_en | input | 1 | 使能信号 |
+| cp0_mmu_tlb_all_inv | input | 1 | 输入信号 |
+| cpurst_b | input | 1 | 复位信号 |
+| forever_cpuclk | input | 1 | 时钟信号 |
+| jtlb_tlboper_asid_hit | input | 1 | 操作码 |
+| jtlb_tlboper_cmplt | input | 1 | 操作码 |
+| jtlb_tlboper_fifo | input | 4 | 操作码 |
+| jtlb_tlboper_read_idle | input | 1 | 读使能 |
+| jtlb_tlboper_sel | input | 4 | 选择信号 |
+| jtlb_tlboper_va_hit | input | 1 | 操作码 |
+| jtlb_xx_tc_read | input | 1 | 读使能 |
+| lsu_mmu_tlb_all_inv | input | 1 | 输入信号 |
+| lsu_mmu_tlb_asid | input | 16 |  |
+| lsu_mmu_tlb_asid_all_inv | input | 1 | 输入信号 |
+| lsu_mmu_tlb_va | input | 27 |  |
+| lsu_mmu_tlb_va_all_inv | input | 1 | 输入信号 |
+| lsu_mmu_tlb_va_asid_inv | input | 1 | 输入信号 |
+| pad_yy_icg_scan_en | input | 1 | 使能信号 |
+| regs_jtlb_cur_flg | input | 14 | 读使能 |
+| regs_jtlb_cur_g | input | 1 | 读使能 |
+| regs_jtlb_cur_ppn | input | 28 | 读使能 |
+| regs_tlboper_cur_asid | input | 16 | 读使能 |
+| regs_tlboper_cur_pgs | input | 3 | 读使能 |
+| regs_tlboper_cur_vpn | input | 27 | 读使能 |
+| regs_tlboper_inv_asid | input | 16 | 读使能 |
+| regs_tlboper_invall | input | 1 | 读使能 |
+| regs_tlboper_invasid | input | 1 | 读使能 |
+| regs_tlboper_mir | input | 12 | 读使能 |
+| regs_tlboper_tlbp | input | 1 | 读使能 |
 | ... | ... | ... | 共33个输入端口 |
 
 ### 2.2 输出端口
 
 | 信号名 | 方向 | 位宽 | 描述 |
 |--------|------|------|------|
-| mmu_cp0_tlb_done | output | 1 | |
-| mmu_lsu_tlb_inv_done | output | 1 | |
-| tlboper_arb_bank_sel | output | 4 | |
-| tlboper_arb_cmp_va | output | 1 | |
-| tlboper_arb_data_din | output | 42 | |
-| tlboper_arb_fifo_din | output | 4 | |
-| tlboper_arb_fifo_write | output | 1 | |
-| tlboper_arb_idx | output | 9 | |
-| tlboper_arb_idx_not_va | output | 1 | |
-| tlboper_arb_req | output | 1 | |
-| tlboper_arb_tag_din | output | 48 | |
-| tlboper_arb_vpn | output | 27 | |
-| tlboper_arb_write | output | 1 | |
-| tlboper_jtlb_asid | output | 16 | |
-| tlboper_jtlb_asid_sel | output | 1 | |
-| tlboper_jtlb_cmp_noasid | output | 1 | |
-| tlboper_jtlb_inv_asid | output | 16 | |
-| tlboper_jtlb_tlbwr_on | output | 1 | |
-| tlboper_ptw_abort | output | 1 | |
-| tlboper_regs_cmplt | output | 1 | |
-| tlboper_regs_tlbp_cmplt | output | 1 | |
-| tlboper_regs_tlbr_cmplt | output | 1 | |
-| tlboper_top_lsu_cmplt | output | 1 | |
-| tlboper_top_lsu_oper | output | 1 | |
-| tlboper_top_tlbiall_cur_st | output | 1 | |
-| tlboper_top_tlbiasid_cur_st | output | 3 | |
-| tlboper_top_tlbiva_cur_st | output | 4 | |
-| tlboper_top_tlbp_cur_st | output | 2 | |
-| tlboper_top_tlbr_cur_st | output | 2 | |
-| tlboper_top_tlbwi_cur_st | output | 2 | |
+| mmu_cp0_tlb_done | output | 1 | 完成信号 |
+| mmu_lsu_tlb_inv_done | output | 1 | 输入信号 |
+| tlboper_arb_bank_sel | output | 4 | 选择信号 |
+| tlboper_arb_cmp_va | output | 1 | 操作码 |
+| tlboper_arb_data_din | output | 42 | 数据信号 |
+| tlboper_arb_fifo_din | output | 4 | 输入信号 |
+| tlboper_arb_fifo_write | output | 1 | 操作码 |
+| tlboper_arb_idx | output | 9 | 操作码 |
+| tlboper_arb_idx_not_va | output | 1 | 操作码 |
+| tlboper_arb_req | output | 1 | 请求信号 |
+| tlboper_arb_tag_din | output | 48 | 标签信号 |
+| tlboper_arb_vpn | output | 27 | 操作码 |
+| tlboper_arb_write | output | 1 | 操作码 |
+| tlboper_jtlb_asid | output | 16 | 操作码 |
+| tlboper_jtlb_asid_sel | output | 1 | 选择信号 |
+| tlboper_jtlb_cmp_noasid | output | 1 | 操作码 |
+| tlboper_jtlb_inv_asid | output | 16 | 输入信号 |
+| tlboper_jtlb_tlbwr_on | output | 1 | 操作码 |
+| tlboper_ptw_abort | output | 1 | 操作码 |
+| tlboper_regs_cmplt | output | 1 | 读使能 |
+| tlboper_regs_tlbp_cmplt | output | 1 | 读使能 |
+| tlboper_regs_tlbr_cmplt | output | 1 | 读使能 |
+| tlboper_top_lsu_cmplt | output | 1 | 操作码 |
+| tlboper_top_lsu_oper | output | 1 | 操作码 |
+| tlboper_top_tlbiall_cur_st | output | 1 | 操作码 |
+| tlboper_top_tlbiasid_cur_st | output | 3 | 操作码 |
+| tlboper_top_tlbiva_cur_st | output | 4 | 操作码 |
+| tlboper_top_tlbp_cur_st | output | 2 | 操作码 |
+| tlboper_top_tlbr_cur_st | output | 2 | 操作码 |
+| tlboper_top_tlbwi_cur_st | output | 2 | 操作码 |
 | ... | ... | ... | 共36个输出端口 |
 
 ### 2.4 参数列表
@@ -114,6 +114,17 @@ ct_mmu_tlboper 模块的功能描述。
 | IASID_IDLE | 3'b000 | 1 | |
 | IALL_IDLE | 1'b0 | 1 | |
 | IVA_IDLE | 4'b0000 | 1 | |
+
+### 2.5 接口时序图
+
+```mermaid
+sequenceDiagram
+    participant M as 主机
+    participant S as 从机
+    M->>S: req
+    S->>M: ack
+    M->>S: data
+```
 
 ## 3. 模块框图
 
@@ -316,7 +327,7 @@ graph TD
 
 | 层级 | 模块名 | 实例名 | 功能描述 |
 |------|--------|--------|----------|
-| 1 | gated_clk_cell | x_tlboper_gateclk | |
+| 1 | gated_clk_cell | x_tlboper_gateclk |  |
 
 ## 7. 修订历史
 

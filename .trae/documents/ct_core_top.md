@@ -12,7 +12,7 @@
 
 ### 1.2 功能描述
 
-ct_core 模块的功能描述。
+处理器核心 (Processor Core)，主要信号: 地址信号、读使能、输入信号、数据信号、有效信号
 
 ### 1.3 设计特点
 
@@ -24,73 +24,84 @@ ct_core 模块的功能描述。
 
 | 信号名 | 方向 | 位宽 | 描述 |
 |--------|------|------|------|
-| biu_cp0_apb_base | input | 40 | |
-| biu_cp0_cmplt | input | 1 | |
-| biu_cp0_coreid | input | 3 | |
-| biu_cp0_me_int | input | 1 | |
-| biu_cp0_ms_int | input | 1 | |
-| biu_cp0_mt_int | input | 1 | |
-| biu_cp0_rdata | input | 128 | |
-| biu_cp0_rvba | input | 40 | |
-| biu_cp0_se_int | input | 1 | |
-| biu_cp0_ss_int | input | 1 | |
-| biu_cp0_st_int | input | 1 | |
-| biu_ifu_rd_data | input | 128 | |
-| biu_ifu_rd_data_vld | input | 1 | |
-| biu_ifu_rd_grnt | input | 1 | |
-| biu_ifu_rd_id | input | 1 | |
-| biu_ifu_rd_last | input | 1 | |
-| biu_ifu_rd_resp | input | 2 | |
-| biu_lsu_ac_addr | input | 40 | |
-| biu_lsu_ac_prot | input | 3 | |
-| biu_lsu_ac_req | input | 1 | |
-| biu_lsu_ac_snoop | input | 4 | |
-| biu_lsu_ar_ready | input | 1 | |
-| biu_lsu_aw_vb_grnt | input | 1 | |
-| biu_lsu_aw_wmb_grnt | input | 1 | |
-| biu_lsu_b_id | input | 5 | |
-| biu_lsu_b_resp | input | 2 | |
-| biu_lsu_b_vld | input | 1 | |
-| biu_lsu_cd_ready | input | 1 | |
-| biu_lsu_cr_ready | input | 1 | |
-| biu_lsu_r_data | input | 128 | |
+| biu_cp0_apb_base | input | 40 |  |
+| biu_cp0_cmplt | input | 1 |  |
+| biu_cp0_coreid | input | 3 | 读使能 |
+| biu_cp0_me_int | input | 1 | 输入信号 |
+| biu_cp0_ms_int | input | 1 | 输入信号 |
+| biu_cp0_mt_int | input | 1 | 输入信号 |
+| biu_cp0_rdata | input | 128 | 数据信号 |
+| biu_cp0_rvba | input | 40 |  |
+| biu_cp0_se_int | input | 1 | 输入信号 |
+| biu_cp0_ss_int | input | 1 | 输入信号 |
+| biu_cp0_st_int | input | 1 | 输入信号 |
+| biu_ifu_rd_data | input | 128 | 数据信号 |
+| biu_ifu_rd_data_vld | input | 1 | 有效信号 |
+| biu_ifu_rd_grnt | input | 1 |  |
+| biu_ifu_rd_id | input | 1 |  |
+| biu_ifu_rd_last | input | 1 |  |
+| biu_ifu_rd_resp | input | 2 | 读使能 |
+| biu_lsu_ac_addr | input | 40 | 地址信号 |
+| biu_lsu_ac_prot | input | 3 |  |
+| biu_lsu_ac_req | input | 1 | 请求信号 |
+| biu_lsu_ac_snoop | input | 4 | 操作码 |
+| biu_lsu_ar_ready | input | 1 | 就绪信号 |
+| biu_lsu_aw_vb_grnt | input | 1 |  |
+| biu_lsu_aw_wmb_grnt | input | 1 |  |
+| biu_lsu_b_id | input | 5 |  |
+| biu_lsu_b_resp | input | 2 | 读使能 |
+| biu_lsu_b_vld | input | 1 | 有效信号 |
+| biu_lsu_cd_ready | input | 1 | 就绪信号 |
+| biu_lsu_cr_ready | input | 1 | 就绪信号 |
+| biu_lsu_r_data | input | 128 | 数据信号 |
 | ... | ... | ... | 共130个输入端口 |
 
 ### 2.2 输出端口
 
 | 信号名 | 方向 | 位宽 | 描述 |
 |--------|------|------|------|
-| cp0_biu_icg_en | output | 1 | |
-| cp0_biu_lpmd_b | output | 2 | |
-| cp0_biu_op | output | 16 | |
-| cp0_biu_sel | output | 1 | |
-| cp0_biu_wdata | output | 64 | |
-| cp0_had_cpuid_0 | output | 32 | |
-| cp0_had_debug_info | output | 4 | |
-| cp0_had_lpmd_b | output | 2 | |
-| cp0_had_trace_pm_wdata | output | 2 | |
-| cp0_had_trace_pm_wen | output | 1 | |
-| cp0_hpcp_icg_en | output | 1 | |
-| cp0_hpcp_index | output | 12 | |
-| cp0_hpcp_int_disable | output | 1 | |
-| cp0_hpcp_mcntwen | output | 32 | |
-| cp0_hpcp_op | output | 4 | |
-| cp0_hpcp_pmdm | output | 1 | |
-| cp0_hpcp_pmds | output | 1 | |
-| cp0_hpcp_pmdu | output | 1 | |
-| cp0_hpcp_sel | output | 1 | |
-| cp0_hpcp_src0 | output | 64 | |
-| cp0_hpcp_wdata | output | 64 | |
-| cp0_mmu_cskyee | output | 1 | |
-| cp0_mmu_icg_en | output | 1 | |
-| cp0_mmu_maee | output | 1 | |
-| cp0_mmu_mpp | output | 2 | |
-| cp0_mmu_mprv | output | 1 | |
-| cp0_mmu_mxr | output | 1 | |
-| cp0_mmu_no_op_req | output | 1 | |
-| cp0_mmu_ptw_en | output | 1 | |
-| cp0_mmu_reg_num | output | 2 | |
+| cp0_biu_icg_en | output | 1 | 使能信号 |
+| cp0_biu_lpmd_b | output | 2 |  |
+| cp0_biu_op | output | 16 | 操作码 |
+| cp0_biu_sel | output | 1 | 选择信号 |
+| cp0_biu_wdata | output | 64 | 数据信号 |
+| cp0_had_cpuid_0 | output | 32 |  |
+| cp0_had_debug_info | output | 4 | 输入信号 |
+| cp0_had_lpmd_b | output | 2 |  |
+| cp0_had_trace_pm_wdata | output | 2 | 数据信号 |
+| cp0_had_trace_pm_wen | output | 1 | 使能信号 |
+| cp0_hpcp_icg_en | output | 1 | 使能信号 |
+| cp0_hpcp_index | output | 12 | 索引信号 |
+| cp0_hpcp_int_disable | output | 1 | 程序计数器 |
+| cp0_hpcp_mcntwen | output | 32 | 使能信号 |
+| cp0_hpcp_op | output | 4 | 程序计数器 |
+| cp0_hpcp_pmdm | output | 1 | 程序计数器 |
+| cp0_hpcp_pmds | output | 1 | 程序计数器 |
+| cp0_hpcp_pmdu | output | 1 | 程序计数器 |
+| cp0_hpcp_sel | output | 1 | 选择信号 |
+| cp0_hpcp_src0 | output | 64 | 程序计数器 |
+| cp0_hpcp_wdata | output | 64 | 数据信号 |
+| cp0_mmu_cskyee | output | 1 |  |
+| cp0_mmu_icg_en | output | 1 | 使能信号 |
+| cp0_mmu_maee | output | 1 |  |
+| cp0_mmu_mpp | output | 2 |  |
+| cp0_mmu_mprv | output | 1 |  |
+| cp0_mmu_mxr | output | 1 |  |
+| cp0_mmu_no_op_req | output | 1 | 请求信号 |
+| cp0_mmu_ptw_en | output | 1 | 使能信号 |
+| cp0_mmu_reg_num | output | 2 | 读使能 |
 | ... | ... | ... | 共328个输出端口 |
+
+### 2.5 接口时序图
+
+```mermaid
+sequenceDiagram
+    participant M as 主机
+    participant S as 从机
+    M->>S: req
+    S->>M: ack
+    M->>S: data
+```
 
 ## 3. 模块框图
 
@@ -238,13 +249,13 @@ graph TD
 
 | 层级 | 模块名 | 实例名 | 功能描述 |
 |------|--------|--------|----------|
-| 1 | ct_ifu_top | x_ct_ifu_top | |
-| 1 | ct_idu_top | x_ct_idu_top | |
-| 1 | ct_iu_top | x_ct_iu_top | |
-| 1 | ct_vfpu_top | x_ct_vfpu_top | |
-| 1 | ct_lsu_top | x_ct_lsu_top | |
-| 1 | ct_cp0_top | x_ct_cp0_top | |
-| 1 | ct_rtu_top | x_ct_rtu_top | |
+| 1 | ct_ifu_top | x_ct_ifu_top | 取指单元 |
+| 1 | ct_idu_top | x_ct_idu_top | 译码单元 |
+| 1 | ct_iu_top | x_ct_iu_top | 整数执行单元 |
+| 1 | ct_vfpu_top | x_ct_vfpu_top | 向量浮点单元 |
+| 1 | ct_lsu_top | x_ct_lsu_top | 访存单元 |
+| 1 | ct_cp0_top | x_ct_cp0_top | 协处理器0 |
+| 1 | ct_rtu_top | x_ct_rtu_top | 退休单元 |
 
 ## 7. 修订历史
 

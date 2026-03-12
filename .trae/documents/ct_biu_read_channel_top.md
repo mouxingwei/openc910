@@ -12,7 +12,7 @@
 
 ### 1.2 功能描述
 
-ct_biu_read_channel 模块的功能描述。
+总线接口单元 (Bus Interface Unit)，(通道)，主要信号: 使能信号、就绪信号、地址信号、锁定信号、操作码
 
 ### 1.3 设计特点
 
@@ -25,67 +25,78 @@ ct_biu_read_channel 模块的功能描述。
 
 | 信号名 | 方向 | 位宽 | 描述 |
 |--------|------|------|------|
-| araddr | input | 40 | |
-| arbar | input | 2 | |
-| arburst | input | 2 | |
-| arcache | input | 4 | |
-| arcpuclk | input | 1 | |
-| ardomain | input | 2 | |
-| arid | input | 5 | |
-| arlen | input | 2 | |
-| arlock | input | 1 | |
-| arprot | input | 3 | |
-| arsize | input | 3 | |
-| arsnoop | input | 4 | |
-| aruser | input | 3 | |
-| arvalid | input | 1 | |
-| arvalid_gate | input | 1 | |
-| coreclk | input | 1 | |
-| cpurst_b | input | 1 | |
-| ifu_biu_r_ready | input | 1 | |
-| lsu_biu_r_linefill_ready | input | 1 | |
-| pad_biu_arready | input | 1 | |
-| pad_biu_rack_ready | input | 1 | |
-| pad_biu_rdata | input | 128 | |
-| pad_biu_rid | input | 5 | |
-| pad_biu_rlast | input | 1 | |
-| pad_biu_rresp | input | 4 | |
-| pad_biu_rvalid | input | 1 | |
-| rcpuclk | input | 1 | |
+| araddr | input | 40 | 地址信号 |
+| arbar | input | 2 |  |
+| arburst | input | 2 | 复位信号 |
+| arcache | input | 4 |  |
+| arcpuclk | input | 1 | 时钟信号 |
+| ardomain | input | 2 | 输入信号 |
+| arid | input | 5 |  |
+| arlen | input | 2 | 使能信号 |
+| arlock | input | 1 | 锁定信号 |
+| arprot | input | 3 |  |
+| arsize | input | 3 |  |
+| arsnoop | input | 4 | 操作码 |
+| aruser | input | 3 |  |
+| arvalid | input | 1 | 有效信号 |
+| arvalid_gate | input | 1 | 有效信号 |
+| coreclk | input | 1 | 时钟信号 |
+| cpurst_b | input | 1 | 复位信号 |
+| ifu_biu_r_ready | input | 1 | 就绪信号 |
+| lsu_biu_r_linefill_ready | input | 1 | 就绪信号 |
+| pad_biu_arready | input | 1 | 就绪信号 |
+| pad_biu_rack_ready | input | 1 | 应答信号 |
+| pad_biu_rdata | input | 128 | 数据信号 |
+| pad_biu_rid | input | 5 |  |
+| pad_biu_rlast | input | 1 |  |
+| pad_biu_rresp | input | 4 | 读使能 |
+| pad_biu_rvalid | input | 1 | 有效信号 |
+| rcpuclk | input | 1 | 时钟信号 |
 
 ### 2.2 输出端口
 
 | 信号名 | 方向 | 位宽 | 描述 |
 |--------|------|------|------|
-| arready | output | 1 | |
-| biu_ifu_rd_data | output | 128 | |
-| biu_ifu_rd_data_vld | output | 1 | |
-| biu_ifu_rd_id | output | 1 | |
-| biu_ifu_rd_last | output | 1 | |
-| biu_ifu_rd_resp | output | 2 | |
-| biu_lsu_r_data | output | 128 | |
-| biu_lsu_r_id | output | 5 | |
-| biu_lsu_r_last | output | 1 | |
-| biu_lsu_r_resp | output | 4 | |
-| biu_lsu_r_vld | output | 1 | |
-| biu_pad_araddr | output | 40 | |
-| biu_pad_arbar | output | 2 | |
-| biu_pad_arburst | output | 2 | |
-| biu_pad_arcache | output | 4 | |
-| biu_pad_ardomain | output | 2 | |
-| biu_pad_arid | output | 5 | |
-| biu_pad_arlen | output | 2 | |
-| biu_pad_arlock | output | 1 | |
-| biu_pad_arprot | output | 3 | |
-| biu_pad_arsize | output | 3 | |
-| biu_pad_arsnoop | output | 4 | |
-| biu_pad_aruser | output | 3 | |
-| biu_pad_arvalid | output | 1 | |
-| biu_pad_rack | output | 1 | |
-| biu_pad_rready | output | 1 | |
-| read_ar_clk_en | output | 1 | |
-| read_busy | output | 1 | |
-| read_r_clk_en | output | 1 | |
+| arready | output | 1 | 就绪信号 |
+| biu_ifu_rd_data | output | 128 | 数据信号 |
+| biu_ifu_rd_data_vld | output | 1 | 有效信号 |
+| biu_ifu_rd_id | output | 1 |  |
+| biu_ifu_rd_last | output | 1 |  |
+| biu_ifu_rd_resp | output | 2 | 读使能 |
+| biu_lsu_r_data | output | 128 | 数据信号 |
+| biu_lsu_r_id | output | 5 |  |
+| biu_lsu_r_last | output | 1 |  |
+| biu_lsu_r_resp | output | 4 | 读使能 |
+| biu_lsu_r_vld | output | 1 | 有效信号 |
+| biu_pad_araddr | output | 40 | 地址信号 |
+| biu_pad_arbar | output | 2 |  |
+| biu_pad_arburst | output | 2 | 复位信号 |
+| biu_pad_arcache | output | 4 |  |
+| biu_pad_ardomain | output | 2 | 输入信号 |
+| biu_pad_arid | output | 5 |  |
+| biu_pad_arlen | output | 2 | 使能信号 |
+| biu_pad_arlock | output | 1 | 锁定信号 |
+| biu_pad_arprot | output | 3 |  |
+| biu_pad_arsize | output | 3 |  |
+| biu_pad_arsnoop | output | 4 | 操作码 |
+| biu_pad_aruser | output | 3 |  |
+| biu_pad_arvalid | output | 1 | 有效信号 |
+| biu_pad_rack | output | 1 | 应答信号 |
+| biu_pad_rready | output | 1 | 就绪信号 |
+| read_ar_clk_en | output | 1 | 时钟信号 |
+| read_busy | output | 1 | 读使能 |
+| read_r_clk_en | output | 1 | 时钟信号 |
+
+### 2.5 接口时序图
+
+```mermaid
+sequenceDiagram
+    participant M as 主机
+    participant S as 从机
+    M->>S: req
+    S->>M: ack
+    M->>S: data
+```
 
 ## 3. 模块框图
 

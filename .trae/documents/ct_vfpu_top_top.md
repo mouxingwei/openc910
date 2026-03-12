@@ -12,7 +12,7 @@
 
 ### 1.2 功能描述
 
-ct_vfpu_top 模块的功能描述。
+向量浮点单元 (Vector Floating Point Unit)，主要信号: 使能信号、读使能、功能码、选择信号、时钟信号
 
 ### 1.3 设计特点
 
@@ -25,73 +25,84 @@ ct_vfpu_top 模块的功能描述。
 
 | 信号名 | 方向 | 位宽 | 描述 |
 |--------|------|------|------|
-| cp0_vfpu_fcsr | input | 64 | |
-| cp0_vfpu_fxcr | input | 32 | |
-| cp0_vfpu_icg_en | input | 1 | |
-| cp0_vfpu_vl | input | 8 | |
-| cp0_yy_clk_en | input | 1 | |
-| cpurst_b | input | 1 | |
-| forever_cpuclk | input | 1 | |
-| idu_vfpu_is_vdiv_gateclk_issue | input | 1 | |
-| idu_vfpu_is_vdiv_issue | input | 1 | |
-| idu_vfpu_rf_pipe6_dst_ereg | input | 5 | |
-| idu_vfpu_rf_pipe6_dst_preg | input | 7 | |
-| idu_vfpu_rf_pipe6_dst_vld | input | 1 | |
-| idu_vfpu_rf_pipe6_dst_vreg | input | 7 | |
-| idu_vfpu_rf_pipe6_dste_vld | input | 1 | |
-| idu_vfpu_rf_pipe6_dstv_vld | input | 1 | |
-| idu_vfpu_rf_pipe6_eu_sel | input | 12 | |
-| idu_vfpu_rf_pipe6_func | input | 20 | |
-| idu_vfpu_rf_pipe6_gateclk_sel | input | 1 | |
-| idu_vfpu_rf_pipe6_iid | input | 7 | |
-| idu_vfpu_rf_pipe6_imm0 | input | 3 | |
-| idu_vfpu_rf_pipe6_inst_type | input | 6 | |
-| idu_vfpu_rf_pipe6_mla_srcv2_vld | input | 1 | |
-| idu_vfpu_rf_pipe6_mla_srcv2_vreg | input | 7 | |
-| idu_vfpu_rf_pipe6_ready_stage | input | 3 | |
-| idu_vfpu_rf_pipe6_sel | input | 1 | |
-| idu_vfpu_rf_pipe6_srcv0_fr | input | 64 | |
-| idu_vfpu_rf_pipe6_srcv1_fr | input | 64 | |
-| idu_vfpu_rf_pipe6_srcv2_fr | input | 64 | |
-| idu_vfpu_rf_pipe6_vmla_type | input | 3 | |
-| idu_vfpu_rf_pipe7_dst_ereg | input | 5 | |
+| cp0_vfpu_fcsr | input | 64 |  |
+| cp0_vfpu_fxcr | input | 32 |  |
+| cp0_vfpu_icg_en | input | 1 | 使能信号 |
+| cp0_vfpu_vl | input | 8 |  |
+| cp0_yy_clk_en | input | 1 | 时钟信号 |
+| cpurst_b | input | 1 | 复位信号 |
+| forever_cpuclk | input | 1 | 时钟信号 |
+| idu_vfpu_is_vdiv_gateclk_issue | input | 1 | 时钟信号 |
+| idu_vfpu_is_vdiv_issue | input | 1 |  |
+| idu_vfpu_rf_pipe6_dst_ereg | input | 5 | 读使能 |
+| idu_vfpu_rf_pipe6_dst_preg | input | 7 | 读使能 |
+| idu_vfpu_rf_pipe6_dst_vld | input | 1 | 有效信号 |
+| idu_vfpu_rf_pipe6_dst_vreg | input | 7 | 读使能 |
+| idu_vfpu_rf_pipe6_dste_vld | input | 1 | 有效信号 |
+| idu_vfpu_rf_pipe6_dstv_vld | input | 1 | 有效信号 |
+| idu_vfpu_rf_pipe6_eu_sel | input | 12 | 选择信号 |
+| idu_vfpu_rf_pipe6_func | input | 20 | 功能码 |
+| idu_vfpu_rf_pipe6_gateclk_sel | input | 1 | 时钟信号 |
+| idu_vfpu_rf_pipe6_iid | input | 7 |  |
+| idu_vfpu_rf_pipe6_imm0 | input | 3 | 立即数 |
+| idu_vfpu_rf_pipe6_inst_type | input | 6 | 指令信号 |
+| idu_vfpu_rf_pipe6_mla_srcv2_vld | input | 1 | 有效信号 |
+| idu_vfpu_rf_pipe6_mla_srcv2_vreg | input | 7 | 读使能 |
+| idu_vfpu_rf_pipe6_ready_stage | input | 3 | 就绪信号 |
+| idu_vfpu_rf_pipe6_sel | input | 1 | 选择信号 |
+| idu_vfpu_rf_pipe6_srcv0_fr | input | 64 | 源信号 |
+| idu_vfpu_rf_pipe6_srcv1_fr | input | 64 | 源信号 |
+| idu_vfpu_rf_pipe6_srcv2_fr | input | 64 | 源信号 |
+| idu_vfpu_rf_pipe6_vmla_type | input | 3 |  |
+| idu_vfpu_rf_pipe7_dst_ereg | input | 5 | 读使能 |
 | ... | ... | ... | 共67个输入端口 |
 
 ### 2.2 输出端口
 
 | 信号名 | 方向 | 位宽 | 描述 |
 |--------|------|------|------|
-| vfdsu_ifu_debug_ex2_wait | output | 1 | |
-| vfdsu_ifu_debug_idle | output | 1 | |
-| vfdsu_ifu_debug_pipe_busy | output | 1 | |
-| vfpu_idu_ex1_pipe6_data_vld_dup0 | output | 1 | |
-| vfpu_idu_ex1_pipe6_data_vld_dup1 | output | 1 | |
-| vfpu_idu_ex1_pipe6_data_vld_dup2 | output | 1 | |
-| vfpu_idu_ex1_pipe6_data_vld_dup3 | output | 1 | |
-| vfpu_idu_ex1_pipe6_fmla_data_vld_dup0 | output | 1 | |
-| vfpu_idu_ex1_pipe6_fmla_data_vld_dup1 | output | 1 | |
-| vfpu_idu_ex1_pipe6_fmla_data_vld_dup2 | output | 1 | |
-| vfpu_idu_ex1_pipe6_fmla_data_vld_dup3 | output | 1 | |
-| vfpu_idu_ex1_pipe6_mfvr_inst_vld_dup0 | output | 1 | |
-| vfpu_idu_ex1_pipe6_mfvr_inst_vld_dup1 | output | 1 | |
-| vfpu_idu_ex1_pipe6_mfvr_inst_vld_dup2 | output | 1 | |
-| vfpu_idu_ex1_pipe6_mfvr_inst_vld_dup3 | output | 1 | |
-| vfpu_idu_ex1_pipe6_mfvr_inst_vld_dup4 | output | 1 | |
-| vfpu_idu_ex1_pipe6_preg_dup0 | output | 7 | |
-| vfpu_idu_ex1_pipe6_preg_dup1 | output | 7 | |
-| vfpu_idu_ex1_pipe6_preg_dup2 | output | 7 | |
-| vfpu_idu_ex1_pipe6_preg_dup3 | output | 7 | |
-| vfpu_idu_ex1_pipe6_preg_dup4 | output | 7 | |
-| vfpu_idu_ex1_pipe6_vreg_dup0 | output | 7 | |
-| vfpu_idu_ex1_pipe6_vreg_dup1 | output | 7 | |
-| vfpu_idu_ex1_pipe6_vreg_dup2 | output | 7 | |
-| vfpu_idu_ex1_pipe6_vreg_dup3 | output | 7 | |
-| vfpu_idu_ex1_pipe7_data_vld_dup0 | output | 1 | |
-| vfpu_idu_ex1_pipe7_data_vld_dup1 | output | 1 | |
-| vfpu_idu_ex1_pipe7_data_vld_dup2 | output | 1 | |
-| vfpu_idu_ex1_pipe7_data_vld_dup3 | output | 1 | |
-| vfpu_idu_ex1_pipe7_fmla_data_vld_dup0 | output | 1 | |
+| vfdsu_ifu_debug_ex2_wait | output | 1 |  |
+| vfdsu_ifu_debug_idle | output | 1 |  |
+| vfdsu_ifu_debug_pipe_busy | output | 1 |  |
+| vfpu_idu_ex1_pipe6_data_vld_dup0 | output | 1 | 有效信号 |
+| vfpu_idu_ex1_pipe6_data_vld_dup1 | output | 1 | 有效信号 |
+| vfpu_idu_ex1_pipe6_data_vld_dup2 | output | 1 | 有效信号 |
+| vfpu_idu_ex1_pipe6_data_vld_dup3 | output | 1 | 有效信号 |
+| vfpu_idu_ex1_pipe6_fmla_data_vld_dup0 | output | 1 | 有效信号 |
+| vfpu_idu_ex1_pipe6_fmla_data_vld_dup1 | output | 1 | 有效信号 |
+| vfpu_idu_ex1_pipe6_fmla_data_vld_dup2 | output | 1 | 有效信号 |
+| vfpu_idu_ex1_pipe6_fmla_data_vld_dup3 | output | 1 | 有效信号 |
+| vfpu_idu_ex1_pipe6_mfvr_inst_vld_dup0 | output | 1 | 有效信号 |
+| vfpu_idu_ex1_pipe6_mfvr_inst_vld_dup1 | output | 1 | 有效信号 |
+| vfpu_idu_ex1_pipe6_mfvr_inst_vld_dup2 | output | 1 | 有效信号 |
+| vfpu_idu_ex1_pipe6_mfvr_inst_vld_dup3 | output | 1 | 有效信号 |
+| vfpu_idu_ex1_pipe6_mfvr_inst_vld_dup4 | output | 1 | 有效信号 |
+| vfpu_idu_ex1_pipe6_preg_dup0 | output | 7 | 读使能 |
+| vfpu_idu_ex1_pipe6_preg_dup1 | output | 7 | 读使能 |
+| vfpu_idu_ex1_pipe6_preg_dup2 | output | 7 | 读使能 |
+| vfpu_idu_ex1_pipe6_preg_dup3 | output | 7 | 读使能 |
+| vfpu_idu_ex1_pipe6_preg_dup4 | output | 7 | 读使能 |
+| vfpu_idu_ex1_pipe6_vreg_dup0 | output | 7 | 读使能 |
+| vfpu_idu_ex1_pipe6_vreg_dup1 | output | 7 | 读使能 |
+| vfpu_idu_ex1_pipe6_vreg_dup2 | output | 7 | 读使能 |
+| vfpu_idu_ex1_pipe6_vreg_dup3 | output | 7 | 读使能 |
+| vfpu_idu_ex1_pipe7_data_vld_dup0 | output | 1 | 有效信号 |
+| vfpu_idu_ex1_pipe7_data_vld_dup1 | output | 1 | 有效信号 |
+| vfpu_idu_ex1_pipe7_data_vld_dup2 | output | 1 | 有效信号 |
+| vfpu_idu_ex1_pipe7_data_vld_dup3 | output | 1 | 有效信号 |
+| vfpu_idu_ex1_pipe7_fmla_data_vld_dup0 | output | 1 | 有效信号 |
 | ... | ... | ... | 共175个输出端口 |
+
+### 2.5 接口时序图
+
+```mermaid
+sequenceDiagram
+    participant M as 主机
+    participant S as 从机
+    M->>S: req
+    S->>M: ack
+    M->>S: data
+```
 
 ## 3. 模块框图
 
@@ -260,15 +271,15 @@ graph TD
 
 | 层级 | 模块名 | 实例名 | 功能描述 |
 |------|--------|--------|----------|
-| 1 | ct_vfpu_ctrl | x_ct_vfpu_crtl | |
-| 1 | ct_vfpu_dp | x_ct_vfpu_dp | |
-| 1 | ct_vfpu_cbus | x_ct_vfpu_cbus | |
-| 1 | ct_vfpu_rbus | x_ct_vfpu_rbus | |
-| 1 | ct_vfalu_top_pipe6 | x_ct_vfalu_top_pipe6 | |
-| 1 | ct_vfalu_top_pipe7 | x_ct_vfalu_top_pipe7 | |
-| 1 | ct_vfdsu_top | x_ct_vfdsu_top | |
-| 1 | ct_vfmau_top | x_ct_vfmau_top_pipe6 | |
-| 1 | ct_vfmau_top | x_ct_vfmau_top_pipe7 | |
+| 1 | ct_vfpu_ctrl | x_ct_vfpu_crtl | 向量浮点单元 |
+| 1 | ct_vfpu_dp | x_ct_vfpu_dp | 向量浮点单元 |
+| 1 | ct_vfpu_cbus | x_ct_vfpu_cbus | 向量浮点单元 |
+| 1 | ct_vfpu_rbus | x_ct_vfpu_rbus | 向量浮点单元 |
+| 1 | ct_vfalu_top_pipe6 | x_ct_vfalu_top_pipe6 |  |
+| 1 | ct_vfalu_top_pipe7 | x_ct_vfalu_top_pipe7 |  |
+| 1 | ct_vfdsu_top | x_ct_vfdsu_top |  |
+| 1 | ct_vfmau_top | x_ct_vfmau_top_pipe6 |  |
+| 1 | ct_vfmau_top | x_ct_vfmau_top_pipe7 |  |
 
 ## 7. 修订历史
 

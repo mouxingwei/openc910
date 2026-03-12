@@ -13,7 +13,7 @@
 
 ### 1.2 功能描述
 
-ct_had_dbg_info 模块的功能描述。
+硬件调试 (Hardware Debug)，主要信号: 使能信号、读使能、输入信号、时钟信号、数据信号
 
 ### 1.3 设计特点
 
@@ -27,49 +27,49 @@ ct_had_dbg_info 模块的功能描述。
 
 | 信号名 | 方向 | 位宽 | 描述 |
 |--------|------|------|------|
-| cp0_had_debug_info | input | 4 | |
-| cpuclk | input | 1 | |
-| cpurst_b | input | 1 | |
-| ctrl_dbgfifo_ren | input | 1 | |
-| ctrl_pipefifo_ren | input | 1 | |
-| ctrl_pipefifo_wen | input | 1 | |
-| idu_had_debug_info | input | 50 | |
-| idu_had_id_inst0_info | input | 40 | |
-| idu_had_id_inst0_vld | input | 1 | |
-| idu_had_id_inst1_info | input | 40 | |
-| idu_had_id_inst1_vld | input | 1 | |
-| idu_had_id_inst2_info | input | 40 | |
-| idu_had_id_inst2_vld | input | 1 | |
-| ifu_had_debug_info | input | 83 | |
-| ir_xx_pipesel_reg_sel | input | 1 | |
-| ir_xx_wdata | input | 64 | |
-| iu_had_debug_info | input | 10 | |
-| lsu_had_debug_info | input | 184 | |
-| lsu_had_st_addr | input | 40 | |
-| lsu_had_st_data | input | 64 | |
-| lsu_had_st_req | input | 1 | |
-| mmu_had_debug_info | input | 34 | |
-| rtu_had_dbg_ack_info | input | 1 | |
-| rtu_had_debug_info | input | 43 | |
-| rtu_had_retire_inst0_info | input | 64 | |
-| rtu_had_retire_inst0_vld | input | 1 | |
-| rtu_had_retire_inst1_info | input | 64 | |
-| rtu_had_retire_inst1_vld | input | 1 | |
-| rtu_had_retire_inst2_info | input | 64 | |
-| rtu_had_retire_inst2_vld | input | 1 | |
+| cp0_had_debug_info | input | 4 | 输入信号 |
+| cpuclk | input | 1 | 时钟信号 |
+| cpurst_b | input | 1 | 复位信号 |
+| ctrl_dbgfifo_ren | input | 1 | 使能信号 |
+| ctrl_pipefifo_ren | input | 1 | 使能信号 |
+| ctrl_pipefifo_wen | input | 1 | 使能信号 |
+| idu_had_debug_info | input | 50 | 输入信号 |
+| idu_had_id_inst0_info | input | 40 | 指令信号 |
+| idu_had_id_inst0_vld | input | 1 | 有效信号 |
+| idu_had_id_inst1_info | input | 40 | 指令信号 |
+| idu_had_id_inst1_vld | input | 1 | 有效信号 |
+| idu_had_id_inst2_info | input | 40 | 指令信号 |
+| idu_had_id_inst2_vld | input | 1 | 有效信号 |
+| ifu_had_debug_info | input | 83 | 输入信号 |
+| ir_xx_pipesel_reg_sel | input | 1 | 读使能 |
+| ir_xx_wdata | input | 64 | 数据信号 |
+| iu_had_debug_info | input | 10 | 输入信号 |
+| lsu_had_debug_info | input | 184 | 输入信号 |
+| lsu_had_st_addr | input | 40 | 地址信号 |
+| lsu_had_st_data | input | 64 | 数据信号 |
+| lsu_had_st_req | input | 1 | 请求信号 |
+| mmu_had_debug_info | input | 34 | 输入信号 |
+| rtu_had_dbg_ack_info | input | 1 | 应答信号 |
+| rtu_had_debug_info | input | 43 | 输入信号 |
+| rtu_had_retire_inst0_info | input | 64 | 读使能 |
+| rtu_had_retire_inst0_vld | input | 1 | 有效信号 |
+| rtu_had_retire_inst1_info | input | 64 | 读使能 |
+| rtu_had_retire_inst1_vld | input | 1 | 有效信号 |
+| rtu_had_retire_inst2_info | input | 64 | 读使能 |
+| rtu_had_retire_inst2_vld | input | 1 | 有效信号 |
 | ... | ... | ... | 共31个输入端口 |
 
 ### 2.2 输出端口
 
 | 信号名 | 方向 | 位宽 | 描述 |
 |--------|------|------|------|
-| dbgfifo_regs_data | output | 64 | |
-| had_idu_debug_id_inst_en | output | 1 | |
-| had_lsu_dbg_info_en | output | 1 | |
-| had_rtu_debug_retire_info_en | output | 1 | |
-| pipefifo_regs_data | output | 64 | |
-| pipesel_regs_data | output | 32 | |
-| x_dbg_ack_pc | output | 1 | |
+| dbgfifo_regs_data | output | 64 | 数据信号 |
+| had_idu_debug_id_inst_en | output | 1 | 使能信号 |
+| had_lsu_dbg_info_en | output | 1 | 使能信号 |
+| had_rtu_debug_retire_info_en | output | 1 | 使能信号 |
+| pipefifo_regs_data | output | 64 | 数据信号 |
+| pipesel_regs_data | output | 32 | 数据信号 |
+| x_dbg_ack_pc | output | 1 | 应答信号 |
 
 ### 2.4 参数列表
 
@@ -81,6 +81,17 @@ ct_had_dbg_info 模块的功能描述。
 | DBG_WIDTH | 64 | 1 | |
 | DBG_RPTR | 3 | 1 | |
 | DBG_DPETH | 7 | 1 | |
+
+### 2.5 接口时序图
+
+```mermaid
+sequenceDiagram
+    participant M as 主机
+    participant S as 从机
+    M->>S: req
+    S->>M: ack
+    M->>S: data
+```
 
 ## 3. 模块框图
 

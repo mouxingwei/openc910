@@ -12,7 +12,7 @@
 
 ### 1.2 功能描述
 
-gated_clk_cell 模块的功能描述。
+主要信号: 时钟信号、使能信号
 
 ### 1.3 设计特点
 
@@ -24,18 +24,29 @@ gated_clk_cell 模块的功能描述。
 
 | 信号名 | 方向 | 位宽 | 描述 |
 |--------|------|------|------|
-| clk_in | input | 1 | |
-| global_en | input | 1 | |
-| module_en | input | 1 | |
-| local_en | input | 1 | |
-| external_en | input | 1 | |
-| pad_yy_icg_scan_en | input | 1 | |
+| clk_in | input | 1 | 时钟信号 |
+| global_en | input | 1 | 使能信号 |
+| module_en | input | 1 | 使能信号 |
+| local_en | input | 1 | 使能信号 |
+| external_en | input | 1 | 使能信号 |
+| pad_yy_icg_scan_en | input | 1 | 使能信号 |
 
 ### 2.2 输出端口
 
 | 信号名 | 方向 | 位宽 | 描述 |
 |--------|------|------|------|
-| clk_out | output | 1 | |
+| clk_out | output | 1 | 时钟信号 |
+
+### 2.5 接口时序图
+
+```mermaid
+sequenceDiagram
+    participant M as 主机
+    participant S as 从机
+    M->>S: req
+    S->>M: ack
+    M->>S: data
+```
 
 ## 3. 模块框图
 

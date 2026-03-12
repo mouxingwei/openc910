@@ -12,7 +12,7 @@
 
 ### 1.2 功能描述
 
-ct_clk_top 模块的功能描述。
+时钟控制 (Clock Control)，主要信号: 使能信号、输入信号、选择信号、时钟信号、有效信号
 
 ### 1.3 设计特点
 
@@ -25,21 +25,32 @@ ct_clk_top 模块的功能描述。
 
 | 信号名 | 方向 | 位宽 | 描述 |
 |--------|------|------|------|
-| biu_xx_dbg_wakeup | input | 1 | |
-| biu_xx_int_wakeup | input | 1 | |
-| biu_xx_normal_work | input | 1 | |
-| biu_xx_pmp_sel | input | 1 | |
-| biu_xx_snoop_vld | input | 1 | |
-| cp0_xx_core_icg_en | input | 1 | |
-| had_xx_clk_en | input | 1 | |
-| pll_core_clk | input | 1 | |
+| biu_xx_dbg_wakeup | input | 1 | 唤醒信号 |
+| biu_xx_int_wakeup | input | 1 | 输入信号 |
+| biu_xx_normal_work | input | 1 |  |
+| biu_xx_pmp_sel | input | 1 | 选择信号 |
+| biu_xx_snoop_vld | input | 1 | 有效信号 |
+| cp0_xx_core_icg_en | input | 1 | 使能信号 |
+| had_xx_clk_en | input | 1 | 时钟信号 |
+| pll_core_clk | input | 1 | 时钟信号 |
 
 ### 2.2 输出端口
 
 | 信号名 | 方向 | 位宽 | 描述 |
 |--------|------|------|------|
-| coreclk | output | 1 | |
-| forever_coreclk | output | 1 | |
+| coreclk | output | 1 | 时钟信号 |
+| forever_coreclk | output | 1 | 时钟信号 |
+
+### 2.5 接口时序图
+
+```mermaid
+sequenceDiagram
+    participant M as 主机
+    participant S as 从机
+    M->>S: req
+    S->>M: ack
+    M->>S: data
+```
 
 ## 3. 模块框图
 
@@ -131,7 +142,7 @@ graph TD
 
 | 层级 | 模块名 | 实例名 | 功能描述 |
 |------|--------|--------|----------|
-| 1 | BUFGCE | core_clk_buf | |
+| 1 | BUFGCE | core_clk_buf |  |
 
 ## 7. 修订历史
 

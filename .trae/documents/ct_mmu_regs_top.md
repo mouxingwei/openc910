@@ -13,7 +13,7 @@
 
 ### 1.2 功能描述
 
-ct_mmu_regs 模块的功能描述。
+内存管理单元 (Memory Management Unit)，(寄存器)，主要信号: 使能信号、读使能、选择信号、时钟信号、数据信号
 
 ### 1.3 设计特点
 
@@ -28,61 +28,61 @@ ct_mmu_regs 模块的功能描述。
 
 | 信号名 | 方向 | 位宽 | 描述 |
 |--------|------|------|------|
-| cp0_mmu_cskyee | input | 1 | |
-| cp0_mmu_icg_en | input | 1 | |
-| cp0_mmu_mpp | input | 2 | |
-| cp0_mmu_mprv | input | 1 | |
-| cp0_mmu_reg_num | input | 2 | |
-| cp0_mmu_satp_sel | input | 1 | |
-| cp0_mmu_wdata | input | 64 | |
-| cp0_mmu_wreg | input | 1 | |
-| cp0_yy_priv_mode | input | 2 | |
-| cpurst_b | input | 1 | |
-| forever_cpuclk | input | 1 | |
-| jtlb_regs_hit | input | 1 | |
-| jtlb_regs_hit_mult | input | 1 | |
-| jtlb_regs_tlbp_hit_index | input | 11 | |
-| jtlb_tlbr_asid | input | 16 | |
-| jtlb_tlbr_flg | input | 14 | |
-| jtlb_tlbr_g | input | 1 | |
-| jtlb_tlbr_pgs | input | 3 | |
-| jtlb_tlbr_ppn | input | 28 | |
-| jtlb_tlbr_vpn | input | 27 | |
-| pad_yy_icg_scan_en | input | 1 | |
-| rtu_mmu_bad_vpn | input | 27 | |
-| rtu_mmu_expt_vld | input | 1 | |
-| tlboper_regs_cmplt | input | 1 | |
-| tlboper_regs_tlbp_cmplt | input | 1 | |
-| tlboper_regs_tlbr_cmplt | input | 1 | |
+| cp0_mmu_cskyee | input | 1 |  |
+| cp0_mmu_icg_en | input | 1 | 使能信号 |
+| cp0_mmu_mpp | input | 2 |  |
+| cp0_mmu_mprv | input | 1 |  |
+| cp0_mmu_reg_num | input | 2 | 读使能 |
+| cp0_mmu_satp_sel | input | 1 | 选择信号 |
+| cp0_mmu_wdata | input | 64 | 数据信号 |
+| cp0_mmu_wreg | input | 1 | 读使能 |
+| cp0_yy_priv_mode | input | 2 |  |
+| cpurst_b | input | 1 | 复位信号 |
+| forever_cpuclk | input | 1 | 时钟信号 |
+| jtlb_regs_hit | input | 1 | 读使能 |
+| jtlb_regs_hit_mult | input | 1 | 读使能 |
+| jtlb_regs_tlbp_hit_index | input | 11 | 读使能 |
+| jtlb_tlbr_asid | input | 16 |  |
+| jtlb_tlbr_flg | input | 14 |  |
+| jtlb_tlbr_g | input | 1 |  |
+| jtlb_tlbr_pgs | input | 3 |  |
+| jtlb_tlbr_ppn | input | 28 |  |
+| jtlb_tlbr_vpn | input | 27 |  |
+| pad_yy_icg_scan_en | input | 1 | 使能信号 |
+| rtu_mmu_bad_vpn | input | 27 |  |
+| rtu_mmu_expt_vld | input | 1 | 有效信号 |
+| tlboper_regs_cmplt | input | 1 | 读使能 |
+| tlboper_regs_tlbp_cmplt | input | 1 | 读使能 |
+| tlboper_regs_tlbr_cmplt | input | 1 | 读使能 |
 
 ### 2.2 输出端口
 
 | 信号名 | 方向 | 位宽 | 描述 |
 |--------|------|------|------|
-| mmu_cp0_cmplt | output | 1 | |
-| mmu_cp0_data | output | 64 | |
-| mmu_cp0_satp_data | output | 64 | |
-| mmu_lsu_mmu_en | output | 1 | |
-| mmu_xx_mmu_en | output | 1 | |
-| regs_jtlb_cur_asid | output | 16 | |
-| regs_jtlb_cur_flg | output | 14 | |
-| regs_jtlb_cur_g | output | 1 | |
-| regs_jtlb_cur_ppn | output | 28 | |
-| regs_mmu_en | output | 1 | |
-| regs_ptw_cur_asid | output | 16 | |
-| regs_ptw_satp_ppn | output | 28 | |
-| regs_tlboper_cur_asid | output | 16 | |
-| regs_tlboper_cur_pgs | output | 3 | |
-| regs_tlboper_cur_vpn | output | 27 | |
-| regs_tlboper_inv_asid | output | 16 | |
-| regs_tlboper_invall | output | 1 | |
-| regs_tlboper_invasid | output | 1 | |
-| regs_tlboper_mir | output | 12 | |
-| regs_tlboper_tlbp | output | 1 | |
-| regs_tlboper_tlbr | output | 1 | |
-| regs_tlboper_tlbwi | output | 1 | |
-| regs_tlboper_tlbwr | output | 1 | |
-| regs_utlb_clr | output | 1 | |
+| mmu_cp0_cmplt | output | 1 |  |
+| mmu_cp0_data | output | 64 | 数据信号 |
+| mmu_cp0_satp_data | output | 64 | 数据信号 |
+| mmu_lsu_mmu_en | output | 1 | 使能信号 |
+| mmu_xx_mmu_en | output | 1 | 使能信号 |
+| regs_jtlb_cur_asid | output | 16 | 读使能 |
+| regs_jtlb_cur_flg | output | 14 | 读使能 |
+| regs_jtlb_cur_g | output | 1 | 读使能 |
+| regs_jtlb_cur_ppn | output | 28 | 读使能 |
+| regs_mmu_en | output | 1 | 使能信号 |
+| regs_ptw_cur_asid | output | 16 | 读使能 |
+| regs_ptw_satp_ppn | output | 28 | 读使能 |
+| regs_tlboper_cur_asid | output | 16 | 读使能 |
+| regs_tlboper_cur_pgs | output | 3 | 读使能 |
+| regs_tlboper_cur_vpn | output | 27 | 读使能 |
+| regs_tlboper_inv_asid | output | 16 | 读使能 |
+| regs_tlboper_invall | output | 1 | 读使能 |
+| regs_tlboper_invasid | output | 1 | 读使能 |
+| regs_tlboper_mir | output | 12 | 读使能 |
+| regs_tlboper_tlbp | output | 1 | 读使能 |
+| regs_tlboper_tlbr | output | 1 | 读使能 |
+| regs_tlboper_tlbwi | output | 1 | 读使能 |
+| regs_tlboper_tlbwr | output | 1 | 读使能 |
+| regs_utlb_clr | output | 1 | 读使能 |
 
 ### 2.4 参数列表
 
@@ -97,6 +97,17 @@ ct_mmu_regs 模块的功能描述。
 | MEL_NUM | 2'd1 | 1 | |
 | MEH_NUM | 2'd2 | 1 | |
 | MCIR_NUM | 2'd3 | 1 | |
+
+### 2.5 接口时序图
+
+```mermaid
+sequenceDiagram
+    participant M as 主机
+    participant S as 从机
+    M->>S: req
+    S->>M: ack
+    M->>S: data
+```
 
 ## 3. 模块框图
 
@@ -291,7 +302,7 @@ graph TD
 
 | 层级 | 模块名 | 实例名 | 功能描述 |
 |------|--------|--------|----------|
-| 1 | gated_clk_cell | x_mmu_regs_gateclk | |
+| 1 | gated_clk_cell | x_mmu_regs_gateclk |  |
 
 ## 7. 修订历史
 
