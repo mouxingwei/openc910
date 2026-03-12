@@ -1,6 +1,6 @@
 const { Document, Packer, Paragraph, TextRun, Table, TableRow, TableCell,
         HeadingLevel, AlignmentType, WidthType, BorderStyle, ShadingType,
-        Header, Footer, PageNumber, LevelFormat } = require('docx');
+        Header, Footer, PageNumber } = require('docx');
 const fs = require('fs');
 
 const border = { style: BorderStyle.SINGLE, size: 1, color: "CCCCCC" };
@@ -12,21 +12,18 @@ const doc = new Document({
         paragraphStyles: [
             { id: "Heading1", name: "Heading 1", basedOn: "Normal", next: "Normal", quickFormat: true,
                 run: { size: 32, bold: true, font: "Arial" },
-                paragraph: { spacing: { before: 240, after: 240 }, outlineLevel: 0 } },
+                paragraph: { spacing: { before: 240, after: 240 } } },
             { id: "Heading2", name: "Heading 2", basedOn: "Normal", next: "Normal", quickFormat: true,
                 run: { size: 28, bold: true, font: "Arial" },
-                paragraph: { spacing: { before: 180, after: 180 }, outlineLevel: 1 } },
+                paragraph: { spacing: { before: 180, after: 180 } } },
             { id: "Heading3", name: "Heading 3", basedOn: "Normal", next: "Normal", quickFormat: true,
                 run: { size: 26, bold: true, font: "Arial" },
-                paragraph: { spacing: { before: 120, after: 120 }, outlineLevel: 2 } },
+                paragraph: { spacing: { before: 120, after: 120 } } },
         ]
     },
     sections: [{
         properties: {
-            page: {
-                size: { width: 12240, height: 15840 },
-                margin: { top: 1440, right: 1440, bottom: 1440, left: 1440 }
-            }
+            page: { size: { width: 12240, height: 15840 }, margin: { top: 1440, right: 1440, bottom: 1440, left: 1440 } }
         },
         headers: {
             default: new Header({ children: [new Paragraph({
@@ -53,16 +50,16 @@ const doc = new Document({
                         new TableCell({ borders, width: { size: 6240, type: WidthType.DXA }, shading: { fill: "E8F4FC", type: ShadingType.CLEAR }, children: [new Paragraph({ children: [new TextRun({ text: "值", bold: true })] })] })
                     ]}),
                     new TableRow({ children: [
-                        new TableCell({ borders, width: { size: 3120, type: WidthType.DXA }, children: [new Paragraph({ children: [new TextRun("模块名称")] })] }),
-                        new TableCell({ borders, width: { size: 6240, type: WidthType.DXA }, children: [new Paragraph({ children: [new TextRun("ct_core")] })] })
+                        new TableCell({ borders, children: [new Paragraph({ children: [new TextRun("模块名称")] })] }),
+                        new TableCell({ borders, children: [new Paragraph({ children: [new TextRun("ct_core")] })] })
                     ]}),
                     new TableRow({ children: [
-                        new TableCell({ borders, width: { size: 3120, type: WidthType.DXA }, children: [new Paragraph({ children: [new TextRun("文件路径")] })] }),
-                        new TableCell({ borders, width: { size: 6240, type: WidthType.DXA }, children: [new Paragraph({ children: [new TextRun("cpu/rtl/ct_core.v")] })] })
+                        new TableCell({ borders, children: [new Paragraph({ children: [new TextRun("文件路径")] })] }),
+                        new TableCell({ borders, children: [new Paragraph({ children: [new TextRun("cpu\rtl\ct_core.v")] })] })
                     ]}),
                     new TableRow({ children: [
-                        new TableCell({ borders, width: { size: 3120, type: WidthType.DXA }, children: [new Paragraph({ children: [new TextRun("功能描述")] })] }),
-                        new TableCell({ borders, width: { size: 6240, type: WidthType.DXA }, children: [new Paragraph({ children: [new TextRun("处理器核心")] })] })
+                        new TableCell({ borders, children: [new Paragraph({ children: [new TextRun("层级")] })] }),
+                        new TableCell({ borders, children: [new Paragraph({ children: [new TextRun("Level 1")] })] })
                     ]})
                 ]
             }),
@@ -73,10 +70,10 @@ const doc = new Document({
                 columnWidths: [4680, 1560, 1560, 1560],
                 rows: [
                     new TableRow({ children: [
-                        new TableCell({ borders, width: { size: 4680, type: WidthType.DXA }, shading: { fill: "E8F4FC", type: ShadingType.CLEAR }, children: [new Paragraph({ children: [new TextRun({ text: "信号名", bold: true })] })] }),
-                        new TableCell({ borders, width: { size: 1560, type: WidthType.DXA }, shading: { fill: "E8F4FC", type: ShadingType.CLEAR }, children: [new Paragraph({ children: [new TextRun({ text: "方向", bold: true })] })] }),
-                        new TableCell({ borders, width: { size: 1560, type: WidthType.DXA }, shading: { fill: "E8F4FC", type: ShadingType.CLEAR }, children: [new Paragraph({ children: [new TextRun({ text: "位宽", bold: true })] })] }),
-                        new TableCell({ borders, width: { size: 1560, type: WidthType.DXA }, shading: { fill: "E8F4FC", type: ShadingType.CLEAR }, children: [new Paragraph({ children: [new TextRun({ text: "描述", bold: true })] })] })
+                        new TableCell({ borders, shading: { fill: "E8F4FC", type: ShadingType.CLEAR }, children: [new Paragraph({ children: [new TextRun({ text: "信号名", bold: true })] })] }),
+                        new TableCell({ borders, shading: { fill: "E8F4FC", type: ShadingType.CLEAR }, children: [new Paragraph({ children: [new TextRun({ text: "方向", bold: true })] })] }),
+                        new TableCell({ borders, shading: { fill: "E8F4FC", type: ShadingType.CLEAR }, children: [new Paragraph({ children: [new TextRun({ text: "位宽", bold: true })] })] }),
+                        new TableCell({ borders, shading: { fill: "E8F4FC", type: ShadingType.CLEAR }, children: [new Paragraph({ children: [new TextRun({ text: "描述", bold: true })] })] })
                     ]}),
                     new TableRow({ children: [
                         new TableCell({ borders, width: { size: 4680, type: WidthType.DXA }, children: [new Paragraph({ children: [new TextRun("biu_cp0_apb_base")] })] }),
@@ -206,10 +203,10 @@ const doc = new Document({
                 columnWidths: [4680, 1560, 1560, 1560],
                 rows: [
                     new TableRow({ children: [
-                        new TableCell({ borders, width: { size: 4680, type: WidthType.DXA }, shading: { fill: "E8F4FC", type: ShadingType.CLEAR }, children: [new Paragraph({ children: [new TextRun({ text: "信号名", bold: true })] })] }),
-                        new TableCell({ borders, width: { size: 1560, type: WidthType.DXA }, shading: { fill: "E8F4FC", type: ShadingType.CLEAR }, children: [new Paragraph({ children: [new TextRun({ text: "方向", bold: true })] })] }),
-                        new TableCell({ borders, width: { size: 1560, type: WidthType.DXA }, shading: { fill: "E8F4FC", type: ShadingType.CLEAR }, children: [new Paragraph({ children: [new TextRun({ text: "位宽", bold: true })] })] }),
-                        new TableCell({ borders, width: { size: 1560, type: WidthType.DXA }, shading: { fill: "E8F4FC", type: ShadingType.CLEAR }, children: [new Paragraph({ children: [new TextRun({ text: "描述", bold: true })] })] })
+                        new TableCell({ borders, shading: { fill: "E8F4FC", type: ShadingType.CLEAR }, children: [new Paragraph({ children: [new TextRun({ text: "信号名", bold: true })] })] }),
+                        new TableCell({ borders, shading: { fill: "E8F4FC", type: ShadingType.CLEAR }, children: [new Paragraph({ children: [new TextRun({ text: "方向", bold: true })] })] }),
+                        new TableCell({ borders, shading: { fill: "E8F4FC", type: ShadingType.CLEAR }, children: [new Paragraph({ children: [new TextRun({ text: "位宽", bold: true })] })] }),
+                        new TableCell({ borders, shading: { fill: "E8F4FC", type: ShadingType.CLEAR }, children: [new Paragraph({ children: [new TextRun({ text: "描述", bold: true })] })] })
                     ]}),
                     new TableRow({ children: [
                         new TableCell({ borders, width: { size: 4680, type: WidthType.DXA }, children: [new Paragraph({ children: [new TextRun("cp0_biu_icg_en")] })] }),
@@ -334,44 +331,67 @@ const doc = new Document({
                 ]
             }),
             new Paragraph({ heading: HeadingLevel.HEADING_2, children: [new TextRun("3. 子模块列表")] }),
-            new Table({{
-                width: {{ size: 9360, type: WidthType.DXA }},
-                columnWidths: [4680, 4680],
+            new Table({ width: { size: 9360, type: WidthType.DXA }, columnWidths: [2340, 2340, 2340, 2340], rows: [    new TableRow({ children: [        new TableCell({ borders, shading: { fill: "E8F4FC", type: ShadingType.CLEAR }, children: [new Paragraph({ children: [new TextRun({ text: "层级", bold: true })] })] }),        new TableCell({ borders, shading: { fill: "E8F4FC", type: ShadingType.CLEAR }, children: [new Paragraph({ children: [new TextRun({ text: "模块名", bold: true })] })] }),        new TableCell({ borders, shading: { fill: "E8F4FC", type: ShadingType.CLEAR }, children: [new Paragraph({ children: [new TextRun({ text: "实例名", bold: true })] })] }),        new TableCell({ borders, shading: { fill: "E8F4FC", type: ShadingType.CLEAR }, children: [new Paragraph({ children: [new TextRun({ text: "功能描述", bold: true })] })] })    ]}),new TableRow({ children: [
+                        new TableCell({ borders, width: { size: 2340, type: WidthType.DXA }, children: [new Paragraph({ children: [new TextRun("1")] })] }),
+                        new TableCell({ borders, width: { size: 2340, type: WidthType.DXA }, children: [new Paragraph({ children: [new TextRun("ct_ifu_top")] })] }),
+                        new TableCell({ borders, width: { size: 2340, type: WidthType.DXA }, children: [new Paragraph({ children: [new TextRun("x_ct_ifu_top")] })] }),
+                        new TableCell({ borders, width: { size: 2340, type: WidthType.DXA }, children: [new Paragraph({ children: [new TextRun("")] })] })
+                    ] }),
+                    new TableRow({ children: [
+                        new TableCell({ borders, width: { size: 2340, type: WidthType.DXA }, children: [new Paragraph({ children: [new TextRun("1")] })] }),
+                        new TableCell({ borders, width: { size: 2340, type: WidthType.DXA }, children: [new Paragraph({ children: [new TextRun("ct_idu_top")] })] }),
+                        new TableCell({ borders, width: { size: 2340, type: WidthType.DXA }, children: [new Paragraph({ children: [new TextRun("x_ct_idu_top")] })] }),
+                        new TableCell({ borders, width: { size: 2340, type: WidthType.DXA }, children: [new Paragraph({ children: [new TextRun("")] })] })
+                    ] }),
+                    new TableRow({ children: [
+                        new TableCell({ borders, width: { size: 2340, type: WidthType.DXA }, children: [new Paragraph({ children: [new TextRun("1")] })] }),
+                        new TableCell({ borders, width: { size: 2340, type: WidthType.DXA }, children: [new Paragraph({ children: [new TextRun("ct_iu_top")] })] }),
+                        new TableCell({ borders, width: { size: 2340, type: WidthType.DXA }, children: [new Paragraph({ children: [new TextRun("x_ct_iu_top")] })] }),
+                        new TableCell({ borders, width: { size: 2340, type: WidthType.DXA }, children: [new Paragraph({ children: [new TextRun("")] })] })
+                    ] }),
+                    new TableRow({ children: [
+                        new TableCell({ borders, width: { size: 2340, type: WidthType.DXA }, children: [new Paragraph({ children: [new TextRun("1")] })] }),
+                        new TableCell({ borders, width: { size: 2340, type: WidthType.DXA }, children: [new Paragraph({ children: [new TextRun("ct_vfpu_top")] })] }),
+                        new TableCell({ borders, width: { size: 2340, type: WidthType.DXA }, children: [new Paragraph({ children: [new TextRun("x_ct_vfpu_top")] })] }),
+                        new TableCell({ borders, width: { size: 2340, type: WidthType.DXA }, children: [new Paragraph({ children: [new TextRun("")] })] })
+                    ] }),
+                    new TableRow({ children: [
+                        new TableCell({ borders, width: { size: 2340, type: WidthType.DXA }, children: [new Paragraph({ children: [new TextRun("1")] })] }),
+                        new TableCell({ borders, width: { size: 2340, type: WidthType.DXA }, children: [new Paragraph({ children: [new TextRun("ct_lsu_top")] })] }),
+                        new TableCell({ borders, width: { size: 2340, type: WidthType.DXA }, children: [new Paragraph({ children: [new TextRun("x_ct_lsu_top")] })] }),
+                        new TableCell({ borders, width: { size: 2340, type: WidthType.DXA }, children: [new Paragraph({ children: [new TextRun("")] })] })
+                    ] }),
+                    new TableRow({ children: [
+                        new TableCell({ borders, width: { size: 2340, type: WidthType.DXA }, children: [new Paragraph({ children: [new TextRun("1")] })] }),
+                        new TableCell({ borders, width: { size: 2340, type: WidthType.DXA }, children: [new Paragraph({ children: [new TextRun("ct_cp0_top")] })] }),
+                        new TableCell({ borders, width: { size: 2340, type: WidthType.DXA }, children: [new Paragraph({ children: [new TextRun("x_ct_cp0_top")] })] }),
+                        new TableCell({ borders, width: { size: 2340, type: WidthType.DXA }, children: [new Paragraph({ children: [new TextRun("")] })] })
+                    ] }),
+                    new TableRow({ children: [
+                        new TableCell({ borders, width: { size: 2340, type: WidthType.DXA }, children: [new Paragraph({ children: [new TextRun("1")] })] }),
+                        new TableCell({ borders, width: { size: 2340, type: WidthType.DXA }, children: [new Paragraph({ children: [new TextRun("ct_rtu_top")] })] }),
+                        new TableCell({ borders, width: { size: 2340, type: WidthType.DXA }, children: [new Paragraph({ children: [new TextRun("x_ct_rtu_top")] })] }),
+                        new TableCell({ borders, width: { size: 2340, type: WidthType.DXA }, children: [new Paragraph({ children: [new TextRun("")] })] })
+                    ] }),]}),
+            new Paragraph({ heading: HeadingLevel.HEADING_2, children: [new TextRun("4. 修订历史")] }),
+            new Table({
+                width: { size: 9360, type: WidthType.DXA },
+                columnWidths: [2340, 2340, 2340, 2340],
                 rows: [
-                    new TableRow({{ children: [
-                        new TableCell({{ borders, width: {{ size: 4680, type: WidthType.DXA }}, shading: {{ fill: "E8F4FC", type: ShadingType.CLEAR }}, children: [new Paragraph({{ children: [new TextRun({{ text: "模块名", bold: true }})] }})] }}),
-                        new TableCell({{ borders, width: {{ size: 4680, type: WidthType.DXA }}, shading: {{ fill: "E8F4FC", type: ShadingType.CLEAR }}, children: [new Paragraph({{ children: [new TextRun({{ text: "实例名", bold: true }})] }})] }})
-                    ]}}),
                     new TableRow({ children: [
-                        new TableCell({ borders, width: { size: 4680, type: WidthType.DXA }, children: [new Paragraph({ children: [new TextRun("ct_ifu_top")] })] }),
-                        new TableCell({ borders, width: { size: 4680, type: WidthType.DXA }, children: [new Paragraph({ children: [new TextRun("x_ct_ifu_top")] })] })
+                        new TableCell({ borders, shading: { fill: "E8F4FC", type: ShadingType.CLEAR }, children: [new Paragraph({ children: [new TextRun({ text: "版本", bold: true })] })] }),
+                        new TableCell({ borders, shading: { fill: "E8F4FC", type: ShadingType.CLEAR }, children: [new Paragraph({ children: [new TextRun({ text: "日期", bold: true })] })] }),
+                        new TableCell({ borders, shading: { fill: "E8F4FC", type: ShadingType.CLEAR }, children: [new Paragraph({ children: [new TextRun({ text: "作者", bold: true })] })] }),
+                        new TableCell({ borders, shading: { fill: "E8F4FC", type: ShadingType.CLEAR }, children: [new Paragraph({ children: [new TextRun({ text: "说明", bold: true })] })] })
                     ]}),
                     new TableRow({ children: [
-                        new TableCell({ borders, width: { size: 4680, type: WidthType.DXA }, children: [new Paragraph({ children: [new TextRun("ct_idu_top")] })] }),
-                        new TableCell({ borders, width: { size: 4680, type: WidthType.DXA }, children: [new Paragraph({ children: [new TextRun("x_ct_idu_top")] })] })
-                    ]}),
-                    new TableRow({ children: [
-                        new TableCell({ borders, width: { size: 4680, type: WidthType.DXA }, children: [new Paragraph({ children: [new TextRun("ct_iu_top")] })] }),
-                        new TableCell({ borders, width: { size: 4680, type: WidthType.DXA }, children: [new Paragraph({ children: [new TextRun("x_ct_iu_top")] })] })
-                    ]}),
-                    new TableRow({ children: [
-                        new TableCell({ borders, width: { size: 4680, type: WidthType.DXA }, children: [new Paragraph({ children: [new TextRun("ct_vfpu_top")] })] }),
-                        new TableCell({ borders, width: { size: 4680, type: WidthType.DXA }, children: [new Paragraph({ children: [new TextRun("x_ct_vfpu_top")] })] })
-                    ]}),
-                    new TableRow({ children: [
-                        new TableCell({ borders, width: { size: 4680, type: WidthType.DXA }, children: [new Paragraph({ children: [new TextRun("ct_lsu_top")] })] }),
-                        new TableCell({ borders, width: { size: 4680, type: WidthType.DXA }, children: [new Paragraph({ children: [new TextRun("x_ct_lsu_top")] })] })
-                    ]}),
-                    new TableRow({ children: [
-                        new TableCell({ borders, width: { size: 4680, type: WidthType.DXA }, children: [new Paragraph({ children: [new TextRun("ct_cp0_top")] })] }),
-                        new TableCell({ borders, width: { size: 4680, type: WidthType.DXA }, children: [new Paragraph({ children: [new TextRun("x_ct_cp0_top")] })] })
-                    ]}),
-                    new TableRow({ children: [
-                        new TableCell({ borders, width: { size: 4680, type: WidthType.DXA }, children: [new Paragraph({ children: [new TextRun("ct_rtu_top")] })] }),
-                        new TableCell({ borders, width: { size: 4680, type: WidthType.DXA }, children: [new Paragraph({ children: [new TextRun("x_ct_rtu_top")] })] })
-                    ]}),
+                        new TableCell({ borders, children: [new Paragraph({ children: [new TextRun("1.0")] })] }),
+                        new TableCell({ borders, children: [new Paragraph({ children: [new TextRun("2026-03-12")] })] }),
+                        new TableCell({ borders, children: [new Paragraph({ children: [new TextRun("Auto-generated")] })] }),
+                        new TableCell({ borders, children: [new Paragraph({ children: [new TextRun("初始版本")] })] })
+                    ]})
                 ]
-            }})
+            })
         ]
     }]
 });
