@@ -1,11 +1,10 @@
 ---
 name: verilog-doc-generator
-description: |
-  从 Verilog RTL 源文件生成详细的模块文档。
-  支持单个或多个文件，输出 Markdown 和 Word (docx) 格式。
-  使用 Pyverilog 和 Hdlparse 进行精准代码解析。
-  调用子 SKILL 生成状态图、时序图、框图和流水线图。
-  当用户想要记录 Verilog 代码、生成模块规范或从 RTL 创建设计文档时使用此技能。
+description: "从 Verilog RTL 源文件生成详细的模块文档。
+支持单个或多个文件，输出 Markdown 和 Word (docx) 格式。
+使用 Pyverilog 和 Hdlparse 进行精准代码解析。
+调用子 SKILL 生成状态图、时序图、框图和流水线图。
+当用户想要记录 Verilog 代码、生成模块规范或从 RTL 创建设计文档时使用此技能。"
 ---
 
 # Verilog 模块文档生成器
