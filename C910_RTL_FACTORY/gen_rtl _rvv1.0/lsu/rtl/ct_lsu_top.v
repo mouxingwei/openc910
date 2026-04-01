@@ -1516,6 +1516,7 @@ wire    [2  :0]  ld_dc_inst_size;
 wire    [1  :0]  ld_dc_inst_type;                        
 wire             ld_dc_inst_vfls;                        
 wire             ld_dc_inst_vld;                         
+wire             ld_dc_inst_fof;                         
 wire    [14 :0]  ld_dc_ldfifo_pc;                        
 wire             ld_dc_lq_create1_dp_vld;                
 wire             ld_dc_lq_create1_gateclk_en;            
@@ -3555,6 +3556,7 @@ ct_lsu_ld_dc  x_ct_lsu_ld_dc (
   .ld_dc_inst_type                         (ld_dc_inst_type                        ),
   .ld_dc_inst_vfls                         (ld_dc_inst_vfls                        ),
   .ld_dc_inst_vld                          (ld_dc_inst_vld                         ),
+  .ld_dc_inst_fof                          (ld_dc_inst_fof                         ),
   .ld_dc_ldfifo_pc                         (ld_dc_ldfifo_pc                        ),
   .ld_dc_lq_create1_dp_vld                 (ld_dc_lq_create1_dp_vld                ),
   .ld_dc_lq_create1_gateclk_en             (ld_dc_lq_create1_gateclk_en            ),
@@ -4196,6 +4198,7 @@ ct_lsu_ld_da  x_ct_lsu_ld_da (
   .ld_dc_inst_type                      (ld_dc_inst_type                     ),
   .ld_dc_inst_vfls                      (ld_dc_inst_vfls                     ),
   .ld_dc_inst_vld                       (ld_dc_inst_vld                      ),
+  .ld_dc_inst_fof                       (ld_dc_inst_fof                      ),
   .ld_dc_ldfifo_pc                      (ld_dc_ldfifo_pc                     ),
   .ld_dc_lsid                           (ld_dc_lsid                          ),
   .ld_dc_mmu_req                        (ld_dc_mmu_req                       ),

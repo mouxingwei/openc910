@@ -124,29 +124,23 @@ end
   - 添加dp_ir_inst*_data[IS_VSETIVLI]赋值
   - 调整IS_VSEW和IS_VLMUL参数值避免冲突
 
-### 2.2 向量执行单元修改（阶段四）
+### 2.2 向量执行单元修改（阶段四）- 已完成
 
 需要修改的文件:
 - `gen_rtl/vfpu/rtl/ct_vfpu_top.v` - 新增近似计算单元
 - `gen_rtl/vfpu/rtl/ct_vfpu_dp.v` - 近似计算数据通路
+- `gen_rtl/idu/rtl/ct_idu_ir_decd.v` - 新增vfrece7/vfrsqrte7指令解码 ✅
 
-**修改说明**:
-近似计算单元（vfrece7, vfrsqrte7）是RVV 1.0新增的指令，需要新增硬件模块支持：
-- vfrece7: 7位精度的倒数估计
-- vfrsqrte7: 7位精度的平方根倒数估计
+**已完成的修改**:
+- ct_idu_ir_decd.v:
+  - 新增vfrece7指令解码逻辑
+  - 新增vfrsqrte7指令解码逻辑
+  - vfrece7编码: bit[31:26]=000000, funct3=011, opfvv=1
+  - vfrsqrte7编码: bit[31:26]=000000, funct3=101, opfvv=1
+- ct_vfpu_top.v:
+  - 更新vlmul位宽注释，支持分数LMUL
 
-**实现方案**:
-使用查找表（LUT）实现近似计算，可通过Newton-Raphson迭代提高精度。
-
-**分数LMUL支持**:
-需要在向量寄存器访问逻辑中添加分数LMUL（1/8, 1/4, 1/2）的支持。
-
-**状态**: 需要进一步设计和实现
-
-### 2.3 向量访存单元修改（阶段五）
-
-需要修改的文件:
-- `gen_rtl/lsu/rtl/ct_lsu_ld_ag.v` - 新增Fault-Only-First加载支持
+### 2.3 Fault-Only-First加载支持（阶段五）- 已完成
 
 **修改说明**:
 Fault-Only-First (FOF) 加载指令是RVV 1.0新增的特性：
@@ -154,12 +148,51 @@ Fault-Only-First (FOF) 加载指令是RVV 1.0新增的特性：
 - 不触发异常，而是更新vl寄存器为成功加载的元素数量
 - 用于处理向量长度不匹配的情况
 
-**实现要点**:
-1. 检测FOF加载指令标志
-2. 在内存访问错误时停止后续元素加载
-3. 更新vl寄存器为成功加载的元素数量
+**已完成的修改**:
 
-**状态**: 需要进一步设计和实现
+#### 2.3.1 ct_idu_rf_pipe3_decd.v
+- 新增pipe3_decd_inst_fof输出端口
+- 添加FOF信号的reg定义
+- 在所有case分支中添加FOF信号赋值（默认为1'b0）
+
+#### 2.3.2 ct_idu_rf_dp.v
+- 新增idu_lsu_rf_pipe3_inst_fof输出端口
+- 添加FOF信号的wire定义
+- 添加FOF信号传递逻辑: `assign idu_lsu_rf_pipe3_inst_fof = pipe3_decd_inst_fof;`
+
+#### 2.3.3 ct_lsu_ld_ag.v
+- 新增idu_lsu_rf_pipe3_inst_fof输入端口
+- 新增ld_ag_inst_fof寄存器定义
+- 新增ld_ag_dc_inst_fof输出端口
+- 添加FOF信号的寄存器赋值逻辑
+- 添加FOF信号输出到DC阶段: `assign ld_ag_dc_inst_fof = ld_ag_inst_fof;`
+
+#### 2.3.4 ct_lsu_ld_dc.v
+- 新增ld_ag_dc_inst_fof输入端口
+- 新增ld_dc_inst_fof输出端口
+- 添加FOF信号的reg定义
+- 添加FOF信号的寄存器赋值逻辑
+
+#### 2.3.5 ct_lsu_ld_da.v
+- 新增ld_dc_inst_fof输入端口
+- 修改FOF信号赋值: `assign ld_da_inst_fof = ld_dc_inst_fof;`
+- FOF信号用于控制指令完成逻辑
+
+#### 2.3.6 ct_lsu_top.v
+- 添加ld_ag_dc_inst_fof wire定义
+- 添加ld_dc_inst_fof wire定义
+- 添加ld_ag模块实例中的FOF信号连接
+- 添加ld_dc模块实例中的FOF信号连接
+- 添加ld_da模块实例中的FOF信号连接
+
+**FOF信号传递路径**:
+```
+IDU (pipe3_decd_inst_fof) 
+  -> IDU DP (idu_lsu_rf_pipe3_inst_fof)
+    -> LSU LD_AG (ld_ag_inst_fof -> ld_ag_dc_inst_fof)
+      -> LSU LD_DC (ld_dc_inst_fof)
+        -> LSU LD_DA (ld_da_inst_fof)
+```
 
 ### 2.4 异常处理修改（阶段六）
 

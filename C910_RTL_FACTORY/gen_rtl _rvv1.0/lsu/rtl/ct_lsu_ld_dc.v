@@ -898,6 +898,7 @@ begin
     ld_dc_vload_inst_vld_dup2        <=  1'b0;
     ld_dc_vload_inst_vld_dup3        <=  1'b0;
     ld_dc_vload_ahead_inst_vld       <=  1'b0;
+    ld_dc_inst_fof                   <=  1'b0;
   end
   else if(rtu_yy_xx_flush)
   begin
@@ -916,6 +917,7 @@ begin
     ld_dc_vload_inst_vld_dup2        <=  1'b0;
     ld_dc_vload_inst_vld_dup3        <=  1'b0;
     ld_dc_vload_ahead_inst_vld       <=  1'b0;
+    ld_dc_inst_fof                   <=  1'b0;
   end
   else if(ld_ag_dc_inst_vld)
   begin
@@ -934,6 +936,7 @@ begin
     ld_dc_vload_inst_vld_dup2        <=  ld_ag_dc_vload_inst_vld;
     ld_dc_vload_inst_vld_dup3        <=  ld_ag_dc_vload_inst_vld;
     ld_dc_vload_ahead_inst_vld       <=  ld_ag_dc_vload_ahead_inst_vld;
+    ld_dc_inst_fof                   <=  ld_ag_dc_inst_fof;
   end
   else
   begin

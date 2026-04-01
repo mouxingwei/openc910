@@ -194,6 +194,7 @@ module ct_lsu_ld_da(
   ld_dc_inst_type,
   ld_dc_inst_vfls,
   ld_dc_inst_vld,
+  ld_dc_inst_fof,
   ld_dc_ldfifo_pc,
   ld_dc_lsid,
   ld_dc_mmu_req,
@@ -334,6 +335,7 @@ input   [2  :0]  ld_dc_inst_size;
 input   [1  :0]  ld_dc_inst_type;                     
 input            ld_dc_inst_vfls;                     
 input            ld_dc_inst_vld;                      
+input            ld_dc_inst_fof;                      
 input   [14 :0]  ld_dc_ldfifo_pc;                     
 input   [11 :0]  ld_dc_lsid;                          
 input            ld_dc_mmu_req;                       
@@ -881,6 +883,7 @@ wire    [2  :0]  ld_dc_inst_size;
 wire    [1  :0]  ld_dc_inst_type;                     
 wire             ld_dc_inst_vfls;                     
 wire             ld_dc_inst_vld;                      
+wire             ld_dc_inst_fof;                      
 wire    [14 :0]  ld_dc_ldfifo_pc;                     
 wire    [11 :0]  ld_dc_lsid;                          
 wire             ld_dc_mmu_req;                       
@@ -1590,7 +1593,9 @@ end
 // &Force("output","ld_da_rb_expt_vld"); @829
 assign ld_da_wb_mt_value[`PA_WIDTH-1:0] = ld_da_wb_mt_value_ori[`PA_WIDTH-1:0];
 assign ld_da_fof_not_first = 1'b0;
-assign ld_da_inst_fof = 1'b0;
+// Modified for RVV 1.0: FOF signal now comes from input
+// Original: assign ld_da_inst_fof = 1'b0;
+assign ld_da_inst_fof = ld_dc_inst_fof;
 //==========================================================
 //        Generate inst type
 //==========================================================
