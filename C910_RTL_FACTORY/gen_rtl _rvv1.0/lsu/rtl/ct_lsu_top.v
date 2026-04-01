@@ -1303,6 +1303,7 @@ wire             ld_ag_dc_mmu_req;
 wire    [3  :0]  ld_ag_dc_rot_sel;                       
 wire             ld_ag_dc_vload_ahead_inst_vld;          
 wire             ld_ag_dc_vload_inst_vld;                
+wire             ld_ag_dc_inst_fof;                      
 wire             ld_ag_expt_access_fault_with_page;      
 wire             ld_ag_expt_ldamo_not_ca;                
 wire             ld_ag_expt_misalign_no_page;            
@@ -2861,6 +2862,7 @@ ct_lsu_ld_ag  x_ct_lsu_ld_ag (
   .ld_ag_dc_rot_sel                  (ld_ag_dc_rot_sel                 ),
   .ld_ag_dc_vload_ahead_inst_vld     (ld_ag_dc_vload_ahead_inst_vld    ),
   .ld_ag_dc_vload_inst_vld           (ld_ag_dc_vload_inst_vld          ),
+  .ld_ag_dc_inst_fof                 (ld_ag_dc_inst_fof                ),
   .ld_ag_expt_access_fault_with_page (ld_ag_expt_access_fault_with_page),
   .ld_ag_expt_ldamo_not_ca           (ld_ag_expt_ldamo_not_ca          ),
   .ld_ag_expt_misalign_no_page       (ld_ag_expt_misalign_no_page      ),
@@ -3457,6 +3459,7 @@ ct_lsu_ld_dc  x_ct_lsu_ld_dc (
   .ld_ag_dc_rot_sel                        (ld_ag_dc_rot_sel                       ),
   .ld_ag_dc_vload_ahead_inst_vld           (ld_ag_dc_vload_ahead_inst_vld          ),
   .ld_ag_dc_vload_inst_vld                 (ld_ag_dc_vload_inst_vld                ),
+  .ld_ag_dc_inst_fof                       (ld_ag_dc_inst_fof                      ),
   .ld_ag_expt_access_fault_with_page       (ld_ag_expt_access_fault_with_page      ),
   .ld_ag_expt_ldamo_not_ca                 (ld_ag_expt_ldamo_not_ca                ),
   .ld_ag_expt_misalign_no_page             (ld_ag_expt_misalign_no_page            ),

@@ -58,6 +58,7 @@ module ct_lsu_ld_dc(
   ld_ag_dc_rot_sel,
   ld_ag_dc_vload_ahead_inst_vld,
   ld_ag_dc_vload_inst_vld,
+  ld_ag_dc_inst_fof,
   ld_ag_expt_access_fault_with_page,
   ld_ag_expt_ldamo_not_ca,
   ld_ag_expt_misalign_no_page,
@@ -279,6 +280,7 @@ input           ld_ag_dc_mmu_req;
 input   [3 :0]  ld_ag_dc_rot_sel;                       
 input           ld_ag_dc_vload_ahead_inst_vld;          
 input           ld_ag_dc_vload_inst_vld;                
+input           ld_ag_dc_inst_fof;                      
 input           ld_ag_expt_access_fault_with_page;      
 input           ld_ag_expt_ldamo_not_ca;                
 input           ld_ag_expt_misalign_no_page;            
@@ -403,6 +405,7 @@ output  [2 :0]  ld_dc_inst_size;
 output  [1 :0]  ld_dc_inst_type;                        
 output          ld_dc_inst_vfls;                        
 output          ld_dc_inst_vld;                         
+output          ld_dc_inst_fof;                         
 output  [14:0]  ld_dc_ldfifo_pc;                        
 output          ld_dc_lq_create1_dp_vld;                
 output          ld_dc_lq_create1_gateclk_en;            
@@ -487,6 +490,7 @@ reg     [2 :0]  ld_dc_inst_size;
 reg     [1 :0]  ld_dc_inst_type;                        
 reg             ld_dc_inst_vfls;                        
 reg             ld_dc_inst_vld;                         
+reg             ld_dc_inst_fof;                         
 reg     [14:0]  ld_dc_ldfifo_pc;                        
 reg             ld_dc_load_ahead_inst_vld_dup1;         
 reg             ld_dc_load_ahead_inst_vld_dup2;         

@@ -82,6 +82,7 @@ module ct_lsu_ld_ag(
   ld_ag_dc_rot_sel,
   ld_ag_dc_vload_ahead_inst_vld,
   ld_ag_dc_vload_inst_vld,
+  ld_ag_dc_inst_fof,
   ld_ag_expt_access_fault_with_page,
   ld_ag_expt_ldamo_not_ca,
   ld_ag_expt_misalign_no_page,
@@ -179,6 +180,7 @@ input           idu_lsu_rf_pipe3_bkptb_data;
 input           idu_lsu_rf_pipe3_gateclk_sel;       
 input   [6 :0]  idu_lsu_rf_pipe3_iid;               
 input           idu_lsu_rf_pipe3_inst_fls;          
+input           idu_lsu_rf_pipe3_inst_fof;          
 input           idu_lsu_rf_pipe3_inst_ldr;          
 input   [1 :0]  idu_lsu_rf_pipe3_inst_size;         
 input   [1 :0]  idu_lsu_rf_pipe3_inst_type;         
@@ -244,6 +246,7 @@ output          ld_ag_dc_mmu_req;
 output  [3 :0]  ld_ag_dc_rot_sel;                   
 output          ld_ag_dc_vload_ahead_inst_vld;      
 output          ld_ag_dc_vload_inst_vld;            
+output          ld_ag_dc_inst_fof;                  
 output          ld_ag_expt_access_fault_with_page;  
 output          ld_ag_expt_ldamo_not_ca;            
 output          ld_ag_expt_misalign_no_page;        
@@ -314,6 +317,7 @@ reg             ld_ag_bypass_en;
 reg     [2 :0]  ld_ag_dc_access_size;               
 reg     [6 :0]  ld_ag_iid;                          
 reg             ld_ag_inst_fls;                     
+reg             ld_ag_inst_fof;                     
 reg             ld_ag_inst_ldr;                     
 reg     [1 :0]  ld_ag_inst_size;                    
 reg     [1 :0]  ld_ag_inst_type;                    
@@ -376,6 +380,7 @@ wire            idu_lsu_rf_pipe3_bkptb_data;
 wire            idu_lsu_rf_pipe3_gateclk_sel;       
 wire    [6 :0]  idu_lsu_rf_pipe3_iid;               
 wire            idu_lsu_rf_pipe3_inst_fls;          
+wire            idu_lsu_rf_pipe3_inst_fof;          
 wire            idu_lsu_rf_pipe3_inst_ldr;          
 wire    [1 :0]  idu_lsu_rf_pipe3_inst_size;         
 wire    [1 :0]  idu_lsu_rf_pipe3_inst_type;         
@@ -436,6 +441,7 @@ wire            ld_ag_dc_mmu_req;
 wire    [3 :0]  ld_ag_dc_rot_sel;                   
 wire            ld_ag_dc_vload_ahead_inst_vld;      
 wire            ld_ag_dc_vload_inst_vld;            
+wire            ld_ag_dc_inst_fof;                  
 wire            ld_ag_dcache_stall_req;             
 wire            ld_ag_dcache_stall_unmask;          
 wire            ld_ag_expt_access_fault_with_page;  
@@ -444,7 +450,7 @@ wire            ld_ag_expt_misalign_no_page;
 wire            ld_ag_expt_misalign_with_page;      
 wire            ld_ag_expt_page_fault;              
 wire            ld_ag_expt_vld;                     
-wire            ld_ag_inst_fof;                     
+// wire            ld_ag_inst_fof;  // Removed for RVV 1.0 - now using reg
 wire            ld_ag_inst_stall_gateclk_en;        
 wire            ld_ag_inst_vfls;                    
 wire            ld_ag_inst_vls;                     
@@ -654,6 +660,7 @@ begin
     ld_ag_vreg_dup3[5:0]        <=  6'b0;
     ld_ag_inst_ldr              <=  1'b0;
     ld_ag_inst_fls              <=  1'b0;
+    ld_ag_inst_fof              <=  1'b0;
     ld_ag_lsfifo                <=  1'b0;
     ld_ag_no_spec               <=  1'b0;
     ld_ag_no_spec_exist         <=  1'b0;
@@ -686,6 +693,7 @@ begin
     ld_ag_vreg_dup3[5:0]        <=  idu_lsu_rf_pipe3_vreg[5:0];
     ld_ag_inst_ldr              <=  idu_lsu_rf_pipe3_inst_ldr;
     ld_ag_inst_fls              <=  idu_lsu_rf_pipe3_inst_fls;
+    ld_ag_inst_fof              <=  idu_lsu_rf_pipe3_inst_fof;
     ld_ag_lsfifo                <=  idu_lsu_rf_pipe3_lsfifo;
     ld_ag_no_spec               <=  idu_lsu_rf_pipe3_no_spec;
     ld_ag_no_spec_exist         <=  idu_lsu_rf_pipe3_no_spec_exist;
@@ -831,7 +839,9 @@ assign ld_ag_pf_inst  = ld_ag_ld_inst
 // &Force("output", "ld_ag_vmb_merge_vld"); @357
 // &Force("output", "ld_ag_inst_fof"); @358
 assign ld_ag_inst_vls   = 1'b0;
-assign ld_ag_inst_fof   = 1'b0;
+// Modified for RVV 1.0: FOF signal now comes from input
+// Original: assign ld_ag_inst_fof   = 1'b0;
+// FOF signal is now stored in ld_ag_inst_fof register (defined as reg)
 assign ld_ag_inst_vfls  = ld_ag_inst_fls;
 assign ld_ag_vmb_merge_vld = 1'b0;
 //==========================================================
@@ -1381,6 +1391,9 @@ assign ld_ag_dc_vload_inst_vld        = ld_ag_inst_vld
 //                                        &&  !cp0_lsu_da_fwd_dis
 //                                        &&  ld_ag_ahead_predict;
 assign ld_ag_dc_vload_ahead_inst_vld = 1'b0; 
+
+// Modified for RVV 1.0: FOF signal output to DC stage
+assign ld_ag_dc_inst_fof = ld_ag_inst_fof;
 
 //-----------for timing--------------------------
 //compare iid ahead for dc restart timing
