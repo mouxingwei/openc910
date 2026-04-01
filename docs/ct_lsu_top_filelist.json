@@ -1,0 +1,12 @@
+{
+  "top_module": "ct_lsu_top",
+  "total_modules": 1,
+  "compile_order": [
+    {
+      "module": "ct_lsu_top",
+      "file": "d:\\code\\openc910\\C910_RTL_FACTORY\\gen_rtl\\lsu\\rtl\\ct_lsu_top.v",
+      "level": 0
+    }
+  ],
+  "dependencies": {}
+}

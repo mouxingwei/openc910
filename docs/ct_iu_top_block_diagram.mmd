@@ -1,0 +1,48 @@
+%% ct_iu_top 模块框图
+%% 生成时间: 2026-03-13
+
+graph TB
+    subgraph CT_IU_TOP["ct_iu_top<br/>整数单元顶层"]
+        direction TB
+        
+        subgraph PIPE0["Pipe0 - ALU流水线"]
+            ALU0["ct_iu_alu<br/>ALU运算单元"]
+            SPECIAL["ct_iu_special<br/>特殊指令单元"]
+        end
+        
+        subgraph PIPE1["Pipe1 - ALU流水线"]
+            ALU1["ct_iu_alu<br/>ALU运算单元"]
+        end
+        
+        subgraph PIPE2["Pipe2 - 分支流水线"]
+            BJU["ct_iu_bju<br/>分支跳转单元"]
+        end
+        
+        subgraph MULT_DIV["乘除法单元"]
+            MULT["ct_iu_mult<br/>乘法器"]
+            DIV["ct_iu_div<br/>除法器"]
+        end
+        
+        subgraph BUS["总线接口"]
+            CBUS["ct_iu_cbus<br/>控制总线"]
+            RBUS["ct_iu_rbus<br/>结果总线"]
+        end
+    end
+    
+    IDU["IDU<br/>译码单元"] -->|指令信息| PIPE0
+    IDU -->|指令信息| PIPE1
+    IDU -->|分支指令| PIPE2
+    IDU -->|乘法指令| MULT
+    IDU -->|除法指令| DIV
+    
+    PIPE0 -->|运算结果| RBUS
+    PIPE1 -->|运算结果| RBUS
+    PIPE2 -->|跳转结果| CBUS
+    MULT -->|乘法结果| RBUS
+    DIV -->|除法结果| RBUS
+    
+    PIPE0 -->|控制信息| CBUS
+    PIPE1 -->|控制信息| CBUS
+    
+    RBUS -->|写回数据| IDU
+    CBUS -->|提交信息| RTU["RTU<br/>提交单元"]

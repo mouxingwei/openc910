@@ -1,283 +1,116 @@
-# Verilog-doc-generator SKILL 优化计划
+# Verilog 文档生成器优化计划
+
+## 优化目标
+
+优化 verilog-doc-generator SKILL 的描述，确保：
+
+1. **Markdown 文档**：所有框图、时序图、状态机转移图等使用 Mermaid 语法
+2. **Word 文档**：所有图表替换为对应的 PNG 图片
+
+## 任务分解
+
+### [x] 任务 1：更新 SKILL 描述
+- **Priority**: P0
+- **Depends On**: None
+- **Description**:
+  - 明确在 Markdown 文档中使用 Mermaid 语法
+  - 明确在 Word 文档中使用 PNG 图片
+  - 更新文档生成流程描述
+- **Success Criteria**:
+  - SKILL 描述清晰说明图表处理方式
+  - 文档生成流程中明确图表处理步骤
+- **Test Requirements**:
+  - `programmatic` TR-1.1: SKILL.md 文件已更新 ✓
+  - `human-judgment` TR-1.2: 描述清晰、准确，符合用户要求 ✓
+
+### [x] 任务 2：优化图表生成流程
+- **Priority**: P0
+- **Depends On**: 任务 1
+- **Description**:
+  - 确保子 SKILL 调用时同时生成 Mermaid 和 PNG
+  - 明确 Markdown 文档插入 Mermaid 代码
+  - 明确 Word 文档插入 PNG 图片
+- **Success Criteria**:
+  - 图表生成流程清晰明确
+  - 两种文档格式的图表处理方式明确区分
+- **Test Requirements**:
+  - `programmatic` TR-2.1: 流程描述完整 ✓
+  - `human-judgment` TR-2.2: 流程逻辑正确，符合用户要求 ✓
+
+### [x] 任务 3：更新输出文件清单
+- **Priority**: P1
+- **Depends On**: 任务 2
+- **Description**:
+  - 明确 Markdown 文档使用 Mermaid
+  - 明确 Word 文档使用 PNG
+  - 确保所有图表类型都有对应的处理方式
+- **Success Criteria**:
+  - 输出文件清单明确图表文件类型
+  - 文档格式与图表类型对应关系清晰
+- **Test Requirements**:
+  - `programmatic` TR-3.1: 输出文件清单已更新 ✓
+  - `human-judgment` TR-3.2: 清单内容完整、准确 ✓
+
+### [x] 任务 4：更新验证检查清单
+- **Priority**: P1
+- **Depends On**: 任务 3
+- **Description**:
+  - 添加图表格式验证项目
+  - 确保 Markdown 中 Mermaid 正确
+  - 确保 Word 中 PNG 图片正确
+- **Success Criteria**:
+  - 验证检查清单包含图表格式验证
+  - 验证项目覆盖所有图表类型
+- **Test Requirements**:
+  - `programmatic` TR-4.1: 验证检查清单已更新 ✓
+  - `human-judgment` TR-4.2: 验证项目完整、合理 ✓
+
+## 优化总结
+
+### 已完成的优化
+
+1. **SKILL 描述更新**：
+   - 明确 Markdown 文档使用 Mermaid 语法
+   - 明确 Word 文档使用 PNG 图片
+   - 更新了文档生成流程描述
+
+2. **图表生成流程优化**：
+   - 确保子 SKILL 调用时同时生成 Mermaid 和 PNG
+   - 明确 Markdown 文档插入 Mermaid 代码
+   - 明确 Word 文档插入 PNG 图片
+
+3. **输出文件清单更新**：
+   - 明确 Markdown 文档使用 Mermaid
+   - 明确 Word 文档使用 PNG
+   - 确保所有图表类型都有对应的处理方式
+
+4. **验证检查清单更新**：
+   - 添加图表格式验证项目
+   - 确保 Markdown 中 Mermaid 正确
+   - 确保 Word 中 PNG 图片正确
+
+### 预期效果
+
+- **Markdown 文档**：所有框图、时序图、状态机转移图等使用 Mermaid 语法
+- **Word 文档**：所有图表替换为对应的 PNG 图片
+- **生成流程**：更加明确和规范
+- **验证流程**：更加全面和严格
+
+## 实施步骤
+
+1. **分析当前 SKILL 描述**：了解当前的图表处理方式
+2. **更新 SKILL 描述**：明确 Mermaid 和 PNG 的使用场景
+3. **优化生成流程**：确保两种格式的图表处理正确
+4. **更新输出清单**：明确文件类型和对应关系
+5. **更新验证清单**：添加图表格式验证项目
 
-## 目标
+## 预期成果
 
-优化 `verilog-doc-generator` SKILL 的输入处理和子模块文档生成流程：
+* 优化后的 SKILL 描述清晰说明图表处理方式
 
-1. **输入文件处理优化**：多文件/文件夹输入时，调用 `verilog-file-tree` 生成例化树，按层次顺序生成文档
-2. **子模块方案章节优化**：调用 `verilog-file-tree` 显示最多3层子模块例化树
+* Markdown 文档使用 Mermaid 语法显示图表
 
-## 当前问题
+* Word 文档使用 PNG 图片显示图表
 
-### 步骤1：收集输入文件
-
-当前实现：
-
-```
-1. 如果用户指定了文件路径，使用这些文件
-2. 如果用户指定了目录，扫描 .v 和 .sv 文件
-3. 如果用户描述了模块功能，在代码库中搜索匹配的文件
-4. 读取所有相关文件内容
-```
-
-**问题**：
-
-* 多文件输入时没有确定处理顺序
-
-* 没有利用模块依赖关系
-
-* 没有限制子模块文档生成深度
-
-### 步骤4：子模块方案章节
-
-当前实现：
-
-```
-**11. 子模块方案**
-- 子模块引用列表
-```
-
-**问题**：
-
-* 只显示简单的子模块列表
-
-* 没有显示例化层次结构
-
-* 没有调用 `verilog-file-tree` skill
-
-## 优化方案
-
-### 优化1：收集输入文件步骤
-
-**新的工作流程：**
-
-```
-### 步骤 1：收集输入文件
-
-1. 判断输入类型：
-   - 单个文件：直接处理该文件
-   - 多个文件：调用 verilog-file-tree 分析依赖关系
-   - 文件夹：调用 verilog-file-tree 扫描并分析
-
-2. 如果是多文件/文件夹输入：
-   a. 调用 verilog-file-tree skill
-   b. 传递参数：输入路径、顶层模块（如指定）、最大深度（默认3层）
-   c. 获取返回的例化树和编译顺序
-
-3. 基于例化树确定处理顺序：
-   - 从顶层模块开始，按层次从上往下处理
-   - 每层按依赖顺序排列
-   - 默认最多处理3层子模块
-
-4. 生成文档处理队列：
-   - 队列格式：[{module, file, level}, ...]
-   - 按level排序，同level按依赖顺序
-```
-
-**调用 verilog-file-tree 示例：**
-
-```json
-// 调用参数
-{
-    "input_path": "d:/code/openc910/C910_RTL_FACTORY/gen_rtl",
-    "top_module": "ct_top",
-    "max_depth": 3
-}
-
-// 返回结果
-{
-    "top_module": "ct_top",
-    "total_modules": 486,
-    "compile_order": [
-        {"module": "ct_top", "file": "ct_top.v", "level": 0},
-        {"module": "ct_core", "file": "ct_core.v", "level": 1},
-        {"module": "ct_ifu_top", "file": "ct_ifu_top.v", "level": 2},
-        ...
-    ],
-    "instance_tree": {
-        "module": "ct_top",
-        "children": [...]
-    }
-}
-```
-
-### 优化2：子模块方案章节
-
-**新的章节内容：**
-
-````
-**11. 子模块方案**
-
-调用 verilog-file-tree 生成模块例化树，显示最多3层子模块：
-
-**模块例化层次结构：**
-
-```mermaid
-graph TD
-    TOP[当前模块] --> A[子模块A]
-    TOP --> B[子模块B]
-    A --> A1[子模块A_1]
-    A --> A2[子模块A_2]
-    B --> B1[子模块B_1]
-````
-
-**子模块列表：**
-
-| 层级 | 模块名          | 实例名        | 文件路径           | 功能描述 |
-| -- | ------------ | ---------- | -------------- | ---- |
-| 1  | ct\_ifu\_top | x\_ct\_ifu | ct\_ifu\_top.v | 取指单元 |
-| 1  | ct\_idu\_top | x\_ct\_idu | ct\_idu\_top.v | 译码单元 |
-| 2  | ct\_ifu\_bht | x\_bht     | ct\_ifu\_bht.v | 分支预测 |
-
-**子模块文档链接：**
-
-* [ct\_ifu\_top 详细文档](./ct_ifu_top_top.md)
-
-* [ct\_idu\_top 详细文档](./ct_idu_top_top.md)
-
-````
-
-### 优化3：新增参数控制
-
-**新增命令行参数：**
-
-```bash
-# 指定最大子模块深度
-python doc_generator.py <input> --max-depth 3
-
-# 只生成顶层模块文档（不生成子模块文档）
-python doc_generator.py <input> --top-only
-
-# 指定要生成文档的模块列表
-python doc_generator.py <input> --modules ct_top,ct_core,ct_ifu_top
-````
-
-**SKILL 调用参数：**
-
-| 参数名            | 类型     | 默认值      | 说明                |
-| -------------- | ------ | -------- | ----------------- |
-| input\_path    | string | 必需       | 输入文件或目录路径         |
-| top\_module    | string | auto     | 顶层模块名             |
-| max\_depth     | int    | 3        | 子模块文档最大深度         |
-| top\_only      | bool   | false    | 是否只生成顶层文档         |
-| output\_format | string | both     | 输出格式：md/docx/both |
-| output\_dir    | string | ./output | 输出目录              |
-
-## 实现步骤
-
-### 步骤 1：更新 SKILL.md
-
-**修改位置：** 步骤1 - 收集输入文件
-
-**修改内容：**
-
-1. 添加多文件/文件夹处理逻辑
-2. 添加 verilog-file-tree 调用说明
-3. 添加处理队列生成逻辑
-4. 添加深度控制参数说明
-
-### 步骤 2：更新 SKILL.md
-
-**修改位置：** 步骤4 - 子模块方案章节
-
-**修改内容：**
-
-1. 添加 verilog-file-tree 调用说明
-2. 添加例化树显示格式
-3. 添加子模块表格格式
-4. 添加文档链接生成
-
-### 步骤 3：更新依赖表格
-
-**添加 verilog-file-tree 到依赖表格：**
-
-| SKILL 名称               | 功能          | 调用场景         |
-| ---------------------- | ----------- | ------------ |
-| verilog-file-tree      | 文件列表和例化树生成  | 多文件输入时确定处理顺序 |
-| verilog-state-diagram  | 状态机分析和状态图生成 | 检测到状态机时      |
-| verilog-timing-diagram | 接口时序图生成     | 需要时序说明时      |
-| verilog-block-diagram  | 模块框图和流水线图生成 | 所有模块文档       |
-
-### 步骤 4：更新工作流程图
-
-```
-输入文件/目录
-      │
-      ▼
-┌─────────────────┐
-│ 判断输入类型     │
-└────────┬────────┘
-         │
-    ┌────┴────┐
-    │         │
- 单文件    多文件/目录
-    │         │
-    │         ▼
-    │   ┌─────────────────┐
-    │   │ 调用            │
-    │   │ verilog-file-tree│
-    │   └────────┬────────┘
-    │            │
-    │            ▼
-    │   ┌─────────────────┐
-    │   │ 获取例化树      │
-    │   │ 和编译顺序      │
-    │   └────────┬────────┘
-    │            │
-    │            ▼
-    │   ┌─────────────────┐
-    │   │ 按层次顺序      │
-    │   │ 生成处理队列    │
-    │   └────────┬────────┘
-    │            │
-    └─────┬──────┘
-          │
-          ▼
-┌─────────────────┐
-│ 遍历处理队列    │
-│ (最多3层)       │
-└────────┬────────┘
-         │
-         ▼
-┌─────────────────┐
-│ 对每个模块执行  │
-│ 文档生成流程    │
-└─────────────────┘
-```
-
-## 文件修改清单
-
-| 文件                             | 修改内容                |
-| ------------------------------ | ------------------- |
-| verilog-doc-generator/SKILL.md | 更新步骤1、步骤4、依赖表格、参数说明 |
-
-## 验证测试
-
-1. **单文件输入测试**：
-
-   * 输入：单个 Verilog 文件
-
-   * 预期：直接处理，不调用 verilog-file-tree
-
-2. **多文件输入测试**：
-
-   * 输入：多个 Verilog 文件
-
-   * 预期：调用 verilog-file-tree，按依赖顺序处理
-
-3. **目录输入测试**：
-
-   * 输入：RTL 目录
-
-   * 预期：扫描目录，生成例化树，按层次处理
-
-4. **深度限制测试**：
-
-   * 输入：--max-depth 2
-
-   * 预期：只生成2层子模块文档
-
-5. **子模块方案章节测试**：
-
-   * 预期：显示例化树和子模块表格
+* 文档生成流程更加明确和规范
 

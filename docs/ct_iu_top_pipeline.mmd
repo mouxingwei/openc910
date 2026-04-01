@@ -1,0 +1,41 @@
+%% ct_iu_top 流水线图
+%% 生成时间: 2026-03-13
+
+flowchart LR
+    subgraph PIPELINE["IU流水线结构"]
+        direction LR
+        
+        subgraph PIPE0["Pipe0 - 主ALU流水线"]
+            direction LR
+            RF0["RF<br/>读寄存器"] --> EX1_P0["EX1<br/>执行1"]
+            EX1_P0 --> EX2_P0["EX2<br/>执行2"]
+        end
+        
+        subgraph PIPE1["Pipe1 - 辅ALU流水线"]
+            direction LR
+            RF1["RF<br/>读寄存器"] --> EX1_P1["EX1<br/>执行1"]
+            EX1_P1 --> EX2_P1["EX2<br/>执行2"]
+        end
+        
+        subgraph PIPE2["Pipe2 - 分支流水线"]
+            direction LR
+            RF2["RF<br/>读寄存器"] --> EX1_P2["EX1<br/>分支计算"]
+            EX1_P2 --> EX2_P2["EX2<br/>跳转确认"]
+        end
+        
+        subgraph MULT_PIPE["乘法流水线"]
+            direction LR
+            M1["EX1"] --> M2["EX2"]
+            M2 --> M3["EX3"]
+            M3 --> M4["EX4"]
+        end
+        
+        subgraph DIV_PIPE["除法流水线"]
+            direction LR
+            D1["EX1"] --> D_ITER["迭代<br/>32-64周期"]
+        end
+    end
+    
+    RF0 -.->|前递| EX1_P0
+    EX1_P0 -.->|前递| RF0
+    EX2_P0 -.->|写回| RF0

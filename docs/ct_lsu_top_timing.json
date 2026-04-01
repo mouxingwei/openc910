@@ -1,0 +1,369 @@
+{
+  "module": "ct_lsu_top",
+  "timing_diagrams": [
+    {
+      "pattern_type": "fifo_read",
+      "description": "cp0_lsu_dcache_read_index 和 lsu_biu_ac_empty 构成 FIFO 读接口",
+      "wavedrom": {
+        "signal": [
+          {
+            "name": "cp0_yy_clk_en",
+            "wave": "p..........."
+          },
+          {
+            "name": "cp0_lsu_dcache_read_index",
+            "wave": "01.0.1.0..."
+          },
+          {
+            "name": "lsu_biu_ac_empty",
+            "wave": "0..........."
+          }
+        ],
+        "head": {
+          "text": "ct_lsu_top FIFO 读操作时序"
+        },
+        "config": {
+          "hscale": 2
+        }
+      }
+    },
+    {
+      "pattern_type": "fifo_read",
+      "description": "cp0_lsu_dcache_read_index 和 lsu_idu_vmb_empty 构成 FIFO 读接口",
+      "wavedrom": {
+        "signal": [
+          {
+            "name": "cp0_yy_clk_en",
+            "wave": "p..........."
+          },
+          {
+            "name": "cp0_lsu_dcache_read_index",
+            "wave": "01.0.1.0..."
+          },
+          {
+            "name": "lsu_idu_vmb_empty",
+            "wave": "0..........."
+          }
+        ],
+        "head": {
+          "text": "ct_lsu_top FIFO 读操作时序"
+        },
+        "config": {
+          "hscale": 2
+        }
+      }
+    },
+    {
+      "pattern_type": "fifo_read",
+      "description": "cp0_lsu_dcache_read_ld_tag 和 lsu_biu_ac_empty 构成 FIFO 读接口",
+      "wavedrom": {
+        "signal": [
+          {
+            "name": "cp0_yy_clk_en",
+            "wave": "p..........."
+          },
+          {
+            "name": "cp0_lsu_dcache_read_ld_tag",
+            "wave": "01.0.1.0..."
+          },
+          {
+            "name": "lsu_biu_ac_empty",
+            "wave": "0..........."
+          }
+        ],
+        "head": {
+          "text": "ct_lsu_top FIFO 读操作时序"
+        },
+        "config": {
+          "hscale": 2
+        }
+      }
+    },
+    {
+      "pattern_type": "fifo_read",
+      "description": "cp0_lsu_dcache_read_ld_tag 和 lsu_idu_vmb_empty 构成 FIFO 读接口",
+      "wavedrom": {
+        "signal": [
+          {
+            "name": "cp0_yy_clk_en",
+            "wave": "p..........."
+          },
+          {
+            "name": "cp0_lsu_dcache_read_ld_tag",
+            "wave": "01.0.1.0..."
+          },
+          {
+            "name": "lsu_idu_vmb_empty",
+            "wave": "0..........."
+          }
+        ],
+        "head": {
+          "text": "ct_lsu_top FIFO 读操作时序"
+        },
+        "config": {
+          "hscale": 2
+        }
+      }
+    },
+    {
+      "pattern_type": "fifo_read",
+      "description": "cp0_lsu_dcache_read_st_tag 和 lsu_biu_ac_empty 构成 FIFO 读接口",
+      "wavedrom": {
+        "signal": [
+          {
+            "name": "cp0_yy_clk_en",
+            "wave": "p..........."
+          },
+          {
+            "name": "cp0_lsu_dcache_read_st_tag",
+            "wave": "01.0.1.0..."
+          },
+          {
+            "name": "lsu_biu_ac_empty",
+            "wave": "0..........."
+          }
+        ],
+        "head": {
+          "text": "ct_lsu_top FIFO 读操作时序"
+        },
+        "config": {
+          "hscale": 2
+        }
+      }
+    },
+    {
+      "pattern_type": "fifo_read",
+      "description": "cp0_lsu_dcache_read_st_tag 和 lsu_idu_vmb_empty 构成 FIFO 读接口",
+      "wavedrom": {
+        "signal": [
+          {
+            "name": "cp0_yy_clk_en",
+            "wave": "p..........."
+          },
+          {
+            "name": "cp0_lsu_dcache_read_st_tag",
+            "wave": "01.0.1.0..."
+          },
+          {
+            "name": "lsu_idu_vmb_empty",
+            "wave": "0..........."
+          }
+        ],
+        "head": {
+          "text": "ct_lsu_top FIFO 读操作时序"
+        },
+        "config": {
+          "hscale": 2
+        }
+      }
+    },
+    {
+      "pattern_type": "fifo_read",
+      "description": "cp0_lsu_dcache_read_way 和 lsu_biu_ac_empty 构成 FIFO 读接口",
+      "wavedrom": {
+        "signal": [
+          {
+            "name": "cp0_yy_clk_en",
+            "wave": "p..........."
+          },
+          {
+            "name": "cp0_lsu_dcache_read_way",
+            "wave": "01.0.1.0..."
+          },
+          {
+            "name": "lsu_biu_ac_empty",
+            "wave": "0..........."
+          }
+        ],
+        "head": {
+          "text": "ct_lsu_top FIFO 读操作时序"
+        },
+        "config": {
+          "hscale": 2
+        }
+      }
+    },
+    {
+      "pattern_type": "fifo_read",
+      "description": "cp0_lsu_dcache_read_way 和 lsu_idu_vmb_empty 构成 FIFO 读接口",
+      "wavedrom": {
+        "signal": [
+          {
+            "name": "cp0_yy_clk_en",
+            "wave": "p..........."
+          },
+          {
+            "name": "cp0_lsu_dcache_read_way",
+            "wave": "01.0.1.0..."
+          },
+          {
+            "name": "lsu_idu_vmb_empty",
+            "wave": "0..........."
+          }
+        ],
+        "head": {
+          "text": "ct_lsu_top FIFO 读操作时序"
+        },
+        "config": {
+          "hscale": 2
+        }
+      }
+    },
+    {
+      "pattern_type": "fifo_read",
+      "description": "lsu_hpcp_cache_read_access 和 lsu_biu_ac_empty 构成 FIFO 读接口",
+      "wavedrom": {
+        "signal": [
+          {
+            "name": "cp0_yy_clk_en",
+            "wave": "p..........."
+          },
+          {
+            "name": "lsu_hpcp_cache_read_access",
+            "wave": "01.0.1.0..."
+          },
+          {
+            "name": "lsu_biu_ac_empty",
+            "wave": "0..........."
+          }
+        ],
+        "head": {
+          "text": "ct_lsu_top FIFO 读操作时序"
+        },
+        "config": {
+          "hscale": 2
+        }
+      }
+    },
+    {
+      "pattern_type": "fifo_read",
+      "description": "lsu_hpcp_cache_read_access 和 lsu_idu_vmb_empty 构成 FIFO 读接口",
+      "wavedrom": {
+        "signal": [
+          {
+            "name": "cp0_yy_clk_en",
+            "wave": "p..........."
+          },
+          {
+            "name": "lsu_hpcp_cache_read_access",
+            "wave": "01.0.1.0..."
+          },
+          {
+            "name": "lsu_idu_vmb_empty",
+            "wave": "0..........."
+          }
+        ],
+        "head": {
+          "text": "ct_lsu_top FIFO 读操作时序"
+        },
+        "config": {
+          "hscale": 2
+        }
+      }
+    },
+    {
+      "pattern_type": "fifo_read",
+      "description": "lsu_hpcp_cache_read_miss 和 lsu_biu_ac_empty 构成 FIFO 读接口",
+      "wavedrom": {
+        "signal": [
+          {
+            "name": "cp0_yy_clk_en",
+            "wave": "p..........."
+          },
+          {
+            "name": "lsu_hpcp_cache_read_miss",
+            "wave": "01.0.1.0..."
+          },
+          {
+            "name": "lsu_biu_ac_empty",
+            "wave": "0..........."
+          }
+        ],
+        "head": {
+          "text": "ct_lsu_top FIFO 读操作时序"
+        },
+        "config": {
+          "hscale": 2
+        }
+      }
+    },
+    {
+      "pattern_type": "fifo_read",
+      "description": "lsu_hpcp_cache_read_miss 和 lsu_idu_vmb_empty 构成 FIFO 读接口",
+      "wavedrom": {
+        "signal": [
+          {
+            "name": "cp0_yy_clk_en",
+            "wave": "p..........."
+          },
+          {
+            "name": "lsu_hpcp_cache_read_miss",
+            "wave": "01.0.1.0..."
+          },
+          {
+            "name": "lsu_idu_vmb_empty",
+            "wave": "0..........."
+          }
+        ],
+        "head": {
+          "text": "ct_lsu_top FIFO 读操作时序"
+        },
+        "config": {
+          "hscale": 2
+        }
+      }
+    },
+    {
+      "pattern_type": "fifo_read",
+      "description": "lsu_hpcp_replay_discard_sq 和 lsu_biu_ac_empty 构成 FIFO 读接口",
+      "wavedrom": {
+        "signal": [
+          {
+            "name": "cp0_yy_clk_en",
+            "wave": "p..........."
+          },
+          {
+            "name": "lsu_hpcp_replay_discard_sq",
+            "wave": "01.0.1.0..."
+          },
+          {
+            "name": "lsu_biu_ac_empty",
+            "wave": "0..........."
+          }
+        ],
+        "head": {
+          "text": "ct_lsu_top FIFO 读操作时序"
+        },
+        "config": {
+          "hscale": 2
+        }
+      }
+    },
+    {
+      "pattern_type": "fifo_read",
+      "description": "lsu_hpcp_replay_discard_sq 和 lsu_idu_vmb_empty 构成 FIFO 读接口",
+      "wavedrom": {
+        "signal": [
+          {
+            "name": "cp0_yy_clk_en",
+            "wave": "p..........."
+          },
+          {
+            "name": "lsu_hpcp_replay_discard_sq",
+            "wave": "01.0.1.0..."
+          },
+          {
+            "name": "lsu_idu_vmb_empty",
+            "wave": "0..........."
+          }
+        ],
+        "head": {
+          "text": "ct_lsu_top FIFO 读操作时序"
+        },
+        "config": {
+          "hscale": 2
+        }
+      }
+    }
+  ]
+}
