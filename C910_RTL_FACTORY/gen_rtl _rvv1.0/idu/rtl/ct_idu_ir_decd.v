@@ -46,6 +46,7 @@ module ct_idu_ir_decd(
   x_vmul_unsplit,
   x_vsetvl,
   x_vsetvli,
+  x_vsetivli,
   x_vsew
 );
 
@@ -81,7 +82,8 @@ output  [2 :0]  x_vmla_type;
 output          x_vmul;                
 output          x_vmul_unsplit;        
 output          x_vsetvl;              
-output          x_vsetvli;             
+output          x_vsetvli;
+output          x_vsetivli;             
 
 // &Regs; @28
 
@@ -142,7 +144,8 @@ wire            decd_vmul_norm;
 wire            decd_vmul_unsplit;     
 wire            decd_vmul_wide;        
 wire            decd_vsetvl;           
-wire            decd_vsetvli;          
+wire            decd_vsetvli;
+wire            decd_vsetivli;          
 wire            x_alu_short;           
 wire            x_bar;                 
 wire    [3 :0]  x_bar_type;            
@@ -173,7 +176,8 @@ wire    [2 :0]  x_vmla_type;
 wire            x_vmul;                
 wire            x_vmul_unsplit;        
 wire            x_vsetvl;              
-wire            x_vsetvli;             
+wire            x_vsetvli;
+wire            x_vsetivli;             
 wire    [2 :0]  x_vsew;                
 
 
@@ -201,6 +205,7 @@ assign x_vmla_short        = !x_illegal && decd_vmla_short;
 assign x_vmul_unsplit      = !x_illegal && decd_vmul_unsplit;
 assign x_vmul              = !x_illegal && decd_vmul;
 assign x_vsetvli           = !x_illegal && decd_vsetvli;
+assign x_vsetivli          = !x_illegal && decd_vsetivli;
 assign x_vsetvl            = !x_illegal && decd_vsetvl;
 assign x_viq_srcv12_switch = !x_illegal && decd_viq_srcv12_switch;
 assign x_unit_stride       = !x_illegal && decd_unit_stride;
@@ -644,9 +649,16 @@ assign decd_vmac_wide = (x_opcode[31:28]== 4'b1111)      //vwsmaccu vwsmacc vwsm
 
 assign decd_vmul = decd_vmul_norm || decd_vmul_wide || decd_vmac_norm || decd_vmac_wide;
 
-assign decd_vsetvli = (x_opcode[31]== 1'b0) && (x_opcode[14:12]==3'b111) && (x_opcode[6:0]==7'b1010111);
+// Modified for RVV 1.0: Added vsetivli instruction decode
+// Modification date: 2026-04-01
+// vsetvli: bit[31]=0, funct3=111, opcode=1010111
+// vsetivli: bit[31:30]=11, funct3=111, opcode=1010111 (immediate version)
+// vsetvl: bit[31:25]=1000000, funct3=111, opcode=1010111
+assign decd_vsetvli  = (x_opcode[31]== 1'b0) && (x_opcode[14:12]==3'b111) && (x_opcode[6:0]==7'b1010111);
 
-assign decd_vsetvl  = (x_opcode[31:25]== 7'b100_0000) && (x_opcode[14:12]==3'b111) && (x_opcode[6:0]==7'b1010111);
+assign decd_vsetivli = (x_opcode[31:30]==2'b11) && (x_opcode[14:12]==3'b111) && (x_opcode[6:0]==7'b1010111);
+
+assign decd_vsetvl   = (x_opcode[31:25]== 7'b100_0000) && (x_opcode[14:12]==3'b111) && (x_opcode[6:0]==7'b1010111);
 
 assign decd_viq_srcv12_switch = ((x_opcode[31:26]== 6'b101001)||(x_opcode[31:26]== 6'b101011)) //vmadd vmnsub
                                 &&  (decd_opmvv || decd_opmvx) && decd_vec_inst                //vfmadd

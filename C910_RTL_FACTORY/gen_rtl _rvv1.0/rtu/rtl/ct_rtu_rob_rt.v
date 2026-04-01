@@ -375,9 +375,11 @@ output          rob_retire_inst0_vec_dirty;
 output  [7 :0]  rob_retire_inst0_vl;               
 output          rob_retire_inst0_vl_pred;          
 output          rob_retire_inst0_vld;              
-output  [1 :0]  rob_retire_inst0_vlmul;            
+output  [2 :0]  rob_retire_inst0_vlmul;            
 output          rob_retire_inst0_vsetvli;          
-output  [2 :0]  rob_retire_inst0_vsew;             
+output  [2 :0]  rob_retire_inst0_vsew;
+output          rob_retire_inst0_vma;
+output          rob_retire_inst0_vta;             
 output          rob_retire_inst1_bju;              
 output  [7 :0]  rob_retire_inst1_chk_idx;          
 output          rob_retire_inst1_condbr;           
@@ -401,9 +403,11 @@ output          rob_retire_inst1_vec_dirty;
 output  [7 :0]  rob_retire_inst1_vl;               
 output          rob_retire_inst1_vl_pred;          
 output          rob_retire_inst1_vld;              
-output  [1 :0]  rob_retire_inst1_vlmul;            
+output  [2 :0]  rob_retire_inst1_vlmul;            
 output          rob_retire_inst1_vsetvli;          
-output  [2 :0]  rob_retire_inst1_vsew;             
+output  [2 :0]  rob_retire_inst1_vsew;
+output          rob_retire_inst1_vma;
+output          rob_retire_inst1_vta;             
 output          rob_retire_inst2_bju;              
 output  [7 :0]  rob_retire_inst2_chk_idx;          
 output          rob_retire_inst2_condbr;           
@@ -427,9 +431,11 @@ output          rob_retire_inst2_vec_dirty;
 output  [7 :0]  rob_retire_inst2_vl;               
 output          rob_retire_inst2_vl_pred;          
 output          rob_retire_inst2_vld;              
-output  [1 :0]  rob_retire_inst2_vlmul;            
+output  [2 :0]  rob_retire_inst2_vlmul;            
 output          rob_retire_inst2_vsetvli;          
-output  [2 :0]  rob_retire_inst2_vsew;             
+output  [2 :0]  rob_retire_inst2_vsew;
+output          rob_retire_inst2_vma;
+output          rob_retire_inst2_vta;             
 output          rob_retire_int_srt_en;             
 output  [38:0]  rob_retire_rob_cur_pc;             
 output  [6 :0]  rob_top_rob_cur_pc;                
@@ -850,9 +856,11 @@ wire            rob_retire_inst0_vec_dirty;
 wire    [7 :0]  rob_retire_inst0_vl;               
 wire            rob_retire_inst0_vl_pred;          
 wire            rob_retire_inst0_vld;              
-wire    [1 :0]  rob_retire_inst0_vlmul;            
+wire    [2 :0]  rob_retire_inst0_vlmul;            
 wire            rob_retire_inst0_vsetvli;          
-wire    [2 :0]  rob_retire_inst0_vsew;             
+wire    [2 :0]  rob_retire_inst0_vsew;
+wire            rob_retire_inst0_vma;
+wire            rob_retire_inst0_vta;             
 wire            rob_retire_inst1_bju;              
 wire    [7 :0]  rob_retire_inst1_chk_idx;          
 wire            rob_retire_inst1_condbr;           
@@ -876,9 +884,11 @@ wire            rob_retire_inst1_vec_dirty;
 wire    [7 :0]  rob_retire_inst1_vl;               
 wire            rob_retire_inst1_vl_pred;          
 wire            rob_retire_inst1_vld;              
-wire    [1 :0]  rob_retire_inst1_vlmul;            
+wire    [2 :0]  rob_retire_inst1_vlmul;            
 wire            rob_retire_inst1_vsetvli;          
-wire    [2 :0]  rob_retire_inst1_vsew;             
+wire    [2 :0]  rob_retire_inst1_vsew;
+wire            rob_retire_inst1_vma;
+wire            rob_retire_inst1_vta;             
 wire            rob_retire_inst2_bju;              
 wire    [7 :0]  rob_retire_inst2_chk_idx;          
 wire            rob_retire_inst2_condbr;           
@@ -902,9 +912,11 @@ wire            rob_retire_inst2_vec_dirty;
 wire    [7 :0]  rob_retire_inst2_vl;               
 wire            rob_retire_inst2_vl_pred;          
 wire            rob_retire_inst2_vld;              
-wire    [1 :0]  rob_retire_inst2_vlmul;            
+wire    [2 :0]  rob_retire_inst2_vlmul;            
 wire            rob_retire_inst2_vsetvli;          
-wire    [2 :0]  rob_retire_inst2_vsew;             
+wire    [2 :0]  rob_retire_inst2_vsew;
+wire            rob_retire_inst2_vma;
+wire            rob_retire_inst2_vta;             
 wire            rob_retire_int_srt_en;             
 wire    [38:0]  rob_retire_rob_cur_pc;             
 wire            rob_sync_commit_mask;              
@@ -1963,38 +1975,17 @@ assign rob_retire_inst0_no_spec_miss    = retire_inst0_data[34];
 assign rob_retire_inst1_no_spec_miss    = retire_inst1_data[34];
 assign rob_retire_inst2_no_spec_miss    = retire_inst2_data[34];
 
-assign rob_retire_inst0_no_spec_mispred = retire_inst0_data[35];
-assign rob_retire_inst1_no_spec_mispred = retire_inst1_data[35];
-assign rob_retire_inst2_no_spec_mispred = retire_inst2_data[35];
+assign rob_retire_inst0_no_spec_mispred = retire_inst0_data[24];
+assign rob_retire_inst1_no_spec_mispred = retire_inst1_data[24];
+assign rob_retire_inst2_no_spec_mispred = retire_inst2_data[24];
 
-assign rob_retire_inst0_vlmul[1:0]      = retire_inst0_data[37:36];
-assign rob_retire_inst1_vlmul[1:0]      = retire_inst1_data[37:36];
-assign rob_retire_inst2_vlmul[1:0]      = retire_inst2_data[37:36];
+assign rob_retire_inst0_no_spec_miss    = retire_inst0_data[23];
+assign rob_retire_inst1_no_spec_miss    = retire_inst1_data[23];
+assign rob_retire_inst2_no_spec_miss    = retire_inst2_data[23];
 
-assign rob_retire_inst0_vsew[2:0]       = retire_inst0_data[40:38];
-assign rob_retire_inst1_vsew[2:0]       = retire_inst1_data[40:38];
-assign rob_retire_inst2_vsew[2:0]       = retire_inst2_data[40:38];
-
-assign rob_retire_inst0_vsetvli         = retire_inst0_data[41];
-assign rob_retire_inst1_vsetvli         = retire_inst1_data[41];
-assign rob_retire_inst2_vsetvli         = retire_inst2_data[41];
-
-assign rob_retire_inst0_vl[7:0]         = retire_inst0_data[50:43];
-assign rob_retire_inst1_vl[7:0]         = retire_inst1_data[50:43];
-assign rob_retire_inst2_vl[7:0]         = retire_inst2_data[50:43];
-
-assign rob_retire_inst0_vl_pred         = retire_inst0_data[51];
-assign rob_retire_inst1_vl_pred         = retire_inst1_data[51];
-assign rob_retire_inst2_vl_pred         = retire_inst2_data[51];
-
-//==========================================================
-//            Retire Inst 0 Special Entry Content
-//==========================================================
-////----------------------------------------------------------
-////                Inst Memory breakpoint
-////----------------------------------------------------------
-//assign bkpta_base[31:0] = had_yy_xx_bkpta_base[31:0];
-//assign bkptb_base[31:0] = had_yy_xx_bkptb_base[31:0];
+assign rob_retire_inst0_no_spec_hit     = retire_inst0_data[22];
+assign rob_retire_inst1_no_spec_hit     = retire_inst1_data[22];
+assign rob_retire_inst2_no_spec_hit     = retire_inst2_data[22];
 //
 //assign bkpta_mask[31:0] = {24'hffffff,had_yy_xx_bkpta_mask[7:0]};
 //assign bkptb_mask[31:0] = {24'hffffff,had_yy_xx_bkptb_mask[7:0]};

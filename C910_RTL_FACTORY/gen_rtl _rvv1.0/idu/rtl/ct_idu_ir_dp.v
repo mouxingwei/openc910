@@ -826,7 +826,8 @@ wire    [2  :0]  ir_inst0_vmla_type;
 wire             ir_inst0_vmul;             
 wire             ir_inst0_vmul_unsplit;     
 wire             ir_inst0_vsetvl;           
-wire             ir_inst0_vsetvli;          
+wire             ir_inst0_vsetvli;
+wire             ir_inst0_vsetivli;          
 wire    [2  :0]  ir_inst0_vsew;             
 wire             ir_inst1_alu_short;        
 wire             ir_inst1_bar;              
@@ -864,7 +865,8 @@ wire    [2  :0]  ir_inst1_vmla_type;
 wire             ir_inst1_vmul;             
 wire             ir_inst1_vmul_unsplit;     
 wire             ir_inst1_vsetvl;           
-wire             ir_inst1_vsetvli;          
+wire             ir_inst1_vsetvli;
+wire             ir_inst1_vsetivli;          
 wire    [2  :0]  ir_inst1_vsew;             
 wire             ir_inst2_alu_short;        
 wire             ir_inst2_bar;              
@@ -902,7 +904,8 @@ wire    [2  :0]  ir_inst2_vmla_type;
 wire             ir_inst2_vmul;             
 wire             ir_inst2_vmul_unsplit;     
 wire             ir_inst2_vsetvl;           
-wire             ir_inst2_vsetvli;          
+wire             ir_inst2_vsetvli;
+wire             ir_inst2_vsetivli;          
 wire    [2  :0]  ir_inst2_vsew;             
 wire             ir_inst3_alu_short;        
 wire             ir_inst3_bar;              
@@ -940,7 +943,8 @@ wire    [2  :0]  ir_inst3_vmla_type;
 wire             ir_inst3_vmul;             
 wire             ir_inst3_vmul_unsplit;     
 wire             ir_inst3_vsetvl;           
-wire             ir_inst3_vsetvli;          
+wire             ir_inst3_vsetvli;
+wire             ir_inst3_vsetivli;          
 wire    [2  :0]  ir_inst3_vsew;             
 wire             ir_inst_clk;               
 wire             ir_inst_clk_en;            
@@ -1195,9 +1199,10 @@ parameter IS_DSTV_IMP          = 257;
 parameter IS_VIQ_SRCV12_SWITCH = 256;
 parameter IS_VSETVL            = 255;
 parameter IS_VSETVLI           = 254;
-parameter IS_VSEW              = 253;
-parameter IS_VLMUL             = 250;
-parameter IS_VMUL              = 248;
+parameter IS_VSETIVLI          = 253;
+parameter IS_VSEW              = 252;
+parameter IS_VLMUL             = 249;
+parameter IS_VMUL              = 247;
 parameter IS_VMUL_UNSPLIT      = 247;
 parameter IS_VMLA_SHORT        = 246;
 parameter IS_VMLA_TYPE         = 245;
@@ -1921,6 +1926,7 @@ ct_idu_ir_decd  x_ct_idu_ir_decd0 (
   .x_vmul_unsplit             (ir_inst0_vmul_unsplit     ),
   .x_vsetvl                   (ir_inst0_vsetvl           ),
   .x_vsetvli                  (ir_inst0_vsetvli          ),
+  .x_vsetivli                 (ir_inst0_vsetivli         ),
   .x_vsew                     (ir_inst0_vsew             )
 );
 
@@ -1958,6 +1964,7 @@ ct_idu_ir_decd  x_ct_idu_ir_decd1 (
   .x_vmul_unsplit             (ir_inst1_vmul_unsplit     ),
   .x_vsetvl                   (ir_inst1_vsetvl           ),
   .x_vsetvli                  (ir_inst1_vsetvli          ),
+  .x_vsetivli                 (ir_inst1_vsetivli         ),
   .x_vsew                     (ir_inst1_vsew             )
 );
 
@@ -1995,6 +2002,7 @@ ct_idu_ir_decd  x_ct_idu_ir_decd2 (
   .x_vmul_unsplit             (ir_inst2_vmul_unsplit     ),
   .x_vsetvl                   (ir_inst2_vsetvl           ),
   .x_vsetvli                  (ir_inst2_vsetvli          ),
+  .x_vsetivli                 (ir_inst2_vsetivli         ),
   .x_vsew                     (ir_inst2_vsew             )
 );
 
@@ -2032,6 +2040,7 @@ ct_idu_ir_decd  x_ct_idu_ir_decd3 (
   .x_vmul_unsplit             (ir_inst3_vmul_unsplit     ),
   .x_vsetvl                   (ir_inst3_vsetvl           ),
   .x_vsetvli                  (ir_inst3_vsetvli          ),
+  .x_vsetivli                 (ir_inst3_vsetivli         ),
   .x_vsew                     (ir_inst3_vsew             )
 );
 
@@ -2081,6 +2090,7 @@ assign dp_ir_inst0_data[IS_DSTV_IMP]                       = ir_inst0_dstv_imp;
 assign dp_ir_inst0_data[IS_VIQ_SRCV12_SWITCH]              = ir_inst0_viq_srcv12_switch;
 assign dp_ir_inst0_data[IS_VSETVL]                         = ir_inst0_vsetvl;
 assign dp_ir_inst0_data[IS_VSETVLI]                        = ir_inst0_vsetvli;
+assign dp_ir_inst0_data[IS_VSETIVLI]                       = ir_inst0_vsetivli;
 assign dp_ir_inst0_data[IS_VSEW:IS_VSEW-2]                 = ir_inst0_data[IR_VSEW:IR_VSEW-2];
 assign dp_ir_inst0_data[IS_VLMUL:IS_VLMUL-1]               = ir_inst0_data[IR_VLMUL:IR_VLMUL-1];
 assign dp_ir_inst0_data[IS_VMUL]                           = ir_inst0_vmul;
@@ -2173,6 +2183,7 @@ assign dp_ir_inst1_data[IS_DSTV_IMP]                       = ir_inst1_dstv_imp;
 assign dp_ir_inst1_data[IS_VIQ_SRCV12_SWITCH]              = ir_inst1_viq_srcv12_switch;
 assign dp_ir_inst1_data[IS_VSETVL]                         = ir_inst1_vsetvl;
 assign dp_ir_inst1_data[IS_VSETVLI]                        = ir_inst1_vsetvli;
+assign dp_ir_inst1_data[IS_VSETIVLI]                       = ir_inst1_vsetivli;
 assign dp_ir_inst1_data[IS_VSEW:IS_VSEW-2]                 = ir_inst1_data[IR_VSEW:IR_VSEW-2];
 assign dp_ir_inst1_data[IS_VLMUL:IS_VLMUL-1]               = ir_inst1_data[IR_VLMUL:IR_VLMUL-1];
 assign dp_ir_inst1_data[IS_VMUL]                           = ir_inst1_vmul;
@@ -2265,6 +2276,7 @@ assign dp_ir_inst2_data[IS_DSTV_IMP]                       = ir_inst2_dstv_imp;
 assign dp_ir_inst2_data[IS_VIQ_SRCV12_SWITCH]              = ir_inst2_viq_srcv12_switch;
 assign dp_ir_inst2_data[IS_VSETVL]                         = ir_inst2_vsetvl;
 assign dp_ir_inst2_data[IS_VSETVLI]                        = ir_inst2_vsetvli;
+assign dp_ir_inst2_data[IS_VSETIVLI]                       = ir_inst2_vsetivli;
 assign dp_ir_inst2_data[IS_VSEW:IS_VSEW-2]                 = ir_inst2_data[IR_VSEW:IR_VSEW-2];
 assign dp_ir_inst2_data[IS_VLMUL:IS_VLMUL-1]               = ir_inst2_data[IR_VLMUL:IR_VLMUL-1];
 assign dp_ir_inst2_data[IS_VMUL]                           = ir_inst2_vmul;
@@ -2357,6 +2369,7 @@ assign dp_ir_inst3_data[IS_DSTV_IMP]                       = ir_inst3_dstv_imp;
 assign dp_ir_inst3_data[IS_VIQ_SRCV12_SWITCH]              = ir_inst3_viq_srcv12_switch;
 assign dp_ir_inst3_data[IS_VSETVL]                         = ir_inst3_vsetvl;
 assign dp_ir_inst3_data[IS_VSETVLI]                        = ir_inst3_vsetvli;
+assign dp_ir_inst3_data[IS_VSETIVLI]                       = ir_inst3_vsetivli;
 assign dp_ir_inst3_data[IS_VSEW:IS_VSEW-2]                 = ir_inst3_data[IR_VSEW:IR_VSEW-2];
 assign dp_ir_inst3_data[IS_VLMUL:IS_VLMUL-1]               = ir_inst3_data[IR_VLMUL:IR_VLMUL-1];
 assign dp_ir_inst3_data[IS_VMUL]                           = ir_inst3_vmul;
