@@ -598,7 +598,20 @@ assign decd_permu = (x_opcode[31:26]==6'b001100) //vrgather
                 ||  (x_opcode[31:26]==6'b010111)//vcompress
                 &&   decd_opmvv && decd_vec_inst;
 
-assign decd_vec_other =  decd_redu_vlgc || decd_narr_vsft || decd_cmp_inst || decd_permu;
+assign decd_vec_other =  decd_redu_vlgc || decd_narr_vsft || decd_cmp_inst || decd_permu
+                || decd_vfrece7 || decd_vfrsqrte7;
+
+// Modified for RVV 1.0: Added vfrece7/vfrsqrte7 instruction decode
+// Modification date: 2026-04-01
+// vfrece7.v: OP-VI=1, funct3=011, vm=1, funct6=000000
+// vfrsqrte7.v: OP-VI=1, funct3=101, vm=1, funct6=000000
+assign decd_vfrece7   = (x_opcode[31:26]== 6'b000000) 
+                        && (x_opcode[14:12]== 3'b011) 
+                        && decd_opfvv && decd_vec_inst;
+
+assign decd_vfrsqrte7 = (x_opcode[31:26]== 6'b000000) 
+                        && (x_opcode[14:12]== 3'b101) 
+                        && decd_opfvv && decd_vec_inst;
 
 assign decd_vec_fmac  = ((x_opcode[31:28] == 4'b1011) ||(x_opcode[31:28] == 4'b1111))
                      && (decd_opfvv || decd_opfvf) ;

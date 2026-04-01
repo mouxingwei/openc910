@@ -13,10 +13,14 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
+// Modified for RVV 1.0: Added FOF (Fault-Only-First) instruction support
+// Modification date: 2026-04-01
+
 // &ModuleBeg; @27
 module ct_idu_rf_pipe3_decd(
   pipe3_decd_atomic,
   pipe3_decd_inst_fls,
+  pipe3_decd_inst_fof,
   pipe3_decd_inst_ldr,
   pipe3_decd_inst_size,
   pipe3_decd_inst_type,
@@ -33,6 +37,7 @@ module ct_idu_rf_pipe3_decd(
 input   [31:0]  pipe3_decd_opcode;      
 output          pipe3_decd_atomic;      
 output          pipe3_decd_inst_fls;    
+output          pipe3_decd_inst_fof;    
 output          pipe3_decd_inst_ldr;    
 output  [1 :0]  pipe3_decd_inst_size;   
 output  [1 :0]  pipe3_decd_inst_type;   
@@ -47,6 +52,7 @@ output          pipe3_decd_sign_extend;
 reg     [3 :0]  ldr_shift;              
 reg             pipe3_decd_atomic;      
 reg             pipe3_decd_inst_fls;    
+reg             pipe3_decd_inst_fof;    
 reg             pipe3_decd_inst_ldr;    
 reg     [1 :0]  pipe3_decd_inst_size;   
 reg     [1 :0]  pipe3_decd_inst_type;   
@@ -107,6 +113,7 @@ casez(decd_op[31:0])
     pipe3_decd_inst_type[1:0] = 2'b00;
     pipe3_decd_inst_size[1:0] = 2'b00;
     pipe3_decd_inst_fls       = 1'b0;
+    pipe3_decd_inst_fof       = 1'b0;
     pipe3_decd_inst_vls       = 1'b0;
     pipe3_decd_offset[11:0]   = decd_op[31:20];
     pipe3_decd_shift[3:0]     = 4'b1;
@@ -122,6 +129,7 @@ casez(decd_op[31:0])
     pipe3_decd_inst_type[1:0] = 2'b00;
     pipe3_decd_inst_size[1:0] = 2'b01;
     pipe3_decd_inst_fls       = 1'b0;
+    pipe3_decd_inst_fof       = 1'b0;
     pipe3_decd_inst_vls       = 1'b0;
     pipe3_decd_offset[11:0]   = decd_op[31:20];
     pipe3_decd_shift[3:0]     = 4'b1;
@@ -137,6 +145,7 @@ casez(decd_op[31:0])
     pipe3_decd_inst_type[1:0] = 2'b00;
     pipe3_decd_inst_size[1:0] = 2'b10;
     pipe3_decd_inst_fls       = 1'b0;
+    pipe3_decd_inst_fof       = 1'b0;
     pipe3_decd_inst_vls       = 1'b0;
     pipe3_decd_offset[11:0]   = decd_op[31:20];
     pipe3_decd_shift[3:0]     = 4'b1;
@@ -152,6 +161,7 @@ casez(decd_op[31:0])
     pipe3_decd_inst_type[1:0] = 2'b00;
     pipe3_decd_inst_size[1:0] = 2'b00;
     pipe3_decd_inst_fls       = 1'b0;
+    pipe3_decd_inst_fof       = 1'b0;
     pipe3_decd_inst_vls       = 1'b0;
     pipe3_decd_offset[11:0]   = decd_op[31:20];
     pipe3_decd_shift[3:0]     = 4'b1;
@@ -167,6 +177,7 @@ casez(decd_op[31:0])
     pipe3_decd_inst_type[1:0] = 2'b00;
     pipe3_decd_inst_size[1:0] = 2'b01;
     pipe3_decd_inst_fls       = 1'b0;
+    pipe3_decd_inst_fof       = 1'b0;
     pipe3_decd_inst_vls       = 1'b0;
     pipe3_decd_offset[11:0]   = decd_op[31:20];
     pipe3_decd_shift[3:0]     = 4'b1;
@@ -182,6 +193,7 @@ casez(decd_op[31:0])
     pipe3_decd_inst_type[1:0] = 2'b00;
     pipe3_decd_inst_size[1:0] = 2'b10;
     pipe3_decd_inst_fls       = 1'b0;
+    pipe3_decd_inst_fof       = 1'b0;
     pipe3_decd_inst_vls       = 1'b0;
     pipe3_decd_offset[11:0]   = decd_op[31:20];
     pipe3_decd_shift[3:0]     = 4'b1;
@@ -197,6 +209,7 @@ casez(decd_op[31:0])
     pipe3_decd_inst_type[1:0] = 2'b00;
     pipe3_decd_inst_size[1:0] = 2'b11;
     pipe3_decd_inst_fls       = 1'b0;
+    pipe3_decd_inst_fof       = 1'b0;
     pipe3_decd_inst_vls       = 1'b0;
     pipe3_decd_offset[11:0]   = decd_op[31:20];
     pipe3_decd_shift[3:0]     = 4'b1;
@@ -213,6 +226,7 @@ casez(decd_op[31:0])
     pipe3_decd_inst_type[1:0] = 2'b01;
     pipe3_decd_inst_size[1:0] = 2'b10;
     pipe3_decd_inst_fls       = 1'b0;
+    pipe3_decd_inst_fof       = 1'b0;
     pipe3_decd_inst_vls       = 1'b0;
     pipe3_decd_offset[11:0]   = 12'b0;
     pipe3_decd_shift[3:0]     = 4'b1;
@@ -236,6 +250,7 @@ casez(decd_op[31:0])
     pipe3_decd_inst_type[1:0] = 2'b00;
     pipe3_decd_inst_size[1:0] = 2'b10;
     pipe3_decd_inst_fls       = 1'b0;
+    pipe3_decd_inst_fof       = 1'b0;
     pipe3_decd_inst_vls       = 1'b0;
     pipe3_decd_offset[11:0]   = 12'b0;
     pipe3_decd_shift[3:0]     = 4'b1;
@@ -251,6 +266,7 @@ casez(decd_op[31:0])
     pipe3_decd_inst_type[1:0] = 2'b01;
     pipe3_decd_inst_size[1:0] = 2'b11;
     pipe3_decd_inst_fls       = 1'b0;
+    pipe3_decd_inst_fof       = 1'b0;
     pipe3_decd_inst_vls       = 1'b0;
     pipe3_decd_offset[11:0]   = 12'b0;
     pipe3_decd_shift[3:0]     = 4'b1;
@@ -274,6 +290,7 @@ casez(decd_op[31:0])
     pipe3_decd_inst_type[1:0] = 2'b00;
     pipe3_decd_inst_size[1:0] = 2'b11;
     pipe3_decd_inst_fls       = 1'b0;
+    pipe3_decd_inst_fof       = 1'b0;
     pipe3_decd_inst_vls       = 1'b0;
     pipe3_decd_offset[11:0]   = 12'b0;
     pipe3_decd_shift[3:0]     = 4'b1;
@@ -290,6 +307,7 @@ casez(decd_op[31:0])
     pipe3_decd_inst_type[1:0] = 2'b00;
     pipe3_decd_inst_size[1:0] = 2'b01;
     pipe3_decd_inst_fls       = 1'b1;
+    pipe3_decd_inst_fof       = 1'b0;
     pipe3_decd_inst_vls       = 1'b0;
     pipe3_decd_offset[11:0]   = decd_op[31:20];
     pipe3_decd_shift[3:0]     = 4'b1;
@@ -305,6 +323,7 @@ casez(decd_op[31:0])
     pipe3_decd_inst_type[1:0] = 2'b00;
     pipe3_decd_inst_size[1:0] = 2'b10;
     pipe3_decd_inst_fls       = 1'b1;
+    pipe3_decd_inst_fof       = 1'b0;
     pipe3_decd_inst_vls       = 1'b0;
     pipe3_decd_offset[11:0]   = decd_op[31:20];
     pipe3_decd_shift[3:0]     = 4'b1;
@@ -320,6 +339,7 @@ casez(decd_op[31:0])
     pipe3_decd_inst_type[1:0] = 2'b00;
     pipe3_decd_inst_size[1:0] = 2'b11;
     pipe3_decd_inst_fls       = 1'b1;
+    pipe3_decd_inst_fof       = 1'b0;
     pipe3_decd_inst_vls       = 1'b0;
     pipe3_decd_offset[11:0]   = decd_op[31:20];
     pipe3_decd_shift[3:0]     = 4'b1;
@@ -336,6 +356,7 @@ casez(decd_op[31:0])
     pipe3_decd_inst_type[1:0] = 2'b00;
     pipe3_decd_inst_size[1:0] = 2'b11;
     pipe3_decd_inst_fls       = 1'b1;
+    pipe3_decd_inst_fof       = 1'b0;
     pipe3_decd_inst_vls       = 1'b0;
     pipe3_decd_offset[11:0]   = {4'b0,decd_op[6:5],decd_op[12:10],3'b0};
     pipe3_decd_shift[3:0]     = 4'b1;
@@ -351,6 +372,7 @@ casez(decd_op[31:0])
     pipe3_decd_inst_type[1:0] = 2'b00;
     pipe3_decd_inst_size[1:0] = 2'b10;
     pipe3_decd_inst_fls       = 1'b0;
+    pipe3_decd_inst_fof       = 1'b0;
     pipe3_decd_inst_vls       = 1'b0;
     pipe3_decd_offset[11:0]   = {5'b0,decd_op[5],decd_op[12:10],decd_op[6],2'b0};
     pipe3_decd_shift[3:0]     = 4'b1;
@@ -366,6 +388,7 @@ casez(decd_op[31:0])
     pipe3_decd_inst_type[1:0] = 2'b00;
     pipe3_decd_inst_size[1:0] = 2'b11;
     pipe3_decd_inst_fls       = 1'b0;
+    pipe3_decd_inst_fof       = 1'b0;
     pipe3_decd_inst_vls       = 1'b0;
     pipe3_decd_offset[11:0]   = {4'b0,decd_op[6:5],decd_op[12:10],3'b0};
     pipe3_decd_shift[3:0]     = 4'b1;
@@ -381,6 +404,7 @@ casez(decd_op[31:0])
     pipe3_decd_inst_type[1:0] = 2'b00;
     pipe3_decd_inst_size[1:0] = 2'b11;
     pipe3_decd_inst_fls       = 1'b1;
+    pipe3_decd_inst_fof       = 1'b0;
     pipe3_decd_inst_vls       = 1'b0;
     pipe3_decd_offset[11:0]   = {3'b0,decd_op[4:2],decd_op[12],decd_op[6:5],3'b0};
     pipe3_decd_shift[3:0]     = 4'b1;
@@ -396,6 +420,7 @@ casez(decd_op[31:0])
     pipe3_decd_inst_type[1:0] = 2'b00;
     pipe3_decd_inst_size[1:0] = 2'b10;
     pipe3_decd_inst_fls       = 1'b0;
+    pipe3_decd_inst_fof       = 1'b0;
     pipe3_decd_inst_vls       = 1'b0;
     pipe3_decd_offset[11:0]   = {4'b0,decd_op[3:2],decd_op[12],decd_op[6:4],2'b0};
     pipe3_decd_shift[3:0]     = 4'b1;
@@ -411,6 +436,7 @@ casez(decd_op[31:0])
     pipe3_decd_inst_type[1:0] = 2'b00;
     pipe3_decd_inst_size[1:0] = 2'b11;
     pipe3_decd_inst_fls       = 1'b0;
+    pipe3_decd_inst_fof       = 1'b0;
     pipe3_decd_inst_vls       = 1'b0;
     pipe3_decd_offset[11:0]   = {3'b0,decd_op[4:2],decd_op[12],decd_op[6:5],3'b0};
     pipe3_decd_shift[3:0]     = 4'b1;
@@ -426,6 +452,7 @@ casez(decd_op[31:0])
     pipe3_decd_inst_type[1:0] = 2'b00;
     pipe3_decd_inst_size[1:0] = 2'b00;
     pipe3_decd_inst_fls       = 1'b0;
+    pipe3_decd_inst_fof       = 1'b0;
     pipe3_decd_inst_vls       = 1'b0;
     pipe3_decd_offset[11:0]   = 12'b0;
     pipe3_decd_shift[3:0]     = ldr_shift[3:0];
@@ -441,6 +468,7 @@ casez(decd_op[31:0])
     pipe3_decd_inst_type[1:0] = 2'b00;
     pipe3_decd_inst_size[1:0] = 2'b01;
     pipe3_decd_inst_fls       = 1'b0;
+    pipe3_decd_inst_fof       = 1'b0;
     pipe3_decd_inst_vls       = 1'b0;
     pipe3_decd_offset[11:0]   = 12'b0;
     pipe3_decd_shift[3:0]     = ldr_shift[3:0];
@@ -456,6 +484,7 @@ casez(decd_op[31:0])
     pipe3_decd_inst_type[1:0] = 2'b00;
     pipe3_decd_inst_size[1:0] = 2'b10;
     pipe3_decd_inst_fls       = 1'b0;
+    pipe3_decd_inst_fof       = 1'b0;
     pipe3_decd_inst_vls       = 1'b0;
     pipe3_decd_offset[11:0]   = 12'b0;
     pipe3_decd_shift[3:0]     = ldr_shift[3:0];
@@ -471,6 +500,7 @@ casez(decd_op[31:0])
     pipe3_decd_inst_type[1:0] = 2'b00;
     pipe3_decd_inst_size[1:0] = 2'b11;
     pipe3_decd_inst_fls       = 1'b0;
+    pipe3_decd_inst_fof       = 1'b0;
     pipe3_decd_inst_vls       = 1'b0;
     pipe3_decd_offset[11:0]   = 12'b0;
     pipe3_decd_shift[3:0]     = ldr_shift[3:0];
@@ -486,6 +516,7 @@ casez(decd_op[31:0])
     pipe3_decd_inst_type[1:0] = 2'b00;
     pipe3_decd_inst_size[1:0] = 2'b00;
     pipe3_decd_inst_fls       = 1'b0;
+    pipe3_decd_inst_fof       = 1'b0;
     pipe3_decd_inst_vls       = 1'b0;
     pipe3_decd_offset[11:0]   = 12'b0;
     pipe3_decd_shift[3:0]     = ldr_shift[3:0];
@@ -501,6 +532,7 @@ casez(decd_op[31:0])
     pipe3_decd_inst_type[1:0] = 2'b00;
     pipe3_decd_inst_size[1:0] = 2'b01;
     pipe3_decd_inst_fls       = 1'b0;
+    pipe3_decd_inst_fof       = 1'b0;
     pipe3_decd_inst_vls       = 1'b0;
     pipe3_decd_offset[11:0]   = 12'b0;
     pipe3_decd_shift[3:0]     = ldr_shift[3:0];
@@ -516,6 +548,7 @@ casez(decd_op[31:0])
     pipe3_decd_inst_type[1:0] = 2'b00;
     pipe3_decd_inst_size[1:0] = 2'b10;
     pipe3_decd_inst_fls       = 1'b0;
+    pipe3_decd_inst_fof       = 1'b0;
     pipe3_decd_inst_vls       = 1'b0;
     pipe3_decd_offset[11:0]   = 12'b0;
     pipe3_decd_shift[3:0]     = ldr_shift[3:0];
@@ -531,6 +564,7 @@ casez(decd_op[31:0])
     pipe3_decd_inst_type[1:0] = 2'b00;
     pipe3_decd_inst_size[1:0] = 2'b00;
     pipe3_decd_inst_fls       = 1'b0;
+    pipe3_decd_inst_fof       = 1'b0;
     pipe3_decd_inst_vls       = 1'b0;
     pipe3_decd_offset[11:0]   = 12'b0;
     pipe3_decd_shift[3:0]     = ldr_shift[3:0];
@@ -546,6 +580,7 @@ casez(decd_op[31:0])
     pipe3_decd_inst_type[1:0] = 2'b00;
     pipe3_decd_inst_size[1:0] = 2'b01;
     pipe3_decd_inst_fls       = 1'b0;
+    pipe3_decd_inst_fof       = 1'b0;
     pipe3_decd_inst_vls       = 1'b0;
     pipe3_decd_offset[11:0]   = 12'b0;
     pipe3_decd_shift[3:0]     = ldr_shift[3:0];
@@ -561,6 +596,7 @@ casez(decd_op[31:0])
     pipe3_decd_inst_type[1:0] = 2'b00;
     pipe3_decd_inst_size[1:0] = 2'b10;
     pipe3_decd_inst_fls       = 1'b0;
+    pipe3_decd_inst_fof       = 1'b0;
     pipe3_decd_inst_vls       = 1'b0;
     pipe3_decd_offset[11:0]   = 12'b0;
     pipe3_decd_shift[3:0]     = ldr_shift[3:0];
@@ -576,6 +612,7 @@ casez(decd_op[31:0])
     pipe3_decd_inst_type[1:0] = 2'b00;
     pipe3_decd_inst_size[1:0] = 2'b11;
     pipe3_decd_inst_fls       = 1'b0;
+    pipe3_decd_inst_fof       = 1'b0;
     pipe3_decd_inst_vls       = 1'b0;
     pipe3_decd_offset[11:0]   = 12'b0;
     pipe3_decd_shift[3:0]     = ldr_shift[3:0];
@@ -591,6 +628,7 @@ casez(decd_op[31:0])
     pipe3_decd_inst_type[1:0] = 2'b00;
     pipe3_decd_inst_size[1:0] = 2'b00;
     pipe3_decd_inst_fls       = 1'b0;
+    pipe3_decd_inst_fof       = 1'b0;
     pipe3_decd_inst_vls       = 1'b0;
     pipe3_decd_offset[11:0]   = 12'b0;
     pipe3_decd_shift[3:0]     = ldr_shift[3:0];
@@ -606,6 +644,7 @@ casez(decd_op[31:0])
     pipe3_decd_inst_type[1:0] = 2'b00;
     pipe3_decd_inst_size[1:0] = 2'b01;
     pipe3_decd_inst_fls       = 1'b0;
+    pipe3_decd_inst_fof       = 1'b0;
     pipe3_decd_inst_vls       = 1'b0;
     pipe3_decd_offset[11:0]   = 12'b0;
     pipe3_decd_shift[3:0]     = ldr_shift[3:0];
@@ -621,6 +660,7 @@ casez(decd_op[31:0])
     pipe3_decd_inst_type[1:0] = 2'b00;
     pipe3_decd_inst_size[1:0] = 2'b10;
     pipe3_decd_inst_fls       = 1'b0;
+    pipe3_decd_inst_fof       = 1'b0;
     pipe3_decd_inst_vls       = 1'b0;
     pipe3_decd_offset[11:0]   = 12'b0;
     pipe3_decd_shift[3:0]     = ldr_shift[3:0];
@@ -636,6 +676,7 @@ casez(decd_op[31:0])
     pipe3_decd_inst_type[1:0] = 2'b00;
     pipe3_decd_inst_size[1:0] = 2'b10;
     pipe3_decd_inst_fls       = 1'b1;
+    pipe3_decd_inst_fof       = 1'b0;
     pipe3_decd_inst_vls       = 1'b0;
     pipe3_decd_offset[11:0]   = 12'b0;
     pipe3_decd_shift[3:0]     = ldr_shift[3:0];
@@ -651,6 +692,7 @@ casez(decd_op[31:0])
     pipe3_decd_inst_type[1:0] = 2'b00;
     pipe3_decd_inst_size[1:0] = 2'b11;
     pipe3_decd_inst_fls       = 1'b1;
+    pipe3_decd_inst_fof       = 1'b0;
     pipe3_decd_inst_vls       = 1'b0;
     pipe3_decd_offset[11:0]   = 12'b0;
     pipe3_decd_shift[3:0]     = ldr_shift[3:0];
@@ -666,6 +708,7 @@ casez(decd_op[31:0])
     pipe3_decd_inst_type[1:0] = 2'b00;
     pipe3_decd_inst_size[1:0] = 2'b10;
     pipe3_decd_inst_fls       = 1'b1;
+    pipe3_decd_inst_fof       = 1'b0;
     pipe3_decd_inst_vls       = 1'b0;
     pipe3_decd_offset[11:0]   = 12'b0;
     pipe3_decd_shift[3:0]     = ldr_shift[3:0];
@@ -681,6 +724,7 @@ casez(decd_op[31:0])
     pipe3_decd_inst_type[1:0] = 2'b00;
     pipe3_decd_inst_size[1:0] = 2'b11;
     pipe3_decd_inst_fls       = 1'b1;
+    pipe3_decd_inst_fof       = 1'b0;
     pipe3_decd_inst_vls       = 1'b0;
     pipe3_decd_offset[11:0]   = 12'b0;
     pipe3_decd_shift[3:0]     = ldr_shift[3:0];
@@ -697,6 +741,7 @@ casez(decd_op[31:0])
   //  pipe3_decd_inst_type[1:0] = 2'b00;
   //  pipe3_decd_inst_size[1:0] = 2'b00;
   //  pipe3_decd_inst_fls       = 1'b0;
+  //  pipe3_decd_inst_fof       = 1'b0;
   //  pipe3_decd_inst_vls       = 1'b0;
   //  pipe3_decd_offset[11:0]   = 12'b0;
   //  pipe3_decd_shift[3:0]     = 4'b1;
@@ -710,6 +755,7 @@ casez(decd_op[31:0])
     pipe3_decd_inst_type[1:0] = {2{1'bx}};
     pipe3_decd_inst_size[1:0] = {2{1'bx}};
     pipe3_decd_inst_fls       = 1'bx;
+    pipe3_decd_inst_fof       = 1'bx;
     pipe3_decd_inst_vls       = 1'bx;
     pipe3_decd_offset[11:0]   = {12{1'bx}};
     pipe3_decd_shift[3:0]     = {4{1'bx}};
@@ -746,5 +792,3 @@ assign pipe3_decd_offset_plus[12:0] = {pipe3_decd_offset[11],pipe3_decd_offset[1
 
 // &ModuleEnd; @1171
 endmodule
-
-

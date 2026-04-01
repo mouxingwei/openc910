@@ -312,6 +312,7 @@ module ct_idu_rf_dp(
   idu_lsu_rf_pipe3_bkptb_data,
   idu_lsu_rf_pipe3_iid,
   idu_lsu_rf_pipe3_inst_fls,
+  idu_lsu_rf_pipe3_inst_fof,
   idu_lsu_rf_pipe3_inst_ldr,
   idu_lsu_rf_pipe3_inst_size,
   idu_lsu_rf_pipe3_inst_type,
@@ -836,6 +837,7 @@ output           idu_lsu_rf_pipe3_bkpta_data;
 output           idu_lsu_rf_pipe3_bkptb_data;           
 output  [6  :0]  idu_lsu_rf_pipe3_iid;                  
 output           idu_lsu_rf_pipe3_inst_fls;             
+output           idu_lsu_rf_pipe3_inst_fof;             
 output           idu_lsu_rf_pipe3_inst_ldr;             
 output  [1  :0]  idu_lsu_rf_pipe3_inst_size;            
 output  [1  :0]  idu_lsu_rf_pipe3_inst_type;            
@@ -1332,6 +1334,7 @@ wire             idu_lsu_rf_pipe3_bkpta_data;
 wire             idu_lsu_rf_pipe3_bkptb_data;           
 wire    [6  :0]  idu_lsu_rf_pipe3_iid;                  
 wire             idu_lsu_rf_pipe3_inst_fls;             
+wire             idu_lsu_rf_pipe3_inst_fof;             
 wire             idu_lsu_rf_pipe3_inst_ldr;             
 wire    [1  :0]  idu_lsu_rf_pipe3_inst_size;            
 wire    [1  :0]  idu_lsu_rf_pipe3_inst_type;            
@@ -3033,6 +3036,7 @@ assign idu_lsu_rf_pipe3_lch_entry[11:0]   = rf_pipe3_iq_entry[11:0];
 assign idu_lsu_rf_pipe3_oldest            = !(|rf_pipe3_data[LSIQ_AGEVEC_ALL:LSIQ_AGEVEC_ALL-10]);
 assign idu_lsu_rf_pipe3_split             = rf_pipe3_data[LSIQ_SPLIT];
 assign idu_lsu_rf_pipe3_inst_fls          = pipe3_decd_inst_fls;
+assign idu_lsu_rf_pipe3_inst_fof          = pipe3_decd_inst_fof;
 assign idu_lsu_rf_pipe3_inst_ldr          = pipe3_decd_inst_ldr;
 assign idu_lsu_rf_pipe3_off_0_extend      = pipe3_decd_off_0_extend;
 assign idu_lsu_rf_pipe3_no_spec           = rf_pipe3_data[LSIQ_NO_SPEC];

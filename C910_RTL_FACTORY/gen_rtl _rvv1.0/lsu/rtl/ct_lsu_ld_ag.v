@@ -41,6 +41,7 @@ module ct_lsu_ld_ag(
   idu_lsu_rf_pipe3_gateclk_sel,
   idu_lsu_rf_pipe3_iid,
   idu_lsu_rf_pipe3_inst_fls,
+  idu_lsu_rf_pipe3_inst_fof,
   idu_lsu_rf_pipe3_inst_ldr,
   idu_lsu_rf_pipe3_inst_size,
   idu_lsu_rf_pipe3_inst_type,

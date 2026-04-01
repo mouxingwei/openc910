@@ -982,8 +982,16 @@ wire    [2 :0]  vfpu_yy_xx_rm;
 // &Force("input","iu_vfpu_ex2_pipe0_mtvr_vld"); @45
 // &Force("input","iu_vfpu_ex2_pipe1_mtvr_vld"); @46
 
-// &Force("bus","iu_vfpu_ex1_pipe0_mtvr_vlmul",1,0); @48
-// &Force("bus","iu_vfpu_ex1_pipe1_mtvr_vlmul",1,0); @49
+// &Force("bus","iu_vfpu_ex1_pipe0_mtvr_vlmul",2,0); @48
+// &Force("bus","iu_vfpu_ex1_pipe1_mtvr_vlmul",2,0); @49
+// Modified for RVV 1.0: Extended vlmul to 3 bits for fractional LMUL support
+// Modification date: 2026-04-01
+// &Force("bus","iu_vfpu_ex1_pipe0_mtvr_vlmul",2,0); @48
+// &Force("bus","iu_vfpu_ex1_pipe1_mtvr_vlmul",2,0); @49
+// &Force("bus","iu_vfpu_ex1_pipe0_mtvr_vma"); @48a
+// &Force("bus","iu_vfpu_ex1_pipe1_mtvr_vma"); @49a
+// &Force("bus","iu_vfpu_ex1_pipe0_mtvr_vta"); @48b
+// &Force("bus","iu_vfpu_ex1_pipe1_mtvr_vta"); @49b
 
 // &Force("bus","iu_vfpu_ex1_pipe0_mtvr_vsew",2,0); @51
 // &Force("bus","iu_vfpu_ex1_pipe1_mtvr_vsew",2,0); @52
