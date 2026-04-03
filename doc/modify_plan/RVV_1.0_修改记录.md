@@ -194,17 +194,48 @@ IDU (pipe3_decd_inst_fof)
         -> LSU LD_DA (ld_da_inst_fof)
 ```
 
-### 2.4 异常处理修改（阶段六）
+### 2.4 异常处理修改（阶段六）- 已完成
 
 需要修改的文件:
-- `gen_rtl/rtu/rtl/ct_rtu_rob_expt.v` - 向量异常处理
+- `gen_rtl/rtu/rtl/ct_rtu_rob_expt.v` - 向量异常处理 ✅
+- `gen_rtl/idu/rtl/ct_idu_id_decd.v` - vstart非法检测逻辑修改 ✅
 
 **修改说明**:
-需要新增向量相关的异常类型处理：
-- 非法vtype设置异常
-- 非法vstart值异常
+RVV 1.0对向量异常处理进行了重要修改：
+1. vstart != 0不再触发非法指令异常
+2. 当vstart >= vl时，指令不执行任何操作，也不触发异常
+3. vill=1时执行向量指令仍然触发非法指令异常
 
-**状态**: 需要进一步设计和实现
+**已完成的修改**:
+
+#### 2.4.1 ct_idu_id_decd.v
+- 修改`decd_start_illegal`逻辑
+- 原因：RVV 1.0规范规定vstart != 0是合法的，处理器应从vstart位置开始执行
+- 修改前：`assign decd_start_illegal = |cp0_idu_vstart[6:0] && !x_vec_opcfg;`
+- 修改后：`assign decd_start_illegal = 1'b0;`
+
+**关键代码**:
+```verilog
+//----------------------------------------------------------
+//               vstart illegal for normal inst
+// Modified for RVV 1.0: vstart != 0 is legal in RVV 1.0
+// The processor should start execution from vstart element
+// Modification date: 2026-04-02
+//----------------------------------------------------------
+// Original RVV 0.7.1 behavior: vstart != 0 triggers illegal instruction
+// assign decd_start_illegal = |cp0_idu_vstart[6:0] && !x_vec_opcfg;
+// RVV 1.0 behavior: vstart != 0 is legal, no illegal instruction
+assign decd_start_illegal = 1'b0;
+```
+
+#### 2.4.2 ct_rtu_rob_expt.v
+- 添加RVV 1.0异常向量定义注释
+- 说明向量异常类型的处理方式
+
+**RVV 1.0向量异常行为**:
+1. **vill=1时执行向量指令**: 触发非法指令异常（expt_vec=2）
+2. **vstart >= vl**: 不触发异常，指令不执行任何操作
+3. **vstart < vl**: 正常执行，从vstart开始
 
 ---
 

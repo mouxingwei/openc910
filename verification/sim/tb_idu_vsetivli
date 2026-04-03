@@ -1,0 +1,388 @@
+#! /c/Source/iverilog-install/bin/vvp
+:ivl_version "12.0 (devel)" "(s20150603-1539-g2693dd32b)";
+:ivl_delay_selection "TYPICAL";
+:vpi_time_precision + 0;
+:vpi_module "C:\iverilog\lib\ivl\system.vpi";
+:vpi_module "C:\iverilog\lib\ivl\vhdl_sys.vpi";
+:vpi_module "C:\iverilog\lib\ivl\vhdl_textio.vpi";
+:vpi_module "C:\iverilog\lib\ivl\v2005_math.vpi";
+:vpi_module "C:\iverilog\lib\ivl\va_math.vpi";
+:vpi_module "C:\iverilog\lib\ivl\v2009.vpi";
+S_000001c02e3cf710 .scope package, "$unit" "$unit" 2 1;
+ .timescale 0 0;
+S_000001c02e3d3350 .scope module, "tb_idu_vsetivli" "tb_idu_vsetivli" 3 20;
+ .timescale 0 0;
+L_000001c02e3aedf0 .functor AND 1, L_000001c02e4334d0, L_000001c02e433930, C4<1>, C4<1>;
+L_000001c02e3aec30 .functor AND 1, L_000001c02e3aedf0, L_000001c02e4343d0, C4<1>, C4<1>;
+L_000001c02e3aeca0 .functor AND 1, L_000001c02e434650, L_000001c02e434b50, C4<1>, C4<1>;
+L_000001c02e3aed10 .functor AND 1, L_000001c02e3aeca0, L_000001c02e434bf0, C4<1>, C4<1>;
+L_000001c02e3af480 .functor AND 1, L_000001c02e435050, L_000001c02e434790, C4<1>, C4<1>;
+L_000001c02e3aee60 .functor AND 1, L_000001c02e3af480, L_000001c02e433570, C4<1>, C4<1>;
+L_000001c02e3af4f0 .functor AND 1, L_000001c02e3aee60, L_000001c02e433c50, C4<1>, C4<1>;
+L_000001c02e3af8e0 .functor AND 1, L_000001c02e3aec30, L_000001c02e433cf0, C4<1>, C4<1>;
+L_000001c02e3af720 .functor BUFZ 1, L_000001c02e3aed10, C4<0>, C4<0>, C4<0>;
+L_000001c02e3aeed0 .functor BUFZ 1, L_000001c02e3af4f0, C4<0>, C4<0>, C4<0>;
+v000001c02e3ccf80_0 .net *"_ivl_1", 1 0, L_000001c02e434010;  1 drivers
+v000001c02e3cc120_0 .net *"_ivl_10", 0 0, L_000001c02e433930;  1 drivers
+v000001c02e3cda20_0 .net *"_ivl_101", 4 0, L_000001c02e434290;  1 drivers
+v000001c02e3ccb20_0 .net *"_ivl_102", 12 0, L_000001c02e4340b0;  1 drivers
+v000001c02e3cc4e0_0 .net *"_ivl_13", 0 0, L_000001c02e3aedf0;  1 drivers
+v000001c02e3cdc00_0 .net *"_ivl_15", 6 0, L_000001c02e4339d0;  1 drivers
+L_000001c02e7b0118 .functor BUFT 1, C4<1010111>, C4<0>, C4<0>, C4<0>;
+v000001c02e3cc580_0 .net/2u *"_ivl_16", 6 0, L_000001c02e7b0118;  1 drivers
+v000001c02e3cd020_0 .net *"_ivl_18", 0 0, L_000001c02e4343d0;  1 drivers
+L_000001c02e7b0088 .functor BUFT 1, C4<11>, C4<0>, C4<0>, C4<0>;
+v000001c02e3cd480_0 .net/2u *"_ivl_2", 1 0, L_000001c02e7b0088;  1 drivers
+v000001c02e3cd7a0_0 .net *"_ivl_23", 1 0, L_000001c02e433750;  1 drivers
+L_000001c02e7b0160 .functor BUFT 1, C4<11>, C4<0>, C4<0>, C4<0>;
+v000001c02e3cc1c0_0 .net/2u *"_ivl_24", 1 0, L_000001c02e7b0160;  1 drivers
+v000001c02e3cc260_0 .net *"_ivl_26", 0 0, L_000001c02e434650;  1 drivers
+v000001c02e3cd520_0 .net *"_ivl_29", 2 0, L_000001c02e433bb0;  1 drivers
+L_000001c02e7b01a8 .functor BUFT 1, C4<111>, C4<0>, C4<0>, C4<0>;
+v000001c02e3cd5c0_0 .net/2u *"_ivl_30", 2 0, L_000001c02e7b01a8;  1 drivers
+v000001c02e3cc620_0 .net *"_ivl_32", 0 0, L_000001c02e434b50;  1 drivers
+v000001c02e3cc300_0 .net *"_ivl_35", 0 0, L_000001c02e3aeca0;  1 drivers
+v000001c02e3cc800_0 .net *"_ivl_37", 6 0, L_000001c02e4337f0;  1 drivers
+L_000001c02e7b01f0 .functor BUFT 1, C4<1010111>, C4<0>, C4<0>, C4<0>;
+v000001c02e3cc8a0_0 .net/2u *"_ivl_38", 6 0, L_000001c02e7b01f0;  1 drivers
+v000001c02e3ccda0_0 .net *"_ivl_4", 0 0, L_000001c02e4334d0;  1 drivers
+v000001c02e3cc6c0_0 .net *"_ivl_40", 0 0, L_000001c02e434bf0;  1 drivers
+v000001c02e3cc440_0 .net *"_ivl_45", 2 0, L_000001c02e4346f0;  1 drivers
+L_000001c02e7b0238 .functor BUFT 1, C4<111>, C4<0>, C4<0>, C4<0>;
+v000001c02e3cdca0_0 .net/2u *"_ivl_46", 2 0, L_000001c02e7b0238;  1 drivers
+v000001c02e3cc760_0 .net *"_ivl_48", 0 0, L_000001c02e435050;  1 drivers
+v000001c02e3cc940_0 .net *"_ivl_51", 6 0, L_000001c02e433890;  1 drivers
+L_000001c02e7b0280 .functor BUFT 1, C4<1010111>, C4<0>, C4<0>, C4<0>;
+v000001c02e3cc9e0_0 .net/2u *"_ivl_52", 6 0, L_000001c02e7b0280;  1 drivers
+v000001c02e3cc080_0 .net *"_ivl_54", 0 0, L_000001c02e434790;  1 drivers
+v000001c02e3ccbc0_0 .net *"_ivl_57", 0 0, L_000001c02e3af480;  1 drivers
+v000001c02e3cca80_0 .net *"_ivl_59", 1 0, L_000001c02e4341f0;  1 drivers
+L_000001c02e7b02c8 .functor BUFT 1, C4<11>, C4<0>, C4<0>, C4<0>;
+v000001c02e3cdde0_0 .net/2u *"_ivl_60", 1 0, L_000001c02e7b02c8;  1 drivers
+v000001c02e3cd200_0 .net *"_ivl_62", 0 0, L_000001c02e433570;  1 drivers
+v000001c02e3ccc60_0 .net *"_ivl_65", 0 0, L_000001c02e3aee60;  1 drivers
+v000001c02e3cd660_0 .net *"_ivl_67", 4 0, L_000001c02e434c90;  1 drivers
+L_000001c02e7b0310 .functor BUFT 1, C4<00000>, C4<0>, C4<0>, C4<0>;
+v000001c02e3cdac0_0 .net/2u *"_ivl_68", 4 0, L_000001c02e7b0310;  1 drivers
+v000001c02e3ccd00_0 .net *"_ivl_7", 2 0, L_000001c02e433610;  1 drivers
+v000001c02e3cd840_0 .net *"_ivl_70", 0 0, L_000001c02e433c50;  1 drivers
+v000001c02e3cce40_0 .net *"_ivl_75", 0 0, L_000001c02e433cf0;  1 drivers
+L_000001c02e7b00d0 .functor BUFT 1, C4<111>, C4<0>, C4<0>, C4<0>;
+v000001c02e3cd160_0 .net/2u *"_ivl_8", 2 0, L_000001c02e7b00d0;  1 drivers
+v000001c02e3cd340_0 .net *"_ivl_85", 1 0, L_000001c02e434830;  1 drivers
+v000001c02e3cd3e0_0 .net *"_ivl_87", 4 0, L_000001c02e434dd0;  1 drivers
+v000001c02e3cd700_0 .net *"_ivl_88", 6 0, L_000001c02e433390;  1 drivers
+v000001c02e3cd8e0_0 .net *"_ivl_93", 1 0, L_000001c02e433e30;  1 drivers
+v000001c02e3cd980_0 .net *"_ivl_95", 2 0, L_000001c02e434f10;  1 drivers
+v000001c02e3cdb60_0 .net *"_ivl_97", 0 0, L_000001c02e434fb0;  1 drivers
+v000001c02e3cdd40_0 .net *"_ivl_99", 1 0, L_000001c02e433ed0;  1 drivers
+v000001c02e3cde80_0 .var "clk", 0 0;
+v000001c02e3cbfe0_0 .net "decd_vsetivli", 0 0, L_000001c02e3af8e0;  1 drivers
+v000001c02e4348d0_0 .net "decd_vsetvl", 0 0, L_000001c02e3aeed0;  1 drivers
+v000001c02e434970_0 .net "decd_vsetvli", 0 0, L_000001c02e3af720;  1 drivers
+v000001c02e433a70_0 .var/i "fail_count", 31 0;
+v000001c02e434470_0 .var "inst", 31 0;
+v000001c02e434ab0_0 .net "is_vsetivli", 0 0, L_000001c02e3aec30;  1 drivers
+v000001c02e434510_0 .net "is_vsetvl", 0 0, L_000001c02e3af4f0;  1 drivers
+v000001c02e433430_0 .net "is_vsetvli", 0 0, L_000001c02e3aed10;  1 drivers
+v000001c02e434d30_0 .var/i "pass_count", 31 0;
+v000001c02e433f70_0 .net "rd", 4 0, L_000001c02e433d90;  1 drivers
+v000001c02e434a10_0 .var "rst_b", 0 0;
+v000001c02e434330_0 .var/i "test_count", 31 0;
+v000001c02e4336b0_0 .net "uimm", 4 0, L_000001c02e434e70;  1 drivers
+L_000001c02e7b0358 .functor BUFT 1, C4<0>, C4<0>, C4<0>, C4<0>;
+v000001c02e4345b0_0 .net "x_illegal", 0 0, L_000001c02e7b0358;  1 drivers
+v000001c02e433b10_0 .net "zimm", 10 0, L_000001c02e4350f0;  1 drivers
+E_000001c02e3dbb20 .event posedge, v000001c02e434a10_0;
+L_000001c02e434010 .part v000001c02e434470_0, 30, 2;
+L_000001c02e4334d0 .cmp/eq 2, L_000001c02e434010, L_000001c02e7b0088;
+L_000001c02e433610 .part v000001c02e434470_0, 12, 3;
+L_000001c02e433930 .cmp/eq 3, L_000001c02e433610, L_000001c02e7b00d0;
+L_000001c02e4339d0 .part v000001c02e434470_0, 0, 7;
+L_000001c02e4343d0 .cmp/eq 7, L_000001c02e4339d0, L_000001c02e7b0118;
+L_000001c02e433750 .part v000001c02e434470_0, 30, 2;
+L_000001c02e434650 .cmp/ne 2, L_000001c02e433750, L_000001c02e7b0160;
+L_000001c02e433bb0 .part v000001c02e434470_0, 12, 3;
+L_000001c02e434b50 .cmp/eq 3, L_000001c02e433bb0, L_000001c02e7b01a8;
+L_000001c02e4337f0 .part v000001c02e434470_0, 0, 7;
+L_000001c02e434bf0 .cmp/eq 7, L_000001c02e4337f0, L_000001c02e7b01f0;
+L_000001c02e4346f0 .part v000001c02e434470_0, 12, 3;
+L_000001c02e435050 .cmp/eq 3, L_000001c02e4346f0, L_000001c02e7b0238;
+L_000001c02e433890 .part v000001c02e434470_0, 0, 7;
+L_000001c02e434790 .cmp/eq 7, L_000001c02e433890, L_000001c02e7b0280;
+L_000001c02e4341f0 .part v000001c02e434470_0, 30, 2;
+L_000001c02e433570 .cmp/eq 2, L_000001c02e4341f0, L_000001c02e7b02c8;
+L_000001c02e434c90 .part v000001c02e434470_0, 7, 5;
+L_000001c02e433c50 .cmp/eq 5, L_000001c02e434c90, L_000001c02e7b0310;
+L_000001c02e433cf0 .reduce/nor L_000001c02e7b0358;
+L_000001c02e433d90 .part v000001c02e434470_0, 7, 5;
+L_000001c02e434830 .part v000001c02e434470_0, 30, 2;
+L_000001c02e434dd0 .part v000001c02e434470_0, 15, 5;
+L_000001c02e433390 .concat [ 5 2 0 0], L_000001c02e434dd0, L_000001c02e434830;
+L_000001c02e434e70 .part L_000001c02e433390, 0, 5;
+L_000001c02e433e30 .part v000001c02e434470_0, 28, 2;
+L_000001c02e434f10 .part v000001c02e434470_0, 23, 3;
+L_000001c02e434fb0 .part v000001c02e434470_0, 22, 1;
+L_000001c02e433ed0 .part v000001c02e434470_0, 20, 2;
+L_000001c02e434290 .part v000001c02e434470_0, 15, 5;
+LS_000001c02e4340b0_0_0 .concat [ 5 2 1 3], L_000001c02e434290, L_000001c02e433ed0, L_000001c02e434fb0, L_000001c02e434f10;
+LS_000001c02e4340b0_0_4 .concat [ 2 0 0 0], L_000001c02e433e30;
+L_000001c02e4340b0 .concat [ 11 2 0 0], LS_000001c02e4340b0_0_0, LS_000001c02e4340b0_0_4;
+L_000001c02e4350f0 .part L_000001c02e4340b0, 0, 11;
+S_000001c02e3e0d40 .scope task, "check_result" "check_result" 3 104, 3 104 0, S_000001c02e3d3350;
+ .timescale 0 0;
+v000001c02e3cd0c0_0 .var "actual", 0 0;
+v000001c02e3cc3a0_0 .var "expected", 0 0;
+v000001c02e3ccee0_0 .var/str "test_name";
+TD_tb_idu_vsetivli.check_result ;
+    %load/vec4 v000001c02e434330_0;
+    %addi 1, 0, 32;
+    %store/vec4 v000001c02e434330_0, 0, 32;
+    %load/vec4 v000001c02e3cd0c0_0;
+    %load/vec4 v000001c02e3cc3a0_0;
+    %cmp/e;
+    %jmp/0xz  T_0.0, 6;
+    %vpi_call/w 3 111 "$display", "[PASS] %s: Expected=%h, Actual=%h", v000001c02e3ccee0_0, v000001c02e3cc3a0_0, v000001c02e3cd0c0_0 {0 0 0};
+    %load/vec4 v000001c02e434d30_0;
+    %addi 1, 0, 32;
+    %store/vec4 v000001c02e434d30_0, 0, 32;
+    %jmp T_0.1;
+T_0.0 ;
+    %vpi_call/w 3 114 "$display", "[FAIL] %s: Expected=%h, Actual=%h", v000001c02e3ccee0_0, v000001c02e3cc3a0_0, v000001c02e3cd0c0_0 {0 0 0};
+    %load/vec4 v000001c02e433a70_0;
+    %addi 1, 0, 32;
+    %store/vec4 v000001c02e433a70_0, 0, 32;
+T_0.1 ;
+    %end;
+S_000001c02e3de680 .scope task, "send_inst" "send_inst" 3 94, 3 94 0, S_000001c02e3d3350;
+ .timescale 0 0;
+v000001c02e3cd2a0_0 .var "instruction", 31 0;
+E_000001c02e3dc320 .event posedge, v000001c02e3cde80_0;
+TD_tb_idu_vsetivli.send_inst ;
+    %wait E_000001c02e3dc320;
+    %load/vec4 v000001c02e3cd2a0_0;
+    %assign/vec4 v000001c02e434470_0, 0;
+    %wait E_000001c02e3dc320;
+    %end;
+    .scope S_000001c02e3d3350;
+T_2 ;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v000001c02e3cde80_0, 0, 1;
+T_2.0 ;
+    %delay 5, 0;
+    %load/vec4 v000001c02e3cde80_0;
+    %inv;
+    %store/vec4 v000001c02e3cde80_0, 0, 1;
+    %jmp T_2.0;
+    %end;
+    .thread T_2;
+    .scope S_000001c02e3d3350;
+T_3 ;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v000001c02e434a10_0, 0, 1;
+    %delay 20, 0;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v000001c02e434a10_0, 0, 1;
+    %end;
+    .thread T_3;
+    .scope S_000001c02e3d3350;
+T_4 ;
+    %pushi/vec4 0, 0, 32;
+    %store/vec4 v000001c02e434330_0, 0, 32;
+    %pushi/vec4 0, 0, 32;
+    %store/vec4 v000001c02e434d30_0, 0, 32;
+    %pushi/vec4 0, 0, 32;
+    %store/vec4 v000001c02e433a70_0, 0, 32;
+    %pushi/vec4 0, 0, 32;
+    %store/vec4 v000001c02e434470_0, 0, 32;
+    %wait E_000001c02e3dbb20;
+    %wait E_000001c02e3dc320;
+    %vpi_call/w 3 132 "$display", "========================================" {0 0 0};
+    %vpi_call/w 3 133 "$display", "vsetivli Instruction Decode Test Suite" {0 0 0};
+    %vpi_call/w 3 134 "$display", "========================================" {0 0 0};
+    %vpi_call/w 3 139 "$display", "\012[VSETIVLI_001] Basic vsetivli Decode Test" {0 0 0};
+    %pushi/vec4 3246393303, 0, 32;
+    %store/vec4 v000001c02e3cd2a0_0, 0, 32;
+    %fork TD_tb_idu_vsetivli.send_inst, S_000001c02e3de680;
+    %join;
+    %load/vec4 v000001c02e3cbfe0_0;
+    %store/vec4 v000001c02e3cd0c0_0, 0, 1;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v000001c02e3cc3a0_0, 0, 1;
+    %pushi/str "VSETIVLI_001: decd_vsetivli";
+    %store/str v000001c02e3ccee0_0;
+    %fork TD_tb_idu_vsetivli.check_result, S_000001c02e3e0d40;
+    %join;
+    %vpi_call/w 3 151 "$display", "\012[VSETIVLI_002] vsetivli with Different AVL Test" {0 0 0};
+    %pushi/vec4 3229616087, 0, 32;
+    %store/vec4 v000001c02e3cd2a0_0, 0, 32;
+    %fork TD_tb_idu_vsetivli.send_inst, S_000001c02e3de680;
+    %join;
+    %load/vec4 v000001c02e3cbfe0_0;
+    %store/vec4 v000001c02e3cd0c0_0, 0, 1;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v000001c02e3cc3a0_0, 0, 1;
+    %pushi/str "VSETIVLI_002: decd_vsetivli";
+    %store/str v000001c02e3ccee0_0;
+    %fork TD_tb_idu_vsetivli.check_result, S_000001c02e3e0d40;
+    %join;
+    %vpi_call/w 3 162 "$display", "\012[VSETIVLI_003] vsetivli with LMUL=1/8 Test" {0 0 0};
+    %pushi/vec4 3231713239, 0, 32;
+    %store/vec4 v000001c02e3cd2a0_0, 0, 32;
+    %fork TD_tb_idu_vsetivli.send_inst, S_000001c02e3de680;
+    %join;
+    %load/vec4 v000001c02e3cbfe0_0;
+    %store/vec4 v000001c02e3cd0c0_0, 0, 1;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v000001c02e3cc3a0_0, 0, 1;
+    %pushi/str "VSETIVLI_003: decd_vsetivli";
+    %store/str v000001c02e3ccee0_0;
+    %fork TD_tb_idu_vsetivli.check_result, S_000001c02e3e0d40;
+    %join;
+    %vpi_call/w 3 173 "$display", "\012[VSETIVLI_004] vsetivli with LMUL=1/4 Test" {0 0 0};
+    %pushi/vec4 3233810391, 0, 32;
+    %store/vec4 v000001c02e3cd2a0_0, 0, 32;
+    %fork TD_tb_idu_vsetivli.send_inst, S_000001c02e3de680;
+    %join;
+    %load/vec4 v000001c02e3cbfe0_0;
+    %store/vec4 v000001c02e3cd0c0_0, 0, 1;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v000001c02e3cc3a0_0, 0, 1;
+    %pushi/str "VSETIVLI_004: decd_vsetivli";
+    %store/str v000001c02e3ccee0_0;
+    %fork TD_tb_idu_vsetivli.check_result, S_000001c02e3e0d40;
+    %join;
+    %vpi_call/w 3 184 "$display", "\012[VSETIVLI_005] vsetivli with LMUL=1/2 Test" {0 0 0};
+    %pushi/vec4 3235907543, 0, 32;
+    %store/vec4 v000001c02e3cd2a0_0, 0, 32;
+    %fork TD_tb_idu_vsetivli.send_inst, S_000001c02e3de680;
+    %join;
+    %load/vec4 v000001c02e3cbfe0_0;
+    %store/vec4 v000001c02e3cd0c0_0, 0, 1;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v000001c02e3cc3a0_0, 0, 1;
+    %pushi/str "VSETIVLI_005: decd_vsetivli";
+    %store/str v000001c02e3ccee0_0;
+    %fork TD_tb_idu_vsetivli.check_result, S_000001c02e3e0d40;
+    %join;
+    %vpi_call/w 3 195 "$display", "\012[VSETIVLI_006] vsetivli with vma=1, vta=1 Test" {0 0 0};
+    %pushi/vec4 3313502167, 0, 32;
+    %store/vec4 v000001c02e3cd2a0_0, 0, 32;
+    %fork TD_tb_idu_vsetivli.send_inst, S_000001c02e3de680;
+    %join;
+    %load/vec4 v000001c02e3cbfe0_0;
+    %store/vec4 v000001c02e3cd0c0_0, 0, 1;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v000001c02e3cc3a0_0, 0, 1;
+    %pushi/str "VSETIVLI_006: decd_vsetivli";
+    %store/str v000001c02e3ccee0_0;
+    %fork TD_tb_idu_vsetivli.check_result, S_000001c02e3e0d40;
+    %join;
+    %vpi_call/w 3 206 "$display", "\012[VSETIVLI_007] Distinguish from vsetvli Test" {0 0 0};
+    %pushi/vec4 8417367, 0, 32;
+    %store/vec4 v000001c02e3cd2a0_0, 0, 32;
+    %fork TD_tb_idu_vsetivli.send_inst, S_000001c02e3de680;
+    %join;
+    %load/vec4 v000001c02e434970_0;
+    %store/vec4 v000001c02e3cd0c0_0, 0, 1;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v000001c02e3cc3a0_0, 0, 1;
+    %pushi/str "VSETIVLI_007: decd_vsetvli";
+    %store/str v000001c02e3ccee0_0;
+    %fork TD_tb_idu_vsetivli.check_result, S_000001c02e3e0d40;
+    %join;
+    %load/vec4 v000001c02e3cbfe0_0;
+    %store/vec4 v000001c02e3cd0c0_0, 0, 1;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v000001c02e3cc3a0_0, 0, 1;
+    %pushi/str "VSETIVLI_007: not decd_vsetivli";
+    %store/str v000001c02e3ccee0_0;
+    %fork TD_tb_idu_vsetivli.check_result, S_000001c02e3e0d40;
+    %join;
+    %vpi_call/w 3 218 "$display", "\012[VSETIVLI_008] Different SEW Values Test" {0 0 0};
+    %pushi/vec4 3221227479, 0, 32;
+    %store/vec4 v000001c02e3cd2a0_0, 0, 32;
+    %fork TD_tb_idu_vsetivli.send_inst, S_000001c02e3de680;
+    %join;
+    %load/vec4 v000001c02e3cbfe0_0;
+    %store/vec4 v000001c02e3cd0c0_0, 0, 1;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v000001c02e3cc3a0_0, 0, 1;
+    %pushi/str "VSETIVLI_008a: SEW=8";
+    %store/str v000001c02e3ccee0_0;
+    %fork TD_tb_idu_vsetivli.check_result, S_000001c02e3e0d40;
+    %join;
+    %pushi/vec4 3229616087, 0, 32;
+    %store/vec4 v000001c02e3cd2a0_0, 0, 32;
+    %fork TD_tb_idu_vsetivli.send_inst, S_000001c02e3de680;
+    %join;
+    %load/vec4 v000001c02e3cbfe0_0;
+    %store/vec4 v000001c02e3cd0c0_0, 0, 1;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v000001c02e3cc3a0_0, 0, 1;
+    %pushi/str "VSETIVLI_008b: SEW=16";
+    %store/str v000001c02e3ccee0_0;
+    %fork TD_tb_idu_vsetivli.check_result, S_000001c02e3e0d40;
+    %join;
+    %pushi/vec4 3238004695, 0, 32;
+    %store/vec4 v000001c02e3cd2a0_0, 0, 32;
+    %fork TD_tb_idu_vsetivli.send_inst, S_000001c02e3de680;
+    %join;
+    %load/vec4 v000001c02e3cbfe0_0;
+    %store/vec4 v000001c02e3cd0c0_0, 0, 1;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v000001c02e3cc3a0_0, 0, 1;
+    %pushi/str "VSETIVLI_008c: SEW=32";
+    %store/str v000001c02e3ccee0_0;
+    %fork TD_tb_idu_vsetivli.check_result, S_000001c02e3e0d40;
+    %join;
+    %pushi/vec4 3246393303, 0, 32;
+    %store/vec4 v000001c02e3cd2a0_0, 0, 32;
+    %fork TD_tb_idu_vsetivli.send_inst, S_000001c02e3de680;
+    %join;
+    %load/vec4 v000001c02e3cbfe0_0;
+    %store/vec4 v000001c02e3cd0c0_0, 0, 1;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v000001c02e3cc3a0_0, 0, 1;
+    %pushi/str "VSETIVLI_008d: SEW=64";
+    %store/str v000001c02e3ccee0_0;
+    %fork TD_tb_idu_vsetivli.check_result, S_000001c02e3e0d40;
+    %join;
+    %vpi_call/w 3 238 "$display", "\012========================================" {0 0 0};
+    %vpi_call/w 3 239 "$display", "Test Summary" {0 0 0};
+    %vpi_call/w 3 240 "$display", "========================================" {0 0 0};
+    %vpi_call/w 3 241 "$display", "Total Tests: %d", v000001c02e434330_0 {0 0 0};
+    %vpi_call/w 3 242 "$display", "Passed:      %d", v000001c02e434d30_0 {0 0 0};
+    %vpi_call/w 3 243 "$display", "Failed:      %d", v000001c02e433a70_0 {0 0 0};
+    %vpi_call/w 3 244 "$display", "========================================" {0 0 0};
+    %load/vec4 v000001c02e433a70_0;
+    %cmpi/e 0, 0, 32;
+    %jmp/0xz  T_4.0, 4;
+    %vpi_call/w 3 247 "$display", "ALL TESTS PASSED!" {0 0 0};
+    %jmp T_4.1;
+T_4.0 ;
+    %vpi_call/w 3 249 "$display", "SOME TESTS FAILED!" {0 0 0};
+T_4.1 ;
+    %delay 100, 0;
+    %vpi_call/w 3 252 "$finish" {0 0 0};
+    %end;
+    .thread T_4;
+    .scope S_000001c02e3d3350;
+T_5 ;
+    %delay 10000, 0;
+    %vpi_call/w 3 258 "$display", "ERROR: Simulation timeout!" {0 0 0};
+    %vpi_call/w 3 259 "$finish" {0 0 0};
+    %end;
+    .thread T_5;
+    .scope S_000001c02e3d3350;
+T_6 ;
+    %vpi_call/w 3 264 "$dumpfile", "tb_idu_vsetivli.vcd" {0 0 0};
+    %vpi_call/w 3 265 "$dumpvars", 32'sb00000000000000000000000000000000, S_000001c02e3d3350 {0 0 0};
+    %end;
+    .thread T_6;
+# The file index is used to find the file name in the following table.
+:file_names 4;
+    "N/A";
+    "<interactive>";
+    "-";
+    ".\tb\idu\tb_idu_vsetivli.v";

@@ -1,0 +1,375 @@
+$date
+	Fri Apr 03 22:23:10 2026
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1s
+$end
+$scope module tb_rvv1_0_basic $end
+$var wire 1 ! decd_vfrece7 $end
+$var wire 1 " decd_vfrsqrte7 $end
+$var wire 1 # decd_vleff $end
+$var wire 1 $ decd_vsetivli $end
+$var wire 1 % decd_vsetvl $end
+$var wire 1 & decd_vsetvli $end
+$var wire 1 ' is_vsetivli $end
+$var wire 1 ( is_vsetvl $end
+$var wire 1 ) is_vsetvli $end
+$var wire 1 * pipe3_decd_inst_fof $end
+$var wire 1 + x_illegal $end
+$var wire 64 , vtype_value [63:0] $end
+$var reg 1 - clk $end
+$var reg 32 . inst [31:0] $end
+$var reg 1 / rst_b $end
+$var reg 3 0 vcsr_reg [2:0] $end
+$var reg 1 1 vill $end
+$var reg 64 2 vl [63:0] $end
+$var reg 3 3 vlmul [2:0] $end
+$var reg 1 4 vma $end
+$var reg 3 5 vsew [2:0] $end
+$var reg 7 6 vstart [6:0] $end
+$var reg 1 7 vta $end
+$var integer 32 8 fail_count [31:0] $end
+$var integer 32 9 pass_count [31:0] $end
+$var integer 32 : test_count [31:0] $end
+$scope function calc_lmul $end
+$var reg 3 ; v [2:0] $end
+$upscope $end
+$scope begin $ivl_for_loop0 $end
+$var integer 32 < i [31:0] $end
+$upscope $end
+$scope begin $ivl_for_loop1 $end
+$var integer 32 = i [31:0] $end
+$scope begin $unm_blk_14 $end
+$var integer 32 > lmul_val [31:0] $end
+$upscope $end
+$upscope $end
+$scope task check_result $end
+$var reg 1 ? actual $end
+$var reg 1 @ expected $end
+$upscope $end
+$scope task execute_inst $end
+$var reg 32 A instruction [31:0] $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+$comment Show the parameter values. $end
+$dumpall
+$end
+#0
+$dumpvars
+bx A
+x@
+x?
+bx >
+bx =
+bx <
+bx ;
+b0 :
+b0 9
+b0 8
+x7
+bx 6
+bx 5
+x4
+bx 3
+bx 2
+x1
+b0 0
+0/
+b0 .
+0-
+bx0000000000000000000000000000000000000000000000000000000xxxxxxxx ,
+0+
+0*
+0)
+0(
+0'
+0&
+0%
+0$
+0#
+0"
+0!
+$end
+#5
+b0 2
+01
+b0 5
+07
+04
+b0 ,
+b0 3
+1-
+#10
+0-
+#15
+1-
+#20
+0-
+1/
+#25
+b10 5
+17
+14
+b11010101 ,
+b101 3
+b101 0
+b11 8
+b11 :
+1@
+0?
+1-
+#30
+0-
+#35
+b101 <
+b101 ;
+b11 9
+b110 :
+1?
+1-
+#40
+0-
+#45
+b11010110 ,
+b110 3
+b110 <
+1-
+#50
+0-
+#55
+b11010111 ,
+b111 3
+b111 <
+b110 ;
+1-
+#60
+0-
+#65
+b11000001100000000000011111010111 A
+b1000 <
+b111 ;
+1-
+#70
+0-
+#75
+b11000001100000000000011111010111 .
+1-
+#80
+0-
+#85
+1-
+#90
+0-
+#95
+b11000000101000000000011111010111 A
+b100 9
+0@
+b100 8
+b1000 :
+0?
+1-
+#100
+0-
+#105
+b11000000101000000000011111010111 .
+1-
+#110
+0-
+#115
+1-
+#120
+0-
+#125
+b11000101100000000000011111010111 A
+b101 8
+b1001 :
+1@
+1-
+#130
+0-
+#135
+b11000101100000000000011111010111 .
+1-
+#140
+0-
+#145
+1-
+#150
+0-
+#155
+b10000000000010011101010111 A
+b110 8
+b1010 :
+1-
+#160
+0-
+#165
+b10000000000010011101010111 .
+1-
+#170
+0-
+#175
+1-
+#180
+0-
+#185
+b10000000000010110101010111 A
+b111 8
+b1011 :
+1-
+#190
+0-
+#195
+b10000000000010110101010111 .
+1-
+#200
+0-
+#205
+1-
+#210
+0-
+#215
+b10000000000010000000000111 A
+b1000 8
+b1100 :
+1-
+#220
+0-
+#225
+b10000000000010000000000111 .
+1-
+#230
+0-
+#235
+1-
+#240
+0-
+#245
+b1000000000000000000000000000000000000000000000000000000011010111 ,
+11
+b11000001100000000000011111010111 A
+b1001 8
+b1101 :
+1-
+#250
+0-
+#255
+b11000001100000000000011111010111 .
+1-
+#260
+0-
+#265
+1-
+#270
+0-
+#275
+b0 6
+b11010111 ,
+01
+b100000000000000010101 A
+b1010 8
+b1110 :
+1-
+#280
+0-
+#285
+b100000000000000010101 .
+1-
+#290
+0-
+#295
+1-
+#300
+0-
+#305
+b1 3
+b11011001 ,
+b11 5
+b101 6
+1-
+#310
+0-
+#315
+b11011101 ,
+b101 3
+b101 =
+1?
+b1001 9
+b10011 :
+1@
+1-
+#320
+0-
+#325
+b11011110 ,
+b110 3
+b110 =
+b10100 :
+b1010 9
+b1000 >
+b101 ;
+1-
+#330
+0-
+#335
+b11011111 ,
+b111 3
+b111 =
+b10101 :
+b1011 9
+b100 >
+b110 ;
+1-
+#340
+0-
+#345
+b1000 =
+b10110 :
+b1100 9
+b10 >
+b111 ;
+1-
+#350
+0-
+#355
+1-
+#360
+0-
+#365
+1-
+#370
+0-
+#375
+1-
+#380
+0-
+#385
+1-
+#390
+0-
+#395
+1-
+#400
+0-
+#405
+1-
+#410
+0-
+#415
+1-
+#420
+0-
+#425
+1-
+#430
+0-
+#435
+1-
+#440
+0-
+#445
+1-

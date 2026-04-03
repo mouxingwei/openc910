@@ -1,0 +1,488 @@
+$date
+	Fri Apr 03 22:23:09 2026
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1s
+$end
+$scope module tb_cp0_vcsr $end
+$var wire 3 ! vcsr_mirror [2:0] $end
+$var wire 64 " csr_rdata [63:0] $end
+$var reg 1 # clk $end
+$var reg 12 $ csr_addr [11:0] $end
+$var reg 64 % csr_wdata [63:0] $end
+$var reg 1 & csr_wen $end
+$var reg 1 ' rst_b $end
+$var reg 3 ( vcsr_reg [2:0] $end
+$var reg 2 ) vxrm_reg [1:0] $end
+$var reg 1 * vxsat_reg $end
+$var integer 32 + fail_count [31:0] $end
+$var integer 32 , pass_count [31:0] $end
+$var integer 32 - test_count [31:0] $end
+$scope begin $unm_blk_12 $end
+$var reg 64 . read_data [63:0] $end
+$upscope $end
+$scope begin $unm_blk_13 $end
+$var reg 64 / read_data [63:0] $end
+$upscope $end
+$scope begin $unm_blk_14 $end
+$var reg 64 0 read_data [63:0] $end
+$upscope $end
+$scope begin $unm_blk_15 $end
+$var reg 64 1 read_data [63:0] $end
+$upscope $end
+$scope begin $unm_blk_16 $end
+$var reg 64 2 read_data [63:0] $end
+$upscope $end
+$scope begin $unm_blk_17 $end
+$var reg 64 3 read_vcsr [63:0] $end
+$var reg 64 4 read_vxrm [63:0] $end
+$var reg 64 5 read_vxsat [63:0] $end
+$upscope $end
+$scope task check_result $end
+$var reg 64 6 actual [63:0] $end
+$var reg 64 7 expected [63:0] $end
+$upscope $end
+$scope task read_csr $end
+$var reg 12 8 addr [11:0] $end
+$var reg 64 9 data [63:0] $end
+$upscope $end
+$scope task write_csr $end
+$var reg 12 : addr [11:0] $end
+$var reg 64 ; data [63:0] $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+$comment Show the parameter values. $end
+$dumpall
+$end
+#0
+$dumpvars
+bx ;
+bx :
+bx 9
+bx 8
+bx 7
+bx 6
+bx 5
+bx 4
+bx 3
+bx 2
+bx 1
+bx 0
+bx /
+bx .
+b0 -
+b0 ,
+b0 +
+x*
+bx )
+bx (
+0'
+0&
+b0 %
+b0 $
+0#
+b0 "
+bx !
+$end
+#5
+b0 )
+b0 !
+0*
+b0 (
+1#
+#10
+0#
+#15
+1#
+#20
+0#
+1'
+#25
+b1111 8
+1#
+#30
+0#
+#35
+b1111 $
+1#
+#40
+0#
+#45
+b0 9
+b111 ;
+b1111 :
+b1 +
+b1 -
+b0 7
+1#
+#50
+0#
+#55
+1&
+b111 %
+1#
+#60
+0#
+#65
+b111 (
+0&
+1#
+#70
+0#
+#75
+1#
+#80
+0#
+#85
+1#
+#90
+0#
+#95
+b0 ;
+b1001 :
+b10 +
+b10 -
+b111 7
+b0 6
+b0 /
+1#
+#100
+0#
+#105
+1&
+b0 %
+b1001 $
+1#
+#110
+0#
+#115
+0&
+1#
+#120
+0#
+#125
+b1010 :
+1#
+#130
+0#
+#135
+1&
+b1010 $
+1#
+#140
+0#
+#145
+0&
+1#
+#150
+0#
+#155
+b1 ;
+b1001 :
+1#
+#160
+0#
+#165
+1&
+b1 %
+b1001 $
+1#
+#170
+0#
+#175
+b1 "
+b1 !
+1*
+0&
+1#
+#180
+0#
+#185
+1#
+#190
+0#
+#195
+b1111 $
+1#
+#200
+0#
+#205
+b1 9
+b0 ;
+b11 +
+b11 -
+b1 7
+b0 0
+1#
+#210
+0#
+#215
+1&
+b0 %
+b1001 $
+1#
+#220
+0#
+#225
+b0 "
+b0 !
+0*
+0&
+1#
+#230
+0#
+#235
+b1010 :
+1#
+#240
+0#
+#245
+1&
+b1010 $
+1#
+#250
+0#
+#255
+0&
+1#
+#260
+0#
+#265
+b10 ;
+1#
+#270
+0#
+#275
+1&
+b10 %
+1#
+#280
+0#
+#285
+b10 "
+b100 !
+b10 )
+0&
+1#
+#290
+0#
+#295
+1#
+#300
+0#
+#305
+b100 "
+b1111 $
+1#
+#310
+0#
+#315
+b100 9
+b1 ;
+b1001 :
+b100 +
+b100 -
+b10 7
+b1 1
+1#
+#320
+0#
+#325
+b0 "
+1&
+b1 %
+b1001 $
+1#
+#330
+0#
+#335
+b1 "
+b101 !
+1*
+0&
+1#
+#340
+0#
+#345
+b11 ;
+b1010 :
+1#
+#350
+0#
+#355
+b10 "
+1&
+b11 %
+b1010 $
+1#
+#360
+0#
+#365
+b11 "
+b111 !
+b11 )
+0&
+1#
+#370
+0#
+#375
+1#
+#380
+0#
+#385
+b111 "
+b1111 $
+1#
+#390
+0#
+#395
+b111 9
+b0 ;
+b1001 :
+b101 +
+b101 -
+b111 7
+b100 6
+b100 2
+1#
+#400
+0#
+#405
+b1 "
+1&
+b0 %
+b1001 $
+1#
+#410
+0#
+#415
+b0 "
+b110 !
+0*
+0&
+1#
+#420
+0#
+#425
+b1010 :
+1#
+#430
+0#
+#435
+b11 "
+1&
+b1010 $
+1#
+#440
+0#
+#445
+b0 "
+b0 !
+b0 )
+0&
+1#
+#450
+0#
+#455
+b101 ;
+b1111 :
+1#
+#460
+0#
+#465
+1&
+b101 %
+b1111 $
+1#
+#470
+0#
+#475
+b101 (
+0&
+1#
+#480
+0#
+#485
+b1001 8
+1#
+#490
+0#
+#495
+b1001 $
+1#
+#500
+0#
+#505
+b0 9
+b1010 8
+b111 5
+1#
+#510
+0#
+#515
+b1010 $
+1#
+#520
+0#
+#525
+b1111 8
+b0 4
+1#
+#530
+0#
+#535
+b1111 $
+1#
+#540
+0#
+#545
+b110 +
+b110 -
+b101 7
+b0 6
+b0 3
+1#
+#550
+0#
+#555
+1#
+#560
+0#
+#565
+1#
+#570
+0#
+#575
+1#
+#580
+0#
+#585
+1#
+#590
+0#
+#595
+1#
+#600
+0#
+#605
+1#
+#610
+0#
+#615
+1#
+#620
+0#
+#625
+1#
+#630
+0#
+#635
+1#
+#640
+0#
+#645
+1#
