@@ -3095,8 +3095,14 @@ assign decd_size_illegal = |x_size_ill_case[3:0];
 
 //----------------------------------------------------------
 //               vstart illegal for normal inst
+// Modified for RVV 1.0: vstart != 0 is legal in RVV 1.0
+// The processor should start execution from vstart element
+// Modification date: 2026-04-02
 //----------------------------------------------------------
-assign decd_start_illegal = |cp0_idu_vstart[6:0] && !x_vec_opcfg;
+// Original RVV 0.7.1 behavior: vstart != 0 triggers illegal instruction
+// assign decd_start_illegal = |cp0_idu_vstart[6:0] && !x_vec_opcfg;
+// RVV 1.0 behavior: vstart != 0 is legal, no illegal instruction
+assign decd_start_illegal = 1'b0;
 
 assign decd_vill_illegal  = cp0_idu_vill &&  !x_vec_opcfg;  //VLSU inst should also consider this
 

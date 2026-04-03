@@ -313,6 +313,34 @@ wire            ssf_split_spec_fail_retire;
 parameter EXPT_WIDTH   = 70;
 
 //==========================================================
+//               Exception Vector Definition (RVV 1.0)
+// Modified for RVV 1.0: Added vector exception types
+// Modification date: 2026-04-02
+//==========================================================
+// Exception Vector Values (expt_vec[4:0]):
+// 0  - Instruction address misaligned
+// 1  - Instruction access fault
+// 2  - Illegal instruction (including vector illegal vtype)
+// 3  - Breakpoint
+// 4  - Load address misaligned
+// 5  - Load access fault
+// 6  - Store/AMO address misaligned
+// 7  - Store/AMO access fault
+// 8  - Environment call from U-mode
+// 9  - Environment call from S-mode
+// 11 - Environment call from M-mode
+// 12 - Instruction page fault
+// 13 - Load page fault
+// 15 - Store/AMO page fault
+//
+// Vector Exception Types (RVV 1.0):
+// 1. vector_illegal_vtype: When vill=1 and executing vector instruction
+//    -> Triggers illegal instruction exception (expt_vec=2)
+// 2. vstart >= vl: No exception, instruction does nothing
+//    -> This is handled in execution stage, not exception stage
+//==========================================================
+
+//==========================================================
 //                 Instance of Gated Cell  
 //==========================================================
 assign entry_clk_en = expt_cmplt || expt_entry_vld;
