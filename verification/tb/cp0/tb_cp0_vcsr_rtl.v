@@ -94,18 +94,15 @@ module tb_cp0_vcsr_rtl;
     assign fcsr_vxsat = vxsat_reg;
     assign fcsr_vxrm = vxrm_reg;
 
-    // CSR Read Mux
-    always @(*) begin
-        case (iui_regs_addr)
-            `CSR_VXSAT:  iui_regs_rdata = {63'b0, vxsat_reg};
-            `CSR_VXRM:   iui_regs_rdata = {62'b0, vxrm_reg};
-            `CSR_VCSR:   iui_regs_rdata = {61'b0, vcsr_value};
-            `CSR_VTYPE:  iui_regs_rdata = vtype_reg;
-            `CSR_VSTART: iui_regs_rdata = vstart_reg;
-            `CSR_VLENB:  iui_regs_rdata = {52'b0, 12'd16}; // VLEN=128
-            default:     iui_regs_rdata = 64'b0;
-        endcase
-    end
+    // CSR Read Mux - using continuous assign for wire
+    assign iui_regs_rdata = 
+        (iui_regs_addr == `CSR_VXSAT)  ? {63'b0, vxsat_reg} :
+        (iui_regs_addr == `CSR_VXRM)   ? {62'b0, vxrm_reg} :
+        (iui_regs_addr == `CSR_VCSR)   ? {61'b0, vcsr_value} :
+        (iui_regs_addr == `CSR_VTYPE)  ? vtype_reg :
+        (iui_regs_addr == `CSR_VSTART) ? vstart_reg :
+        (iui_regs_addr == `CSR_VLENB)  ? {52'b0, 12'd16} :
+        64'b0;
 
     // Test Task: Write CSR
     task write_csr;
