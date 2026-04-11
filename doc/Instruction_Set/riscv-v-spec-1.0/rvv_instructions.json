@@ -94,7 +94,12 @@
         "note": "Vector-Vector or Vector-Immediate"
       },
       "vm_support": "Yes",
-      "format": "OPIVV/OPIVI"
+      "format": "OPIVV/OPIVI",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vadd",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vadd",
@@ -112,7 +117,12 @@
         "note": "Vector-Scalar"
       },
       "vm_support": "Yes",
-      "format": "OPIVX/OPMVX"
+      "format": "OPIVX/OPMVX",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vadd",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vadd",
@@ -130,7 +140,12 @@
         "note": "Vector-Vector or Vector-Immediate"
       },
       "vm_support": "Yes",
-      "format": "OPIVV/OPIVI"
+      "format": "OPIVV/OPIVI",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vadd",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vsub",
@@ -148,7 +163,12 @@
         "note": "Vector-Vector or Vector-Immediate"
       },
       "vm_support": "Yes",
-      "format": "Store"
+      "format": "Store",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vsub",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vsub",
@@ -166,7 +186,12 @@
         "note": "Vector-Scalar"
       },
       "vm_support": "Yes",
-      "format": "Store"
+      "format": "Store",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vsub",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vrsub",
@@ -184,7 +209,12 @@
         "note": "Vector-Scalar"
       },
       "vm_support": "Yes",
-      "format": "OPIVX/OPMVX"
+      "format": "OPIVX/OPMVX",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vrsub",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vrsub",
@@ -202,7 +232,12 @@
         "note": "Vector-Vector or Vector-Immediate"
       },
       "vm_support": "Yes",
-      "format": "OPIVV/OPIVI"
+      "format": "OPIVV/OPIVI",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vrsub",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vminu",
@@ -220,7 +255,12 @@
         "note": "Vector-Vector or Vector-Immediate"
       },
       "vm_support": "Yes",
-      "format": "OPIVV/OPIVI"
+      "format": "OPIVV/OPIVI",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vminu",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vminu",
@@ -238,7 +278,12 @@
         "note": "Vector-Scalar"
       },
       "vm_support": "Yes",
-      "format": "OPIVX/OPMVX"
+      "format": "OPIVX/OPMVX",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vminu",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vmin",
@@ -256,7 +301,12 @@
         "note": "Vector-Vector or Vector-Immediate"
       },
       "vm_support": "Yes",
-      "format": "OPIVV/OPIVI"
+      "format": "OPIVV/OPIVI",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vmin",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vmin",
@@ -274,7 +324,12 @@
         "note": "Vector-Scalar"
       },
       "vm_support": "Yes",
-      "format": "OPIVX/OPMVX"
+      "format": "OPIVX/OPMVX",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vmin",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vmaxu",
@@ -292,7 +347,12 @@
         "note": "Vector-Vector or Vector-Immediate"
       },
       "vm_support": "Yes",
-      "format": "OPIVV/OPIVI"
+      "format": "OPIVV/OPIVI",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vmaxu",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vmaxu",
@@ -310,7 +370,12 @@
         "note": "Vector-Scalar"
       },
       "vm_support": "Yes",
-      "format": "OPIVX/OPMVX"
+      "format": "OPIVX/OPMVX",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vmaxu",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vmax",
@@ -328,7 +393,12 @@
         "note": "Vector-Vector or Vector-Immediate"
       },
       "vm_support": "Yes",
-      "format": "OPIVV/OPIVI"
+      "format": "OPIVV/OPIVI",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vmax",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vmax",
@@ -346,7 +416,12 @@
         "note": "Vector-Scalar"
       },
       "vm_support": "Yes",
-      "format": "OPIVX/OPMVX"
+      "format": "OPIVX/OPMVX",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vmax",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vand",
@@ -364,7 +439,12 @@
         "note": "Vector-Vector or Vector-Immediate"
       },
       "vm_support": "Yes",
-      "format": "OPIVV/OPIVI"
+      "format": "OPIVV/OPIVI",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vand",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vand",
@@ -382,7 +462,12 @@
         "note": "Vector-Scalar"
       },
       "vm_support": "Yes",
-      "format": "OPIVX/OPMVX"
+      "format": "OPIVX/OPMVX",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vand",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vand",
@@ -400,7 +485,12 @@
         "note": "Vector-Vector or Vector-Immediate"
       },
       "vm_support": "Yes",
-      "format": "OPIVV/OPIVI"
+      "format": "OPIVV/OPIVI",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vand",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vor",
@@ -418,7 +508,12 @@
         "note": "Vector-Vector or Vector-Immediate"
       },
       "vm_support": "Yes",
-      "format": "OPIVV/OPIVI"
+      "format": "OPIVV/OPIVI",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vor",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vor",
@@ -436,7 +531,12 @@
         "note": "Vector-Scalar"
       },
       "vm_support": "Yes",
-      "format": "OPIVX/OPMVX"
+      "format": "OPIVX/OPMVX",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vor",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vor",
@@ -454,7 +554,12 @@
         "note": "Vector-Vector or Vector-Immediate"
       },
       "vm_support": "Yes",
-      "format": "OPIVV/OPIVI"
+      "format": "OPIVV/OPIVI",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vor",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vxor",
@@ -472,7 +577,12 @@
         "note": "Vector-Vector or Vector-Immediate"
       },
       "vm_support": "Yes",
-      "format": "OPIVV/OPIVI"
+      "format": "OPIVV/OPIVI",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vxor",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vxor",
@@ -490,7 +600,12 @@
         "note": "Vector-Scalar"
       },
       "vm_support": "Yes",
-      "format": "OPIVX/OPMVX"
+      "format": "OPIVX/OPMVX",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vxor",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vxor",
@@ -508,7 +623,12 @@
         "note": "Vector-Vector or Vector-Immediate"
       },
       "vm_support": "Yes",
-      "format": "OPIVV/OPIVI"
+      "format": "OPIVV/OPIVI",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vxor",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vrgather",
@@ -526,7 +646,12 @@
         "note": "Vector-Vector or Vector-Immediate"
       },
       "vm_support": "Yes",
-      "format": "OPIVV/OPIVI"
+      "format": "OPIVV/OPIVI",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vrgather",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vrgather",
@@ -544,7 +669,12 @@
         "note": "Vector-Scalar"
       },
       "vm_support": "Yes",
-      "format": "OPIVX/OPMVX"
+      "format": "OPIVX/OPMVX",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vrgather",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vrgather",
@@ -562,7 +692,12 @@
         "note": "Vector-Vector or Vector-Immediate"
       },
       "vm_support": "Yes",
-      "format": "OPIVV/OPIVI"
+      "format": "OPIVV/OPIVI",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vrgather",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vrgatherei16",
@@ -580,7 +715,12 @@
         "note": "Vector-Vector or Vector-Immediate"
       },
       "vm_support": "Yes",
-      "format": "OPIVV/OPIVI"
+      "format": "OPIVV/OPIVI",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vslideup",
@@ -598,7 +738,12 @@
         "note": "Vector-Scalar"
       },
       "vm_support": "Yes",
-      "format": "Store"
+      "format": "Store",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vslideup",
@@ -616,7 +761,12 @@
         "note": "Vector-Vector or Vector-Immediate"
       },
       "vm_support": "Yes",
-      "format": "Store"
+      "format": "Store",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vslidedown",
@@ -634,7 +784,12 @@
         "note": "Vector-Scalar"
       },
       "vm_support": "Yes",
-      "format": "Store"
+      "format": "Store",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vslidedown",
@@ -652,7 +807,12 @@
         "note": "Vector-Vector or Vector-Immediate"
       },
       "vm_support": "Yes",
-      "format": "Store"
+      "format": "Store",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vadc",
@@ -670,7 +830,12 @@
         "note": "Vector-Vector or Vector-Immediate"
       },
       "vm_support": "Yes",
-      "format": "OPIVV/OPIVI"
+      "format": "OPIVV/OPIVI",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vadc",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vadc",
@@ -688,7 +853,12 @@
         "note": "Vector-Scalar"
       },
       "vm_support": "Yes",
-      "format": "OPIVX/OPMVX"
+      "format": "OPIVX/OPMVX",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vadc",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vadc",
@@ -706,7 +876,12 @@
         "note": "Vector-Vector or Vector-Immediate"
       },
       "vm_support": "Yes",
-      "format": "OPIVV/OPIVI"
+      "format": "OPIVV/OPIVI",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vadc",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vmadc",
@@ -724,7 +899,12 @@
         "note": "Vector-Vector or Vector-Immediate"
       },
       "vm_support": "Yes",
-      "format": "OPIVV/OPIVI"
+      "format": "OPIVV/OPIVI",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vmadc",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vmadc",
@@ -742,7 +922,12 @@
         "note": "Vector-Scalar"
       },
       "vm_support": "Yes",
-      "format": "OPIVX/OPMVX"
+      "format": "OPIVX/OPMVX",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vmadc",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vmadc",
@@ -760,7 +945,12 @@
         "note": "Vector-Vector or Vector-Immediate"
       },
       "vm_support": "Yes",
-      "format": "OPIVV/OPIVI"
+      "format": "OPIVV/OPIVI",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vmadc",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vsbc",
@@ -778,7 +968,12 @@
         "note": "Vector-Vector or Vector-Immediate"
       },
       "vm_support": "Yes",
-      "format": "Store"
+      "format": "Store",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vsbc",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vsbc",
@@ -796,7 +991,12 @@
         "note": "Vector-Scalar"
       },
       "vm_support": "Yes",
-      "format": "Store"
+      "format": "Store",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vsbc",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vmsbc",
@@ -814,7 +1014,12 @@
         "note": "Vector-Vector or Vector-Immediate"
       },
       "vm_support": "Yes",
-      "format": "OPIVV/OPIVI"
+      "format": "OPIVV/OPIVI",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vmsbc",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vmsbc",
@@ -832,7 +1037,12 @@
         "note": "Vector-Scalar"
       },
       "vm_support": "Yes",
-      "format": "OPIVX/OPMVX"
+      "format": "OPIVX/OPMVX",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vmsbc",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vmerge",
@@ -850,7 +1060,12 @@
         "note": "Vector-Vector or Vector-Immediate"
       },
       "vm_support": "Yes",
-      "format": "OPIVV/OPIVI"
+      "format": "OPIVV/OPIVI",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vmerge",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2, vm"
+      }
     },
     {
       "name": "vmerge",
@@ -868,7 +1083,12 @@
         "note": "Vector-Scalar"
       },
       "vm_support": "Yes",
-      "format": "OPIVX/OPMVX"
+      "format": "OPIVX/OPMVX",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vmerge",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2, vm"
+      }
     },
     {
       "name": "vmerge",
@@ -886,7 +1106,12 @@
         "note": "Vector-Vector or Vector-Immediate"
       },
       "vm_support": "Yes",
-      "format": "OPIVV/OPIVI"
+      "format": "OPIVV/OPIVI",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vmerge",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2, vm"
+      }
     },
     {
       "name": "vmv",
@@ -904,7 +1129,12 @@
         "note": "Vector-Vector or Vector-Immediate"
       },
       "vm_support": "Yes",
-      "format": "OPIVV/OPIVI"
+      "format": "OPIVV/OPIVI",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vmv",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2, vm"
+      }
     },
     {
       "name": "vmv",
@@ -922,7 +1152,12 @@
         "note": "Vector-Scalar"
       },
       "vm_support": "Yes",
-      "format": "OPIVX/OPMVX"
+      "format": "OPIVX/OPMVX",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vmv",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2, vm"
+      }
     },
     {
       "name": "vmv",
@@ -940,7 +1175,12 @@
         "note": "Vector-Vector or Vector-Immediate"
       },
       "vm_support": "Yes",
-      "format": "OPIVV/OPIVI"
+      "format": "OPIVV/OPIVI",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vmv",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2, vm"
+      }
     },
     {
       "name": "vmseq",
@@ -958,7 +1198,12 @@
         "note": "Vector-Vector or Vector-Immediate"
       },
       "vm_support": "Yes",
-      "format": "OPIVV/OPIVI"
+      "format": "OPIVV/OPIVI",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vmseq",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vmseq",
@@ -976,7 +1221,12 @@
         "note": "Vector-Scalar"
       },
       "vm_support": "Yes",
-      "format": "OPIVX/OPMVX"
+      "format": "OPIVX/OPMVX",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vmseq",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vmseq",
@@ -994,7 +1244,12 @@
         "note": "Vector-Vector or Vector-Immediate"
       },
       "vm_support": "Yes",
-      "format": "OPIVV/OPIVI"
+      "format": "OPIVV/OPIVI",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vmseq",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vmsne",
@@ -1012,7 +1267,12 @@
         "note": "Vector-Vector or Vector-Immediate"
       },
       "vm_support": "Yes",
-      "format": "OPIVV/OPIVI"
+      "format": "OPIVV/OPIVI",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vmsne",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vmsne",
@@ -1030,7 +1290,12 @@
         "note": "Vector-Scalar"
       },
       "vm_support": "Yes",
-      "format": "OPIVX/OPMVX"
+      "format": "OPIVX/OPMVX",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vmsne",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vmsne",
@@ -1048,7 +1313,12 @@
         "note": "Vector-Vector or Vector-Immediate"
       },
       "vm_support": "Yes",
-      "format": "OPIVV/OPIVI"
+      "format": "OPIVV/OPIVI",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vmsne",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vmsltu",
@@ -1066,7 +1336,12 @@
         "note": "Vector-Vector or Vector-Immediate"
       },
       "vm_support": "Yes",
-      "format": "OPIVV/OPIVI"
+      "format": "OPIVV/OPIVI",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vmsltu",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vmsltu",
@@ -1084,7 +1359,12 @@
         "note": "Vector-Scalar"
       },
       "vm_support": "Yes",
-      "format": "OPIVX/OPMVX"
+      "format": "OPIVX/OPMVX",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vmsltu",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vmslt",
@@ -1102,7 +1382,12 @@
         "note": "Vector-Vector or Vector-Immediate"
       },
       "vm_support": "Yes",
-      "format": "OPIVV/OPIVI"
+      "format": "OPIVV/OPIVI",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vmslt",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vmslt",
@@ -1120,7 +1405,12 @@
         "note": "Vector-Scalar"
       },
       "vm_support": "Yes",
-      "format": "OPIVX/OPMVX"
+      "format": "OPIVX/OPMVX",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vmslt",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vmsleu",
@@ -1138,7 +1428,12 @@
         "note": "Vector-Vector or Vector-Immediate"
       },
       "vm_support": "Yes",
-      "format": "OPIVV/OPIVI"
+      "format": "OPIVV/OPIVI",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vmsleu",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vmsleu",
@@ -1156,7 +1451,12 @@
         "note": "Vector-Scalar"
       },
       "vm_support": "Yes",
-      "format": "OPIVX/OPMVX"
+      "format": "OPIVX/OPMVX",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vmsleu",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vmsleu",
@@ -1174,7 +1474,12 @@
         "note": "Vector-Vector or Vector-Immediate"
       },
       "vm_support": "Yes",
-      "format": "OPIVV/OPIVI"
+      "format": "OPIVV/OPIVI",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vmsleu",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vmsle",
@@ -1192,7 +1497,12 @@
         "note": "Vector-Vector or Vector-Immediate"
       },
       "vm_support": "Yes",
-      "format": "OPIVV/OPIVI"
+      "format": "OPIVV/OPIVI",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vmsle",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vmsle",
@@ -1210,7 +1520,12 @@
         "note": "Vector-Scalar"
       },
       "vm_support": "Yes",
-      "format": "OPIVX/OPMVX"
+      "format": "OPIVX/OPMVX",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vmsle",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vmsle",
@@ -1228,7 +1543,12 @@
         "note": "Vector-Vector or Vector-Immediate"
       },
       "vm_support": "Yes",
-      "format": "OPIVV/OPIVI"
+      "format": "OPIVV/OPIVI",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vmsle",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vmsgtu",
@@ -1246,7 +1566,12 @@
         "note": "Vector-Scalar"
       },
       "vm_support": "Yes",
-      "format": "OPIVX/OPMVX"
+      "format": "OPIVX/OPMVX",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vmsgtu",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vmsgtu",
@@ -1264,7 +1589,12 @@
         "note": "Vector-Vector or Vector-Immediate"
       },
       "vm_support": "Yes",
-      "format": "OPIVV/OPIVI"
+      "format": "OPIVV/OPIVI",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vmsgtu",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vmsgt",
@@ -1282,7 +1612,12 @@
         "note": "Vector-Scalar"
       },
       "vm_support": "Yes",
-      "format": "OPIVX/OPMVX"
+      "format": "OPIVX/OPMVX",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vmsgt",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vmsgt",
@@ -1300,7 +1635,12 @@
         "note": "Vector-Vector or Vector-Immediate"
       },
       "vm_support": "Yes",
-      "format": "OPIVV/OPIVI"
+      "format": "OPIVV/OPIVI",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vmsgt",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vsaddu",
@@ -1318,7 +1658,12 @@
         "note": "Vector-Vector or Vector-Immediate"
       },
       "vm_support": "Yes",
-      "format": "Store"
+      "format": "Store",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vsaddu",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vsaddu",
@@ -1336,7 +1681,12 @@
         "note": "Vector-Scalar"
       },
       "vm_support": "Yes",
-      "format": "Store"
+      "format": "Store",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vsaddu",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vsaddu",
@@ -1354,7 +1704,12 @@
         "note": "Vector-Vector or Vector-Immediate"
       },
       "vm_support": "Yes",
-      "format": "Store"
+      "format": "Store",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vsaddu",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vsadd",
@@ -1372,7 +1727,12 @@
         "note": "Vector-Vector or Vector-Immediate"
       },
       "vm_support": "Yes",
-      "format": "Store"
+      "format": "Store",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vsadd",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vsadd",
@@ -1390,7 +1750,12 @@
         "note": "Vector-Scalar"
       },
       "vm_support": "Yes",
-      "format": "Store"
+      "format": "Store",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vsadd",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vsadd",
@@ -1408,7 +1773,12 @@
         "note": "Vector-Vector or Vector-Immediate"
       },
       "vm_support": "Yes",
-      "format": "Store"
+      "format": "Store",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vsadd",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vssubu",
@@ -1426,7 +1796,12 @@
         "note": "Vector-Vector or Vector-Immediate"
       },
       "vm_support": "Yes",
-      "format": "Store"
+      "format": "Store",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vssubu",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vssubu",
@@ -1444,7 +1819,12 @@
         "note": "Vector-Scalar"
       },
       "vm_support": "Yes",
-      "format": "Store"
+      "format": "Store",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vssubu",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vssub",
@@ -1462,7 +1842,12 @@
         "note": "Vector-Vector or Vector-Immediate"
       },
       "vm_support": "Yes",
-      "format": "Store"
+      "format": "Store",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vssub",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vssub",
@@ -1480,7 +1865,12 @@
         "note": "Vector-Scalar"
       },
       "vm_support": "Yes",
-      "format": "Store"
+      "format": "Store",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vssub",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vsll",
@@ -1498,7 +1888,12 @@
         "note": "Vector-Vector or Vector-Immediate"
       },
       "vm_support": "Yes",
-      "format": "Store"
+      "format": "Store",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vsll",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vsll",
@@ -1516,7 +1911,12 @@
         "note": "Vector-Scalar"
       },
       "vm_support": "Yes",
-      "format": "Store"
+      "format": "Store",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vsll",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vsll",
@@ -1534,7 +1934,12 @@
         "note": "Vector-Vector or Vector-Immediate"
       },
       "vm_support": "Yes",
-      "format": "Store"
+      "format": "Store",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vsll",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vsmul",
@@ -1552,7 +1957,12 @@
         "note": "Vector-Vector or Vector-Immediate"
       },
       "vm_support": "Yes",
-      "format": "Store"
+      "format": "Store",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vsmul",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vsmul",
@@ -1570,7 +1980,12 @@
         "note": "Vector-Scalar"
       },
       "vm_support": "Yes",
-      "format": "Store"
+      "format": "Store",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vsmul",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vmv<nr>r",
@@ -1588,7 +2003,12 @@
         "note": "Vector-Vector or Vector-Immediate"
       },
       "vm_support": "No",
-      "format": "OPIVV/OPIVI"
+      "format": "OPIVV/OPIVI",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vsrl",
@@ -1606,7 +2026,12 @@
         "note": "Vector-Vector or Vector-Immediate"
       },
       "vm_support": "Yes",
-      "format": "Store"
+      "format": "Store",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vsrl",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vsrl",
@@ -1624,7 +2049,12 @@
         "note": "Vector-Scalar"
       },
       "vm_support": "Yes",
-      "format": "Store"
+      "format": "Store",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vsrl",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vsrl",
@@ -1642,7 +2072,12 @@
         "note": "Vector-Vector or Vector-Immediate"
       },
       "vm_support": "Yes",
-      "format": "Store"
+      "format": "Store",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vsrl",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vsra",
@@ -1660,7 +2095,12 @@
         "note": "Vector-Vector or Vector-Immediate"
       },
       "vm_support": "Yes",
-      "format": "Store"
+      "format": "Store",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vsra",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vsra",
@@ -1678,7 +2118,12 @@
         "note": "Vector-Scalar"
       },
       "vm_support": "Yes",
-      "format": "Store"
+      "format": "Store",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vsra",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vsra",
@@ -1696,7 +2141,12 @@
         "note": "Vector-Vector or Vector-Immediate"
       },
       "vm_support": "Yes",
-      "format": "Store"
+      "format": "Store",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vsra",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vssrl",
@@ -1714,7 +2164,12 @@
         "note": "Vector-Vector or Vector-Immediate"
       },
       "vm_support": "Yes",
-      "format": "Store"
+      "format": "Store",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vssrl",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vssrl",
@@ -1732,7 +2187,12 @@
         "note": "Vector-Scalar"
       },
       "vm_support": "Yes",
-      "format": "Store"
+      "format": "Store",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vssrl",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vssrl",
@@ -1750,7 +2210,12 @@
         "note": "Vector-Vector or Vector-Immediate"
       },
       "vm_support": "Yes",
-      "format": "Store"
+      "format": "Store",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vssrl",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vssra",
@@ -1768,7 +2233,12 @@
         "note": "Vector-Vector or Vector-Immediate"
       },
       "vm_support": "Yes",
-      "format": "Store"
+      "format": "Store",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vssra",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vssra",
@@ -1786,7 +2256,12 @@
         "note": "Vector-Scalar"
       },
       "vm_support": "Yes",
-      "format": "Store"
+      "format": "Store",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vssra",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vssra",
@@ -1804,7 +2279,12 @@
         "note": "Vector-Vector or Vector-Immediate"
       },
       "vm_support": "Yes",
-      "format": "Store"
+      "format": "Store",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vssra",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vnsrl",
@@ -1822,7 +2302,12 @@
         "note": "Vector-Vector or Vector-Immediate"
       },
       "vm_support": "Yes",
-      "format": "OPIVV/OPIVI"
+      "format": "OPIVV/OPIVI",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vnsrl",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vnsrl",
@@ -1840,7 +2325,12 @@
         "note": "Vector-Scalar"
       },
       "vm_support": "Yes",
-      "format": "OPIVX/OPMVX"
+      "format": "OPIVX/OPMVX",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vnsrl",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vnsrl",
@@ -1858,7 +2348,12 @@
         "note": "Vector-Vector or Vector-Immediate"
       },
       "vm_support": "Yes",
-      "format": "OPIVV/OPIVI"
+      "format": "OPIVV/OPIVI",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vnsrl",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vnsra",
@@ -1876,7 +2371,12 @@
         "note": "Vector-Vector or Vector-Immediate"
       },
       "vm_support": "Yes",
-      "format": "OPIVV/OPIVI"
+      "format": "OPIVV/OPIVI",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vnsra",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vnsra",
@@ -1894,7 +2394,12 @@
         "note": "Vector-Scalar"
       },
       "vm_support": "Yes",
-      "format": "OPIVX/OPMVX"
+      "format": "OPIVX/OPMVX",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vnsra",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vnsra",
@@ -1912,7 +2417,12 @@
         "note": "Vector-Vector or Vector-Immediate"
       },
       "vm_support": "Yes",
-      "format": "OPIVV/OPIVI"
+      "format": "OPIVV/OPIVI",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vnsra",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vnclipu",
@@ -1930,7 +2440,12 @@
         "note": "Vector-Vector or Vector-Immediate"
       },
       "vm_support": "Yes",
-      "format": "OPIVV/OPIVI"
+      "format": "OPIVV/OPIVI",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vnclipu",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vnclipu",
@@ -1948,7 +2463,12 @@
         "note": "Vector-Scalar"
       },
       "vm_support": "Yes",
-      "format": "OPIVX/OPMVX"
+      "format": "OPIVX/OPMVX",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vnclipu",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vnclipu",
@@ -1966,7 +2486,12 @@
         "note": "Vector-Vector or Vector-Immediate"
       },
       "vm_support": "Yes",
-      "format": "OPIVV/OPIVI"
+      "format": "OPIVV/OPIVI",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vnclipu",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vnclip",
@@ -1984,7 +2509,12 @@
         "note": "Vector-Vector or Vector-Immediate"
       },
       "vm_support": "Yes",
-      "format": "OPIVV/OPIVI"
+      "format": "OPIVV/OPIVI",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vnclip",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vnclip",
@@ -2002,7 +2532,12 @@
         "note": "Vector-Scalar"
       },
       "vm_support": "Yes",
-      "format": "OPIVX/OPMVX"
+      "format": "OPIVX/OPMVX",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vnclip",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vnclip",
@@ -2020,7 +2555,12 @@
         "note": "Vector-Vector or Vector-Immediate"
       },
       "vm_support": "Yes",
-      "format": "OPIVV/OPIVI"
+      "format": "OPIVV/OPIVI",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vnclip",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vwredsumu",
@@ -2038,7 +2578,12 @@
         "note": "Vector-Vector or Vector-Immediate"
       },
       "vm_support": "Yes",
-      "format": "OPIVV/OPIVI"
+      "format": "OPIVV/OPIVI",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vwredsumu",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vwredsum",
@@ -2056,7 +2601,12 @@
         "note": "Vector-Vector or Vector-Immediate"
       },
       "vm_support": "Yes",
-      "format": "OPIVV/OPIVI"
+      "format": "OPIVV/OPIVI",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vwredsum",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vwaddu",
@@ -2074,7 +2624,12 @@
         "note": "Multiply operation"
       },
       "vm_support": "Yes",
-      "format": "OPMVV"
+      "format": "OPMVV",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vwaddu",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vwaddu",
@@ -2092,7 +2647,12 @@
         "note": "Vector-Scalar"
       },
       "vm_support": "Yes",
-      "format": "OPIVX/OPMVX"
+      "format": "OPIVX/OPMVX",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vwaddu",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vwadd",
@@ -2110,7 +2670,12 @@
         "note": "Multiply operation"
       },
       "vm_support": "Yes",
-      "format": "OPMVV"
+      "format": "OPMVV",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vwadd",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vwadd",
@@ -2128,7 +2693,12 @@
         "note": "Vector-Scalar"
       },
       "vm_support": "Yes",
-      "format": "OPIVX/OPMVX"
+      "format": "OPIVX/OPMVX",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vwadd",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vwsubu",
@@ -2146,7 +2716,12 @@
         "note": "Multiply operation"
       },
       "vm_support": "Yes",
-      "format": "OPMVV"
+      "format": "OPMVV",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vwsubu",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vwsubu",
@@ -2164,7 +2739,12 @@
         "note": "Vector-Scalar"
       },
       "vm_support": "Yes",
-      "format": "OPIVX/OPMVX"
+      "format": "OPIVX/OPMVX",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vwsubu",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vwsub",
@@ -2182,7 +2762,12 @@
         "note": "Multiply operation"
       },
       "vm_support": "Yes",
-      "format": "OPMVV"
+      "format": "OPMVV",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vwsub",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vwsub",
@@ -2200,7 +2785,12 @@
         "note": "Vector-Scalar"
       },
       "vm_support": "Yes",
-      "format": "OPIVX/OPMVX"
+      "format": "OPIVX/OPMVX",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vwsub",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vwaddu.w",
@@ -2218,7 +2808,12 @@
         "note": "Multiply operation"
       },
       "vm_support": "Yes",
-      "format": "OPMVV"
+      "format": "OPMVV",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vwaddu.w",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vwaddu.w",
@@ -2236,7 +2831,12 @@
         "note": "Vector-Scalar"
       },
       "vm_support": "Yes",
-      "format": "OPIVX/OPMVX"
+      "format": "OPIVX/OPMVX",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vwaddu.w",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vwadd.w",
@@ -2254,7 +2854,12 @@
         "note": "Multiply operation"
       },
       "vm_support": "Yes",
-      "format": "OPMVV"
+      "format": "OPMVV",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vwadd.w",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vwadd.w",
@@ -2272,7 +2877,12 @@
         "note": "Vector-Scalar"
       },
       "vm_support": "Yes",
-      "format": "OPIVX/OPMVX"
+      "format": "OPIVX/OPMVX",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vwadd.w",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vwsubu.w",
@@ -2290,7 +2900,12 @@
         "note": "Multiply operation"
       },
       "vm_support": "Yes",
-      "format": "OPMVV"
+      "format": "OPMVV",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vwsubu.w",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vwsubu.w",
@@ -2308,7 +2923,12 @@
         "note": "Vector-Scalar"
       },
       "vm_support": "Yes",
-      "format": "OPIVX/OPMVX"
+      "format": "OPIVX/OPMVX",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vwsubu.w",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vwsub.w",
@@ -2326,7 +2946,12 @@
         "note": "Multiply operation"
       },
       "vm_support": "Yes",
-      "format": "OPMVV"
+      "format": "OPMVV",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vwsub.w",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vwsub.w",
@@ -2344,7 +2969,12 @@
         "note": "Vector-Scalar"
       },
       "vm_support": "Yes",
-      "format": "OPIVX/OPMVX"
+      "format": "OPIVX/OPMVX",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vwsub.w",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vwmulu",
@@ -2362,7 +2992,12 @@
         "note": "Multiply operation"
       },
       "vm_support": "Yes",
-      "format": "OPMVV"
+      "format": "OPMVV",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vwmulu",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vwmulu",
@@ -2380,7 +3015,12 @@
         "note": "Vector-Scalar"
       },
       "vm_support": "Yes",
-      "format": "OPIVX/OPMVX"
+      "format": "OPIVX/OPMVX",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vwmulu",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vwmulsu",
@@ -2398,7 +3038,12 @@
         "note": "Multiply operation"
       },
       "vm_support": "Yes",
-      "format": "OPMVV"
+      "format": "OPMVV",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vwmulsu",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vwmulsu",
@@ -2416,7 +3061,12 @@
         "note": "Vector-Scalar"
       },
       "vm_support": "Yes",
-      "format": "OPIVX/OPMVX"
+      "format": "OPIVX/OPMVX",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vwmulsu",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vwmul",
@@ -2434,7 +3084,12 @@
         "note": "Multiply operation"
       },
       "vm_support": "Yes",
-      "format": "OPMVV"
+      "format": "OPMVV",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vwmul",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vwmul",
@@ -2452,7 +3107,12 @@
         "note": "Vector-Scalar"
       },
       "vm_support": "Yes",
-      "format": "OPIVX/OPMVX"
+      "format": "OPIVX/OPMVX",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vwmul",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vwmaccu",
@@ -2470,7 +3130,12 @@
         "note": "Multiply operation"
       },
       "vm_support": "Yes",
-      "format": "OPMVV"
+      "format": "OPMVV",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vwmaccu",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vwmaccu",
@@ -2488,7 +3153,12 @@
         "note": "Vector-Scalar"
       },
       "vm_support": "Yes",
-      "format": "OPIVX/OPMVX"
+      "format": "OPIVX/OPMVX",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vwmaccu",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vwmacc",
@@ -2506,7 +3176,12 @@
         "note": "Multiply operation"
       },
       "vm_support": "Yes",
-      "format": "OPMVV"
+      "format": "OPMVV",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vwmacc",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vwmacc",
@@ -2524,7 +3199,12 @@
         "note": "Vector-Scalar"
       },
       "vm_support": "Yes",
-      "format": "OPIVX/OPMVX"
+      "format": "OPIVX/OPMVX",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vwmacc",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vwmaccus",
@@ -2542,7 +3222,12 @@
         "note": "Vector-Scalar"
       },
       "vm_support": "No",
-      "format": "OPIVX/OPMVX"
+      "format": "OPIVX/OPMVX",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vwmaccsu",
@@ -2560,7 +3245,12 @@
         "note": "Multiply operation"
       },
       "vm_support": "Yes",
-      "format": "OPMVV"
+      "format": "OPMVV",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vwmaccsu",
@@ -2578,7 +3268,12 @@
         "note": "Vector-Scalar"
       },
       "vm_support": "Yes",
-      "format": "OPIVX/OPMVX"
+      "format": "OPIVX/OPMVX",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vredsum",
@@ -2596,7 +3291,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vredand",
@@ -2614,7 +3314,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vredor",
@@ -2632,7 +3337,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vredxor",
@@ -2650,7 +3360,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vredminu",
@@ -2668,7 +3383,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vredmin",
@@ -2686,7 +3406,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vredmaxu",
@@ -2704,7 +3429,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vredmax",
@@ -2722,7 +3452,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vaaddu",
@@ -2740,7 +3475,12 @@
         "note": "Multiply operation"
       },
       "vm_support": "Yes",
-      "format": "OPMVV"
+      "format": "OPMVV",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vaaddu",
@@ -2758,7 +3498,12 @@
         "note": "Vector-Scalar"
       },
       "vm_support": "Yes",
-      "format": "OPIVX/OPMVX"
+      "format": "OPIVX/OPMVX",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vaadd",
@@ -2776,7 +3521,12 @@
         "note": "Multiply operation"
       },
       "vm_support": "Yes",
-      "format": "OPMVV"
+      "format": "OPMVV",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vaadd",
@@ -2794,7 +3544,12 @@
         "note": "Vector-Scalar"
       },
       "vm_support": "Yes",
-      "format": "OPIVX/OPMVX"
+      "format": "OPIVX/OPMVX",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vasubu",
@@ -2812,7 +3567,12 @@
         "note": "Multiply operation"
       },
       "vm_support": "Yes",
-      "format": "OPMVV"
+      "format": "OPMVV",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vasubu",
@@ -2830,7 +3590,12 @@
         "note": "Vector-Scalar"
       },
       "vm_support": "Yes",
-      "format": "OPIVX/OPMVX"
+      "format": "OPIVX/OPMVX",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vasub",
@@ -2848,7 +3613,12 @@
         "note": "Multiply operation"
       },
       "vm_support": "Yes",
-      "format": "OPMVV"
+      "format": "OPMVV",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vasub",
@@ -2866,7 +3636,12 @@
         "note": "Vector-Scalar"
       },
       "vm_support": "Yes",
-      "format": "OPIVX/OPMVX"
+      "format": "OPIVX/OPMVX",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vdivu",
@@ -2884,7 +3659,12 @@
         "note": "Multiply operation"
       },
       "vm_support": "Yes",
-      "format": "OPMVV"
+      "format": "OPMVV",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vdivu",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vdivu",
@@ -2902,7 +3682,12 @@
         "note": "Vector-Scalar"
       },
       "vm_support": "Yes",
-      "format": "OPIVX/OPMVX"
+      "format": "OPIVX/OPMVX",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vdivu",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vdiv",
@@ -2920,7 +3705,12 @@
         "note": "Multiply operation"
       },
       "vm_support": "Yes",
-      "format": "OPMVV"
+      "format": "OPMVV",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vdiv",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vdiv",
@@ -2938,7 +3728,12 @@
         "note": "Vector-Scalar"
       },
       "vm_support": "Yes",
-      "format": "OPIVX/OPMVX"
+      "format": "OPIVX/OPMVX",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vdiv",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vremu",
@@ -2956,7 +3751,12 @@
         "note": "Multiply operation"
       },
       "vm_support": "Yes",
-      "format": "OPMVV"
+      "format": "OPMVV",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vremu",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vremu",
@@ -2974,7 +3774,12 @@
         "note": "Vector-Scalar"
       },
       "vm_support": "Yes",
-      "format": "OPIVX/OPMVX"
+      "format": "OPIVX/OPMVX",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vremu",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vrem",
@@ -2992,7 +3797,12 @@
         "note": "Multiply operation"
       },
       "vm_support": "Yes",
-      "format": "OPMVV"
+      "format": "OPMVV",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vrem",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vrem",
@@ -3010,7 +3820,12 @@
         "note": "Vector-Scalar"
       },
       "vm_support": "Yes",
-      "format": "OPIVX/OPMVX"
+      "format": "OPIVX/OPMVX",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vrem",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vmulhu",
@@ -3028,7 +3843,12 @@
         "note": "Multiply operation"
       },
       "vm_support": "Yes",
-      "format": "OPMVV"
+      "format": "OPMVV",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vmulhu",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vmulhu",
@@ -3046,7 +3866,12 @@
         "note": "Vector-Scalar"
       },
       "vm_support": "Yes",
-      "format": "OPIVX/OPMVX"
+      "format": "OPIVX/OPMVX",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vmulhu",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vmul",
@@ -3064,7 +3889,12 @@
         "note": "Multiply operation"
       },
       "vm_support": "Yes",
-      "format": "OPMVV"
+      "format": "OPMVV",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vmul",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vmul",
@@ -3082,7 +3912,12 @@
         "note": "Vector-Scalar"
       },
       "vm_support": "Yes",
-      "format": "OPIVX/OPMVX"
+      "format": "OPIVX/OPMVX",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vmul",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vmulhsu",
@@ -3100,7 +3935,12 @@
         "note": "Multiply operation"
       },
       "vm_support": "Yes",
-      "format": "OPMVV"
+      "format": "OPMVV",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vmulhsu",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vmulhsu",
@@ -3118,7 +3958,12 @@
         "note": "Vector-Scalar"
       },
       "vm_support": "Yes",
-      "format": "OPIVX/OPMVX"
+      "format": "OPIVX/OPMVX",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vmulhsu",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vmulh",
@@ -3136,7 +3981,12 @@
         "note": "Multiply operation"
       },
       "vm_support": "Yes",
-      "format": "OPMVV"
+      "format": "OPMVV",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vmulh",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vmulh",
@@ -3154,7 +4004,12 @@
         "note": "Vector-Scalar"
       },
       "vm_support": "Yes",
-      "format": "OPIVX/OPMVX"
+      "format": "OPIVX/OPMVX",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vmulh",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vmadd",
@@ -3172,7 +4027,12 @@
         "note": "Multiply operation"
       },
       "vm_support": "Yes",
-      "format": "OPMVV"
+      "format": "OPMVV",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vmadd",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vmadd",
@@ -3190,7 +4050,12 @@
         "note": "Vector-Scalar"
       },
       "vm_support": "Yes",
-      "format": "OPIVX/OPMVX"
+      "format": "OPIVX/OPMVX",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vmadd",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vnmsub",
@@ -3208,7 +4073,12 @@
         "note": "Multiply operation"
       },
       "vm_support": "Yes",
-      "format": "OPMVV"
+      "format": "OPMVV",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vnmsub",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vnmsub",
@@ -3226,7 +4096,12 @@
         "note": "Vector-Scalar"
       },
       "vm_support": "Yes",
-      "format": "OPIVX/OPMVX"
+      "format": "OPIVX/OPMVX",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vnmsub",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vmacc",
@@ -3244,7 +4119,12 @@
         "note": "Multiply operation"
       },
       "vm_support": "Yes",
-      "format": "OPMVV"
+      "format": "OPMVV",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vmacc",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vmacc",
@@ -3262,7 +4142,12 @@
         "note": "Vector-Scalar"
       },
       "vm_support": "Yes",
-      "format": "OPIVX/OPMVX"
+      "format": "OPIVX/OPMVX",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vmacc",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vnmsac",
@@ -3280,7 +4165,12 @@
         "note": "Multiply operation"
       },
       "vm_support": "Yes",
-      "format": "OPMVV"
+      "format": "OPMVV",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vnmsac",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vnmsac",
@@ -3298,7 +4188,12 @@
         "note": "Vector-Scalar"
       },
       "vm_support": "Yes",
-      "format": "OPIVX/OPMVX"
+      "format": "OPIVX/OPMVX",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vnmsac",
+        "details": "操作数: vd, vs1, vs2, m -> vd, vs1, vs2[, vm]"
+      }
     },
     {
       "name": "vslide1up",
@@ -3316,7 +4211,12 @@
         "note": "Vector-Scalar"
       },
       "vm_support": "Yes",
-      "format": "Store"
+      "format": "Store",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vslide1up",
+        "details": "操作数: vd, vs1, rs1, m -> vd, vs1, rs1[, vm]"
+      }
     },
     {
       "name": "vslide1down",
@@ -3334,7 +4234,12 @@
         "note": "Vector-Scalar"
       },
       "vm_support": "Yes",
-      "format": "Store"
+      "format": "Store",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vslide1down",
+        "details": "操作数: vd, vs1, rs1, m -> vd, vs1, rs1[, vm]"
+      }
     },
     {
       "name": "vcompress",
@@ -3352,7 +4257,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vmandn",
@@ -3370,7 +4280,12 @@
         "note": "FP operation"
       },
       "vm_support": "No",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vmand",
@@ -3388,7 +4303,12 @@
         "note": "FP operation"
       },
       "vm_support": "No",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vmor",
@@ -3406,7 +4326,12 @@
         "note": "FP operation"
       },
       "vm_support": "No",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vmxor",
@@ -3424,7 +4349,12 @@
         "note": "FP operation"
       },
       "vm_support": "No",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vmorn",
@@ -3442,7 +4372,12 @@
         "note": "FP operation"
       },
       "vm_support": "No",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vmnand",
@@ -3460,7 +4395,12 @@
         "note": "FP operation"
       },
       "vm_support": "No",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vmnor",
@@ -3478,7 +4418,12 @@
         "note": "FP operation"
       },
       "vm_support": "No",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vmxnor",
@@ -3496,7 +4441,12 @@
         "note": "FP operation"
       },
       "vm_support": "No",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vfadd",
@@ -3514,7 +4464,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vfadd",
@@ -3532,7 +4487,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vfsub",
@@ -3550,7 +4510,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vfsub",
@@ -3568,7 +4533,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vfmin",
@@ -3586,7 +4556,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vfmin",
@@ -3604,7 +4579,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vfmax",
@@ -3622,7 +4602,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vfmax",
@@ -3640,7 +4625,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vfsgnj",
@@ -3658,7 +4648,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vfsgnj",
@@ -3676,7 +4671,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vfsgnjn",
@@ -3694,7 +4694,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vfsgnjn",
@@ -3712,7 +4717,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vfsgnjx",
@@ -3730,7 +4740,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vfsgnjx",
@@ -3748,7 +4763,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vfdiv",
@@ -3766,7 +4786,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vfdiv",
@@ -3784,7 +4809,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vfrdiv",
@@ -3802,7 +4832,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vfmul",
@@ -3820,7 +4855,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vfmul",
@@ -3838,7 +4878,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vfrsub",
@@ -3856,7 +4901,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vfmadd",
@@ -3874,7 +4924,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vfmadd",
@@ -3892,7 +4947,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vfnmadd",
@@ -3910,7 +4970,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vfnmadd",
@@ -3928,7 +4993,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vfmsub",
@@ -3946,7 +5016,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vfmsub",
@@ -3964,7 +5039,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vfnmsub",
@@ -3982,7 +5062,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vfnmsub",
@@ -4000,7 +5085,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vfmacc",
@@ -4018,7 +5108,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vfmacc",
@@ -4036,7 +5131,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vfnmacc",
@@ -4054,7 +5154,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vfnmacc",
@@ -4072,7 +5177,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vfmsac",
@@ -4090,7 +5200,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vfmsac",
@@ -4108,7 +5223,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vfnmsac",
@@ -4126,7 +5246,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vfnmsac",
@@ -4144,7 +5269,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vfredusum",
@@ -4162,7 +5292,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vfredosum",
@@ -4180,7 +5315,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vfredmin",
@@ -4198,7 +5338,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vfredmax",
@@ -4216,7 +5361,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vfslide1up",
@@ -4234,7 +5384,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vfslide1down",
@@ -4252,7 +5407,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vfmerge",
@@ -4270,7 +5430,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vmfeq",
@@ -4288,7 +5453,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vmfeq",
@@ -4306,7 +5476,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vmfle",
@@ -4324,7 +5499,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vmfle",
@@ -4342,7 +5522,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vmflt",
@@ -4360,7 +5545,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vmflt",
@@ -4378,7 +5568,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vmfne",
@@ -4396,7 +5591,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vmfne",
@@ -4414,7 +5614,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vmfgt",
@@ -4432,7 +5637,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vmfge",
@@ -4450,7 +5660,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vfcvt.xu.f.v",
@@ -4468,7 +5683,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vfcvt.x.f.v",
@@ -4486,7 +5706,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vfcvt.f.xu.v",
@@ -4504,7 +5729,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vfcvt.f.x.v",
@@ -4522,7 +5752,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vfcvt.rtz.xu.f.v",
@@ -4540,7 +5775,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vfcvt.rtz.x.f.v",
@@ -4558,7 +5798,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vfwcvt.xu.f.v",
@@ -4576,7 +5821,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vfwcvt.x.f.v",
@@ -4594,7 +5844,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vfwcvt.f.xu.v",
@@ -4612,7 +5867,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vfwcvt.f.x.v",
@@ -4630,7 +5890,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vfwcvt.f.f.v",
@@ -4648,7 +5913,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vfwcvt.rtz.xu.f.v",
@@ -4666,7 +5936,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vfwcvt.rtz.x.f.v",
@@ -4684,7 +5959,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vfncvt.xu.f.w",
@@ -4702,7 +5982,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vfncvt.x.f.w",
@@ -4720,7 +6005,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vfncvt.f.xu.w",
@@ -4738,7 +6028,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vfncvt.f.x.w",
@@ -4756,7 +6051,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vfncvt.f.f.w",
@@ -4774,7 +6074,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vfncvt.rod.f.f.w",
@@ -4792,7 +6097,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vfncvt.rtz.xu.f.w",
@@ -4810,7 +6120,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vfncvt.rtz.x.f.w",
@@ -4828,7 +6143,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vfsqrt.v",
@@ -4846,7 +6166,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vfrsqrt7.v",
@@ -4864,7 +6189,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vfrec7.v",
@@ -4882,7 +6212,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vfclass.v",
@@ -4900,7 +6235,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vfwadd",
@@ -4918,7 +6258,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vfwadd",
@@ -4936,7 +6281,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vfwsub",
@@ -4954,7 +6304,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vfwsub",
@@ -4972,7 +6327,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vfwadd.w",
@@ -4990,7 +6350,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vfwadd.w",
@@ -5008,7 +6373,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vfwsub.w",
@@ -5026,7 +6396,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vfwsub.w",
@@ -5044,7 +6419,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vfwmul",
@@ -5062,7 +6442,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vfwmul",
@@ -5080,7 +6465,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vfwmacc",
@@ -5098,7 +6488,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vfwmacc",
@@ -5116,7 +6511,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vfwnmacc",
@@ -5134,7 +6534,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vfwnmacc",
@@ -5152,7 +6557,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vfwmsac",
@@ -5170,7 +6580,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vfwmsac",
@@ -5188,7 +6603,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vfwnmsac",
@@ -5206,7 +6626,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vfwnmsac",
@@ -5224,7 +6649,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vfwredusum",
@@ -5242,7 +6672,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vfwredosum",
@@ -5260,7 +6695,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vle8",
@@ -5278,7 +6718,12 @@
         "note": "Vector-Vector or Vector-Immediate"
       },
       "vm_support": "Yes",
-      "format": "Load"
+      "format": "Load",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vlb",
+        "details": "名称: vlb -> vle8; 操作数: vd, offset(rs1), m -> vd, (rs1)[, vm]; 描述: 向量加载(8位有符号) -> 向量加载(8位单位步幅)"
+      }
     },
     {
       "name": "vle16",
@@ -5296,7 +6741,12 @@
         "note": "Vector-Vector or Vector-Immediate"
       },
       "vm_support": "Yes",
-      "format": "Load"
+      "format": "Load",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vlh",
+        "details": "名称: vlh -> vle16; 操作数: vd, offset(rs1), m -> vd, (rs1)[, vm]; 描述: 向量加载(16位有符号) -> 向量加载(16位单位步幅)"
+      }
     },
     {
       "name": "vle32",
@@ -5314,7 +6764,12 @@
         "note": "Vector-Vector or Vector-Immediate"
       },
       "vm_support": "Yes",
-      "format": "Load"
+      "format": "Load",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vlw",
+        "details": "名称: vlw -> vle32; 操作数: vd, offset(rs1), m -> vd, (rs1)[, vm]; 描述: 向量加载(32位有符号) -> 向量加载(32位单位步幅)"
+      }
     },
     {
       "name": "vle64",
@@ -5332,7 +6787,12 @@
         "note": "Vector-Vector or Vector-Immediate"
       },
       "vm_support": "Yes",
-      "format": "Load"
+      "format": "Load",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vld",
+        "details": "名称: vld -> vle64; 操作数: vd, offset(rs1), m -> vd, (rs1)[, vm]; 描述: 向量加载(64位) -> 向量加载(64位单位步幅)"
+      }
     },
     {
       "name": "vle8ff",
@@ -5350,7 +6810,12 @@
         "note": "Vector-Vector or Vector-Immediate"
       },
       "vm_support": "Yes",
-      "format": "Load"
+      "format": "Load",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vle16ff",
@@ -5368,7 +6833,12 @@
         "note": "Vector-Vector or Vector-Immediate"
       },
       "vm_support": "Yes",
-      "format": "Load"
+      "format": "Load",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vle32ff",
@@ -5386,7 +6856,12 @@
         "note": "Vector-Vector or Vector-Immediate"
       },
       "vm_support": "Yes",
-      "format": "Load"
+      "format": "Load",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vle64ff",
@@ -5404,7 +6879,12 @@
         "note": "Vector-Vector or Vector-Immediate"
       },
       "vm_support": "Yes",
-      "format": "Load"
+      "format": "Load",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vlse8",
@@ -5422,7 +6902,12 @@
         "note": "Vector-Vector or Vector-Immediate"
       },
       "vm_support": "Yes",
-      "format": "Load"
+      "format": "Load",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vlsb",
+        "details": "名称: vlsb -> vlse8; 操作数: vd, offset(rs1), rs2, m -> vd, (rs1), rs2[, vm]; 描述: 向量跨步加载(8位有符号) -> 向量加载(8位跨步)"
+      }
     },
     {
       "name": "vlse16",
@@ -5440,7 +6925,12 @@
         "note": "Vector-Vector or Vector-Immediate"
       },
       "vm_support": "Yes",
-      "format": "Load"
+      "format": "Load",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vlsh",
+        "details": "名称: vlsh -> vlse16; 操作数: vd, offset(rs1), rs2, m -> vd, (rs1), rs2[, vm]; 描述: 向量跨步加载(16位有符号) -> 向量加载(16位跨步)"
+      }
     },
     {
       "name": "vlse32",
@@ -5458,7 +6948,12 @@
         "note": "Vector-Vector or Vector-Immediate"
       },
       "vm_support": "Yes",
-      "format": "Load"
+      "format": "Load",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vlsw",
+        "details": "名称: vlsw -> vlse32; 操作数: vd, offset(rs1), rs2, m -> vd, (rs1), rs2[, vm]; 描述: 向量跨步加载(32位有符号) -> 向量加载(32位跨步)"
+      }
     },
     {
       "name": "vlse64",
@@ -5476,7 +6971,12 @@
         "note": "Vector-Vector or Vector-Immediate"
       },
       "vm_support": "Yes",
-      "format": "Load"
+      "format": "Load",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vlsd",
+        "details": "名称: vlsd -> vlse64; 操作数: vd, offset(rs1), rs2, m -> vd, (rs1), rs2[, vm]; 描述: 向量跨步加载(64位) -> 向量加载(64位跨步)"
+      }
     },
     {
       "name": "vluxei8",
@@ -5494,7 +6994,12 @@
         "note": "Vector-Vector or Vector-Immediate"
       },
       "vm_support": "Yes",
-      "format": "Load"
+      "format": "Load",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vlxb",
+        "details": "名称: vlxb -> vluxei8; 操作数: vd, offset(rs1), vs2, m -> vd, (rs1), vs2[, vm]; 描述: 向量索引加载(8位有符号) -> 向量加载(8位索引收集)"
+      }
     },
     {
       "name": "vluxei16",
@@ -5512,7 +7017,12 @@
         "note": "Vector-Vector or Vector-Immediate"
       },
       "vm_support": "Yes",
-      "format": "Load"
+      "format": "Load",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vlxh",
+        "details": "名称: vlxh -> vluxei16; 操作数: vd, offset(rs1), vs2, m -> vd, (rs1), vs2[, vm]; 描述: 向量索引加载(16位有符号) -> 向量加载(16位索引收集)"
+      }
     },
     {
       "name": "vluxei32",
@@ -5530,7 +7040,12 @@
         "note": "Vector-Vector or Vector-Immediate"
       },
       "vm_support": "Yes",
-      "format": "Load"
+      "format": "Load",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vlxw",
+        "details": "名称: vlxw -> vluxei32; 操作数: vd, offset(rs1), vs2, m -> vd, (rs1), vs2[, vm]; 描述: 向量索引加载(32位有符号) -> 向量加载(32位索引收集)"
+      }
     },
     {
       "name": "vluxei64",
@@ -5548,7 +7063,12 @@
         "note": "Vector-Vector or Vector-Immediate"
       },
       "vm_support": "Yes",
-      "format": "Load"
+      "format": "Load",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vlxd",
+        "details": "名称: vlxd -> vluxei64; 操作数: vd, offset(rs1), vs2, m -> vd, (rs1), vs2[, vm]; 描述: 向量索引加载(64位) -> 向量加载(64位索引收集)"
+      }
     },
     {
       "name": "vse8",
@@ -5566,7 +7086,12 @@
         "note": "Vector-Vector or Vector-Immediate"
       },
       "vm_support": "Yes",
-      "format": "Store"
+      "format": "Store",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vsb",
+        "details": "名称: vsb -> vse8; 操作数: vs3, offset(rs1), m -> vs3, (rs1)[, vm]; 描述: 向量存储(8位) -> 向量存储(8位单位步幅)"
+      }
     },
     {
       "name": "vse16",
@@ -5584,7 +7109,12 @@
         "note": "Vector-Vector or Vector-Immediate"
       },
       "vm_support": "Yes",
-      "format": "Store"
+      "format": "Store",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vsh",
+        "details": "名称: vsh -> vse16; 操作数: vs3, offset(rs1), m -> vs3, (rs1)[, vm]; 描述: 向量存储(16位) -> 向量存储(16位单位步幅)"
+      }
     },
     {
       "name": "vse32",
@@ -5602,7 +7132,12 @@
         "note": "Vector-Vector or Vector-Immediate"
       },
       "vm_support": "Yes",
-      "format": "Store"
+      "format": "Store",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vsw",
+        "details": "名称: vsw -> vse32; 操作数: vs3, offset(rs1), m -> vs3, (rs1)[, vm]; 描述: 向量存储(32位) -> 向量存储(32位单位步幅)"
+      }
     },
     {
       "name": "vse64",
@@ -5620,7 +7155,12 @@
         "note": "Vector-Vector or Vector-Immediate"
       },
       "vm_support": "Yes",
-      "format": "Store"
+      "format": "Store",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vsd",
+        "details": "名称: vsd -> vse64; 操作数: vs3, offset(rs1), m -> vs3, (rs1)[, vm]; 描述: 向量存储(64位) -> 向量存储(64位单位步幅)"
+      }
     },
     {
       "name": "vsse8",
@@ -5638,7 +7178,12 @@
         "note": "Vector-Vector or Vector-Immediate"
       },
       "vm_support": "Yes",
-      "format": "Store"
+      "format": "Store",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vssb",
+        "details": "名称: vssb -> vsse8; 操作数: vs3, offset(rs1), rs2, m -> vs3, (rs1), rs2[, vm]; 描述: 向量跨步存储(8位) -> 向量存储(8位跨步)"
+      }
     },
     {
       "name": "vsse16",
@@ -5656,7 +7201,12 @@
         "note": "Vector-Vector or Vector-Immediate"
       },
       "vm_support": "Yes",
-      "format": "Store"
+      "format": "Store",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vssh",
+        "details": "名称: vssh -> vsse16; 操作数: vs3, offset(rs1), rs2, m -> vs3, (rs1), rs2[, vm]; 描述: 向量跨步存储(16位) -> 向量存储(16位跨步)"
+      }
     },
     {
       "name": "vsse32",
@@ -5674,7 +7224,12 @@
         "note": "Vector-Vector or Vector-Immediate"
       },
       "vm_support": "Yes",
-      "format": "Store"
+      "format": "Store",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vssw",
+        "details": "名称: vssw -> vsse32; 操作数: vs3, offset(rs1), rs2, m -> vs3, (rs1), rs2[, vm]; 描述: 向量跨步存储(32位) -> 向量存储(32位跨步)"
+      }
     },
     {
       "name": "vsse64",
@@ -5692,7 +7247,12 @@
         "note": "Vector-Vector or Vector-Immediate"
       },
       "vm_support": "Yes",
-      "format": "Store"
+      "format": "Store",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vssd",
+        "details": "名称: vssd -> vsse64; 操作数: vs3, offset(rs1), rs2, m -> vs3, (rs1), rs2[, vm]; 描述: 向量跨步存储(64位) -> 向量存储(64位跨步)"
+      }
     },
     {
       "name": "vsuxei8",
@@ -5710,7 +7270,12 @@
         "note": "Vector-Vector or Vector-Immediate"
       },
       "vm_support": "Yes",
-      "format": "Store"
+      "format": "Store",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vsxb",
+        "details": "名称: vsxb -> vsuxei8; 操作数: vs3, offset(rs1), vs2, m -> vs3, (rs1), vs2[, vm]; 描述: 向量索引存储(8位) -> 向量存储(8位索引分散)"
+      }
     },
     {
       "name": "vsuxei16",
@@ -5728,7 +7293,12 @@
         "note": "Vector-Vector or Vector-Immediate"
       },
       "vm_support": "Yes",
-      "format": "Store"
+      "format": "Store",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vsxh",
+        "details": "名称: vsxh -> vsuxei16; 操作数: vs3, offset(rs1), vs2, m -> vs3, (rs1), vs2[, vm]; 描述: 向量索引存储(16位) -> 向量存储(16位索引分散)"
+      }
     },
     {
       "name": "vsuxei32",
@@ -5746,7 +7316,12 @@
         "note": "Vector-Vector or Vector-Immediate"
       },
       "vm_support": "Yes",
-      "format": "Store"
+      "format": "Store",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vsxw",
+        "details": "名称: vsxw -> vsuxei32; 操作数: vs3, offset(rs1), vs2, m -> vs3, (rs1), vs2[, vm]; 描述: 向量索引存储(32位) -> 向量存储(32位索引分散)"
+      }
     },
     {
       "name": "vsuxei64",
@@ -5764,7 +7339,12 @@
         "note": "Vector-Vector or Vector-Immediate"
       },
       "vm_support": "Yes",
-      "format": "Store"
+      "format": "Store",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vsxd",
+        "details": "名称: vsxd -> vsuxei64; 操作数: vs3, offset(rs1), vs2, m -> vs3, (rs1), vs2[, vm]; 描述: 向量索引存储(64位) -> 向量存储(64位索引分散)"
+      }
     },
     {
       "name": "vflse8",
@@ -5782,7 +7362,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vflse16",
@@ -5800,7 +7385,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vflse32",
@@ -5818,7 +7408,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vflse64",
@@ -5836,7 +7431,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vfluxei8",
@@ -5854,7 +7454,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vfluxei16",
@@ -5872,7 +7477,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vfluxei32",
@@ -5890,7 +7500,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vfluxei64",
@@ -5908,7 +7523,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vfsse8",
@@ -5926,7 +7546,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vfsse16",
@@ -5944,7 +7569,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vfsse32",
@@ -5962,7 +7592,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vfsse64",
@@ -5980,7 +7615,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vfsuxei8",
@@ -5998,7 +7638,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vfsuxei16",
@@ -6016,7 +7661,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vfsuxei32",
@@ -6034,7 +7684,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vfsuxei64",
@@ -6052,7 +7707,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vsetvli",
@@ -6070,7 +7730,12 @@
         "note": "Configuration instruction"
       },
       "vm_support": "No",
-      "format": "Configuration"
+      "format": "Configuration",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vsetivli",
@@ -6088,7 +7753,12 @@
         "note": "Configuration instruction"
       },
       "vm_support": "No",
-      "format": "Configuration"
+      "format": "Configuration",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vsetvl",
@@ -6106,7 +7776,12 @@
         "note": "Configuration instruction"
       },
       "vm_support": "No",
-      "format": "Configuration"
+      "format": "Configuration",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vmv.s.x",
@@ -6124,7 +7799,12 @@
         "note": "Vector-Scalar"
       },
       "vm_support": "No",
-      "format": "OPIVX/OPMVX"
+      "format": "OPIVX/OPMVX",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vmv.x.s",
@@ -6142,7 +7822,12 @@
         "note": "Vector-Scalar"
       },
       "vm_support": "No",
-      "format": "OPIVX/OPMVX"
+      "format": "OPIVX/OPMVX",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vcpop",
@@ -6160,7 +7845,12 @@
         "note": "Vector-Scalar"
       },
       "vm_support": "No",
-      "format": "OPIVX/OPMVX"
+      "format": "OPIVX/OPMVX",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vmpopc",
+        "details": "名称: vmpopc -> vcpop; 操作数: rd, vs2, m -> rd, vs2; 描述: 向量掩码位计数 -> 向量位计数; 分类: mask -> special"
+      }
     },
     {
       "name": "vfirst",
@@ -6178,7 +7868,12 @@
         "note": "Vector-Scalar"
       },
       "vm_support": "No",
-      "format": "OPIVX/OPMVX"
+      "format": "OPIVX/OPMVX",
+      "diff_info": {
+        "type": "修改",
+        "v071_name": "vmfirst",
+        "details": "名称: vmfirst -> vfirst; 操作数: rd, vs2, m -> rd, vs2; 描述: 向量掩码首位索引 -> 向量首位索引; 分类: mask -> special"
+      }
     },
     {
       "name": "vfmv.s.f",
@@ -6196,7 +7891,12 @@
         "note": "FP operation"
       },
       "vm_support": "No",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vfmv.f.s",
@@ -6214,7 +7914,12 @@
         "note": "FP operation"
       },
       "vm_support": "No",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vmsbf",
@@ -6232,7 +7937,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vmsof",
@@ -6250,7 +7960,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vmsif",
@@ -6268,7 +7983,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "viota",
@@ -6286,7 +8006,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vid",
@@ -6304,7 +8029,12 @@
         "note": "FP operation"
       },
       "vm_support": "Yes",
-      "format": "OPFVV/OPFVF"
+      "format": "OPFVV/OPFVF",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vamoadd",
@@ -6322,7 +8052,12 @@
         "note": "Configuration instruction"
       },
       "vm_support": "Yes",
-      "format": "Configuration"
+      "format": "Configuration",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vamoand",
@@ -6340,7 +8075,12 @@
         "note": "Configuration instruction"
       },
       "vm_support": "Yes",
-      "format": "Configuration"
+      "format": "Configuration",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vamoor",
@@ -6358,7 +8098,12 @@
         "note": "Configuration instruction"
       },
       "vm_support": "Yes",
-      "format": "Configuration"
+      "format": "Configuration",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vamoxor",
@@ -6376,7 +8121,12 @@
         "note": "Configuration instruction"
       },
       "vm_support": "Yes",
-      "format": "Configuration"
+      "format": "Configuration",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vamomax",
@@ -6394,7 +8144,12 @@
         "note": "Configuration instruction"
       },
       "vm_support": "Yes",
-      "format": "Configuration"
+      "format": "Configuration",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vamomin",
@@ -6412,7 +8167,12 @@
         "note": "Configuration instruction"
       },
       "vm_support": "Yes",
-      "format": "Configuration"
+      "format": "Configuration",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vamoswap",
@@ -6430,7 +8190,12 @@
         "note": "Configuration instruction"
       },
       "vm_support": "Yes",
-      "format": "Configuration"
+      "format": "Configuration",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vzext.vf8",
@@ -6448,7 +8213,12 @@
         "note": "Vector-Scalar"
       },
       "vm_support": "Yes",
-      "format": "OPIVX/OPMVX"
+      "format": "OPIVX/OPMVX",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vsext.vf8",
@@ -6466,7 +8236,12 @@
         "note": "Vector-Scalar"
       },
       "vm_support": "Yes",
-      "format": "Store"
+      "format": "Store",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vzext.vf4",
@@ -6484,7 +8259,12 @@
         "note": "Vector-Scalar"
       },
       "vm_support": "Yes",
-      "format": "OPIVX/OPMVX"
+      "format": "OPIVX/OPMVX",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vsext.vf4",
@@ -6502,7 +8282,12 @@
         "note": "Vector-Scalar"
       },
       "vm_support": "Yes",
-      "format": "Store"
+      "format": "Store",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vzext.vf2",
@@ -6520,7 +8305,12 @@
         "note": "Vector-Scalar"
       },
       "vm_support": "Yes",
-      "format": "OPIVX/OPMVX"
+      "format": "OPIVX/OPMVX",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     },
     {
       "name": "vsext.vf2",
@@ -6538,7 +8328,629 @@
         "note": "Vector-Scalar"
       },
       "vm_support": "Yes",
-      "format": "Store"
+      "format": "Store",
+      "diff_info": {
+        "type": "新增",
+        "v071_name": null,
+        "details": "1.0版本新增指令"
+      }
     }
-  ]
+  ],
+  "removed_instructions": [
+    {
+      "name": "vmandnot",
+      "category": "掩码类 (Mask)",
+      "category_key": "mask",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "001",
+      "instruction_type": "OPFVV (FP vector-vector)",
+      "operands": "vd, vs1, vs2",
+      "description_cn": "向量与非掩码",
+      "description_en": "Vector mask operation",
+      "diff_info": {
+        "type": "删除",
+        "v10_name": null,
+        "details": "1.0版本移除指令"
+      }
+    },
+    {
+      "name": "vmornot",
+      "category": "掩码类 (Mask)",
+      "category_key": "mask",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "001",
+      "instruction_type": "OPFVV (FP vector-vector)",
+      "operands": "vd, vs1, vs2",
+      "description_cn": "向量或非掩码",
+      "description_en": "Vector mask operation",
+      "diff_info": {
+        "type": "删除",
+        "v10_name": null,
+        "details": "1.0版本移除指令"
+      }
+    },
+    {
+      "name": "vfredsum",
+      "category": "浮点类 (Floating-Point)",
+      "category_key": "fp",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "001",
+      "instruction_type": "OPFVV (FP vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量浮点求和归约",
+      "description_en": "Vector fp operation",
+      "diff_info": {
+        "type": "删除",
+        "v10_name": null,
+        "details": "1.0版本移除指令"
+      }
+    },
+    {
+      "name": "vfmerge.vf",
+      "category": "移动类 (Move)",
+      "category_key": "move",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "101",
+      "instruction_type": "OPFVF (FP vector-scalar)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量浮点合并",
+      "description_en": "Vector move operation",
+      "diff_info": {
+        "type": "删除",
+        "v10_name": null,
+        "details": "1.0版本移除指令"
+      }
+    },
+    {
+      "name": "vmford",
+      "category": "比较类 (Compare)",
+      "category_key": "compare",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "001",
+      "instruction_type": "OPFVV (FP vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量浮点有序比较",
+      "description_en": "Vector compare operation",
+      "diff_info": {
+        "type": "删除",
+        "v10_name": null,
+        "details": "1.0版本移除指令"
+      }
+    },
+    {
+      "name": "vmford",
+      "category": "比较类 (Compare)",
+      "category_key": "compare",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "101",
+      "instruction_type": "OPFVF (FP vector-scalar)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量浮点有序比较",
+      "description_en": "Vector compare operation",
+      "diff_info": {
+        "type": "删除",
+        "v10_name": null,
+        "details": "1.0版本移除指令"
+      }
+    },
+    {
+      "name": "vfwredsum",
+      "category": "浮点类 (Floating-Point)",
+      "category_key": "fp",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "001",
+      "instruction_type": "OPFVV (FP vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量浮点扩展求和归约",
+      "description_en": "Vector fp operation",
+      "diff_info": {
+        "type": "删除",
+        "v10_name": null,
+        "details": "1.0版本移除指令"
+      }
+    },
+    {
+      "name": "vfncvt.xu.f.v",
+      "category": "转换类 (Convert)",
+      "category_key": "convert",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "001",
+      "instruction_type": "OPFVV (FP vector-vector)",
+      "operands": "vd, vs1, m",
+      "description_cn": "向量浮点到无符号整数缩小转换",
+      "description_en": "Vector convert operation",
+      "diff_info": {
+        "type": "删除",
+        "v10_name": null,
+        "details": "1.0版本移除指令"
+      }
+    },
+    {
+      "name": "vfncvt.x.f.v",
+      "category": "转换类 (Convert)",
+      "category_key": "convert",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "001",
+      "instruction_type": "OPFVV (FP vector-vector)",
+      "operands": "vd, vs1, m",
+      "description_cn": "向量浮点到有符号整数缩小转换",
+      "description_en": "Vector convert operation",
+      "diff_info": {
+        "type": "删除",
+        "v10_name": null,
+        "details": "1.0版本移除指令"
+      }
+    },
+    {
+      "name": "vfncvt.f.xu.v",
+      "category": "转换类 (Convert)",
+      "category_key": "convert",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "001",
+      "instruction_type": "OPFVV (FP vector-vector)",
+      "operands": "vd, vs1, m",
+      "description_cn": "向量无符号整数到浮点缩小转换",
+      "description_en": "Vector convert operation",
+      "diff_info": {
+        "type": "删除",
+        "v10_name": null,
+        "details": "1.0版本移除指令"
+      }
+    },
+    {
+      "name": "vfncvt.f.x.v",
+      "category": "转换类 (Convert)",
+      "category_key": "convert",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "001",
+      "instruction_type": "OPFVV (FP vector-vector)",
+      "operands": "vd, vs1, m",
+      "description_cn": "向量有符号整数到浮点缩小转换",
+      "description_en": "Vector convert operation",
+      "diff_info": {
+        "type": "删除",
+        "v10_name": null,
+        "details": "1.0版本移除指令"
+      }
+    },
+    {
+      "name": "vfncvt.f.f.v",
+      "category": "转换类 (Convert)",
+      "category_key": "convert",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "001",
+      "instruction_type": "OPFVV (FP vector-vector)",
+      "operands": "vd, vs1, m",
+      "description_cn": "向量浮点到浮点缩小转换",
+      "description_en": "Vector convert operation",
+      "diff_info": {
+        "type": "删除",
+        "v10_name": null,
+        "details": "1.0版本移除指令"
+      }
+    },
+    {
+      "name": "vext.x.v",
+      "category": "移动类 (Move)",
+      "category_key": "move",
+      "funct6": "001100",
+      "funct3": "010",
+      "instruction_type": "OPMVV (multiply vector-vector)",
+      "operands": "rd, vs1",
+      "description_cn": "向量到标量提取",
+      "description_en": "Vector move operation",
+      "diff_info": {
+        "type": "删除",
+        "v10_name": null,
+        "details": "1.0版本移除指令"
+      }
+    },
+    {
+      "name": "vdotu",
+      "category": "点积类 (Dot Product)",
+      "category_key": "dot",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "001",
+      "instruction_type": "OPFVV (FP vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量无符号点积",
+      "description_en": "Vector dot product",
+      "diff_info": {
+        "type": "删除",
+        "v10_name": null,
+        "details": "1.0版本移除指令"
+      }
+    },
+    {
+      "name": "vdot",
+      "category": "点积类 (Dot Product)",
+      "category_key": "dot",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "001",
+      "instruction_type": "OPFVV (FP vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量有符号点积",
+      "description_en": "Vector dot product",
+      "diff_info": {
+        "type": "删除",
+        "v10_name": null,
+        "details": "1.0版本移除指令"
+      }
+    },
+    {
+      "name": "vfdot",
+      "category": "点积类 (Dot Product)",
+      "category_key": "dot",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "001",
+      "instruction_type": "OPFVV (FP vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量浮点点积",
+      "description_en": "Vector dot operation",
+      "diff_info": {
+        "type": "删除",
+        "v10_name": null,
+        "details": "1.0版本移除指令"
+      }
+    },
+    {
+      "name": "vwsmaccu",
+      "category": "点积类 (Dot Product)",
+      "category_key": "dot",
+      "funct6": "111100",
+      "funct3": "010",
+      "instruction_type": "OPMVV (multiply vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量扩展无符号点积累加",
+      "description_en": "Vector dot operation",
+      "diff_info": {
+        "type": "删除",
+        "v10_name": null,
+        "details": "1.0版本移除指令"
+      }
+    },
+    {
+      "name": "vwsmaccu",
+      "category": "点积类 (Dot Product)",
+      "category_key": "dot",
+      "funct6": "111100",
+      "funct3": "110",
+      "instruction_type": "OPMVX (multiply vector-scalar)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量扩展无符号点积累加",
+      "description_en": "Vector dot operation",
+      "diff_info": {
+        "type": "删除",
+        "v10_name": null,
+        "details": "1.0版本移除指令"
+      }
+    },
+    {
+      "name": "vwsmacc",
+      "category": "点积类 (Dot Product)",
+      "category_key": "dot",
+      "funct6": "111101",
+      "funct3": "010",
+      "instruction_type": "OPMVV (multiply vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量扩展有符号点积累加",
+      "description_en": "Vector dot operation",
+      "diff_info": {
+        "type": "删除",
+        "v10_name": null,
+        "details": "1.0版本移除指令"
+      }
+    },
+    {
+      "name": "vwsmacc",
+      "category": "点积类 (Dot Product)",
+      "category_key": "dot",
+      "funct6": "111101",
+      "funct3": "110",
+      "instruction_type": "OPMVX (multiply vector-scalar)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量扩展有符号点积累加",
+      "description_en": "Vector dot operation",
+      "diff_info": {
+        "type": "删除",
+        "v10_name": null,
+        "details": "1.0版本移除指令"
+      }
+    },
+    {
+      "name": "vwsmaccsu",
+      "category": "点积类 (Dot Product)",
+      "category_key": "dot",
+      "funct6": "111110",
+      "funct3": "010",
+      "instruction_type": "OPMVV (multiply vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量扩展有符号×无符号点积累加",
+      "description_en": "Vector dot operation",
+      "diff_info": {
+        "type": "删除",
+        "v10_name": null,
+        "details": "1.0版本移除指令"
+      }
+    },
+    {
+      "name": "vwsmaccsu",
+      "category": "点积类 (Dot Product)",
+      "category_key": "dot",
+      "funct6": "111110",
+      "funct3": "110",
+      "instruction_type": "OPMVX (multiply vector-scalar)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量扩展有符号×无符号点积累加",
+      "description_en": "Vector dot operation",
+      "diff_info": {
+        "type": "删除",
+        "v10_name": null,
+        "details": "1.0版本移除指令"
+      }
+    },
+    {
+      "name": "vwsmaccus",
+      "category": "点积类 (Dot Product)",
+      "category_key": "dot",
+      "funct6": "111111",
+      "funct3": "110",
+      "instruction_type": "OPMVX (multiply vector-scalar)",
+      "operands": "vd, vs1, vs2",
+      "description_cn": "向量扩展无符号×有符号点积累加",
+      "description_en": "Vector dot operation",
+      "diff_info": {
+        "type": "删除",
+        "v10_name": null,
+        "details": "1.0版本移除指令"
+      }
+    },
+    {
+      "name": "vlob",
+      "category": "加载类 (Load)",
+      "category_key": "load",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "N/A",
+      "instruction_type": "Unknown",
+      "operands": "vd, rs1, m",
+      "description_cn": "向量单元素加载(8位有符号)",
+      "description_en": "Vector load operation",
+      "diff_info": {
+        "type": "删除",
+        "v10_name": "vl1re8",
+        "details": "1.0版本移除指令"
+      }
+    },
+    {
+      "name": "vlobu",
+      "category": "加载类 (Load)",
+      "category_key": "load",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "N/A",
+      "instruction_type": "Unknown",
+      "operands": "vd, rs1, m",
+      "description_cn": "向量单元素加载(8位无符号)",
+      "description_en": "Vector load operation",
+      "diff_info": {
+        "type": "删除",
+        "v10_name": "vl1re8",
+        "details": "1.0版本移除指令"
+      }
+    },
+    {
+      "name": "vloh",
+      "category": "加载类 (Load)",
+      "category_key": "load",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "N/A",
+      "instruction_type": "Unknown",
+      "operands": "vd, rs1, m",
+      "description_cn": "向量单元素加载(16位有符号)",
+      "description_en": "Vector load operation",
+      "diff_info": {
+        "type": "删除",
+        "v10_name": "vl1re16",
+        "details": "1.0版本移除指令"
+      }
+    },
+    {
+      "name": "vlohu",
+      "category": "加载类 (Load)",
+      "category_key": "load",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "N/A",
+      "instruction_type": "Unknown",
+      "operands": "vd, rs1, m",
+      "description_cn": "向量单元素加载(16位无符号)",
+      "description_en": "Vector load operation",
+      "diff_info": {
+        "type": "删除",
+        "v10_name": "vl1re16",
+        "details": "1.0版本移除指令"
+      }
+    },
+    {
+      "name": "vlow",
+      "category": "加载类 (Load)",
+      "category_key": "load",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "N/A",
+      "instruction_type": "Unknown",
+      "operands": "vd, rs1, m",
+      "description_cn": "向量单元素加载(32位有符号)",
+      "description_en": "Vector load operation",
+      "diff_info": {
+        "type": "删除",
+        "v10_name": "vl1re32",
+        "details": "1.0版本移除指令"
+      }
+    },
+    {
+      "name": "vlowu",
+      "category": "加载类 (Load)",
+      "category_key": "load",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "N/A",
+      "instruction_type": "Unknown",
+      "operands": "vd, rs1, m",
+      "description_cn": "向量单元素加载(32位无符号)",
+      "description_en": "Vector load operation",
+      "diff_info": {
+        "type": "删除",
+        "v10_name": "vl1re32",
+        "details": "1.0版本移除指令"
+      }
+    },
+    {
+      "name": "vlod",
+      "category": "加载类 (Load)",
+      "category_key": "load",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "N/A",
+      "instruction_type": "Unknown",
+      "operands": "vd, rs1, m",
+      "description_cn": "向量单元素加载(64位)",
+      "description_en": "Vector load operation",
+      "diff_info": {
+        "type": "删除",
+        "v10_name": "vl1re64",
+        "details": "1.0版本移除指令"
+      }
+    },
+    {
+      "name": "vfloh",
+      "category": "加载类 (Load)",
+      "category_key": "load",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "N/A",
+      "instruction_type": "Unknown",
+      "operands": "vd, rs1, m",
+      "description_cn": "向量浮点单元素加载(16位)",
+      "description_en": "Vector load operation",
+      "diff_info": {
+        "type": "删除",
+        "v10_name": "vl1re16",
+        "details": "1.0版本移除指令"
+      }
+    },
+    {
+      "name": "vflow",
+      "category": "加载类 (Load)",
+      "category_key": "load",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "N/A",
+      "instruction_type": "Unknown",
+      "operands": "vd, rs1, m",
+      "description_cn": "向量浮点单元素加载(32位)",
+      "description_en": "Vector load operation",
+      "diff_info": {
+        "type": "删除",
+        "v10_name": "vl1re32",
+        "details": "1.0版本移除指令"
+      }
+    },
+    {
+      "name": "vflod",
+      "category": "加载类 (Load)",
+      "category_key": "load",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "N/A",
+      "instruction_type": "Unknown",
+      "operands": "vd, rs1, m",
+      "description_cn": "向量浮点单元素加载(64位)",
+      "description_en": "Vector load operation",
+      "diff_info": {
+        "type": "删除",
+        "v10_name": "vl1re64",
+        "details": "1.0版本移除指令"
+      }
+    },
+    {
+      "name": "vsob",
+      "category": "存储类 (Store)",
+      "category_key": "store",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "N/A",
+      "instruction_type": "Unknown",
+      "operands": "vs3, offset(rs1), m",
+      "description_cn": "向量单元素存储(8位)",
+      "description_en": "Vector store operation",
+      "diff_info": {
+        "type": "删除",
+        "v10_name": "vs1r",
+        "details": "1.0版本移除指令"
+      }
+    },
+    {
+      "name": "vsoh",
+      "category": "存储类 (Store)",
+      "category_key": "store",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "N/A",
+      "instruction_type": "Unknown",
+      "operands": "vs3, offset(rs1), m",
+      "description_cn": "向量单元素存储(16位)",
+      "description_en": "Vector store operation",
+      "diff_info": {
+        "type": "删除",
+        "v10_name": "vs1r",
+        "details": "1.0版本移除指令"
+      }
+    },
+    {
+      "name": "vsow",
+      "category": "存储类 (Store)",
+      "category_key": "store",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "N/A",
+      "instruction_type": "Unknown",
+      "operands": "vs3, offset(rs1), m",
+      "description_cn": "向量单元素存储(32位)",
+      "description_en": "Vector store operation",
+      "diff_info": {
+        "type": "删除",
+        "v10_name": "vs1r",
+        "details": "1.0版本移除指令"
+      }
+    },
+    {
+      "name": "vsod",
+      "category": "存储类 (Store)",
+      "category_key": "store",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "N/A",
+      "instruction_type": "Unknown",
+      "operands": "vs3, offset(rs1), m",
+      "description_cn": "向量单元素存储(64位)",
+      "description_en": "Vector store operation",
+      "diff_info": {
+        "type": "删除",
+        "v10_name": "vs1r",
+        "details": "1.0版本移除指令"
+      }
+    }
+  ],
+  "diff_summary": {
+    "total_added": 177,
+    "total_removed": 37,
+    "total_modified": 182,
+    "total_unchanged": 0,
+    "added_categories": [
+      "configuration",
+      "atomic"
+    ],
+    "removed_categories": [
+      "dot",
+      "clip"
+    ],
+    "major_changes": [
+      "加载/存储指令命名规范化 (vlb->vle8, vsb->vse8等)",
+      "新增Fault-Only-First加载指令 (vle8ff等)",
+      "新增向量配置指令 (vsetvli, vsetivli, vsetvl)",
+      "新增原子操作指令 (vamoswap, vamoadd等)",
+      "移除点积指令 (vdotu, vdot, vwsmacc*)",
+      "移除截断指令 (vclipb, vcliph, vclipw)",
+      "掩码指令重命名 (vmpopc->vcpop, vmfirst->vfirst)"
+    ]
+  }
 }

@@ -1,0 +1,6508 @@
+{
+  "metadata": {
+    "version": "0.7.1",
+    "source": "riscv-v-spec-0.7.1",
+    "description": "RISC-V Vector Extension Instruction Set (Version 0.7.1)",
+    "total_instructions": 357,
+    "categories_count": 15
+  },
+  "categories": {
+    "arithmetic": {
+      "name": "算术运算类 (Arithmetic)",
+      "count": 66
+    },
+    "logical": {
+      "name": "逻辑类 (Logical)",
+      "count": 9
+    },
+    "move": {
+      "name": "移动类 (Move)",
+      "count": 14
+    },
+    "shift": {
+      "name": "移位类 (Shift)",
+      "count": 33
+    },
+    "compare": {
+      "name": "比较类 (Compare)",
+      "count": 32
+    },
+    "reduction": {
+      "name": "归约类 (Reduction)",
+      "count": 10
+    },
+    "multiply-add": {
+      "name": "乘加类 (Multiply-Add)",
+      "count": 29
+    },
+    "mask": {
+      "name": "掩码类 (Mask)",
+      "count": 14
+    },
+    "fp": {
+      "name": "浮点类 (Floating-Point)",
+      "count": 61
+    },
+    "convert": {
+      "name": "转换类 (Convert)",
+      "count": 14
+    },
+    "special": {
+      "name": "特殊功能类 (Special)",
+      "count": 3
+    },
+    "dot": {
+      "name": "点积类 (Dot Product)",
+      "count": 10
+    },
+    "load": {
+      "name": "加载类 (Load)",
+      "count": 40
+    },
+    "store": {
+      "name": "存储类 (Store)",
+      "count": 16
+    },
+    "clip": {
+      "name": "截断类 (Clip)",
+      "count": 6
+    }
+  },
+  "instruction_types": {
+    "000": "OPIVV (vector-vector)",
+    "001": "OPFVV (FP vector-vector)",
+    "010": "OPMVV (multiply vector-vector)",
+    "011": "OPIVI (vector-immediate)",
+    "100": "OPIVX (vector-scalar)",
+    "101": "OPFVF (FP vector-scalar)",
+    "110": "OPMVX (multiply vector-scalar)"
+  },
+  "instructions": [
+    {
+      "name": "vadd",
+      "category": "算术运算类 (Arithmetic)",
+      "category_key": "arithmetic",
+      "funct6": "000000",
+      "funct3": "000",
+      "instruction_type": "OPIVV (vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量加法",
+      "description_en": "Vector add",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Vector or Vector-Immediate"
+      },
+      "vm_support": "Yes",
+      "format": "OPIVV/OPIVI"
+    },
+    {
+      "name": "vadd",
+      "category": "算术运算类 (Arithmetic)",
+      "category_key": "arithmetic",
+      "funct6": "000000",
+      "funct3": "100",
+      "instruction_type": "OPIVX (vector-scalar)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量加法",
+      "description_en": "Vector add",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Scalar"
+      },
+      "vm_support": "Yes",
+      "format": "OPIVX/OPMVX"
+    },
+    {
+      "name": "vadd",
+      "category": "算术运算类 (Arithmetic)",
+      "category_key": "arithmetic",
+      "funct6": "000000",
+      "funct3": "011",
+      "instruction_type": "OPIVI (vector-immediate)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量加法",
+      "description_en": "Vector add",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Vector or Vector-Immediate"
+      },
+      "vm_support": "Yes",
+      "format": "OPIVV/OPIVI"
+    },
+    {
+      "name": "vsub",
+      "category": "算术运算类 (Arithmetic)",
+      "category_key": "arithmetic",
+      "funct6": "000010",
+      "funct3": "000",
+      "instruction_type": "OPIVV (vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量减法",
+      "description_en": "Vector subtract",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Vector or Vector-Immediate"
+      },
+      "vm_support": "Yes",
+      "format": "Store"
+    },
+    {
+      "name": "vsub",
+      "category": "算术运算类 (Arithmetic)",
+      "category_key": "arithmetic",
+      "funct6": "000010",
+      "funct3": "100",
+      "instruction_type": "OPIVX (vector-scalar)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量减法",
+      "description_en": "Vector subtract",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Scalar"
+      },
+      "vm_support": "Yes",
+      "format": "Store"
+    },
+    {
+      "name": "vrsub",
+      "category": "算术运算类 (Arithmetic)",
+      "category_key": "arithmetic",
+      "funct6": "000011",
+      "funct3": "100",
+      "instruction_type": "OPIVX (vector-scalar)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "反向向量减法",
+      "description_en": "Vector arithmetic operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Scalar"
+      },
+      "vm_support": "Yes",
+      "format": "OPIVX/OPMVX"
+    },
+    {
+      "name": "vrsub",
+      "category": "算术运算类 (Arithmetic)",
+      "category_key": "arithmetic",
+      "funct6": "000011",
+      "funct3": "011",
+      "instruction_type": "OPIVI (vector-immediate)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "反向向量减法",
+      "description_en": "Vector arithmetic operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Vector or Vector-Immediate"
+      },
+      "vm_support": "Yes",
+      "format": "OPIVV/OPIVI"
+    },
+    {
+      "name": "vminu",
+      "category": "算术运算类 (Arithmetic)",
+      "category_key": "arithmetic",
+      "funct6": "000100",
+      "funct3": "000",
+      "instruction_type": "OPIVV (vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量无符号最小值",
+      "description_en": "Vector arithmetic operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Vector or Vector-Immediate"
+      },
+      "vm_support": "Yes",
+      "format": "OPIVV/OPIVI"
+    },
+    {
+      "name": "vminu",
+      "category": "算术运算类 (Arithmetic)",
+      "category_key": "arithmetic",
+      "funct6": "000100",
+      "funct3": "100",
+      "instruction_type": "OPIVX (vector-scalar)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量无符号最小值",
+      "description_en": "Vector arithmetic operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Scalar"
+      },
+      "vm_support": "Yes",
+      "format": "OPIVX/OPMVX"
+    },
+    {
+      "name": "vmin",
+      "category": "算术运算类 (Arithmetic)",
+      "category_key": "arithmetic",
+      "funct6": "000101",
+      "funct3": "000",
+      "instruction_type": "OPIVV (vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量有符号最小值",
+      "description_en": "Vector arithmetic operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Vector or Vector-Immediate"
+      },
+      "vm_support": "Yes",
+      "format": "OPIVV/OPIVI"
+    },
+    {
+      "name": "vmin",
+      "category": "算术运算类 (Arithmetic)",
+      "category_key": "arithmetic",
+      "funct6": "000101",
+      "funct3": "100",
+      "instruction_type": "OPIVX (vector-scalar)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量有符号最小值",
+      "description_en": "Vector arithmetic operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Scalar"
+      },
+      "vm_support": "Yes",
+      "format": "OPIVX/OPMVX"
+    },
+    {
+      "name": "vmaxu",
+      "category": "算术运算类 (Arithmetic)",
+      "category_key": "arithmetic",
+      "funct6": "000110",
+      "funct3": "000",
+      "instruction_type": "OPIVV (vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量无符号最大值",
+      "description_en": "Vector arithmetic operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Vector or Vector-Immediate"
+      },
+      "vm_support": "Yes",
+      "format": "OPIVV/OPIVI"
+    },
+    {
+      "name": "vmaxu",
+      "category": "算术运算类 (Arithmetic)",
+      "category_key": "arithmetic",
+      "funct6": "000110",
+      "funct3": "100",
+      "instruction_type": "OPIVX (vector-scalar)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量无符号最大值",
+      "description_en": "Vector arithmetic operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Scalar"
+      },
+      "vm_support": "Yes",
+      "format": "OPIVX/OPMVX"
+    },
+    {
+      "name": "vmax",
+      "category": "算术运算类 (Arithmetic)",
+      "category_key": "arithmetic",
+      "funct6": "000111",
+      "funct3": "000",
+      "instruction_type": "OPIVV (vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量有符号最大值",
+      "description_en": "Vector arithmetic operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Vector or Vector-Immediate"
+      },
+      "vm_support": "Yes",
+      "format": "OPIVV/OPIVI"
+    },
+    {
+      "name": "vmax",
+      "category": "算术运算类 (Arithmetic)",
+      "category_key": "arithmetic",
+      "funct6": "000111",
+      "funct3": "100",
+      "instruction_type": "OPIVX (vector-scalar)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量有符号最大值",
+      "description_en": "Vector arithmetic operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Scalar"
+      },
+      "vm_support": "Yes",
+      "format": "OPIVX/OPMVX"
+    },
+    {
+      "name": "vand",
+      "category": "逻辑类 (Logical)",
+      "category_key": "logical",
+      "funct6": "001001",
+      "funct3": "000",
+      "instruction_type": "OPIVV (vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量按位与",
+      "description_en": "Vector bitwise AND",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Vector or Vector-Immediate"
+      },
+      "vm_support": "Yes",
+      "format": "OPIVV/OPIVI"
+    },
+    {
+      "name": "vand",
+      "category": "逻辑类 (Logical)",
+      "category_key": "logical",
+      "funct6": "001001",
+      "funct3": "100",
+      "instruction_type": "OPIVX (vector-scalar)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量按位与",
+      "description_en": "Vector bitwise AND",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Scalar"
+      },
+      "vm_support": "Yes",
+      "format": "OPIVX/OPMVX"
+    },
+    {
+      "name": "vand",
+      "category": "逻辑类 (Logical)",
+      "category_key": "logical",
+      "funct6": "001001",
+      "funct3": "011",
+      "instruction_type": "OPIVI (vector-immediate)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量按位与",
+      "description_en": "Vector bitwise AND",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Vector or Vector-Immediate"
+      },
+      "vm_support": "Yes",
+      "format": "OPIVV/OPIVI"
+    },
+    {
+      "name": "vor",
+      "category": "逻辑类 (Logical)",
+      "category_key": "logical",
+      "funct6": "001010",
+      "funct3": "000",
+      "instruction_type": "OPIVV (vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量按位或",
+      "description_en": "Vector bitwise OR",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Vector or Vector-Immediate"
+      },
+      "vm_support": "Yes",
+      "format": "OPIVV/OPIVI"
+    },
+    {
+      "name": "vor",
+      "category": "逻辑类 (Logical)",
+      "category_key": "logical",
+      "funct6": "001010",
+      "funct3": "100",
+      "instruction_type": "OPIVX (vector-scalar)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量按位或",
+      "description_en": "Vector bitwise OR",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Scalar"
+      },
+      "vm_support": "Yes",
+      "format": "OPIVX/OPMVX"
+    },
+    {
+      "name": "vor",
+      "category": "逻辑类 (Logical)",
+      "category_key": "logical",
+      "funct6": "001010",
+      "funct3": "011",
+      "instruction_type": "OPIVI (vector-immediate)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量按位或",
+      "description_en": "Vector bitwise OR",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Vector or Vector-Immediate"
+      },
+      "vm_support": "Yes",
+      "format": "OPIVV/OPIVI"
+    },
+    {
+      "name": "vxor",
+      "category": "逻辑类 (Logical)",
+      "category_key": "logical",
+      "funct6": "001011",
+      "funct3": "000",
+      "instruction_type": "OPIVV (vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量按位异或",
+      "description_en": "Vector bitwise XOR",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Vector or Vector-Immediate"
+      },
+      "vm_support": "Yes",
+      "format": "OPIVV/OPIVI"
+    },
+    {
+      "name": "vxor",
+      "category": "逻辑类 (Logical)",
+      "category_key": "logical",
+      "funct6": "001011",
+      "funct3": "100",
+      "instruction_type": "OPIVX (vector-scalar)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量按位异或",
+      "description_en": "Vector bitwise XOR",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Scalar"
+      },
+      "vm_support": "Yes",
+      "format": "OPIVX/OPMVX"
+    },
+    {
+      "name": "vxor",
+      "category": "逻辑类 (Logical)",
+      "category_key": "logical",
+      "funct6": "001011",
+      "funct3": "011",
+      "instruction_type": "OPIVI (vector-immediate)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量按位异或",
+      "description_en": "Vector bitwise XOR",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Vector or Vector-Immediate"
+      },
+      "vm_support": "Yes",
+      "format": "OPIVV/OPIVI"
+    },
+    {
+      "name": "vrgather",
+      "category": "移动类 (Move)",
+      "category_key": "move",
+      "funct6": "001100",
+      "funct3": "000",
+      "instruction_type": "OPIVV (vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量聚合收集",
+      "description_en": "Vector move operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Vector or Vector-Immediate"
+      },
+      "vm_support": "Yes",
+      "format": "OPIVV/OPIVI"
+    },
+    {
+      "name": "vrgather",
+      "category": "移动类 (Move)",
+      "category_key": "move",
+      "funct6": "001100",
+      "funct3": "100",
+      "instruction_type": "OPIVX (vector-scalar)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量聚合收集",
+      "description_en": "Vector move operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Scalar"
+      },
+      "vm_support": "Yes",
+      "format": "OPIVX/OPMVX"
+    },
+    {
+      "name": "vrgather",
+      "category": "移动类 (Move)",
+      "category_key": "move",
+      "funct6": "001100",
+      "funct3": "011",
+      "instruction_type": "OPIVI (vector-immediate)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量聚合收集",
+      "description_en": "Vector move operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Vector or Vector-Immediate"
+      },
+      "vm_support": "Yes",
+      "format": "OPIVV/OPIVI"
+    },
+    {
+      "name": "vslideup",
+      "category": "移位类 (Shift)",
+      "category_key": "shift",
+      "funct6": "001110",
+      "funct3": "100",
+      "instruction_type": "OPIVX (vector-scalar)",
+      "operands": "vd, vs1, imm, m",
+      "description_cn": "向量上移",
+      "description_en": "Vector shift operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Scalar"
+      },
+      "vm_support": "Yes",
+      "format": "Store"
+    },
+    {
+      "name": "vslideup",
+      "category": "移位类 (Shift)",
+      "category_key": "shift",
+      "funct6": "001110",
+      "funct3": "011",
+      "instruction_type": "OPIVI (vector-immediate)",
+      "operands": "vd, vs1, imm, m",
+      "description_cn": "向量上移",
+      "description_en": "Vector shift operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Vector or Vector-Immediate"
+      },
+      "vm_support": "Yes",
+      "format": "Store"
+    },
+    {
+      "name": "vslidedown",
+      "category": "移位类 (Shift)",
+      "category_key": "shift",
+      "funct6": "001111",
+      "funct3": "100",
+      "instruction_type": "OPIVX (vector-scalar)",
+      "operands": "vd, vs1, imm, m",
+      "description_cn": "向量下移",
+      "description_en": "Vector shift operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Scalar"
+      },
+      "vm_support": "Yes",
+      "format": "Store"
+    },
+    {
+      "name": "vslidedown",
+      "category": "移位类 (Shift)",
+      "category_key": "shift",
+      "funct6": "001111",
+      "funct3": "011",
+      "instruction_type": "OPIVI (vector-immediate)",
+      "operands": "vd, vs1, imm, m",
+      "description_cn": "向量下移",
+      "description_en": "Vector shift operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Vector or Vector-Immediate"
+      },
+      "vm_support": "Yes",
+      "format": "Store"
+    },
+    {
+      "name": "vadc",
+      "category": "算术运算类 (Arithmetic)",
+      "category_key": "arithmetic",
+      "funct6": "010000",
+      "funct3": "000",
+      "instruction_type": "OPIVV (vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量加法(进位)",
+      "description_en": "Vector arithmetic operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Vector or Vector-Immediate"
+      },
+      "vm_support": "Yes",
+      "format": "OPIVV/OPIVI"
+    },
+    {
+      "name": "vadc",
+      "category": "算术运算类 (Arithmetic)",
+      "category_key": "arithmetic",
+      "funct6": "010000",
+      "funct3": "100",
+      "instruction_type": "OPIVX (vector-scalar)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量加法(进位)",
+      "description_en": "Vector arithmetic operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Scalar"
+      },
+      "vm_support": "Yes",
+      "format": "OPIVX/OPMVX"
+    },
+    {
+      "name": "vadc",
+      "category": "算术运算类 (Arithmetic)",
+      "category_key": "arithmetic",
+      "funct6": "010000",
+      "funct3": "011",
+      "instruction_type": "OPIVI (vector-immediate)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量加法(进位)",
+      "description_en": "Vector arithmetic operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Vector or Vector-Immediate"
+      },
+      "vm_support": "Yes",
+      "format": "OPIVV/OPIVI"
+    },
+    {
+      "name": "vmadc",
+      "category": "算术运算类 (Arithmetic)",
+      "category_key": "arithmetic",
+      "funct6": "010001",
+      "funct3": "000",
+      "instruction_type": "OPIVV (vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量加法进位(掩码)",
+      "description_en": "Vector arithmetic operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Vector or Vector-Immediate"
+      },
+      "vm_support": "Yes",
+      "format": "OPIVV/OPIVI"
+    },
+    {
+      "name": "vmadc",
+      "category": "算术运算类 (Arithmetic)",
+      "category_key": "arithmetic",
+      "funct6": "010001",
+      "funct3": "100",
+      "instruction_type": "OPIVX (vector-scalar)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量加法进位(掩码)",
+      "description_en": "Vector arithmetic operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Scalar"
+      },
+      "vm_support": "Yes",
+      "format": "OPIVX/OPMVX"
+    },
+    {
+      "name": "vmadc",
+      "category": "算术运算类 (Arithmetic)",
+      "category_key": "arithmetic",
+      "funct6": "010001",
+      "funct3": "011",
+      "instruction_type": "OPIVI (vector-immediate)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量加法进位(掩码)",
+      "description_en": "Vector arithmetic operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Vector or Vector-Immediate"
+      },
+      "vm_support": "Yes",
+      "format": "OPIVV/OPIVI"
+    },
+    {
+      "name": "vsbc",
+      "category": "算术运算类 (Arithmetic)",
+      "category_key": "arithmetic",
+      "funct6": "010010",
+      "funct3": "000",
+      "instruction_type": "OPIVV (vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量减法(借位)",
+      "description_en": "Vector store byte",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Vector or Vector-Immediate"
+      },
+      "vm_support": "Yes",
+      "format": "Store"
+    },
+    {
+      "name": "vsbc",
+      "category": "算术运算类 (Arithmetic)",
+      "category_key": "arithmetic",
+      "funct6": "010010",
+      "funct3": "100",
+      "instruction_type": "OPIVX (vector-scalar)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量减法(借位)",
+      "description_en": "Vector store byte",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Scalar"
+      },
+      "vm_support": "Yes",
+      "format": "Store"
+    },
+    {
+      "name": "vmsbc",
+      "category": "算术运算类 (Arithmetic)",
+      "category_key": "arithmetic",
+      "funct6": "010011",
+      "funct3": "000",
+      "instruction_type": "OPIVV (vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量减法借位(掩码)",
+      "description_en": "Vector arithmetic operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Vector or Vector-Immediate"
+      },
+      "vm_support": "Yes",
+      "format": "OPIVV/OPIVI"
+    },
+    {
+      "name": "vmsbc",
+      "category": "算术运算类 (Arithmetic)",
+      "category_key": "arithmetic",
+      "funct6": "010011",
+      "funct3": "100",
+      "instruction_type": "OPIVX (vector-scalar)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量减法借位(掩码)",
+      "description_en": "Vector arithmetic operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Scalar"
+      },
+      "vm_support": "Yes",
+      "format": "OPIVX/OPMVX"
+    },
+    {
+      "name": "vmerge",
+      "category": "移动类 (Move)",
+      "category_key": "move",
+      "funct6": "010111",
+      "funct3": "000",
+      "instruction_type": "OPIVV (vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量合并",
+      "description_en": "Vector move operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Vector or Vector-Immediate"
+      },
+      "vm_support": "Yes",
+      "format": "OPIVV/OPIVI"
+    },
+    {
+      "name": "vmerge",
+      "category": "移动类 (Move)",
+      "category_key": "move",
+      "funct6": "010111",
+      "funct3": "100",
+      "instruction_type": "OPIVX (vector-scalar)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量合并",
+      "description_en": "Vector move operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Scalar"
+      },
+      "vm_support": "Yes",
+      "format": "OPIVX/OPMVX"
+    },
+    {
+      "name": "vmerge",
+      "category": "移动类 (Move)",
+      "category_key": "move",
+      "funct6": "010111",
+      "funct3": "011",
+      "instruction_type": "OPIVI (vector-immediate)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量合并",
+      "description_en": "Vector move operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Vector or Vector-Immediate"
+      },
+      "vm_support": "Yes",
+      "format": "OPIVV/OPIVI"
+    },
+    {
+      "name": "vmv",
+      "category": "移动类 (Move)",
+      "category_key": "move",
+      "funct6": "010111",
+      "funct3": "000",
+      "instruction_type": "OPIVV (vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量移动",
+      "description_en": "Vector move operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Vector or Vector-Immediate"
+      },
+      "vm_support": "Yes",
+      "format": "OPIVV/OPIVI"
+    },
+    {
+      "name": "vmv",
+      "category": "移动类 (Move)",
+      "category_key": "move",
+      "funct6": "010111",
+      "funct3": "100",
+      "instruction_type": "OPIVX (vector-scalar)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量移动",
+      "description_en": "Vector move operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Scalar"
+      },
+      "vm_support": "Yes",
+      "format": "OPIVX/OPMVX"
+    },
+    {
+      "name": "vmv",
+      "category": "移动类 (Move)",
+      "category_key": "move",
+      "funct6": "010111",
+      "funct3": "011",
+      "instruction_type": "OPIVI (vector-immediate)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量移动",
+      "description_en": "Vector move operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Vector or Vector-Immediate"
+      },
+      "vm_support": "Yes",
+      "format": "OPIVV/OPIVI"
+    },
+    {
+      "name": "vmseq",
+      "category": "比较类 (Compare)",
+      "category_key": "compare",
+      "funct6": "011000",
+      "funct3": "000",
+      "instruction_type": "OPIVV (vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量相等比较",
+      "description_en": "Vector compare operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Vector or Vector-Immediate"
+      },
+      "vm_support": "Yes",
+      "format": "OPIVV/OPIVI"
+    },
+    {
+      "name": "vmseq",
+      "category": "比较类 (Compare)",
+      "category_key": "compare",
+      "funct6": "011000",
+      "funct3": "100",
+      "instruction_type": "OPIVX (vector-scalar)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量相等比较",
+      "description_en": "Vector compare operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Scalar"
+      },
+      "vm_support": "Yes",
+      "format": "OPIVX/OPMVX"
+    },
+    {
+      "name": "vmseq",
+      "category": "比较类 (Compare)",
+      "category_key": "compare",
+      "funct6": "011000",
+      "funct3": "011",
+      "instruction_type": "OPIVI (vector-immediate)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量相等比较",
+      "description_en": "Vector compare operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Vector or Vector-Immediate"
+      },
+      "vm_support": "Yes",
+      "format": "OPIVV/OPIVI"
+    },
+    {
+      "name": "vmsne",
+      "category": "比较类 (Compare)",
+      "category_key": "compare",
+      "funct6": "011001",
+      "funct3": "000",
+      "instruction_type": "OPIVV (vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量不等比较",
+      "description_en": "Vector compare operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Vector or Vector-Immediate"
+      },
+      "vm_support": "Yes",
+      "format": "OPIVV/OPIVI"
+    },
+    {
+      "name": "vmsne",
+      "category": "比较类 (Compare)",
+      "category_key": "compare",
+      "funct6": "011001",
+      "funct3": "100",
+      "instruction_type": "OPIVX (vector-scalar)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量不等比较",
+      "description_en": "Vector compare operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Scalar"
+      },
+      "vm_support": "Yes",
+      "format": "OPIVX/OPMVX"
+    },
+    {
+      "name": "vmsne",
+      "category": "比较类 (Compare)",
+      "category_key": "compare",
+      "funct6": "011001",
+      "funct3": "011",
+      "instruction_type": "OPIVI (vector-immediate)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量不等比较",
+      "description_en": "Vector compare operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Vector or Vector-Immediate"
+      },
+      "vm_support": "Yes",
+      "format": "OPIVV/OPIVI"
+    },
+    {
+      "name": "vmsltu",
+      "category": "比较类 (Compare)",
+      "category_key": "compare",
+      "funct6": "011010",
+      "funct3": "000",
+      "instruction_type": "OPIVV (vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量无符号小于比较",
+      "description_en": "Vector compare operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Vector or Vector-Immediate"
+      },
+      "vm_support": "Yes",
+      "format": "OPIVV/OPIVI"
+    },
+    {
+      "name": "vmsltu",
+      "category": "比较类 (Compare)",
+      "category_key": "compare",
+      "funct6": "011010",
+      "funct3": "100",
+      "instruction_type": "OPIVX (vector-scalar)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量无符号小于比较",
+      "description_en": "Vector compare operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Scalar"
+      },
+      "vm_support": "Yes",
+      "format": "OPIVX/OPMVX"
+    },
+    {
+      "name": "vmslt",
+      "category": "比较类 (Compare)",
+      "category_key": "compare",
+      "funct6": "011011",
+      "funct3": "000",
+      "instruction_type": "OPIVV (vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量有符号小于比较",
+      "description_en": "Vector compare operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Vector or Vector-Immediate"
+      },
+      "vm_support": "Yes",
+      "format": "OPIVV/OPIVI"
+    },
+    {
+      "name": "vmslt",
+      "category": "比较类 (Compare)",
+      "category_key": "compare",
+      "funct6": "011011",
+      "funct3": "100",
+      "instruction_type": "OPIVX (vector-scalar)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量有符号小于比较",
+      "description_en": "Vector compare operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Scalar"
+      },
+      "vm_support": "Yes",
+      "format": "OPIVX/OPMVX"
+    },
+    {
+      "name": "vmsleu",
+      "category": "比较类 (Compare)",
+      "category_key": "compare",
+      "funct6": "011100",
+      "funct3": "000",
+      "instruction_type": "OPIVV (vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量无符号小于等于比较",
+      "description_en": "Vector compare operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Vector or Vector-Immediate"
+      },
+      "vm_support": "Yes",
+      "format": "OPIVV/OPIVI"
+    },
+    {
+      "name": "vmsleu",
+      "category": "比较类 (Compare)",
+      "category_key": "compare",
+      "funct6": "011100",
+      "funct3": "100",
+      "instruction_type": "OPIVX (vector-scalar)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量无符号小于等于比较",
+      "description_en": "Vector compare operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Scalar"
+      },
+      "vm_support": "Yes",
+      "format": "OPIVX/OPMVX"
+    },
+    {
+      "name": "vmsleu",
+      "category": "比较类 (Compare)",
+      "category_key": "compare",
+      "funct6": "011100",
+      "funct3": "011",
+      "instruction_type": "OPIVI (vector-immediate)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量无符号小于等于比较",
+      "description_en": "Vector compare operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Vector or Vector-Immediate"
+      },
+      "vm_support": "Yes",
+      "format": "OPIVV/OPIVI"
+    },
+    {
+      "name": "vmsle",
+      "category": "比较类 (Compare)",
+      "category_key": "compare",
+      "funct6": "011101",
+      "funct3": "000",
+      "instruction_type": "OPIVV (vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量有符号小于等于比较",
+      "description_en": "Vector compare operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Vector or Vector-Immediate"
+      },
+      "vm_support": "Yes",
+      "format": "OPIVV/OPIVI"
+    },
+    {
+      "name": "vmsle",
+      "category": "比较类 (Compare)",
+      "category_key": "compare",
+      "funct6": "011101",
+      "funct3": "100",
+      "instruction_type": "OPIVX (vector-scalar)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量有符号小于等于比较",
+      "description_en": "Vector compare operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Scalar"
+      },
+      "vm_support": "Yes",
+      "format": "OPIVX/OPMVX"
+    },
+    {
+      "name": "vmsle",
+      "category": "比较类 (Compare)",
+      "category_key": "compare",
+      "funct6": "011101",
+      "funct3": "011",
+      "instruction_type": "OPIVI (vector-immediate)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量有符号小于等于比较",
+      "description_en": "Vector compare operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Vector or Vector-Immediate"
+      },
+      "vm_support": "Yes",
+      "format": "OPIVV/OPIVI"
+    },
+    {
+      "name": "vmsgtu",
+      "category": "比较类 (Compare)",
+      "category_key": "compare",
+      "funct6": "011110",
+      "funct3": "100",
+      "instruction_type": "OPIVX (vector-scalar)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量无符号大于比较",
+      "description_en": "Vector compare operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Scalar"
+      },
+      "vm_support": "Yes",
+      "format": "OPIVX/OPMVX"
+    },
+    {
+      "name": "vmsgtu",
+      "category": "比较类 (Compare)",
+      "category_key": "compare",
+      "funct6": "011110",
+      "funct3": "011",
+      "instruction_type": "OPIVI (vector-immediate)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量无符号大于比较",
+      "description_en": "Vector compare operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Vector or Vector-Immediate"
+      },
+      "vm_support": "Yes",
+      "format": "OPIVV/OPIVI"
+    },
+    {
+      "name": "vmsgt",
+      "category": "比较类 (Compare)",
+      "category_key": "compare",
+      "funct6": "011111",
+      "funct3": "100",
+      "instruction_type": "OPIVX (vector-scalar)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量有符号大于比较",
+      "description_en": "Vector compare operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Scalar"
+      },
+      "vm_support": "Yes",
+      "format": "OPIVX/OPMVX"
+    },
+    {
+      "name": "vmsgt",
+      "category": "比较类 (Compare)",
+      "category_key": "compare",
+      "funct6": "011111",
+      "funct3": "011",
+      "instruction_type": "OPIVI (vector-immediate)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量有符号大于比较",
+      "description_en": "Vector compare operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Vector or Vector-Immediate"
+      },
+      "vm_support": "Yes",
+      "format": "OPIVV/OPIVI"
+    },
+    {
+      "name": "vsaddu",
+      "category": "算术运算类 (Arithmetic)",
+      "category_key": "arithmetic",
+      "funct6": "100000",
+      "funct3": "000",
+      "instruction_type": "OPIVV (vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量饱和无符号加法",
+      "description_en": "Vector arithmetic operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Vector or Vector-Immediate"
+      },
+      "vm_support": "Yes",
+      "format": "Store"
+    },
+    {
+      "name": "vsaddu",
+      "category": "算术运算类 (Arithmetic)",
+      "category_key": "arithmetic",
+      "funct6": "100000",
+      "funct3": "100",
+      "instruction_type": "OPIVX (vector-scalar)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量饱和无符号加法",
+      "description_en": "Vector arithmetic operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Scalar"
+      },
+      "vm_support": "Yes",
+      "format": "Store"
+    },
+    {
+      "name": "vsaddu",
+      "category": "算术运算类 (Arithmetic)",
+      "category_key": "arithmetic",
+      "funct6": "100000",
+      "funct3": "011",
+      "instruction_type": "OPIVI (vector-immediate)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量饱和无符号加法",
+      "description_en": "Vector arithmetic operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Vector or Vector-Immediate"
+      },
+      "vm_support": "Yes",
+      "format": "Store"
+    },
+    {
+      "name": "vsadd",
+      "category": "算术运算类 (Arithmetic)",
+      "category_key": "arithmetic",
+      "funct6": "100001",
+      "funct3": "000",
+      "instruction_type": "OPIVV (vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量饱和有符号加法",
+      "description_en": "Vector arithmetic operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Vector or Vector-Immediate"
+      },
+      "vm_support": "Yes",
+      "format": "Store"
+    },
+    {
+      "name": "vsadd",
+      "category": "算术运算类 (Arithmetic)",
+      "category_key": "arithmetic",
+      "funct6": "100001",
+      "funct3": "100",
+      "instruction_type": "OPIVX (vector-scalar)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量饱和有符号加法",
+      "description_en": "Vector arithmetic operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Scalar"
+      },
+      "vm_support": "Yes",
+      "format": "Store"
+    },
+    {
+      "name": "vsadd",
+      "category": "算术运算类 (Arithmetic)",
+      "category_key": "arithmetic",
+      "funct6": "100001",
+      "funct3": "011",
+      "instruction_type": "OPIVI (vector-immediate)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量饱和有符号加法",
+      "description_en": "Vector arithmetic operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Vector or Vector-Immediate"
+      },
+      "vm_support": "Yes",
+      "format": "Store"
+    },
+    {
+      "name": "vssubu",
+      "category": "算术运算类 (Arithmetic)",
+      "category_key": "arithmetic",
+      "funct6": "100010",
+      "funct3": "000",
+      "instruction_type": "OPIVV (vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量饱和无符号减法",
+      "description_en": "Vector arithmetic operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Vector or Vector-Immediate"
+      },
+      "vm_support": "Yes",
+      "format": "Store"
+    },
+    {
+      "name": "vssubu",
+      "category": "算术运算类 (Arithmetic)",
+      "category_key": "arithmetic",
+      "funct6": "100010",
+      "funct3": "100",
+      "instruction_type": "OPIVX (vector-scalar)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量饱和无符号减法",
+      "description_en": "Vector arithmetic operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Scalar"
+      },
+      "vm_support": "Yes",
+      "format": "Store"
+    },
+    {
+      "name": "vssub",
+      "category": "算术运算类 (Arithmetic)",
+      "category_key": "arithmetic",
+      "funct6": "100011",
+      "funct3": "000",
+      "instruction_type": "OPIVV (vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量饱和有符号减法",
+      "description_en": "Vector arithmetic operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Vector or Vector-Immediate"
+      },
+      "vm_support": "Yes",
+      "format": "Store"
+    },
+    {
+      "name": "vssub",
+      "category": "算术运算类 (Arithmetic)",
+      "category_key": "arithmetic",
+      "funct6": "100011",
+      "funct3": "100",
+      "instruction_type": "OPIVX (vector-scalar)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量饱和有符号减法",
+      "description_en": "Vector arithmetic operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Scalar"
+      },
+      "vm_support": "Yes",
+      "format": "Store"
+    },
+    {
+      "name": "vaadd",
+      "category": "算术运算类 (Arithmetic)",
+      "category_key": "arithmetic",
+      "funct6": "100100",
+      "funct3": "000",
+      "instruction_type": "OPIVV (vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量绝对值加法",
+      "description_en": "Vector arithmetic operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Vector or Vector-Immediate"
+      },
+      "vm_support": "Yes",
+      "format": "OPIVV/OPIVI"
+    },
+    {
+      "name": "vaadd",
+      "category": "算术运算类 (Arithmetic)",
+      "category_key": "arithmetic",
+      "funct6": "100100",
+      "funct3": "100",
+      "instruction_type": "OPIVX (vector-scalar)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量绝对值加法",
+      "description_en": "Vector arithmetic operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Scalar"
+      },
+      "vm_support": "Yes",
+      "format": "OPIVX/OPMVX"
+    },
+    {
+      "name": "vaadd",
+      "category": "算术运算类 (Arithmetic)",
+      "category_key": "arithmetic",
+      "funct6": "100100",
+      "funct3": "011",
+      "instruction_type": "OPIVI (vector-immediate)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量绝对值加法",
+      "description_en": "Vector arithmetic operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Vector or Vector-Immediate"
+      },
+      "vm_support": "Yes",
+      "format": "OPIVV/OPIVI"
+    },
+    {
+      "name": "vsll",
+      "category": "移位类 (Shift)",
+      "category_key": "shift",
+      "funct6": "100101",
+      "funct3": "000",
+      "instruction_type": "OPIVV (vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量逻辑左移",
+      "description_en": "Vector shift operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Vector or Vector-Immediate"
+      },
+      "vm_support": "Yes",
+      "format": "Store"
+    },
+    {
+      "name": "vsll",
+      "category": "移位类 (Shift)",
+      "category_key": "shift",
+      "funct6": "100101",
+      "funct3": "100",
+      "instruction_type": "OPIVX (vector-scalar)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量逻辑左移",
+      "description_en": "Vector shift operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Scalar"
+      },
+      "vm_support": "Yes",
+      "format": "Store"
+    },
+    {
+      "name": "vsll",
+      "category": "移位类 (Shift)",
+      "category_key": "shift",
+      "funct6": "100101",
+      "funct3": "011",
+      "instruction_type": "OPIVI (vector-immediate)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量逻辑左移",
+      "description_en": "Vector shift operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Vector or Vector-Immediate"
+      },
+      "vm_support": "Yes",
+      "format": "Store"
+    },
+    {
+      "name": "vasub",
+      "category": "算术运算类 (Arithmetic)",
+      "category_key": "arithmetic",
+      "funct6": "100110",
+      "funct3": "000",
+      "instruction_type": "OPIVV (vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量绝对值减法",
+      "description_en": "Vector arithmetic operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Vector or Vector-Immediate"
+      },
+      "vm_support": "Yes",
+      "format": "OPIVV/OPIVI"
+    },
+    {
+      "name": "vasub",
+      "category": "算术运算类 (Arithmetic)",
+      "category_key": "arithmetic",
+      "funct6": "100110",
+      "funct3": "100",
+      "instruction_type": "OPIVX (vector-scalar)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量绝对值减法",
+      "description_en": "Vector arithmetic operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Scalar"
+      },
+      "vm_support": "Yes",
+      "format": "OPIVX/OPMVX"
+    },
+    {
+      "name": "vsmul",
+      "category": "算术运算类 (Arithmetic)",
+      "category_key": "arithmetic",
+      "funct6": "100111",
+      "funct3": "000",
+      "instruction_type": "OPIVV (vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量饱和乘法",
+      "description_en": "Vector arithmetic operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Vector or Vector-Immediate"
+      },
+      "vm_support": "Yes",
+      "format": "Store"
+    },
+    {
+      "name": "vsmul",
+      "category": "算术运算类 (Arithmetic)",
+      "category_key": "arithmetic",
+      "funct6": "100111",
+      "funct3": "100",
+      "instruction_type": "OPIVX (vector-scalar)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量饱和乘法",
+      "description_en": "Vector arithmetic operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Scalar"
+      },
+      "vm_support": "Yes",
+      "format": "Store"
+    },
+    {
+      "name": "vsrl",
+      "category": "移位类 (Shift)",
+      "category_key": "shift",
+      "funct6": "101000",
+      "funct3": "000",
+      "instruction_type": "OPIVV (vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量逻辑右移",
+      "description_en": "Vector shift operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Vector or Vector-Immediate"
+      },
+      "vm_support": "Yes",
+      "format": "Store"
+    },
+    {
+      "name": "vsrl",
+      "category": "移位类 (Shift)",
+      "category_key": "shift",
+      "funct6": "101000",
+      "funct3": "100",
+      "instruction_type": "OPIVX (vector-scalar)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量逻辑右移",
+      "description_en": "Vector shift operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Scalar"
+      },
+      "vm_support": "Yes",
+      "format": "Store"
+    },
+    {
+      "name": "vsrl",
+      "category": "移位类 (Shift)",
+      "category_key": "shift",
+      "funct6": "101000",
+      "funct3": "011",
+      "instruction_type": "OPIVI (vector-immediate)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量逻辑右移",
+      "description_en": "Vector shift operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Vector or Vector-Immediate"
+      },
+      "vm_support": "Yes",
+      "format": "Store"
+    },
+    {
+      "name": "vsra",
+      "category": "移位类 (Shift)",
+      "category_key": "shift",
+      "funct6": "101001",
+      "funct3": "000",
+      "instruction_type": "OPIVV (vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量算术右移",
+      "description_en": "Vector shift operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Vector or Vector-Immediate"
+      },
+      "vm_support": "Yes",
+      "format": "Store"
+    },
+    {
+      "name": "vsra",
+      "category": "移位类 (Shift)",
+      "category_key": "shift",
+      "funct6": "101001",
+      "funct3": "100",
+      "instruction_type": "OPIVX (vector-scalar)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量算术右移",
+      "description_en": "Vector shift operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Scalar"
+      },
+      "vm_support": "Yes",
+      "format": "Store"
+    },
+    {
+      "name": "vsra",
+      "category": "移位类 (Shift)",
+      "category_key": "shift",
+      "funct6": "101001",
+      "funct3": "011",
+      "instruction_type": "OPIVI (vector-immediate)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量算术右移",
+      "description_en": "Vector shift operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Vector or Vector-Immediate"
+      },
+      "vm_support": "Yes",
+      "format": "Store"
+    },
+    {
+      "name": "vssrl",
+      "category": "移位类 (Shift)",
+      "category_key": "shift",
+      "funct6": "101010",
+      "funct3": "000",
+      "instruction_type": "OPIVV (vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量饱和逻辑右移",
+      "description_en": "Vector shift operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Vector or Vector-Immediate"
+      },
+      "vm_support": "Yes",
+      "format": "Store"
+    },
+    {
+      "name": "vssrl",
+      "category": "移位类 (Shift)",
+      "category_key": "shift",
+      "funct6": "101010",
+      "funct3": "100",
+      "instruction_type": "OPIVX (vector-scalar)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量饱和逻辑右移",
+      "description_en": "Vector shift operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Scalar"
+      },
+      "vm_support": "Yes",
+      "format": "Store"
+    },
+    {
+      "name": "vssrl",
+      "category": "移位类 (Shift)",
+      "category_key": "shift",
+      "funct6": "101010",
+      "funct3": "011",
+      "instruction_type": "OPIVI (vector-immediate)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量饱和逻辑右移",
+      "description_en": "Vector shift operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Vector or Vector-Immediate"
+      },
+      "vm_support": "Yes",
+      "format": "Store"
+    },
+    {
+      "name": "vssra",
+      "category": "移位类 (Shift)",
+      "category_key": "shift",
+      "funct6": "101011",
+      "funct3": "000",
+      "instruction_type": "OPIVV (vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量饱和算术右移",
+      "description_en": "Vector shift operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Vector or Vector-Immediate"
+      },
+      "vm_support": "Yes",
+      "format": "Store"
+    },
+    {
+      "name": "vssra",
+      "category": "移位类 (Shift)",
+      "category_key": "shift",
+      "funct6": "101011",
+      "funct3": "100",
+      "instruction_type": "OPIVX (vector-scalar)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量饱和算术右移",
+      "description_en": "Vector shift operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Scalar"
+      },
+      "vm_support": "Yes",
+      "format": "Store"
+    },
+    {
+      "name": "vssra",
+      "category": "移位类 (Shift)",
+      "category_key": "shift",
+      "funct6": "101011",
+      "funct3": "011",
+      "instruction_type": "OPIVI (vector-immediate)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量饱和算术右移",
+      "description_en": "Vector shift operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Vector or Vector-Immediate"
+      },
+      "vm_support": "Yes",
+      "format": "Store"
+    },
+    {
+      "name": "vnsrl",
+      "category": "移位类 (Shift)",
+      "category_key": "shift",
+      "funct6": "101100",
+      "funct3": "000",
+      "instruction_type": "OPIVV (vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量窄逻辑右移",
+      "description_en": "Vector shift operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Vector or Vector-Immediate"
+      },
+      "vm_support": "Yes",
+      "format": "OPIVV/OPIVI"
+    },
+    {
+      "name": "vnsrl",
+      "category": "移位类 (Shift)",
+      "category_key": "shift",
+      "funct6": "101100",
+      "funct3": "100",
+      "instruction_type": "OPIVX (vector-scalar)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量窄逻辑右移",
+      "description_en": "Vector shift operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Scalar"
+      },
+      "vm_support": "Yes",
+      "format": "OPIVX/OPMVX"
+    },
+    {
+      "name": "vnsrl",
+      "category": "移位类 (Shift)",
+      "category_key": "shift",
+      "funct6": "101100",
+      "funct3": "011",
+      "instruction_type": "OPIVI (vector-immediate)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量窄逻辑右移",
+      "description_en": "Vector shift operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Vector or Vector-Immediate"
+      },
+      "vm_support": "Yes",
+      "format": "OPIVV/OPIVI"
+    },
+    {
+      "name": "vnsra",
+      "category": "移位类 (Shift)",
+      "category_key": "shift",
+      "funct6": "101101",
+      "funct3": "000",
+      "instruction_type": "OPIVV (vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量窄算术右移",
+      "description_en": "Vector shift operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Vector or Vector-Immediate"
+      },
+      "vm_support": "Yes",
+      "format": "OPIVV/OPIVI"
+    },
+    {
+      "name": "vnsra",
+      "category": "移位类 (Shift)",
+      "category_key": "shift",
+      "funct6": "101101",
+      "funct3": "100",
+      "instruction_type": "OPIVX (vector-scalar)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量窄算术右移",
+      "description_en": "Vector shift operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Scalar"
+      },
+      "vm_support": "Yes",
+      "format": "OPIVX/OPMVX"
+    },
+    {
+      "name": "vnsra",
+      "category": "移位类 (Shift)",
+      "category_key": "shift",
+      "funct6": "101101",
+      "funct3": "011",
+      "instruction_type": "OPIVI (vector-immediate)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量窄算术右移",
+      "description_en": "Vector shift operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Vector or Vector-Immediate"
+      },
+      "vm_support": "Yes",
+      "format": "OPIVV/OPIVI"
+    },
+    {
+      "name": "vnclipu",
+      "category": "移位类 (Shift)",
+      "category_key": "shift",
+      "funct6": "101110",
+      "funct3": "000",
+      "instruction_type": "OPIVV (vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量窄截断无符号右移",
+      "description_en": "Vector shift operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Vector or Vector-Immediate"
+      },
+      "vm_support": "Yes",
+      "format": "OPIVV/OPIVI"
+    },
+    {
+      "name": "vnclipu",
+      "category": "移位类 (Shift)",
+      "category_key": "shift",
+      "funct6": "101110",
+      "funct3": "100",
+      "instruction_type": "OPIVX (vector-scalar)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量窄截断无符号右移",
+      "description_en": "Vector shift operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Scalar"
+      },
+      "vm_support": "Yes",
+      "format": "OPIVX/OPMVX"
+    },
+    {
+      "name": "vnclipu",
+      "category": "移位类 (Shift)",
+      "category_key": "shift",
+      "funct6": "101110",
+      "funct3": "011",
+      "instruction_type": "OPIVI (vector-immediate)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量窄截断无符号右移",
+      "description_en": "Vector shift operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Vector or Vector-Immediate"
+      },
+      "vm_support": "Yes",
+      "format": "OPIVV/OPIVI"
+    },
+    {
+      "name": "vnclip",
+      "category": "移位类 (Shift)",
+      "category_key": "shift",
+      "funct6": "101111",
+      "funct3": "000",
+      "instruction_type": "OPIVV (vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量窄截断有符号右移",
+      "description_en": "Vector shift operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Vector or Vector-Immediate"
+      },
+      "vm_support": "Yes",
+      "format": "OPIVV/OPIVI"
+    },
+    {
+      "name": "vnclip",
+      "category": "移位类 (Shift)",
+      "category_key": "shift",
+      "funct6": "101111",
+      "funct3": "100",
+      "instruction_type": "OPIVX (vector-scalar)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量窄截断有符号右移",
+      "description_en": "Vector shift operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Scalar"
+      },
+      "vm_support": "Yes",
+      "format": "OPIVX/OPMVX"
+    },
+    {
+      "name": "vnclip",
+      "category": "移位类 (Shift)",
+      "category_key": "shift",
+      "funct6": "101111",
+      "funct3": "011",
+      "instruction_type": "OPIVI (vector-immediate)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量窄截断有符号右移",
+      "description_en": "Vector shift operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Vector or Vector-Immediate"
+      },
+      "vm_support": "Yes",
+      "format": "OPIVV/OPIVI"
+    },
+    {
+      "name": "vwredsumu",
+      "category": "归约类 (Reduction)",
+      "category_key": "reduction",
+      "funct6": "110000",
+      "funct3": "000",
+      "instruction_type": "OPIVV (vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量扩展无符号求和归约",
+      "description_en": "Vector reduction operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Vector or Vector-Immediate"
+      },
+      "vm_support": "Yes",
+      "format": "OPIVV/OPIVI"
+    },
+    {
+      "name": "vwredsum",
+      "category": "归约类 (Reduction)",
+      "category_key": "reduction",
+      "funct6": "110001",
+      "funct3": "000",
+      "instruction_type": "OPIVV (vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量扩展有符号求和归约",
+      "description_en": "Vector reduction operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Vector or Vector-Immediate"
+      },
+      "vm_support": "Yes",
+      "format": "OPIVV/OPIVI"
+    },
+    {
+      "name": "vwaddu",
+      "category": "算术运算类 (Arithmetic)",
+      "category_key": "arithmetic",
+      "funct6": "110000",
+      "funct3": "010",
+      "instruction_type": "OPMVV (multiply vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量扩展无符号加法",
+      "description_en": "Vector arithmetic operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Multiply operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPMVV"
+    },
+    {
+      "name": "vwaddu",
+      "category": "算术运算类 (Arithmetic)",
+      "category_key": "arithmetic",
+      "funct6": "110000",
+      "funct3": "110",
+      "instruction_type": "OPMVX (multiply vector-scalar)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量扩展无符号加法",
+      "description_en": "Vector arithmetic operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Scalar"
+      },
+      "vm_support": "Yes",
+      "format": "OPIVX/OPMVX"
+    },
+    {
+      "name": "vwadd",
+      "category": "算术运算类 (Arithmetic)",
+      "category_key": "arithmetic",
+      "funct6": "110001",
+      "funct3": "010",
+      "instruction_type": "OPMVV (multiply vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量扩展有符号加法",
+      "description_en": "Vector arithmetic operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Multiply operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPMVV"
+    },
+    {
+      "name": "vwadd",
+      "category": "算术运算类 (Arithmetic)",
+      "category_key": "arithmetic",
+      "funct6": "110001",
+      "funct3": "110",
+      "instruction_type": "OPMVX (multiply vector-scalar)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量扩展有符号加法",
+      "description_en": "Vector arithmetic operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Scalar"
+      },
+      "vm_support": "Yes",
+      "format": "OPIVX/OPMVX"
+    },
+    {
+      "name": "vwsubu",
+      "category": "算术运算类 (Arithmetic)",
+      "category_key": "arithmetic",
+      "funct6": "110010",
+      "funct3": "010",
+      "instruction_type": "OPMVV (multiply vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量扩展无符号减法",
+      "description_en": "Vector arithmetic operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Multiply operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPMVV"
+    },
+    {
+      "name": "vwsubu",
+      "category": "算术运算类 (Arithmetic)",
+      "category_key": "arithmetic",
+      "funct6": "110010",
+      "funct3": "110",
+      "instruction_type": "OPMVX (multiply vector-scalar)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量扩展无符号减法",
+      "description_en": "Vector arithmetic operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Scalar"
+      },
+      "vm_support": "Yes",
+      "format": "OPIVX/OPMVX"
+    },
+    {
+      "name": "vwsub",
+      "category": "算术运算类 (Arithmetic)",
+      "category_key": "arithmetic",
+      "funct6": "110011",
+      "funct3": "010",
+      "instruction_type": "OPMVV (multiply vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量扩展有符号减法",
+      "description_en": "Vector arithmetic operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Multiply operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPMVV"
+    },
+    {
+      "name": "vwsub",
+      "category": "算术运算类 (Arithmetic)",
+      "category_key": "arithmetic",
+      "funct6": "110011",
+      "funct3": "110",
+      "instruction_type": "OPMVX (multiply vector-scalar)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量扩展有符号减法",
+      "description_en": "Vector arithmetic operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Scalar"
+      },
+      "vm_support": "Yes",
+      "format": "OPIVX/OPMVX"
+    },
+    {
+      "name": "vwaddu.w",
+      "category": "算术运算类 (Arithmetic)",
+      "category_key": "arithmetic",
+      "funct6": "110100",
+      "funct3": "010",
+      "instruction_type": "OPMVV (multiply vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量扩展无符号加法(字)",
+      "description_en": "Vector arithmetic operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Multiply operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPMVV"
+    },
+    {
+      "name": "vwaddu.w",
+      "category": "算术运算类 (Arithmetic)",
+      "category_key": "arithmetic",
+      "funct6": "110100",
+      "funct3": "110",
+      "instruction_type": "OPMVX (multiply vector-scalar)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量扩展无符号加法(字)",
+      "description_en": "Vector arithmetic operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Scalar"
+      },
+      "vm_support": "Yes",
+      "format": "OPIVX/OPMVX"
+    },
+    {
+      "name": "vwadd.w",
+      "category": "算术运算类 (Arithmetic)",
+      "category_key": "arithmetic",
+      "funct6": "110101",
+      "funct3": "010",
+      "instruction_type": "OPMVV (multiply vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量扩展有符号加法(字)",
+      "description_en": "Vector arithmetic operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Multiply operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPMVV"
+    },
+    {
+      "name": "vwadd.w",
+      "category": "算术运算类 (Arithmetic)",
+      "category_key": "arithmetic",
+      "funct6": "110101",
+      "funct3": "110",
+      "instruction_type": "OPMVX (multiply vector-scalar)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量扩展有符号加法(字)",
+      "description_en": "Vector arithmetic operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Scalar"
+      },
+      "vm_support": "Yes",
+      "format": "OPIVX/OPMVX"
+    },
+    {
+      "name": "vwsubu.w",
+      "category": "算术运算类 (Arithmetic)",
+      "category_key": "arithmetic",
+      "funct6": "110110",
+      "funct3": "010",
+      "instruction_type": "OPMVV (multiply vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量扩展无符号减法(字)",
+      "description_en": "Vector arithmetic operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Multiply operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPMVV"
+    },
+    {
+      "name": "vwsubu.w",
+      "category": "算术运算类 (Arithmetic)",
+      "category_key": "arithmetic",
+      "funct6": "110110",
+      "funct3": "110",
+      "instruction_type": "OPMVX (multiply vector-scalar)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量扩展无符号减法(字)",
+      "description_en": "Vector arithmetic operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Scalar"
+      },
+      "vm_support": "Yes",
+      "format": "OPIVX/OPMVX"
+    },
+    {
+      "name": "vwsub.w",
+      "category": "算术运算类 (Arithmetic)",
+      "category_key": "arithmetic",
+      "funct6": "110111",
+      "funct3": "010",
+      "instruction_type": "OPMVV (multiply vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量扩展有符号减法(字)",
+      "description_en": "Vector arithmetic operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Multiply operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPMVV"
+    },
+    {
+      "name": "vwsub.w",
+      "category": "算术运算类 (Arithmetic)",
+      "category_key": "arithmetic",
+      "funct6": "110111",
+      "funct3": "110",
+      "instruction_type": "OPMVX (multiply vector-scalar)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量扩展有符号减法(字)",
+      "description_en": "Vector arithmetic operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Scalar"
+      },
+      "vm_support": "Yes",
+      "format": "OPIVX/OPMVX"
+    },
+    {
+      "name": "vwmulu",
+      "category": "乘加类 (Multiply-Add)",
+      "category_key": "multiply-add",
+      "funct6": "111000",
+      "funct3": "010",
+      "instruction_type": "OPMVV (multiply vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量扩展无符号乘法",
+      "description_en": "Vector multiply-add operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Multiply operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPMVV"
+    },
+    {
+      "name": "vwmulu",
+      "category": "乘加类 (Multiply-Add)",
+      "category_key": "multiply-add",
+      "funct6": "111000",
+      "funct3": "110",
+      "instruction_type": "OPMVX (multiply vector-scalar)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量扩展无符号乘法",
+      "description_en": "Vector multiply-add operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Scalar"
+      },
+      "vm_support": "Yes",
+      "format": "OPIVX/OPMVX"
+    },
+    {
+      "name": "vwmulsu",
+      "category": "乘加类 (Multiply-Add)",
+      "category_key": "multiply-add",
+      "funct6": "111010",
+      "funct3": "010",
+      "instruction_type": "OPMVV (multiply vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量扩展有符号×无符号乘法",
+      "description_en": "Vector multiply-add operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Multiply operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPMVV"
+    },
+    {
+      "name": "vwmulsu",
+      "category": "乘加类 (Multiply-Add)",
+      "category_key": "multiply-add",
+      "funct6": "111010",
+      "funct3": "110",
+      "instruction_type": "OPMVX (multiply vector-scalar)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量扩展有符号×无符号乘法",
+      "description_en": "Vector multiply-add operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Scalar"
+      },
+      "vm_support": "Yes",
+      "format": "OPIVX/OPMVX"
+    },
+    {
+      "name": "vwmul",
+      "category": "乘加类 (Multiply-Add)",
+      "category_key": "multiply-add",
+      "funct6": "111011",
+      "funct3": "010",
+      "instruction_type": "OPMVV (multiply vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量扩展有符号乘法",
+      "description_en": "Vector multiply-add operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Multiply operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPMVV"
+    },
+    {
+      "name": "vwmul",
+      "category": "乘加类 (Multiply-Add)",
+      "category_key": "multiply-add",
+      "funct6": "111011",
+      "funct3": "110",
+      "instruction_type": "OPMVX (multiply vector-scalar)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量扩展有符号乘法",
+      "description_en": "Vector multiply-add operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Scalar"
+      },
+      "vm_support": "Yes",
+      "format": "OPIVX/OPMVX"
+    },
+    {
+      "name": "vwmaccu",
+      "category": "乘加类 (Multiply-Add)",
+      "category_key": "multiply-add",
+      "funct6": "111100",
+      "funct3": "010",
+      "instruction_type": "OPMVV (multiply vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量扩展无符号乘加",
+      "description_en": "Vector multiply-add operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Multiply operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPMVV"
+    },
+    {
+      "name": "vwmaccu",
+      "category": "乘加类 (Multiply-Add)",
+      "category_key": "multiply-add",
+      "funct6": "111100",
+      "funct3": "110",
+      "instruction_type": "OPMVX (multiply vector-scalar)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量扩展无符号乘加",
+      "description_en": "Vector multiply-add operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Scalar"
+      },
+      "vm_support": "Yes",
+      "format": "OPIVX/OPMVX"
+    },
+    {
+      "name": "vwmacc",
+      "category": "乘加类 (Multiply-Add)",
+      "category_key": "multiply-add",
+      "funct6": "111101",
+      "funct3": "010",
+      "instruction_type": "OPMVV (multiply vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量扩展有符号乘加",
+      "description_en": "Vector multiply-add operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Multiply operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPMVV"
+    },
+    {
+      "name": "vwmacc",
+      "category": "乘加类 (Multiply-Add)",
+      "category_key": "multiply-add",
+      "funct6": "111101",
+      "funct3": "110",
+      "instruction_type": "OPMVX (multiply vector-scalar)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量扩展有符号乘加",
+      "description_en": "Vector multiply-add operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Scalar"
+      },
+      "vm_support": "Yes",
+      "format": "OPIVX/OPMVX"
+    },
+    {
+      "name": "vwmaccsu",
+      "category": "乘加类 (Multiply-Add)",
+      "category_key": "multiply-add",
+      "funct6": "111110",
+      "funct3": "010",
+      "instruction_type": "OPMVV (multiply vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量扩展有符号×无符号乘加",
+      "description_en": "Vector multiply-add operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Multiply operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPMVV"
+    },
+    {
+      "name": "vwmaccsu",
+      "category": "乘加类 (Multiply-Add)",
+      "category_key": "multiply-add",
+      "funct6": "111110",
+      "funct3": "110",
+      "instruction_type": "OPMVX (multiply vector-scalar)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量扩展有符号×无符号乘加",
+      "description_en": "Vector multiply-add operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Scalar"
+      },
+      "vm_support": "Yes",
+      "format": "OPIVX/OPMVX"
+    },
+    {
+      "name": "vwmaccus",
+      "category": "乘加类 (Multiply-Add)",
+      "category_key": "multiply-add",
+      "funct6": "111111",
+      "funct3": "110",
+      "instruction_type": "OPMVX (multiply vector-scalar)",
+      "operands": "vd, vs1, vs2",
+      "description_cn": "向量扩展无符号×有符号乘加",
+      "description_en": "Vector multiply-add operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Scalar"
+      },
+      "vm_support": "No",
+      "format": "OPIVX/OPMVX"
+    },
+    {
+      "name": "vredsum",
+      "category": "归约类 (Reduction)",
+      "category_key": "reduction",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "001",
+      "instruction_type": "OPFVV (FP vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量求和归约",
+      "description_en": "Vector reduction operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "FP operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPFVV/OPFVF"
+    },
+    {
+      "name": "vredand",
+      "category": "归约类 (Reduction)",
+      "category_key": "reduction",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "001",
+      "instruction_type": "OPFVV (FP vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量按位与归约",
+      "description_en": "Vector reduction operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "FP operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPFVV/OPFVF"
+    },
+    {
+      "name": "vredor",
+      "category": "归约类 (Reduction)",
+      "category_key": "reduction",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "001",
+      "instruction_type": "OPFVV (FP vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量按位或归约",
+      "description_en": "Vector reduction operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "FP operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPFVV/OPFVF"
+    },
+    {
+      "name": "vredxor",
+      "category": "归约类 (Reduction)",
+      "category_key": "reduction",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "001",
+      "instruction_type": "OPFVV (FP vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量按位异或归约",
+      "description_en": "Vector reduction operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "FP operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPFVV/OPFVF"
+    },
+    {
+      "name": "vredminu",
+      "category": "归约类 (Reduction)",
+      "category_key": "reduction",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "001",
+      "instruction_type": "OPFVV (FP vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量无符号最小值归约",
+      "description_en": "Vector reduction operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "FP operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPFVV/OPFVF"
+    },
+    {
+      "name": "vredmin",
+      "category": "归约类 (Reduction)",
+      "category_key": "reduction",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "001",
+      "instruction_type": "OPFVV (FP vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量有符号最小值归约",
+      "description_en": "Vector reduction operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "FP operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPFVV/OPFVF"
+    },
+    {
+      "name": "vredmaxu",
+      "category": "归约类 (Reduction)",
+      "category_key": "reduction",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "001",
+      "instruction_type": "OPFVV (FP vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量无符号最大值归约",
+      "description_en": "Vector reduction operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "FP operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPFVV/OPFVF"
+    },
+    {
+      "name": "vredmax",
+      "category": "归约类 (Reduction)",
+      "category_key": "reduction",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "001",
+      "instruction_type": "OPFVV (FP vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量有符号最大值归约",
+      "description_en": "Vector reduction operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "FP operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPFVV/OPFVF"
+    },
+    {
+      "name": "vdivu",
+      "category": "算术运算类 (Arithmetic)",
+      "category_key": "arithmetic",
+      "funct6": "100000",
+      "funct3": "010",
+      "instruction_type": "OPMVV (multiply vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量无符号除法",
+      "description_en": "Vector divide",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Multiply operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPMVV"
+    },
+    {
+      "name": "vdivu",
+      "category": "算术运算类 (Arithmetic)",
+      "category_key": "arithmetic",
+      "funct6": "100000",
+      "funct3": "110",
+      "instruction_type": "OPMVX (multiply vector-scalar)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量无符号除法",
+      "description_en": "Vector divide",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Scalar"
+      },
+      "vm_support": "Yes",
+      "format": "OPIVX/OPMVX"
+    },
+    {
+      "name": "vdiv",
+      "category": "算术运算类 (Arithmetic)",
+      "category_key": "arithmetic",
+      "funct6": "100001",
+      "funct3": "010",
+      "instruction_type": "OPMVV (multiply vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量有符号除法",
+      "description_en": "Vector divide",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Multiply operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPMVV"
+    },
+    {
+      "name": "vdiv",
+      "category": "算术运算类 (Arithmetic)",
+      "category_key": "arithmetic",
+      "funct6": "100001",
+      "funct3": "110",
+      "instruction_type": "OPMVX (multiply vector-scalar)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量有符号除法",
+      "description_en": "Vector divide",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Scalar"
+      },
+      "vm_support": "Yes",
+      "format": "OPIVX/OPMVX"
+    },
+    {
+      "name": "vremu",
+      "category": "算术运算类 (Arithmetic)",
+      "category_key": "arithmetic",
+      "funct6": "100010",
+      "funct3": "010",
+      "instruction_type": "OPMVV (multiply vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量无符号余数",
+      "description_en": "Vector arithmetic operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Multiply operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPMVV"
+    },
+    {
+      "name": "vremu",
+      "category": "算术运算类 (Arithmetic)",
+      "category_key": "arithmetic",
+      "funct6": "100010",
+      "funct3": "110",
+      "instruction_type": "OPMVX (multiply vector-scalar)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量无符号余数",
+      "description_en": "Vector arithmetic operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Scalar"
+      },
+      "vm_support": "Yes",
+      "format": "OPIVX/OPMVX"
+    },
+    {
+      "name": "vrem",
+      "category": "算术运算类 (Arithmetic)",
+      "category_key": "arithmetic",
+      "funct6": "100011",
+      "funct3": "010",
+      "instruction_type": "OPMVV (multiply vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量有符号余数",
+      "description_en": "Vector arithmetic operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Multiply operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPMVV"
+    },
+    {
+      "name": "vrem",
+      "category": "算术运算类 (Arithmetic)",
+      "category_key": "arithmetic",
+      "funct6": "100011",
+      "funct3": "110",
+      "instruction_type": "OPMVX (multiply vector-scalar)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量有符号余数",
+      "description_en": "Vector arithmetic operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Scalar"
+      },
+      "vm_support": "Yes",
+      "format": "OPIVX/OPMVX"
+    },
+    {
+      "name": "vmulhu",
+      "category": "乘加类 (Multiply-Add)",
+      "category_key": "multiply-add",
+      "funct6": "100100",
+      "funct3": "010",
+      "instruction_type": "OPMVV (multiply vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量无符号乘法高位",
+      "description_en": "Vector multiply",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Multiply operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPMVV"
+    },
+    {
+      "name": "vmulhu",
+      "category": "乘加类 (Multiply-Add)",
+      "category_key": "multiply-add",
+      "funct6": "100100",
+      "funct3": "110",
+      "instruction_type": "OPMVX (multiply vector-scalar)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量无符号乘法高位",
+      "description_en": "Vector multiply",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Scalar"
+      },
+      "vm_support": "Yes",
+      "format": "OPIVX/OPMVX"
+    },
+    {
+      "name": "vmul",
+      "category": "乘加类 (Multiply-Add)",
+      "category_key": "multiply-add",
+      "funct6": "100101",
+      "funct3": "010",
+      "instruction_type": "OPMVV (multiply vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量乘法",
+      "description_en": "Vector multiply",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Multiply operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPMVV"
+    },
+    {
+      "name": "vmul",
+      "category": "乘加类 (Multiply-Add)",
+      "category_key": "multiply-add",
+      "funct6": "100101",
+      "funct3": "110",
+      "instruction_type": "OPMVX (multiply vector-scalar)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量乘法",
+      "description_en": "Vector multiply",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Scalar"
+      },
+      "vm_support": "Yes",
+      "format": "OPIVX/OPMVX"
+    },
+    {
+      "name": "vmulhsu",
+      "category": "乘加类 (Multiply-Add)",
+      "category_key": "multiply-add",
+      "funct6": "100110",
+      "funct3": "010",
+      "instruction_type": "OPMVV (multiply vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量有符号×无符号乘法高位",
+      "description_en": "Vector multiply",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Multiply operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPMVV"
+    },
+    {
+      "name": "vmulhsu",
+      "category": "乘加类 (Multiply-Add)",
+      "category_key": "multiply-add",
+      "funct6": "100110",
+      "funct3": "110",
+      "instruction_type": "OPMVX (multiply vector-scalar)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量有符号×无符号乘法高位",
+      "description_en": "Vector multiply",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Scalar"
+      },
+      "vm_support": "Yes",
+      "format": "OPIVX/OPMVX"
+    },
+    {
+      "name": "vmulh",
+      "category": "乘加类 (Multiply-Add)",
+      "category_key": "multiply-add",
+      "funct6": "100111",
+      "funct3": "010",
+      "instruction_type": "OPMVV (multiply vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量有符号乘法高位",
+      "description_en": "Vector multiply",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Multiply operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPMVV"
+    },
+    {
+      "name": "vmulh",
+      "category": "乘加类 (Multiply-Add)",
+      "category_key": "multiply-add",
+      "funct6": "100111",
+      "funct3": "110",
+      "instruction_type": "OPMVX (multiply vector-scalar)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量有符号乘法高位",
+      "description_en": "Vector multiply",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Scalar"
+      },
+      "vm_support": "Yes",
+      "format": "OPIVX/OPMVX"
+    },
+    {
+      "name": "vmadd",
+      "category": "乘加类 (Multiply-Add)",
+      "category_key": "multiply-add",
+      "funct6": "101001",
+      "funct3": "010",
+      "instruction_type": "OPMVV (multiply vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量乘法加法",
+      "description_en": "Vector multiply-add operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Multiply operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPMVV"
+    },
+    {
+      "name": "vmadd",
+      "category": "乘加类 (Multiply-Add)",
+      "category_key": "multiply-add",
+      "funct6": "101001",
+      "funct3": "110",
+      "instruction_type": "OPMVX (multiply vector-scalar)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量乘法加法",
+      "description_en": "Vector multiply-add operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Scalar"
+      },
+      "vm_support": "Yes",
+      "format": "OPIVX/OPMVX"
+    },
+    {
+      "name": "vnmsub",
+      "category": "乘加类 (Multiply-Add)",
+      "category_key": "multiply-add",
+      "funct6": "101011",
+      "funct3": "010",
+      "instruction_type": "OPMVV (multiply vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量负乘法减法",
+      "description_en": "Vector multiply-add operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Multiply operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPMVV"
+    },
+    {
+      "name": "vnmsub",
+      "category": "乘加类 (Multiply-Add)",
+      "category_key": "multiply-add",
+      "funct6": "101011",
+      "funct3": "110",
+      "instruction_type": "OPMVX (multiply vector-scalar)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量负乘法减法",
+      "description_en": "Vector multiply-add operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Scalar"
+      },
+      "vm_support": "Yes",
+      "format": "OPIVX/OPMVX"
+    },
+    {
+      "name": "vmacc",
+      "category": "乘加类 (Multiply-Add)",
+      "category_key": "multiply-add",
+      "funct6": "101101",
+      "funct3": "010",
+      "instruction_type": "OPMVV (multiply vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量乘法累加",
+      "description_en": "Vector multiply-add operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Multiply operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPMVV"
+    },
+    {
+      "name": "vmacc",
+      "category": "乘加类 (Multiply-Add)",
+      "category_key": "multiply-add",
+      "funct6": "101101",
+      "funct3": "110",
+      "instruction_type": "OPMVX (multiply vector-scalar)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量乘法累加",
+      "description_en": "Vector multiply-add operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Scalar"
+      },
+      "vm_support": "Yes",
+      "format": "OPIVX/OPMVX"
+    },
+    {
+      "name": "vnmsac",
+      "category": "乘加类 (Multiply-Add)",
+      "category_key": "multiply-add",
+      "funct6": "101111",
+      "funct3": "010",
+      "instruction_type": "OPMVV (multiply vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量负乘法累减",
+      "description_en": "Vector multiply-add operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Multiply operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPMVV"
+    },
+    {
+      "name": "vnmsac",
+      "category": "乘加类 (Multiply-Add)",
+      "category_key": "multiply-add",
+      "funct6": "101111",
+      "funct3": "110",
+      "instruction_type": "OPMVX (multiply vector-scalar)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量负乘法累减",
+      "description_en": "Vector multiply-add operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Scalar"
+      },
+      "vm_support": "Yes",
+      "format": "OPIVX/OPMVX"
+    },
+    {
+      "name": "vslide1up",
+      "category": "移位类 (Shift)",
+      "category_key": "shift",
+      "funct6": "001110",
+      "funct3": "110",
+      "instruction_type": "OPMVX (multiply vector-scalar)",
+      "operands": "vd, vs1, rs1, m",
+      "description_cn": "向量上移1位",
+      "description_en": "Vector shift operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Scalar"
+      },
+      "vm_support": "Yes",
+      "format": "Store"
+    },
+    {
+      "name": "vslide1down",
+      "category": "移位类 (Shift)",
+      "category_key": "shift",
+      "funct6": "001111",
+      "funct3": "110",
+      "instruction_type": "OPMVX (multiply vector-scalar)",
+      "operands": "vd, vs1, rs1, m",
+      "description_cn": "向量下移1位",
+      "description_en": "Vector shift operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Scalar"
+      },
+      "vm_support": "Yes",
+      "format": "Store"
+    },
+    {
+      "name": "vcompress",
+      "category": "掩码类 (Mask)",
+      "category_key": "mask",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "001",
+      "instruction_type": "OPFVV (FP vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量压缩",
+      "description_en": "Vector mask operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "FP operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPFVV/OPFVF"
+    },
+    {
+      "name": "vmandnot",
+      "category": "掩码类 (Mask)",
+      "category_key": "mask",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "001",
+      "instruction_type": "OPFVV (FP vector-vector)",
+      "operands": "vd, vs1, vs2",
+      "description_cn": "向量与非掩码",
+      "description_en": "Vector mask operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "FP operation"
+      },
+      "vm_support": "No",
+      "format": "OPFVV/OPFVF"
+    },
+    {
+      "name": "vmand",
+      "category": "掩码类 (Mask)",
+      "category_key": "mask",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "001",
+      "instruction_type": "OPFVV (FP vector-vector)",
+      "operands": "vd, vs1, vs2",
+      "description_cn": "向量与掩码",
+      "description_en": "Vector mask operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "FP operation"
+      },
+      "vm_support": "No",
+      "format": "OPFVV/OPFVF"
+    },
+    {
+      "name": "vmor",
+      "category": "掩码类 (Mask)",
+      "category_key": "mask",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "001",
+      "instruction_type": "OPFVV (FP vector-vector)",
+      "operands": "vd, vs1, vs2",
+      "description_cn": "向量或掩码",
+      "description_en": "Vector mask operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "FP operation"
+      },
+      "vm_support": "No",
+      "format": "OPFVV/OPFVF"
+    },
+    {
+      "name": "vmxor",
+      "category": "掩码类 (Mask)",
+      "category_key": "mask",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "001",
+      "instruction_type": "OPFVV (FP vector-vector)",
+      "operands": "vd, vs1, vs2",
+      "description_cn": "向量异或掩码",
+      "description_en": "Vector mask operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "FP operation"
+      },
+      "vm_support": "No",
+      "format": "OPFVV/OPFVF"
+    },
+    {
+      "name": "vmornot",
+      "category": "掩码类 (Mask)",
+      "category_key": "mask",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "001",
+      "instruction_type": "OPFVV (FP vector-vector)",
+      "operands": "vd, vs1, vs2",
+      "description_cn": "向量或非掩码",
+      "description_en": "Vector mask operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "FP operation"
+      },
+      "vm_support": "No",
+      "format": "OPFVV/OPFVF"
+    },
+    {
+      "name": "vmnand",
+      "category": "掩码类 (Mask)",
+      "category_key": "mask",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "001",
+      "instruction_type": "OPFVV (FP vector-vector)",
+      "operands": "vd, vs1, vs2",
+      "description_cn": "向量与非掩码",
+      "description_en": "Vector mask operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "FP operation"
+      },
+      "vm_support": "No",
+      "format": "OPFVV/OPFVF"
+    },
+    {
+      "name": "vmnor",
+      "category": "掩码类 (Mask)",
+      "category_key": "mask",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "001",
+      "instruction_type": "OPFVV (FP vector-vector)",
+      "operands": "vd, vs1, vs2",
+      "description_cn": "向量或非掩码",
+      "description_en": "Vector mask operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "FP operation"
+      },
+      "vm_support": "No",
+      "format": "OPFVV/OPFVF"
+    },
+    {
+      "name": "vmxnor",
+      "category": "掩码类 (Mask)",
+      "category_key": "mask",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "001",
+      "instruction_type": "OPFVV (FP vector-vector)",
+      "operands": "vd, vs1, vs2",
+      "description_cn": "向量异或非掩码",
+      "description_en": "Vector mask operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "FP operation"
+      },
+      "vm_support": "No",
+      "format": "OPFVV/OPFVF"
+    },
+    {
+      "name": "vmpopc",
+      "category": "掩码类 (Mask)",
+      "category_key": "mask",
+      "funct6": "010100",
+      "funct3": "010",
+      "instruction_type": "OPMVV (multiply vector-vector)",
+      "operands": "rd, vs2, m",
+      "description_cn": "向量掩码位计数",
+      "description_en": "Vector mask operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Multiply operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPMVV"
+    },
+    {
+      "name": "vmfirst",
+      "category": "掩码类 (Mask)",
+      "category_key": "mask",
+      "funct6": "010101",
+      "funct3": "010",
+      "instruction_type": "OPMVV (multiply vector-vector)",
+      "operands": "rd, vs2, m",
+      "description_cn": "向量掩码首位索引",
+      "description_en": "Vector mask operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Multiply operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPMVV"
+    },
+    {
+      "name": "vfadd",
+      "category": "浮点类 (Floating-Point)",
+      "category_key": "fp",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "001",
+      "instruction_type": "OPFVV (FP vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量浮点加法",
+      "description_en": "Vector fp operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "FP operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPFVV/OPFVF"
+    },
+    {
+      "name": "vfadd",
+      "category": "浮点类 (Floating-Point)",
+      "category_key": "fp",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "101",
+      "instruction_type": "OPFVF (FP vector-scalar)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量浮点加法",
+      "description_en": "Vector fp operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "FP operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPFVV/OPFVF"
+    },
+    {
+      "name": "vfredsum",
+      "category": "浮点类 (Floating-Point)",
+      "category_key": "fp",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "001",
+      "instruction_type": "OPFVV (FP vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量浮点求和归约",
+      "description_en": "Vector fp operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "FP operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPFVV/OPFVF"
+    },
+    {
+      "name": "vfsub",
+      "category": "浮点类 (Floating-Point)",
+      "category_key": "fp",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "001",
+      "instruction_type": "OPFVV (FP vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量浮点减法",
+      "description_en": "Vector fp operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "FP operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPFVV/OPFVF"
+    },
+    {
+      "name": "vfsub",
+      "category": "浮点类 (Floating-Point)",
+      "category_key": "fp",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "101",
+      "instruction_type": "OPFVF (FP vector-scalar)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量浮点减法",
+      "description_en": "Vector fp operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "FP operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPFVV/OPFVF"
+    },
+    {
+      "name": "vfredosum",
+      "category": "浮点类 (Floating-Point)",
+      "category_key": "fp",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "001",
+      "instruction_type": "OPFVV (FP vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量浮点有序求和归约",
+      "description_en": "Vector fp operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "FP operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPFVV/OPFVF"
+    },
+    {
+      "name": "vfmin",
+      "category": "浮点类 (Floating-Point)",
+      "category_key": "fp",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "001",
+      "instruction_type": "OPFVV (FP vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量浮点最小值",
+      "description_en": "Vector fp operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "FP operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPFVV/OPFVF"
+    },
+    {
+      "name": "vfmin",
+      "category": "浮点类 (Floating-Point)",
+      "category_key": "fp",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "101",
+      "instruction_type": "OPFVF (FP vector-scalar)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量浮点最小值",
+      "description_en": "Vector fp operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "FP operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPFVV/OPFVF"
+    },
+    {
+      "name": "vfredmin",
+      "category": "浮点类 (Floating-Point)",
+      "category_key": "fp",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "001",
+      "instruction_type": "OPFVV (FP vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量浮点最小值归约",
+      "description_en": "Vector fp operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "FP operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPFVV/OPFVF"
+    },
+    {
+      "name": "vfmax",
+      "category": "浮点类 (Floating-Point)",
+      "category_key": "fp",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "001",
+      "instruction_type": "OPFVV (FP vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量浮点最大值",
+      "description_en": "Vector fp operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "FP operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPFVV/OPFVF"
+    },
+    {
+      "name": "vfmax",
+      "category": "浮点类 (Floating-Point)",
+      "category_key": "fp",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "101",
+      "instruction_type": "OPFVF (FP vector-scalar)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量浮点最大值",
+      "description_en": "Vector fp operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "FP operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPFVV/OPFVF"
+    },
+    {
+      "name": "vfredmax",
+      "category": "浮点类 (Floating-Point)",
+      "category_key": "fp",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "001",
+      "instruction_type": "OPFVV (FP vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量浮点最大值归约",
+      "description_en": "Vector fp operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "FP operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPFVV/OPFVF"
+    },
+    {
+      "name": "vfsgnj",
+      "category": "浮点类 (Floating-Point)",
+      "category_key": "fp",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "001",
+      "instruction_type": "OPFVV (FP vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量浮点符号注入",
+      "description_en": "Vector fp operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "FP operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPFVV/OPFVF"
+    },
+    {
+      "name": "vfsgnj",
+      "category": "浮点类 (Floating-Point)",
+      "category_key": "fp",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "101",
+      "instruction_type": "OPFVF (FP vector-scalar)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量浮点符号注入",
+      "description_en": "Vector fp operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "FP operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPFVV/OPFVF"
+    },
+    {
+      "name": "vfsgnjn",
+      "category": "浮点类 (Floating-Point)",
+      "category_key": "fp",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "001",
+      "instruction_type": "OPFVV (FP vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量浮点符号取反注入",
+      "description_en": "Vector fp operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "FP operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPFVV/OPFVF"
+    },
+    {
+      "name": "vfsgnjn",
+      "category": "浮点类 (Floating-Point)",
+      "category_key": "fp",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "101",
+      "instruction_type": "OPFVF (FP vector-scalar)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量浮点符号取反注入",
+      "description_en": "Vector fp operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "FP operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPFVV/OPFVF"
+    },
+    {
+      "name": "vfsgnjx",
+      "category": "浮点类 (Floating-Point)",
+      "category_key": "fp",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "001",
+      "instruction_type": "OPFVV (FP vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量浮点符号异或注入",
+      "description_en": "Vector fp operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "FP operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPFVV/OPFVF"
+    },
+    {
+      "name": "vfsgnjx",
+      "category": "浮点类 (Floating-Point)",
+      "category_key": "fp",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "101",
+      "instruction_type": "OPFVF (FP vector-scalar)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量浮点符号异或注入",
+      "description_en": "Vector fp operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "FP operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPFVV/OPFVF"
+    },
+    {
+      "name": "vfmv.f.s",
+      "category": "移动类 (Move)",
+      "category_key": "move",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "001",
+      "instruction_type": "OPFVV (FP vector-vector)",
+      "operands": "rd, vs1",
+      "description_cn": "向量到浮点标量移动",
+      "description_en": "Vector move operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "FP operation"
+      },
+      "vm_support": "No",
+      "format": "OPFVV/OPFVF"
+    },
+    {
+      "name": "vfmv.s.f",
+      "category": "移动类 (Move)",
+      "category_key": "move",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "101",
+      "instruction_type": "OPFVF (FP vector-scalar)",
+      "operands": "vd, rs1",
+      "description_cn": "浮点标量到向量移动",
+      "description_en": "Vector move operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "FP operation"
+      },
+      "vm_support": "No",
+      "format": "OPFVV/OPFVF"
+    },
+    {
+      "name": "vfmerge.vf",
+      "category": "移动类 (Move)",
+      "category_key": "move",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "101",
+      "instruction_type": "OPFVF (FP vector-scalar)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量浮点合并",
+      "description_en": "Vector move operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "FP operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPFVV/OPFVF"
+    },
+    {
+      "name": "vmfeq",
+      "category": "比较类 (Compare)",
+      "category_key": "compare",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "001",
+      "instruction_type": "OPFVV (FP vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量浮点相等比较",
+      "description_en": "Vector compare operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "FP operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPFVV/OPFVF"
+    },
+    {
+      "name": "vmfeq",
+      "category": "比较类 (Compare)",
+      "category_key": "compare",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "101",
+      "instruction_type": "OPFVF (FP vector-scalar)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量浮点相等比较",
+      "description_en": "Vector compare operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "FP operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPFVV/OPFVF"
+    },
+    {
+      "name": "vmfle",
+      "category": "比较类 (Compare)",
+      "category_key": "compare",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "001",
+      "instruction_type": "OPFVV (FP vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量浮点小于等于比较",
+      "description_en": "Vector compare operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "FP operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPFVV/OPFVF"
+    },
+    {
+      "name": "vmfle",
+      "category": "比较类 (Compare)",
+      "category_key": "compare",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "101",
+      "instruction_type": "OPFVF (FP vector-scalar)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量浮点小于等于比较",
+      "description_en": "Vector compare operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "FP operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPFVV/OPFVF"
+    },
+    {
+      "name": "vmford",
+      "category": "比较类 (Compare)",
+      "category_key": "compare",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "001",
+      "instruction_type": "OPFVV (FP vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量浮点有序比较",
+      "description_en": "Vector compare operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "FP operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPFVV/OPFVF"
+    },
+    {
+      "name": "vmford",
+      "category": "比较类 (Compare)",
+      "category_key": "compare",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "101",
+      "instruction_type": "OPFVF (FP vector-scalar)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量浮点有序比较",
+      "description_en": "Vector compare operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "FP operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPFVV/OPFVF"
+    },
+    {
+      "name": "vmflt",
+      "category": "比较类 (Compare)",
+      "category_key": "compare",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "001",
+      "instruction_type": "OPFVV (FP vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量浮点小于比较",
+      "description_en": "Vector compare operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "FP operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPFVV/OPFVF"
+    },
+    {
+      "name": "vmflt",
+      "category": "比较类 (Compare)",
+      "category_key": "compare",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "101",
+      "instruction_type": "OPFVF (FP vector-scalar)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量浮点小于比较",
+      "description_en": "Vector compare operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "FP operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPFVV/OPFVF"
+    },
+    {
+      "name": "vmfne",
+      "category": "比较类 (Compare)",
+      "category_key": "compare",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "001",
+      "instruction_type": "OPFVV (FP vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量浮点不等比较",
+      "description_en": "Vector compare operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "FP operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPFVV/OPFVF"
+    },
+    {
+      "name": "vmfne",
+      "category": "比较类 (Compare)",
+      "category_key": "compare",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "101",
+      "instruction_type": "OPFVF (FP vector-scalar)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量浮点不等比较",
+      "description_en": "Vector compare operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "FP operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPFVV/OPFVF"
+    },
+    {
+      "name": "vmfgt",
+      "category": "比较类 (Compare)",
+      "category_key": "compare",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "101",
+      "instruction_type": "OPFVF (FP vector-scalar)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量浮点大于比较",
+      "description_en": "Vector compare operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "FP operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPFVV/OPFVF"
+    },
+    {
+      "name": "vmfge",
+      "category": "比较类 (Compare)",
+      "category_key": "compare",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "101",
+      "instruction_type": "OPFVF (FP vector-scalar)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量浮点大于等于比较",
+      "description_en": "Vector compare operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "FP operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPFVV/OPFVF"
+    },
+    {
+      "name": "vfdiv",
+      "category": "浮点类 (Floating-Point)",
+      "category_key": "fp",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "001",
+      "instruction_type": "OPFVV (FP vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量浮点除法",
+      "description_en": "Vector fp operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "FP operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPFVV/OPFVF"
+    },
+    {
+      "name": "vfdiv",
+      "category": "浮点类 (Floating-Point)",
+      "category_key": "fp",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "101",
+      "instruction_type": "OPFVF (FP vector-scalar)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量浮点除法",
+      "description_en": "Vector fp operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "FP operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPFVV/OPFVF"
+    },
+    {
+      "name": "vfrdiv",
+      "category": "浮点类 (Floating-Point)",
+      "category_key": "fp",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "101",
+      "instruction_type": "OPFVF (FP vector-scalar)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量浮点反向除法",
+      "description_en": "Vector fp operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "FP operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPFVV/OPFVF"
+    },
+    {
+      "name": "vfmul",
+      "category": "浮点类 (Floating-Point)",
+      "category_key": "fp",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "001",
+      "instruction_type": "OPFVV (FP vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量浮点乘法",
+      "description_en": "Vector fp operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "FP operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPFVV/OPFVF"
+    },
+    {
+      "name": "vfmul",
+      "category": "浮点类 (Floating-Point)",
+      "category_key": "fp",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "101",
+      "instruction_type": "OPFVF (FP vector-scalar)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量浮点乘法",
+      "description_en": "Vector fp operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "FP operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPFVV/OPFVF"
+    },
+    {
+      "name": "vfrsub",
+      "category": "浮点类 (Floating-Point)",
+      "category_key": "fp",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "101",
+      "instruction_type": "OPFVF (FP vector-scalar)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量浮点反向减法",
+      "description_en": "Vector fp operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "FP operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPFVV/OPFVF"
+    },
+    {
+      "name": "vfmadd",
+      "category": "浮点类 (Floating-Point)",
+      "category_key": "fp",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "001",
+      "instruction_type": "OPFVV (FP vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量浮点乘加",
+      "description_en": "Vector fp operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "FP operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPFVV/OPFVF"
+    },
+    {
+      "name": "vfmadd",
+      "category": "浮点类 (Floating-Point)",
+      "category_key": "fp",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "101",
+      "instruction_type": "OPFVF (FP vector-scalar)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量浮点乘加",
+      "description_en": "Vector fp operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "FP operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPFVV/OPFVF"
+    },
+    {
+      "name": "vfnmadd",
+      "category": "浮点类 (Floating-Point)",
+      "category_key": "fp",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "001",
+      "instruction_type": "OPFVV (FP vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量浮点负乘加",
+      "description_en": "Vector fp operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "FP operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPFVV/OPFVF"
+    },
+    {
+      "name": "vfnmadd",
+      "category": "浮点类 (Floating-Point)",
+      "category_key": "fp",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "101",
+      "instruction_type": "OPFVF (FP vector-scalar)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量浮点负乘加",
+      "description_en": "Vector fp operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "FP operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPFVV/OPFVF"
+    },
+    {
+      "name": "vfmsub",
+      "category": "浮点类 (Floating-Point)",
+      "category_key": "fp",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "001",
+      "instruction_type": "OPFVV (FP vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量浮点乘减",
+      "description_en": "Vector fp operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "FP operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPFVV/OPFVF"
+    },
+    {
+      "name": "vfmsub",
+      "category": "浮点类 (Floating-Point)",
+      "category_key": "fp",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "101",
+      "instruction_type": "OPFVF (FP vector-scalar)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量浮点乘减",
+      "description_en": "Vector fp operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "FP operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPFVV/OPFVF"
+    },
+    {
+      "name": "vfnmsub",
+      "category": "浮点类 (Floating-Point)",
+      "category_key": "fp",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "001",
+      "instruction_type": "OPFVV (FP vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量浮点负乘减",
+      "description_en": "Vector fp operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "FP operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPFVV/OPFVF"
+    },
+    {
+      "name": "vfnmsub",
+      "category": "浮点类 (Floating-Point)",
+      "category_key": "fp",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "101",
+      "instruction_type": "OPFVF (FP vector-scalar)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量浮点负乘减",
+      "description_en": "Vector fp operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "FP operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPFVV/OPFVF"
+    },
+    {
+      "name": "vfmacc",
+      "category": "浮点类 (Floating-Point)",
+      "category_key": "fp",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "001",
+      "instruction_type": "OPFVV (FP vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量浮点乘累加",
+      "description_en": "Vector fp operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "FP operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPFVV/OPFVF"
+    },
+    {
+      "name": "vfmacc",
+      "category": "浮点类 (Floating-Point)",
+      "category_key": "fp",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "101",
+      "instruction_type": "OPFVF (FP vector-scalar)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量浮点乘累加",
+      "description_en": "Vector fp operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "FP operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPFVV/OPFVF"
+    },
+    {
+      "name": "vfnmacc",
+      "category": "浮点类 (Floating-Point)",
+      "category_key": "fp",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "001",
+      "instruction_type": "OPFVV (FP vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量浮点负乘累加",
+      "description_en": "Vector fp operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "FP operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPFVV/OPFVF"
+    },
+    {
+      "name": "vfnmacc",
+      "category": "浮点类 (Floating-Point)",
+      "category_key": "fp",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "101",
+      "instruction_type": "OPFVF (FP vector-scalar)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量浮点负乘累加",
+      "description_en": "Vector fp operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "FP operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPFVV/OPFVF"
+    },
+    {
+      "name": "vfmsac",
+      "category": "浮点类 (Floating-Point)",
+      "category_key": "fp",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "001",
+      "instruction_type": "OPFVV (FP vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量浮点乘累减",
+      "description_en": "Vector fp operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "FP operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPFVV/OPFVF"
+    },
+    {
+      "name": "vfmsac",
+      "category": "浮点类 (Floating-Point)",
+      "category_key": "fp",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "101",
+      "instruction_type": "OPFVF (FP vector-scalar)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量浮点乘累减",
+      "description_en": "Vector fp operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "FP operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPFVV/OPFVF"
+    },
+    {
+      "name": "vfnmsac",
+      "category": "浮点类 (Floating-Point)",
+      "category_key": "fp",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "001",
+      "instruction_type": "OPFVV (FP vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量浮点负乘累减",
+      "description_en": "Vector fp operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "FP operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPFVV/OPFVF"
+    },
+    {
+      "name": "vfnmsac",
+      "category": "浮点类 (Floating-Point)",
+      "category_key": "fp",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "101",
+      "instruction_type": "OPFVF (FP vector-scalar)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量浮点负乘累减",
+      "description_en": "Vector fp operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "FP operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPFVV/OPFVF"
+    },
+    {
+      "name": "vfwadd",
+      "category": "浮点类 (Floating-Point)",
+      "category_key": "fp",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "001",
+      "instruction_type": "OPFVV (FP vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量浮点扩展加法",
+      "description_en": "Vector fp operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "FP operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPFVV/OPFVF"
+    },
+    {
+      "name": "vfwadd",
+      "category": "浮点类 (Floating-Point)",
+      "category_key": "fp",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "101",
+      "instruction_type": "OPFVF (FP vector-scalar)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量浮点扩展加法",
+      "description_en": "Vector fp operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "FP operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPFVV/OPFVF"
+    },
+    {
+      "name": "vfwredsum",
+      "category": "浮点类 (Floating-Point)",
+      "category_key": "fp",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "001",
+      "instruction_type": "OPFVV (FP vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量浮点扩展求和归约",
+      "description_en": "Vector fp operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "FP operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPFVV/OPFVF"
+    },
+    {
+      "name": "vfwsub",
+      "category": "浮点类 (Floating-Point)",
+      "category_key": "fp",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "001",
+      "instruction_type": "OPFVV (FP vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量浮点扩展减法",
+      "description_en": "Vector fp operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "FP operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPFVV/OPFVF"
+    },
+    {
+      "name": "vfwsub",
+      "category": "浮点类 (Floating-Point)",
+      "category_key": "fp",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "101",
+      "instruction_type": "OPFVF (FP vector-scalar)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量浮点扩展减法",
+      "description_en": "Vector fp operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "FP operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPFVV/OPFVF"
+    },
+    {
+      "name": "vfwredosum",
+      "category": "浮点类 (Floating-Point)",
+      "category_key": "fp",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "001",
+      "instruction_type": "OPFVV (FP vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量浮点扩展有序求和归约",
+      "description_en": "Vector fp operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "FP operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPFVV/OPFVF"
+    },
+    {
+      "name": "vfwadd.w",
+      "category": "浮点类 (Floating-Point)",
+      "category_key": "fp",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "001",
+      "instruction_type": "OPFVV (FP vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量浮点扩展加法(字)",
+      "description_en": "Vector fp operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "FP operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPFVV/OPFVF"
+    },
+    {
+      "name": "vfwadd.w",
+      "category": "浮点类 (Floating-Point)",
+      "category_key": "fp",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "101",
+      "instruction_type": "OPFVF (FP vector-scalar)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量浮点扩展加法(字)",
+      "description_en": "Vector fp operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "FP operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPFVV/OPFVF"
+    },
+    {
+      "name": "vfwsub.w",
+      "category": "浮点类 (Floating-Point)",
+      "category_key": "fp",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "001",
+      "instruction_type": "OPFVV (FP vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量浮点扩展减法(字)",
+      "description_en": "Vector fp operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "FP operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPFVV/OPFVF"
+    },
+    {
+      "name": "vfwsub.w",
+      "category": "浮点类 (Floating-Point)",
+      "category_key": "fp",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "101",
+      "instruction_type": "OPFVF (FP vector-scalar)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量浮点扩展减法(字)",
+      "description_en": "Vector fp operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "FP operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPFVV/OPFVF"
+    },
+    {
+      "name": "vfwmul",
+      "category": "浮点类 (Floating-Point)",
+      "category_key": "fp",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "001",
+      "instruction_type": "OPFVV (FP vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量浮点扩展乘法",
+      "description_en": "Vector fp operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "FP operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPFVV/OPFVF"
+    },
+    {
+      "name": "vfwmul",
+      "category": "浮点类 (Floating-Point)",
+      "category_key": "fp",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "101",
+      "instruction_type": "OPFVF (FP vector-scalar)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量浮点扩展乘法",
+      "description_en": "Vector fp operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "FP operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPFVV/OPFVF"
+    },
+    {
+      "name": "vfwmacc",
+      "category": "浮点类 (Floating-Point)",
+      "category_key": "fp",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "001",
+      "instruction_type": "OPFVV (FP vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量浮点扩展乘累加",
+      "description_en": "Vector fp operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "FP operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPFVV/OPFVF"
+    },
+    {
+      "name": "vfwmacc",
+      "category": "浮点类 (Floating-Point)",
+      "category_key": "fp",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "101",
+      "instruction_type": "OPFVF (FP vector-scalar)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量浮点扩展乘累加",
+      "description_en": "Vector fp operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "FP operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPFVV/OPFVF"
+    },
+    {
+      "name": "vfwnmacc",
+      "category": "浮点类 (Floating-Point)",
+      "category_key": "fp",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "001",
+      "instruction_type": "OPFVV (FP vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量浮点扩展负乘累加",
+      "description_en": "Vector fp operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "FP operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPFVV/OPFVF"
+    },
+    {
+      "name": "vfwnmacc",
+      "category": "浮点类 (Floating-Point)",
+      "category_key": "fp",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "101",
+      "instruction_type": "OPFVF (FP vector-scalar)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量浮点扩展负乘累加",
+      "description_en": "Vector fp operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "FP operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPFVV/OPFVF"
+    },
+    {
+      "name": "vfwmsac",
+      "category": "浮点类 (Floating-Point)",
+      "category_key": "fp",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "001",
+      "instruction_type": "OPFVV (FP vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量浮点扩展乘累减",
+      "description_en": "Vector fp operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "FP operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPFVV/OPFVF"
+    },
+    {
+      "name": "vfwmsac",
+      "category": "浮点类 (Floating-Point)",
+      "category_key": "fp",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "101",
+      "instruction_type": "OPFVF (FP vector-scalar)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量浮点扩展乘累减",
+      "description_en": "Vector fp operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "FP operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPFVV/OPFVF"
+    },
+    {
+      "name": "vfwnmsac",
+      "category": "浮点类 (Floating-Point)",
+      "category_key": "fp",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "001",
+      "instruction_type": "OPFVV (FP vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量浮点扩展负乘累减",
+      "description_en": "Vector fp operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "FP operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPFVV/OPFVF"
+    },
+    {
+      "name": "vfwnmsac",
+      "category": "浮点类 (Floating-Point)",
+      "category_key": "fp",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "101",
+      "instruction_type": "OPFVF (FP vector-scalar)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量浮点扩展负乘累减",
+      "description_en": "Vector fp operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "FP operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPFVV/OPFVF"
+    },
+    {
+      "name": "vfcvt.xu.f.v",
+      "category": "转换类 (Convert)",
+      "category_key": "convert",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "001",
+      "instruction_type": "OPFVV (FP vector-vector)",
+      "operands": "vd, vs1, m",
+      "description_cn": "向量浮点到无符号整数转换",
+      "description_en": "Vector convert operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "FP operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPFVV/OPFVF"
+    },
+    {
+      "name": "vfcvt.x.f.v",
+      "category": "转换类 (Convert)",
+      "category_key": "convert",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "001",
+      "instruction_type": "OPFVV (FP vector-vector)",
+      "operands": "vd, vs1, m",
+      "description_cn": "向量浮点到有符号整数转换",
+      "description_en": "Vector convert operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "FP operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPFVV/OPFVF"
+    },
+    {
+      "name": "vfcvt.f.xu.v",
+      "category": "转换类 (Convert)",
+      "category_key": "convert",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "001",
+      "instruction_type": "OPFVV (FP vector-vector)",
+      "operands": "vd, vs1, m",
+      "description_cn": "向量无符号整数到浮点转换",
+      "description_en": "Vector convert operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "FP operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPFVV/OPFVF"
+    },
+    {
+      "name": "vfcvt.f.x.v",
+      "category": "转换类 (Convert)",
+      "category_key": "convert",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "001",
+      "instruction_type": "OPFVV (FP vector-vector)",
+      "operands": "vd, vs1, m",
+      "description_cn": "向量有符号整数到浮点转换",
+      "description_en": "Vector convert operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "FP operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPFVV/OPFVF"
+    },
+    {
+      "name": "vfwcvt.xu.f.v",
+      "category": "转换类 (Convert)",
+      "category_key": "convert",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "001",
+      "instruction_type": "OPFVV (FP vector-vector)",
+      "operands": "vd, vs1, m",
+      "description_cn": "向量浮点到无符号整数扩展转换",
+      "description_en": "Vector convert operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "FP operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPFVV/OPFVF"
+    },
+    {
+      "name": "vfwcvt.x.f.v",
+      "category": "转换类 (Convert)",
+      "category_key": "convert",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "001",
+      "instruction_type": "OPFVV (FP vector-vector)",
+      "operands": "vd, vs1, m",
+      "description_cn": "向量浮点到有符号整数扩展转换",
+      "description_en": "Vector convert operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "FP operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPFVV/OPFVF"
+    },
+    {
+      "name": "vfwcvt.f.xu.v",
+      "category": "转换类 (Convert)",
+      "category_key": "convert",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "001",
+      "instruction_type": "OPFVV (FP vector-vector)",
+      "operands": "vd, vs1, m",
+      "description_cn": "向量无符号整数到浮点扩展转换",
+      "description_en": "Vector convert operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "FP operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPFVV/OPFVF"
+    },
+    {
+      "name": "vfwcvt.f.x.v",
+      "category": "转换类 (Convert)",
+      "category_key": "convert",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "001",
+      "instruction_type": "OPFVV (FP vector-vector)",
+      "operands": "vd, vs1, m",
+      "description_cn": "向量有符号整数到浮点扩展转换",
+      "description_en": "Vector convert operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "FP operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPFVV/OPFVF"
+    },
+    {
+      "name": "vfwcvt.f.f.v",
+      "category": "转换类 (Convert)",
+      "category_key": "convert",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "001",
+      "instruction_type": "OPFVV (FP vector-vector)",
+      "operands": "vd, vs1, m",
+      "description_cn": "向量浮点到浮点扩展转换",
+      "description_en": "Vector convert operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "FP operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPFVV/OPFVF"
+    },
+    {
+      "name": "vfncvt.xu.f.v",
+      "category": "转换类 (Convert)",
+      "category_key": "convert",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "001",
+      "instruction_type": "OPFVV (FP vector-vector)",
+      "operands": "vd, vs1, m",
+      "description_cn": "向量浮点到无符号整数缩小转换",
+      "description_en": "Vector convert operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "FP operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPFVV/OPFVF"
+    },
+    {
+      "name": "vfncvt.x.f.v",
+      "category": "转换类 (Convert)",
+      "category_key": "convert",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "001",
+      "instruction_type": "OPFVV (FP vector-vector)",
+      "operands": "vd, vs1, m",
+      "description_cn": "向量浮点到有符号整数缩小转换",
+      "description_en": "Vector convert operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "FP operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPFVV/OPFVF"
+    },
+    {
+      "name": "vfncvt.f.xu.v",
+      "category": "转换类 (Convert)",
+      "category_key": "convert",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "001",
+      "instruction_type": "OPFVV (FP vector-vector)",
+      "operands": "vd, vs1, m",
+      "description_cn": "向量无符号整数到浮点缩小转换",
+      "description_en": "Vector convert operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "FP operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPFVV/OPFVF"
+    },
+    {
+      "name": "vfncvt.f.x.v",
+      "category": "转换类 (Convert)",
+      "category_key": "convert",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "001",
+      "instruction_type": "OPFVV (FP vector-vector)",
+      "operands": "vd, vs1, m",
+      "description_cn": "向量有符号整数到浮点缩小转换",
+      "description_en": "Vector convert operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "FP operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPFVV/OPFVF"
+    },
+    {
+      "name": "vfncvt.f.f.v",
+      "category": "转换类 (Convert)",
+      "category_key": "convert",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "001",
+      "instruction_type": "OPFVV (FP vector-vector)",
+      "operands": "vd, vs1, m",
+      "description_cn": "向量浮点到浮点缩小转换",
+      "description_en": "Vector convert operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "FP operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPFVV/OPFVF"
+    },
+    {
+      "name": "vfsqrt.v",
+      "category": "浮点类 (Floating-Point)",
+      "category_key": "fp",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "001",
+      "instruction_type": "OPFVV (FP vector-vector)",
+      "operands": "vd, vs1, m",
+      "description_cn": "向量浮点平方根",
+      "description_en": "Vector fp operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "FP operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPFVV/OPFVF"
+    },
+    {
+      "name": "vfclass.v",
+      "category": "特殊功能类 (Special)",
+      "category_key": "special",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "001",
+      "instruction_type": "OPFVV (FP vector-vector)",
+      "operands": "vd, vs1, m",
+      "description_cn": "向量浮点分类",
+      "description_en": "Vector special operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "FP operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPFVV/OPFVF"
+    },
+    {
+      "name": "vmsbf",
+      "category": "掩码类 (Mask)",
+      "category_key": "mask",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "001",
+      "instruction_type": "OPFVV (FP vector-vector)",
+      "operands": "vd, vs2, m",
+      "description_cn": "向量掩码设置后置",
+      "description_en": "Vector mask operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "FP operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPFVV/OPFVF"
+    },
+    {
+      "name": "vmsof",
+      "category": "掩码类 (Mask)",
+      "category_key": "mask",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "001",
+      "instruction_type": "OPFVV (FP vector-vector)",
+      "operands": "vd, vs2, m",
+      "description_cn": "向量掩码设置前置",
+      "description_en": "Vector mask operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "FP operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPFVV/OPFVF"
+    },
+    {
+      "name": "vmsif",
+      "category": "掩码类 (Mask)",
+      "category_key": "mask",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "001",
+      "instruction_type": "OPFVV (FP vector-vector)",
+      "operands": "vd, vs2, m",
+      "description_cn": "向量掩码设置索引",
+      "description_en": "Vector mask operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "FP operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPFVV/OPFVF"
+    },
+    {
+      "name": "viota",
+      "category": "特殊功能类 (Special)",
+      "category_key": "special",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "001",
+      "instruction_type": "OPFVV (FP vector-vector)",
+      "operands": "vd, vs2, m",
+      "description_cn": "向量IOTA",
+      "description_en": "Vector special operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "FP operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPFVV/OPFVF"
+    },
+    {
+      "name": "vid",
+      "category": "特殊功能类 (Special)",
+      "category_key": "special",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "001",
+      "instruction_type": "OPFVV (FP vector-vector)",
+      "operands": "vd, m",
+      "description_cn": "向量索引生成",
+      "description_en": "Vector special operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "FP operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPFVV/OPFVF"
+    },
+    {
+      "name": "vext.x.v",
+      "category": "移动类 (Move)",
+      "category_key": "move",
+      "funct6": "001100",
+      "funct3": "010",
+      "instruction_type": "OPMVV (multiply vector-vector)",
+      "operands": "rd, vs1",
+      "description_cn": "向量到标量提取",
+      "description_en": "Vector move operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Multiply operation"
+      },
+      "vm_support": "No",
+      "format": "OPMVV"
+    },
+    {
+      "name": "vmv.s.x",
+      "category": "移动类 (Move)",
+      "category_key": "move",
+      "funct6": "001101",
+      "funct3": "110",
+      "instruction_type": "OPMVX (multiply vector-scalar)",
+      "operands": "vd, rs1",
+      "description_cn": "标量到向量移动",
+      "description_en": "Vector move operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Scalar"
+      },
+      "vm_support": "No",
+      "format": "OPIVX/OPMVX"
+    },
+    {
+      "name": "vdotu",
+      "category": "点积类 (Dot Product)",
+      "category_key": "dot",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "001",
+      "instruction_type": "OPFVV (FP vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量无符号点积",
+      "description_en": "Vector dot product",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "FP operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPFVV/OPFVF"
+    },
+    {
+      "name": "vdot",
+      "category": "点积类 (Dot Product)",
+      "category_key": "dot",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "001",
+      "instruction_type": "OPFVV (FP vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量有符号点积",
+      "description_en": "Vector dot product",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "FP operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPFVV/OPFVF"
+    },
+    {
+      "name": "vfdot",
+      "category": "点积类 (Dot Product)",
+      "category_key": "dot",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "001",
+      "instruction_type": "OPFVV (FP vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量浮点点积",
+      "description_en": "Vector dot operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "FP operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPFVV/OPFVF"
+    },
+    {
+      "name": "vwsmaccu",
+      "category": "点积类 (Dot Product)",
+      "category_key": "dot",
+      "funct6": "111100",
+      "funct3": "010",
+      "instruction_type": "OPMVV (multiply vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量扩展无符号点积累加",
+      "description_en": "Vector dot operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Multiply operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPMVV"
+    },
+    {
+      "name": "vwsmaccu",
+      "category": "点积类 (Dot Product)",
+      "category_key": "dot",
+      "funct6": "111100",
+      "funct3": "110",
+      "instruction_type": "OPMVX (multiply vector-scalar)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量扩展无符号点积累加",
+      "description_en": "Vector dot operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Scalar"
+      },
+      "vm_support": "Yes",
+      "format": "OPIVX/OPMVX"
+    },
+    {
+      "name": "vwsmacc",
+      "category": "点积类 (Dot Product)",
+      "category_key": "dot",
+      "funct6": "111101",
+      "funct3": "010",
+      "instruction_type": "OPMVV (multiply vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量扩展有符号点积累加",
+      "description_en": "Vector dot operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Multiply operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPMVV"
+    },
+    {
+      "name": "vwsmacc",
+      "category": "点积类 (Dot Product)",
+      "category_key": "dot",
+      "funct6": "111101",
+      "funct3": "110",
+      "instruction_type": "OPMVX (multiply vector-scalar)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量扩展有符号点积累加",
+      "description_en": "Vector dot operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Scalar"
+      },
+      "vm_support": "Yes",
+      "format": "OPIVX/OPMVX"
+    },
+    {
+      "name": "vwsmaccsu",
+      "category": "点积类 (Dot Product)",
+      "category_key": "dot",
+      "funct6": "111110",
+      "funct3": "010",
+      "instruction_type": "OPMVV (multiply vector-vector)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量扩展有符号×无符号点积累加",
+      "description_en": "Vector dot operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Multiply operation"
+      },
+      "vm_support": "Yes",
+      "format": "OPMVV"
+    },
+    {
+      "name": "vwsmaccsu",
+      "category": "点积类 (Dot Product)",
+      "category_key": "dot",
+      "funct6": "111110",
+      "funct3": "110",
+      "instruction_type": "OPMVX (multiply vector-scalar)",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量扩展有符号×无符号点积累加",
+      "description_en": "Vector dot operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Scalar"
+      },
+      "vm_support": "Yes",
+      "format": "OPIVX/OPMVX"
+    },
+    {
+      "name": "vwsmaccus",
+      "category": "点积类 (Dot Product)",
+      "category_key": "dot",
+      "funct6": "111111",
+      "funct3": "110",
+      "instruction_type": "OPMVX (multiply vector-scalar)",
+      "operands": "vd, vs1, vs2",
+      "description_cn": "向量扩展无符号×有符号点积累加",
+      "description_en": "Vector dot operation",
+      "encoding": {
+        "opcode": "1010111",
+        "format": "R",
+        "note": "Vector-Scalar"
+      },
+      "vm_support": "No",
+      "format": "OPIVX/OPMVX"
+    },
+    {
+      "name": "vlb",
+      "category": "加载类 (Load)",
+      "category_key": "load",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "N/A",
+      "instruction_type": "Unknown",
+      "operands": "vd, offset(rs1), m",
+      "description_cn": "向量加载(8位有符号)",
+      "description_en": "Vector load byte",
+      "encoding": {
+        "opcode": "0000111/0100111",
+        "format": "VL/VS",
+        "note": "Load/Store instruction"
+      },
+      "vm_support": "Yes",
+      "format": "Load/Store"
+    },
+    {
+      "name": "vlbu",
+      "category": "加载类 (Load)",
+      "category_key": "load",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "N/A",
+      "instruction_type": "Unknown",
+      "operands": "vd, offset(rs1), m",
+      "description_cn": "向量加载(8位无符号)",
+      "description_en": "Vector load byte",
+      "encoding": {
+        "opcode": "0000111/0100111",
+        "format": "VL/VS",
+        "note": "Load/Store instruction"
+      },
+      "vm_support": "Yes",
+      "format": "Load/Store"
+    },
+    {
+      "name": "vlh",
+      "category": "加载类 (Load)",
+      "category_key": "load",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "N/A",
+      "instruction_type": "Unknown",
+      "operands": "vd, offset(rs1), m",
+      "description_cn": "向量加载(16位有符号)",
+      "description_en": "Vector load operation",
+      "encoding": {
+        "opcode": "0000111/0100111",
+        "format": "VL/VS",
+        "note": "Load/Store instruction"
+      },
+      "vm_support": "Yes",
+      "format": "Load/Store"
+    },
+    {
+      "name": "vlhu",
+      "category": "加载类 (Load)",
+      "category_key": "load",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "N/A",
+      "instruction_type": "Unknown",
+      "operands": "vd, offset(rs1), m",
+      "description_cn": "向量加载(16位无符号)",
+      "description_en": "Vector load operation",
+      "encoding": {
+        "opcode": "0000111/0100111",
+        "format": "VL/VS",
+        "note": "Load/Store instruction"
+      },
+      "vm_support": "Yes",
+      "format": "Load/Store"
+    },
+    {
+      "name": "vlw",
+      "category": "加载类 (Load)",
+      "category_key": "load",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "N/A",
+      "instruction_type": "Unknown",
+      "operands": "vd, offset(rs1), m",
+      "description_cn": "向量加载(32位有符号)",
+      "description_en": "Vector load operation",
+      "encoding": {
+        "opcode": "0000111/0100111",
+        "format": "VL/VS",
+        "note": "Load/Store instruction"
+      },
+      "vm_support": "Yes",
+      "format": "Load/Store"
+    },
+    {
+      "name": "vlwu",
+      "category": "加载类 (Load)",
+      "category_key": "load",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "N/A",
+      "instruction_type": "Unknown",
+      "operands": "vd, offset(rs1), m",
+      "description_cn": "向量加载(32位无符号)",
+      "description_en": "Vector load operation",
+      "encoding": {
+        "opcode": "0000111/0100111",
+        "format": "VL/VS",
+        "note": "Load/Store instruction"
+      },
+      "vm_support": "Yes",
+      "format": "Load/Store"
+    },
+    {
+      "name": "vld",
+      "category": "加载类 (Load)",
+      "category_key": "load",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "N/A",
+      "instruction_type": "Unknown",
+      "operands": "vd, offset(rs1), m",
+      "description_cn": "向量加载(64位)",
+      "description_en": "Vector load operation",
+      "encoding": {
+        "opcode": "0000111/0100111",
+        "format": "VL/VS",
+        "note": "Load/Store instruction"
+      },
+      "vm_support": "Yes",
+      "format": "Load/Store"
+    },
+    {
+      "name": "vflh",
+      "category": "加载类 (Load)",
+      "category_key": "load",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "N/A",
+      "instruction_type": "Unknown",
+      "operands": "vd, offset(rs1), m",
+      "description_cn": "向量浮点加载(16位)",
+      "description_en": "Vector load operation",
+      "encoding": {
+        "opcode": "0000111/0100111",
+        "format": "VL/VS",
+        "note": "Load/Store instruction"
+      },
+      "vm_support": "Yes",
+      "format": "Load/Store"
+    },
+    {
+      "name": "vflw",
+      "category": "加载类 (Load)",
+      "category_key": "load",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "N/A",
+      "instruction_type": "Unknown",
+      "operands": "vd, offset(rs1), m",
+      "description_cn": "向量浮点加载(32位)",
+      "description_en": "Vector load operation",
+      "encoding": {
+        "opcode": "0000111/0100111",
+        "format": "VL/VS",
+        "note": "Load/Store instruction"
+      },
+      "vm_support": "Yes",
+      "format": "Load/Store"
+    },
+    {
+      "name": "vfld",
+      "category": "加载类 (Load)",
+      "category_key": "load",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "N/A",
+      "instruction_type": "Unknown",
+      "operands": "vd, offset(rs1), m",
+      "description_cn": "向量浮点加载(64位)",
+      "description_en": "Vector load operation",
+      "encoding": {
+        "opcode": "0000111/0100111",
+        "format": "VL/VS",
+        "note": "Load/Store instruction"
+      },
+      "vm_support": "Yes",
+      "format": "Load/Store"
+    },
+    {
+      "name": "vlsb",
+      "category": "加载类 (Load)",
+      "category_key": "load",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "N/A",
+      "instruction_type": "Unknown",
+      "operands": "vd, offset(rs1), rs2, m",
+      "description_cn": "向量跨步加载(8位有符号)",
+      "description_en": "Vector load operation",
+      "encoding": {
+        "opcode": "0000111/0100111",
+        "format": "VL/VS",
+        "note": "Load/Store instruction"
+      },
+      "vm_support": "Yes",
+      "format": "Load/Store"
+    },
+    {
+      "name": "vlsbu",
+      "category": "加载类 (Load)",
+      "category_key": "load",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "N/A",
+      "instruction_type": "Unknown",
+      "operands": "vd, offset(rs1), rs2, m",
+      "description_cn": "向量跨步加载(8位无符号)",
+      "description_en": "Vector load operation",
+      "encoding": {
+        "opcode": "0000111/0100111",
+        "format": "VL/VS",
+        "note": "Load/Store instruction"
+      },
+      "vm_support": "Yes",
+      "format": "Load/Store"
+    },
+    {
+      "name": "vlsh",
+      "category": "加载类 (Load)",
+      "category_key": "load",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "N/A",
+      "instruction_type": "Unknown",
+      "operands": "vd, offset(rs1), rs2, m",
+      "description_cn": "向量跨步加载(16位有符号)",
+      "description_en": "Vector load operation",
+      "encoding": {
+        "opcode": "0000111/0100111",
+        "format": "VL/VS",
+        "note": "Load/Store instruction"
+      },
+      "vm_support": "Yes",
+      "format": "Load/Store"
+    },
+    {
+      "name": "vlshu",
+      "category": "加载类 (Load)",
+      "category_key": "load",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "N/A",
+      "instruction_type": "Unknown",
+      "operands": "vd, offset(rs1), rs2, m",
+      "description_cn": "向量跨步加载(16位无符号)",
+      "description_en": "Vector load operation",
+      "encoding": {
+        "opcode": "0000111/0100111",
+        "format": "VL/VS",
+        "note": "Load/Store instruction"
+      },
+      "vm_support": "Yes",
+      "format": "Load/Store"
+    },
+    {
+      "name": "vlsw",
+      "category": "加载类 (Load)",
+      "category_key": "load",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "N/A",
+      "instruction_type": "Unknown",
+      "operands": "vd, offset(rs1), rs2, m",
+      "description_cn": "向量跨步加载(32位有符号)",
+      "description_en": "Vector load operation",
+      "encoding": {
+        "opcode": "0000111/0100111",
+        "format": "VL/VS",
+        "note": "Load/Store instruction"
+      },
+      "vm_support": "Yes",
+      "format": "Load/Store"
+    },
+    {
+      "name": "vlswu",
+      "category": "加载类 (Load)",
+      "category_key": "load",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "N/A",
+      "instruction_type": "Unknown",
+      "operands": "vd, offset(rs1), rs2, m",
+      "description_cn": "向量跨步加载(32位无符号)",
+      "description_en": "Vector load operation",
+      "encoding": {
+        "opcode": "0000111/0100111",
+        "format": "VL/VS",
+        "note": "Load/Store instruction"
+      },
+      "vm_support": "Yes",
+      "format": "Load/Store"
+    },
+    {
+      "name": "vlsd",
+      "category": "加载类 (Load)",
+      "category_key": "load",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "N/A",
+      "instruction_type": "Unknown",
+      "operands": "vd, offset(rs1), rs2, m",
+      "description_cn": "向量跨步加载(64位)",
+      "description_en": "Vector load operation",
+      "encoding": {
+        "opcode": "0000111/0100111",
+        "format": "VL/VS",
+        "note": "Load/Store instruction"
+      },
+      "vm_support": "Yes",
+      "format": "Load/Store"
+    },
+    {
+      "name": "vflsh",
+      "category": "加载类 (Load)",
+      "category_key": "load",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "N/A",
+      "instruction_type": "Unknown",
+      "operands": "vd, offset(rs1), rs2, m",
+      "description_cn": "向量浮点跨步加载(16位)",
+      "description_en": "Vector load operation",
+      "encoding": {
+        "opcode": "0000111/0100111",
+        "format": "VL/VS",
+        "note": "Load/Store instruction"
+      },
+      "vm_support": "Yes",
+      "format": "Load/Store"
+    },
+    {
+      "name": "vflsw",
+      "category": "加载类 (Load)",
+      "category_key": "load",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "N/A",
+      "instruction_type": "Unknown",
+      "operands": "vd, offset(rs1), rs2, m",
+      "description_cn": "向量浮点跨步加载(32位)",
+      "description_en": "Vector load operation",
+      "encoding": {
+        "opcode": "0000111/0100111",
+        "format": "VL/VS",
+        "note": "Load/Store instruction"
+      },
+      "vm_support": "Yes",
+      "format": "Load/Store"
+    },
+    {
+      "name": "vflsd",
+      "category": "加载类 (Load)",
+      "category_key": "load",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "N/A",
+      "instruction_type": "Unknown",
+      "operands": "vd, offset(rs1), rs2, m",
+      "description_cn": "向量浮点跨步加载(64位)",
+      "description_en": "Vector load operation",
+      "encoding": {
+        "opcode": "0000111/0100111",
+        "format": "VL/VS",
+        "note": "Load/Store instruction"
+      },
+      "vm_support": "Yes",
+      "format": "Load/Store"
+    },
+    {
+      "name": "vlxb",
+      "category": "加载类 (Load)",
+      "category_key": "load",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "N/A",
+      "instruction_type": "Unknown",
+      "operands": "vd, offset(rs1), vs2, m",
+      "description_cn": "向量索引加载(8位有符号)",
+      "description_en": "Vector load operation",
+      "encoding": {
+        "opcode": "0000111/0100111",
+        "format": "VL/VS",
+        "note": "Load/Store instruction"
+      },
+      "vm_support": "Yes",
+      "format": "Load/Store"
+    },
+    {
+      "name": "vlxbu",
+      "category": "加载类 (Load)",
+      "category_key": "load",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "N/A",
+      "instruction_type": "Unknown",
+      "operands": "vd, offset(rs1), vs2, m",
+      "description_cn": "向量索引加载(8位无符号)",
+      "description_en": "Vector load operation",
+      "encoding": {
+        "opcode": "0000111/0100111",
+        "format": "VL/VS",
+        "note": "Load/Store instruction"
+      },
+      "vm_support": "Yes",
+      "format": "Load/Store"
+    },
+    {
+      "name": "vlxh",
+      "category": "加载类 (Load)",
+      "category_key": "load",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "N/A",
+      "instruction_type": "Unknown",
+      "operands": "vd, offset(rs1), vs2, m",
+      "description_cn": "向量索引加载(16位有符号)",
+      "description_en": "Vector load operation",
+      "encoding": {
+        "opcode": "0000111/0100111",
+        "format": "VL/VS",
+        "note": "Load/Store instruction"
+      },
+      "vm_support": "Yes",
+      "format": "Load/Store"
+    },
+    {
+      "name": "vlxhu",
+      "category": "加载类 (Load)",
+      "category_key": "load",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "N/A",
+      "instruction_type": "Unknown",
+      "operands": "vd, offset(rs1), vs2, m",
+      "description_cn": "向量索引加载(16位无符号)",
+      "description_en": "Vector load operation",
+      "encoding": {
+        "opcode": "0000111/0100111",
+        "format": "VL/VS",
+        "note": "Load/Store instruction"
+      },
+      "vm_support": "Yes",
+      "format": "Load/Store"
+    },
+    {
+      "name": "vlxw",
+      "category": "加载类 (Load)",
+      "category_key": "load",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "N/A",
+      "instruction_type": "Unknown",
+      "operands": "vd, offset(rs1), vs2, m",
+      "description_cn": "向量索引加载(32位有符号)",
+      "description_en": "Vector load operation",
+      "encoding": {
+        "opcode": "0000111/0100111",
+        "format": "VL/VS",
+        "note": "Load/Store instruction"
+      },
+      "vm_support": "Yes",
+      "format": "Load/Store"
+    },
+    {
+      "name": "vlxwu",
+      "category": "加载类 (Load)",
+      "category_key": "load",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "N/A",
+      "instruction_type": "Unknown",
+      "operands": "vd, offset(rs1), vs2, m",
+      "description_cn": "向量索引加载(32位无符号)",
+      "description_en": "Vector load operation",
+      "encoding": {
+        "opcode": "0000111/0100111",
+        "format": "VL/VS",
+        "note": "Load/Store instruction"
+      },
+      "vm_support": "Yes",
+      "format": "Load/Store"
+    },
+    {
+      "name": "vlxd",
+      "category": "加载类 (Load)",
+      "category_key": "load",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "N/A",
+      "instruction_type": "Unknown",
+      "operands": "vd, offset(rs1), vs2, m",
+      "description_cn": "向量索引加载(64位)",
+      "description_en": "Vector load operation",
+      "encoding": {
+        "opcode": "0000111/0100111",
+        "format": "VL/VS",
+        "note": "Load/Store instruction"
+      },
+      "vm_support": "Yes",
+      "format": "Load/Store"
+    },
+    {
+      "name": "vflxh",
+      "category": "加载类 (Load)",
+      "category_key": "load",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "N/A",
+      "instruction_type": "Unknown",
+      "operands": "vd, offset(rs1), vs2, m",
+      "description_cn": "向量浮点索引加载(16位)",
+      "description_en": "Vector load operation",
+      "encoding": {
+        "opcode": "0000111/0100111",
+        "format": "VL/VS",
+        "note": "Load/Store instruction"
+      },
+      "vm_support": "Yes",
+      "format": "Load/Store"
+    },
+    {
+      "name": "vflxw",
+      "category": "加载类 (Load)",
+      "category_key": "load",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "N/A",
+      "instruction_type": "Unknown",
+      "operands": "vd, offset(rs1), vs2, m",
+      "description_cn": "向量浮点索引加载(32位)",
+      "description_en": "Vector load operation",
+      "encoding": {
+        "opcode": "0000111/0100111",
+        "format": "VL/VS",
+        "note": "Load/Store instruction"
+      },
+      "vm_support": "Yes",
+      "format": "Load/Store"
+    },
+    {
+      "name": "vflxd",
+      "category": "加载类 (Load)",
+      "category_key": "load",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "N/A",
+      "instruction_type": "Unknown",
+      "operands": "vd, offset(rs1), vs2, m",
+      "description_cn": "向量浮点索引加载(64位)",
+      "description_en": "Vector load operation",
+      "encoding": {
+        "opcode": "0000111/0100111",
+        "format": "VL/VS",
+        "note": "Load/Store instruction"
+      },
+      "vm_support": "Yes",
+      "format": "Load/Store"
+    },
+    {
+      "name": "vlob",
+      "category": "加载类 (Load)",
+      "category_key": "load",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "N/A",
+      "instruction_type": "Unknown",
+      "operands": "vd, rs1, m",
+      "description_cn": "向量单元素加载(8位有符号)",
+      "description_en": "Vector load operation",
+      "encoding": {
+        "opcode": "0000111/0100111",
+        "format": "VL/VS",
+        "note": "Load/Store instruction"
+      },
+      "vm_support": "Yes",
+      "format": "Load/Store"
+    },
+    {
+      "name": "vlobu",
+      "category": "加载类 (Load)",
+      "category_key": "load",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "N/A",
+      "instruction_type": "Unknown",
+      "operands": "vd, rs1, m",
+      "description_cn": "向量单元素加载(8位无符号)",
+      "description_en": "Vector load operation",
+      "encoding": {
+        "opcode": "0000111/0100111",
+        "format": "VL/VS",
+        "note": "Load/Store instruction"
+      },
+      "vm_support": "Yes",
+      "format": "Load/Store"
+    },
+    {
+      "name": "vloh",
+      "category": "加载类 (Load)",
+      "category_key": "load",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "N/A",
+      "instruction_type": "Unknown",
+      "operands": "vd, rs1, m",
+      "description_cn": "向量单元素加载(16位有符号)",
+      "description_en": "Vector load operation",
+      "encoding": {
+        "opcode": "0000111/0100111",
+        "format": "VL/VS",
+        "note": "Load/Store instruction"
+      },
+      "vm_support": "Yes",
+      "format": "Load/Store"
+    },
+    {
+      "name": "vlohu",
+      "category": "加载类 (Load)",
+      "category_key": "load",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "N/A",
+      "instruction_type": "Unknown",
+      "operands": "vd, rs1, m",
+      "description_cn": "向量单元素加载(16位无符号)",
+      "description_en": "Vector load operation",
+      "encoding": {
+        "opcode": "0000111/0100111",
+        "format": "VL/VS",
+        "note": "Load/Store instruction"
+      },
+      "vm_support": "Yes",
+      "format": "Load/Store"
+    },
+    {
+      "name": "vlow",
+      "category": "加载类 (Load)",
+      "category_key": "load",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "N/A",
+      "instruction_type": "Unknown",
+      "operands": "vd, rs1, m",
+      "description_cn": "向量单元素加载(32位有符号)",
+      "description_en": "Vector load operation",
+      "encoding": {
+        "opcode": "0000111/0100111",
+        "format": "VL/VS",
+        "note": "Load/Store instruction"
+      },
+      "vm_support": "Yes",
+      "format": "Load/Store"
+    },
+    {
+      "name": "vlowu",
+      "category": "加载类 (Load)",
+      "category_key": "load",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "N/A",
+      "instruction_type": "Unknown",
+      "operands": "vd, rs1, m",
+      "description_cn": "向量单元素加载(32位无符号)",
+      "description_en": "Vector load operation",
+      "encoding": {
+        "opcode": "0000111/0100111",
+        "format": "VL/VS",
+        "note": "Load/Store instruction"
+      },
+      "vm_support": "Yes",
+      "format": "Load/Store"
+    },
+    {
+      "name": "vlod",
+      "category": "加载类 (Load)",
+      "category_key": "load",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "N/A",
+      "instruction_type": "Unknown",
+      "operands": "vd, rs1, m",
+      "description_cn": "向量单元素加载(64位)",
+      "description_en": "Vector load operation",
+      "encoding": {
+        "opcode": "0000111/0100111",
+        "format": "VL/VS",
+        "note": "Load/Store instruction"
+      },
+      "vm_support": "Yes",
+      "format": "Load/Store"
+    },
+    {
+      "name": "vfloh",
+      "category": "加载类 (Load)",
+      "category_key": "load",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "N/A",
+      "instruction_type": "Unknown",
+      "operands": "vd, rs1, m",
+      "description_cn": "向量浮点单元素加载(16位)",
+      "description_en": "Vector load operation",
+      "encoding": {
+        "opcode": "0000111/0100111",
+        "format": "VL/VS",
+        "note": "Load/Store instruction"
+      },
+      "vm_support": "Yes",
+      "format": "Load/Store"
+    },
+    {
+      "name": "vflow",
+      "category": "加载类 (Load)",
+      "category_key": "load",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "N/A",
+      "instruction_type": "Unknown",
+      "operands": "vd, rs1, m",
+      "description_cn": "向量浮点单元素加载(32位)",
+      "description_en": "Vector load operation",
+      "encoding": {
+        "opcode": "0000111/0100111",
+        "format": "VL/VS",
+        "note": "Load/Store instruction"
+      },
+      "vm_support": "Yes",
+      "format": "Load/Store"
+    },
+    {
+      "name": "vflod",
+      "category": "加载类 (Load)",
+      "category_key": "load",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "N/A",
+      "instruction_type": "Unknown",
+      "operands": "vd, rs1, m",
+      "description_cn": "向量浮点单元素加载(64位)",
+      "description_en": "Vector load operation",
+      "encoding": {
+        "opcode": "0000111/0100111",
+        "format": "VL/VS",
+        "note": "Load/Store instruction"
+      },
+      "vm_support": "Yes",
+      "format": "Load/Store"
+    },
+    {
+      "name": "vsb",
+      "category": "存储类 (Store)",
+      "category_key": "store",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "N/A",
+      "instruction_type": "Unknown",
+      "operands": "vs3, offset(rs1), m",
+      "description_cn": "向量存储(8位)",
+      "description_en": "Vector store byte",
+      "encoding": {
+        "opcode": "0000111/0100111",
+        "format": "VL/VS",
+        "note": "Load/Store instruction"
+      },
+      "vm_support": "Yes",
+      "format": "Load/Store"
+    },
+    {
+      "name": "vsh",
+      "category": "存储类 (Store)",
+      "category_key": "store",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "N/A",
+      "instruction_type": "Unknown",
+      "operands": "vs3, offset(rs1), m",
+      "description_cn": "向量存储(16位)",
+      "description_en": "Vector store operation",
+      "encoding": {
+        "opcode": "0000111/0100111",
+        "format": "VL/VS",
+        "note": "Load/Store instruction"
+      },
+      "vm_support": "Yes",
+      "format": "Load/Store"
+    },
+    {
+      "name": "vsw",
+      "category": "存储类 (Store)",
+      "category_key": "store",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "N/A",
+      "instruction_type": "Unknown",
+      "operands": "vs3, offset(rs1), m",
+      "description_cn": "向量存储(32位)",
+      "description_en": "Vector store operation",
+      "encoding": {
+        "opcode": "0000111/0100111",
+        "format": "VL/VS",
+        "note": "Load/Store instruction"
+      },
+      "vm_support": "Yes",
+      "format": "Load/Store"
+    },
+    {
+      "name": "vsd",
+      "category": "存储类 (Store)",
+      "category_key": "store",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "N/A",
+      "instruction_type": "Unknown",
+      "operands": "vs3, offset(rs1), m",
+      "description_cn": "向量存储(64位)",
+      "description_en": "Vector store operation",
+      "encoding": {
+        "opcode": "0000111/0100111",
+        "format": "VL/VS",
+        "note": "Load/Store instruction"
+      },
+      "vm_support": "Yes",
+      "format": "Load/Store"
+    },
+    {
+      "name": "vssb",
+      "category": "存储类 (Store)",
+      "category_key": "store",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "N/A",
+      "instruction_type": "Unknown",
+      "operands": "vs3, offset(rs1), rs2, m",
+      "description_cn": "向量跨步存储(8位)",
+      "description_en": "Vector store operation",
+      "encoding": {
+        "opcode": "0000111/0100111",
+        "format": "VL/VS",
+        "note": "Load/Store instruction"
+      },
+      "vm_support": "Yes",
+      "format": "Load/Store"
+    },
+    {
+      "name": "vssh",
+      "category": "存储类 (Store)",
+      "category_key": "store",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "N/A",
+      "instruction_type": "Unknown",
+      "operands": "vs3, offset(rs1), rs2, m",
+      "description_cn": "向量跨步存储(16位)",
+      "description_en": "Vector store operation",
+      "encoding": {
+        "opcode": "0000111/0100111",
+        "format": "VL/VS",
+        "note": "Load/Store instruction"
+      },
+      "vm_support": "Yes",
+      "format": "Load/Store"
+    },
+    {
+      "name": "vssw",
+      "category": "存储类 (Store)",
+      "category_key": "store",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "N/A",
+      "instruction_type": "Unknown",
+      "operands": "vs3, offset(rs1), rs2, m",
+      "description_cn": "向量跨步存储(32位)",
+      "description_en": "Vector store operation",
+      "encoding": {
+        "opcode": "0000111/0100111",
+        "format": "VL/VS",
+        "note": "Load/Store instruction"
+      },
+      "vm_support": "Yes",
+      "format": "Load/Store"
+    },
+    {
+      "name": "vssd",
+      "category": "存储类 (Store)",
+      "category_key": "store",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "N/A",
+      "instruction_type": "Unknown",
+      "operands": "vs3, offset(rs1), rs2, m",
+      "description_cn": "向量跨步存储(64位)",
+      "description_en": "Vector store operation",
+      "encoding": {
+        "opcode": "0000111/0100111",
+        "format": "VL/VS",
+        "note": "Load/Store instruction"
+      },
+      "vm_support": "Yes",
+      "format": "Load/Store"
+    },
+    {
+      "name": "vsxb",
+      "category": "存储类 (Store)",
+      "category_key": "store",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "N/A",
+      "instruction_type": "Unknown",
+      "operands": "vs3, offset(rs1), vs2, m",
+      "description_cn": "向量索引存储(8位)",
+      "description_en": "Vector store operation",
+      "encoding": {
+        "opcode": "0000111/0100111",
+        "format": "VL/VS",
+        "note": "Load/Store instruction"
+      },
+      "vm_support": "Yes",
+      "format": "Load/Store"
+    },
+    {
+      "name": "vsxh",
+      "category": "存储类 (Store)",
+      "category_key": "store",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "N/A",
+      "instruction_type": "Unknown",
+      "operands": "vs3, offset(rs1), vs2, m",
+      "description_cn": "向量索引存储(16位)",
+      "description_en": "Vector store operation",
+      "encoding": {
+        "opcode": "0000111/0100111",
+        "format": "VL/VS",
+        "note": "Load/Store instruction"
+      },
+      "vm_support": "Yes",
+      "format": "Load/Store"
+    },
+    {
+      "name": "vsxw",
+      "category": "存储类 (Store)",
+      "category_key": "store",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "N/A",
+      "instruction_type": "Unknown",
+      "operands": "vs3, offset(rs1), vs2, m",
+      "description_cn": "向量索引存储(32位)",
+      "description_en": "Vector store operation",
+      "encoding": {
+        "opcode": "0000111/0100111",
+        "format": "VL/VS",
+        "note": "Load/Store instruction"
+      },
+      "vm_support": "Yes",
+      "format": "Load/Store"
+    },
+    {
+      "name": "vsxd",
+      "category": "存储类 (Store)",
+      "category_key": "store",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "N/A",
+      "instruction_type": "Unknown",
+      "operands": "vs3, offset(rs1), vs2, m",
+      "description_cn": "向量索引存储(64位)",
+      "description_en": "Vector store operation",
+      "encoding": {
+        "opcode": "0000111/0100111",
+        "format": "VL/VS",
+        "note": "Load/Store instruction"
+      },
+      "vm_support": "Yes",
+      "format": "Load/Store"
+    },
+    {
+      "name": "vsob",
+      "category": "存储类 (Store)",
+      "category_key": "store",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "N/A",
+      "instruction_type": "Unknown",
+      "operands": "vs3, offset(rs1), m",
+      "description_cn": "向量单元素存储(8位)",
+      "description_en": "Vector store operation",
+      "encoding": {
+        "opcode": "0000111/0100111",
+        "format": "VL/VS",
+        "note": "Load/Store instruction"
+      },
+      "vm_support": "Yes",
+      "format": "Load/Store"
+    },
+    {
+      "name": "vsoh",
+      "category": "存储类 (Store)",
+      "category_key": "store",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "N/A",
+      "instruction_type": "Unknown",
+      "operands": "vs3, offset(rs1), m",
+      "description_cn": "向量单元素存储(16位)",
+      "description_en": "Vector store operation",
+      "encoding": {
+        "opcode": "0000111/0100111",
+        "format": "VL/VS",
+        "note": "Load/Store instruction"
+      },
+      "vm_support": "Yes",
+      "format": "Load/Store"
+    },
+    {
+      "name": "vsow",
+      "category": "存储类 (Store)",
+      "category_key": "store",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "N/A",
+      "instruction_type": "Unknown",
+      "operands": "vs3, offset(rs1), m",
+      "description_cn": "向量单元素存储(32位)",
+      "description_en": "Vector store operation",
+      "encoding": {
+        "opcode": "0000111/0100111",
+        "format": "VL/VS",
+        "note": "Load/Store instruction"
+      },
+      "vm_support": "Yes",
+      "format": "Load/Store"
+    },
+    {
+      "name": "vsod",
+      "category": "存储类 (Store)",
+      "category_key": "store",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "N/A",
+      "instruction_type": "Unknown",
+      "operands": "vs3, offset(rs1), m",
+      "description_cn": "向量单元素存储(64位)",
+      "description_en": "Vector store operation",
+      "encoding": {
+        "opcode": "0000111/0100111",
+        "format": "VL/VS",
+        "note": "Load/Store instruction"
+      },
+      "vm_support": "Yes",
+      "format": "Load/Store"
+    },
+    {
+      "name": "vclipb",
+      "category": "截断类 (Clip)",
+      "category_key": "clip",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "N/A",
+      "instruction_type": "Unknown",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量截断(8位有符号)",
+      "description_en": "Vector clip operation",
+      "encoding": {
+        "opcode": "0000111/0100111",
+        "format": "VL/VS",
+        "note": "Load/Store instruction"
+      },
+      "vm_support": "Yes",
+      "format": "Load/Store"
+    },
+    {
+      "name": "vclipbu",
+      "category": "截断类 (Clip)",
+      "category_key": "clip",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "N/A",
+      "instruction_type": "Unknown",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量截断(8位无符号)",
+      "description_en": "Vector clip operation",
+      "encoding": {
+        "opcode": "0000111/0100111",
+        "format": "VL/VS",
+        "note": "Load/Store instruction"
+      },
+      "vm_support": "Yes",
+      "format": "Load/Store"
+    },
+    {
+      "name": "vcliph",
+      "category": "截断类 (Clip)",
+      "category_key": "clip",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "N/A",
+      "instruction_type": "Unknown",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量截断(16位有符号)",
+      "description_en": "Vector clip operation",
+      "encoding": {
+        "opcode": "0000111/0100111",
+        "format": "VL/VS",
+        "note": "Load/Store instruction"
+      },
+      "vm_support": "Yes",
+      "format": "Load/Store"
+    },
+    {
+      "name": "vcliphu",
+      "category": "截断类 (Clip)",
+      "category_key": "clip",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "N/A",
+      "instruction_type": "Unknown",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量截断(16位无符号)",
+      "description_en": "Vector clip operation",
+      "encoding": {
+        "opcode": "0000111/0100111",
+        "format": "VL/VS",
+        "note": "Load/Store instruction"
+      },
+      "vm_support": "Yes",
+      "format": "Load/Store"
+    },
+    {
+      "name": "vclipw",
+      "category": "截断类 (Clip)",
+      "category_key": "clip",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "N/A",
+      "instruction_type": "Unknown",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量截断(32位有符号)",
+      "description_en": "Vector clip operation",
+      "encoding": {
+        "opcode": "0000111/0100111",
+        "format": "VL/VS",
+        "note": "Load/Store instruction"
+      },
+      "vm_support": "Yes",
+      "format": "Load/Store"
+    },
+    {
+      "name": "vclipwu",
+      "category": "截断类 (Clip)",
+      "category_key": "clip",
+      "funct6": "N/A (unary/load/store)",
+      "funct3": "N/A",
+      "instruction_type": "Unknown",
+      "operands": "vd, vs1, vs2, m",
+      "description_cn": "向量截断(32位无符号)",
+      "description_en": "Vector clip operation",
+      "encoding": {
+        "opcode": "0000111/0100111",
+        "format": "VL/VS",
+        "note": "Load/Store instruction"
+      },
+      "vm_support": "Yes",
+      "format": "Load/Store"
+    }
+  ]
+}

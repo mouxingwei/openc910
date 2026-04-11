@@ -77,6 +77,9 @@ input           idu_vfpu_rf_pipex_gateclk_sel;
 input           pad_yy_icg_scan_en;           
 output          ex1_div;                      
 output          ex1_double;                   
+output          ex1_rdiv;                     // Modified 2026-04-11: 新增反向除法信号（vfrdiv）
+output          ex1_rsqrt7;                   // Modified 2026-04-11: 新增近似平方根倒数信号（vfrsqrt7.v）
+output          ex1_rec7;                     // Modified 2026-04-11: 新增近似倒数信号（vfrec7.v）
 output          ex1_scalar;                   
 output          ex1_single;                   
 output          ex1_sqrt;                     
@@ -93,6 +96,9 @@ output          vfdsu_ex2_single;
 // &Regs; @25
 reg             ex1_div;                      
 reg             ex1_double;                   
+reg             ex1_rdiv;                     // Modified 2026-04-11: 新增反向除法寄存器（vfrdiv）
+reg             ex1_rsqrt7;                   // Modified 2026-04-11: 新增近似平方根倒数寄存器（vfrsqrt7.v）
+reg             ex1_rec7;                     // Modified 2026-04-11: 新增近似倒数寄存器（vfrec7.v）
 reg             ex1_single;                   
 reg             ex1_sqrt;                     
 reg             vfdsu_ex2_div;                
@@ -100,6 +106,9 @@ reg             vfdsu_ex2_double;
 reg     [4 :0]  vfdsu_ex2_dst_ereg;           
 reg     [6 :0]  vfdsu_ex2_dst_vreg;           
 reg     [6 :0]  vfdsu_ex2_iid;                
+reg             vfdsu_ex2_rdiv;               // Modified 2026-04-11: 新增EX2阶段反向除法寄存器
+reg             vfdsu_ex2_rsqrt7;             // Modified 2026-04-11: 新增EX2阶段近似平方根倒数寄存器
+reg             vfdsu_ex2_rec7;               // Modified 2026-04-11: 新增EX2阶段近似倒数寄存器
 reg             vfdsu_ex2_single;             
 reg             vfdsu_ex2_sqrt;               
 reg     [4 :0]  vfdsu_ex3_dst_ereg;           
@@ -173,6 +182,9 @@ begin
   begin
     ex1_div            <= 1'b0;
     ex1_sqrt           <= 1'b0;
+    ex1_rdiv           <= 1'b0;  // Modified 2026-04-11: 新增反向除法初始化
+    ex1_rsqrt7         <= 1'b0;  // Modified 2026-04-11: 新增近似平方根倒数初始化
+    ex1_rec7           <= 1'b0;  // Modified 2026-04-11: 新增近似倒数初始化
     ex1_double         <= 1'b0;
     ex1_single         <= 1'b0;
   end
@@ -180,6 +192,9 @@ begin
   begin
     ex1_div            <= idu_vfpu_rf_pipex_func[0];
     ex1_sqrt           <= idu_vfpu_rf_pipex_func[1];
+    ex1_rdiv           <= idu_vfpu_rf_pipex_func[2];  // Modified 2026-04-11: 新增反向除法译码
+    ex1_rsqrt7         <= idu_vfpu_rf_pipex_func[3];  // Modified 2026-04-11: 新增近似平方根倒数译码
+    ex1_rec7           <= idu_vfpu_rf_pipex_func[4];  // Modified 2026-04-11: 新增近似倒数译码
     ex1_double         <= idu_vfpu_rf_pipex_func[16];
     ex1_single         <= idu_vfpu_rf_pipex_func[15];
   end
@@ -206,6 +221,9 @@ begin
     vfdsu_ex2_single        <= 1'b0;
     vfdsu_ex2_div           <=  1'b0;
     vfdsu_ex2_sqrt          <=  1'b0;
+    vfdsu_ex2_rdiv          <=  1'b0;  // Modified 2026-04-11: 新增EX2阶段反向除法初始化
+    vfdsu_ex2_rsqrt7        <=  1'b0;  // Modified 2026-04-11: 新增EX2阶段近似平方根倒数初始化
+    vfdsu_ex2_rec7          <=  1'b0;  // Modified 2026-04-11: 新增EX2阶段近似倒数初始化
   end
   else if(ex1_pipedown)
   begin
@@ -216,6 +234,9 @@ begin
     vfdsu_ex2_single        <= ex1_single;
     vfdsu_ex2_div           <= ex1_div;
     vfdsu_ex2_sqrt          <= ex1_sqrt;
+    vfdsu_ex2_rdiv          <= ex1_rdiv;    // Modified 2026-04-11: 新增EX2阶段反向除法传递
+    vfdsu_ex2_rsqrt7        <= ex1_rsqrt7;  // Modified 2026-04-11: 新增EX2阶段近似平方根倒数传递
+    vfdsu_ex2_rec7          <= ex1_rec7;    // Modified 2026-04-11: 新增EX2阶段近似倒数传递
   end
   else
   begin
@@ -226,6 +247,9 @@ begin
     vfdsu_ex2_single        <= vfdsu_ex2_single;
     vfdsu_ex2_div           <= vfdsu_ex2_div;
     vfdsu_ex2_sqrt          <= vfdsu_ex2_sqrt;
+    vfdsu_ex2_rdiv          <= vfdsu_ex2_rdiv;    // Modified 2026-04-11: 新增EX2阶段反向除法保持
+    vfdsu_ex2_rsqrt7        <= vfdsu_ex2_rsqrt7;  // Modified 2026-04-11: 新增EX2阶段近似平方根倒数保持
+    vfdsu_ex2_rec7          <= vfdsu_ex2_rec7;    // Modified 2026-04-11: 新增EX2阶段近似倒数保持
   end
 end
 // &Force("output","vfdsu_ex2_double"); @103

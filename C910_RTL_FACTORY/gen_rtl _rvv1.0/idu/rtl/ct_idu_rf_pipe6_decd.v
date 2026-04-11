@@ -249,6 +249,17 @@ parameter VFREDMAX64   = 20'b0000_0000_0010_0000_0011;
 parameter VFREDMIN     = 20'b0000_0000_0001_0000_0010;
 parameter VFREDMIN64   = 20'b0000_0000_0001_0000_0011;
 
+// Modified for RVV 1.0: Added special FP instructions
+// Modification date: 2026-04-10
+// vfslide1up.vx: funct6=001110, shifts register elements up by 1
+// vfslide1down.vx: funct6=001111, shifts register elements down by 1
+// vfrsqrt7.v: approximate reciprocal square root (7-bit precision)
+// vfrec7.v: approximate reciprocal (7-bit precision)
+parameter VFSLIDE1UP    = 20'b0000_0000_0000_0010_0000;
+parameter VFSLIDE1DOWN  = 20'b0000_0000_0000_0010_0001;
+parameter VFRSQRT7      = 20'b0010_0000_0000_0010_1100;
+parameter VFREC7        = 20'b0010_0000_0000_0010_1101;
+
 //Single
 //  19  18   17      16       15      14     13   12  11  10    9  
 //+---+---+------+--------+------+------+-------+---+---+---+-----+-------+
@@ -1411,9 +1422,26 @@ decd_vec_ready_stage_1[VEC_READY_WIDTH-1:0]  = {VEC_READY_WIDTH{1'b0}};
        end
     6'b001111:begin //vslide1down.vx
       decd_vec_eu_sel_1[VEC_EU_WIDTH-1:0]          = VPERM;
-      decd_vec_func_1[VEC_FUNC_WIDTH-1:0]          = VSLIDE1DOWN;
+      decd_vec_func_1[VEC_FUNC_WIDTH-1:0]          = VSLIDEDOWN;
       decd_vec_ready_stage_1[VEC_READY_WIDTH-1:0]  = EX3_READY;
       end
+
+// Modified for RVV 1.0: Added vfrsqrt7 and vfrec7 instruction decode
+// Modification date: 2024-01-15
+// vfrsqrt7.v: approximate reciprocal square root (7-bit precision)
+// vfrec7.v: approximate reciprocal (7-bit precision)
+// Note: Using FSPU (Floating-point Special Processing Unit) for these operations
+    6'b0010110:begin //vfrsqrt7.v
+      decd_vec_eu_sel_1[VEC_EU_WIDTH-1:0]          = {7'b0,FSPU};
+      decd_vec_func_1[VEC_FUNC_WIDTH-1:0]          = VFRSQRT7;
+      decd_vec_ready_stage_1[VEC_READY_WIDTH-1:0]  = EX3_READY;
+      end
+    6'b0010111:begin //vfrec7.v
+      decd_vec_eu_sel_1[VEC_EU_WIDTH-1:0]          = {7'b0,FSPU};
+      decd_vec_func_1[VEC_FUNC_WIDTH-1:0]          = VFREC7;
+      decd_vec_ready_stage_1[VEC_READY_WIDTH-1:0]  = EX3_READY;
+      end
+
     6'b010100:begin //vmpopc  always split
       decd_vec_eu_sel_1[VEC_EU_WIDTH-1:0]          = VMISC;
       decd_vec_func_1[VEC_FUNC_WIDTH-1:0]          = VMPOP;

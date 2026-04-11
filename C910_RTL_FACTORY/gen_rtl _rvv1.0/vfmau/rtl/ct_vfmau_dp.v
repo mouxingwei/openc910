@@ -191,9 +191,11 @@ output  [31:0]  dp_mult_ex1_op2_slice0_half0;
 output  [47:0]  dp_mult_ex1_op2_slice0_half0_high;     
 output          dp_mult_op2_slice0_vl_half0_mask;      
 output          dp_mult_op2_slice0_vm_half0_mask;      
-output          dp_xx_ex1_double;                      
-output          dp_xx_ex1_fma;                         
-output          dp_xx_ex1_half;                        
+output          dp_xx_ex1_double;
+output          dp_xx_ex1_fma;
+output          dp_xx_ex1_fadd_mode;  //Modifed for RVV 1.0: Add floating-point add mode
+output          dp_xx_ex1_fcmp_mode;   //Modifed for RVV 1.0: Add floating-point compare mode
+output          dp_xx_ex1_half;
 output          dp_xx_ex1_neg;                         
 output  [51:0]  dp_xx_ex1_op0_frac;                    
 output  [51:0]  dp_xx_ex1_op1_frac;                    
@@ -202,14 +204,17 @@ output          dp_xx_ex1_simd;
 output          dp_xx_ex1_single;                      
 output          dp_xx_ex1_sub;                         
 output          dp_xx_ex1_widen;                       
-output          dp_xx_ex2_double;                      
-output          dp_xx_ex2_fma;                         
-output          dp_xx_ex2_half;                        
-output          dp_xx_ex2_mult_id;                     
-output          dp_xx_ex2_neg;                         
-output  [2 :0]  dp_xx_ex2_rm;                          
-output          dp_xx_ex2_simd;                        
-output          dp_xx_ex2_sub;                         
+output          dp_xx_ex2_double;
+output          dp_xx_ex2_fma;
+output          dp_xx_ex2_fadd_mode;  //Modifed for RVV 1.0: Add floating-point add mode
+output          dp_xx_ex2_fcmp_mode;   //Modifed for RVV 1.0: Add floating-point compare mode
+output          dp_xx_ex2_fminmax_mode; //Modifed for RVV 1.0: Add floating-point min/max mode
+output          dp_xx_ex2_half;
+output          dp_xx_ex2_mult_id;
+output          dp_xx_ex2_neg;
+output  [2 :0]  dp_xx_ex2_rm;
+output          dp_xx_ex2_simd;
+output          dp_xx_ex2_sub;
 output          dp_xx_ex2_widen;                       
 output          dp_xx_ex3_double;                      
 output          dp_xx_ex3_fma;                         
@@ -273,8 +278,11 @@ reg             ex2_half;
 reg             ex2_mult_id;                           
 reg             ex2_neg;                               
 reg     [2 :0]  ex2_rm;                                
-reg             ex2_single;                            
-reg             ex2_sub;                               
+reg             ex2_single;
+reg             ex2_sub;
+reg             ex2_fadd_mode;   //Modifed for RVV 1.0: Add floating-point add mode
+reg             ex2_fcmp_mode;    //Modifed for RVV 1.0: Add floating-point compare mode
+reg             ex2_fminmax_mode; //Modifed for RVV 1.0: Add floating-point min/max mode
 reg             ex3_double;                            
 reg     [6 :0]  ex3_dst_vreg;                          
 reg             ex3_fma;                               
@@ -346,9 +354,11 @@ wire    [5 :0]  dp_vfmau_pipex_inst_type;
 wire            dp_vfmau_pipex_sel;                    
 wire            dp_vfmau_pipex_vfmau_sel;              
 wire            dp_vfmau_rf_pipex_sel;                 
-wire            dp_xx_ex1_double;                      
-wire            dp_xx_ex1_fma;                         
-wire            dp_xx_ex1_half;                        
+wire            dp_xx_ex1_double;
+wire            dp_xx_ex1_fma;
+wire            dp_xx_ex1_fadd_mode;  //Modifed for RVV 1.0: Add floating-point add mode
+wire            dp_xx_ex1_fcmp_mode;   //Modifed for RVV 1.0: Add floating-point compare mode
+wire            dp_xx_ex1_half;
 wire            dp_xx_ex1_neg;                         
 wire    [51:0]  dp_xx_ex1_op0_frac;                    
 wire    [51:0]  dp_xx_ex1_op1_frac;                    
@@ -357,14 +367,17 @@ wire            dp_xx_ex1_simd;
 wire            dp_xx_ex1_single;                      
 wire            dp_xx_ex1_sub;                         
 wire            dp_xx_ex1_widen;                       
-wire            dp_xx_ex2_double;                      
-wire            dp_xx_ex2_fma;                         
-wire            dp_xx_ex2_half;                        
-wire            dp_xx_ex2_mult_id;                     
-wire            dp_xx_ex2_neg;                         
-wire    [2 :0]  dp_xx_ex2_rm;                          
-wire            dp_xx_ex2_simd;                        
-wire            dp_xx_ex2_sub;                         
+wire            dp_xx_ex2_double;
+wire            dp_xx_ex2_fma;
+wire            dp_xx_ex2_fadd_mode;  //Modifed for RVV 1.0: Add floating-point add mode
+wire            dp_xx_ex2_fcmp_mode;   //Modifed for RVV 1.0: Add floating-point compare mode
+wire            dp_xx_ex2_fminmax_mode; //Modifed for RVV 1.0: Add floating-point min/max mode
+wire            dp_xx_ex2_half;
+wire            dp_xx_ex2_mult_id;
+wire            dp_xx_ex2_neg;
+wire    [2 :0]  dp_xx_ex2_rm;
+wire            dp_xx_ex2_simd;
+wire            dp_xx_ex2_sub;
 wire            dp_xx_ex2_widen;                       
 wire            dp_xx_ex3_double;                      
 wire            dp_xx_ex3_fma;                         
@@ -591,9 +604,13 @@ assign ex1_dst_vreg[6:0]   = dp_vfmau_ex1_pipex_dst_vreg[6:0];
 assign ex1_half            = ex1_func[7];
 assign ex1_single          = ex1_func[6];
 assign ex1_double          = ex1_func[5];
-assign ex1_fma             = ex1_func[0]; 
+assign ex1_fma             = ex1_func[0];
 assign ex1_sub             = ex1_func[1];
 assign ex1_neg             = ex1_func[2];
+// &Force("bus","ex1_func",8,0); @280
+assign ex1_fadd_mode       = ex1_func[3];  //Modifed for RVV 1.0: Add floating-point add mode
+assign ex1_fcmp_mode        = ex1_func[4];  //Modifed for RVV 1.0: Add floating-point compare mode
+assign ex1_fminmax_mode     = ex1_func[8];  //Modifed for RVV 1.0: Add floating-point min/max mode
 
 //Rounding mode
 assign ex1_dynamic_rm_select = (ex1_static_rm[2:0] == 3'b111) || ex1_simd; 
@@ -617,12 +634,15 @@ assign dp_xx_ex1_simd  = 1'b0;
 assign dp_xx_ex1_widen = 1'b0;
 //output to each mult
 assign dp_xx_ex1_rm[2:0]        = ex1_rm[2:0];
-assign dp_xx_ex1_double         = ex1_double; 
-assign dp_xx_ex1_single         = ex1_single; 
-assign dp_xx_ex1_half           = ex1_half; 
-assign dp_xx_ex1_fma            = ex1_fma;    
-assign dp_xx_ex1_sub            = ex1_sub;    
-assign dp_xx_ex1_neg            = ex1_neg;   
+assign dp_xx_ex1_double         = ex1_double;
+assign dp_xx_ex1_single         = ex1_single;
+assign dp_xx_ex1_half           = ex1_half;
+assign dp_xx_ex1_fma            = ex1_fma;
+assign dp_xx_ex1_sub            = ex1_sub;
+assign dp_xx_ex1_neg            = ex1_neg;
+//Modifed for RVV 1.0: Add output for new FP modes
+assign dp_xx_ex1_fadd_mode      = ex1_fadd_mode;  //Add mode for vfadd/vfsub
+assign dp_xx_ex1_fcmp_mode       = ex1_fcmp_mode;   //Compare mode for vmfeq/vmflt/etc   
 
 //----------------------------------------------------------
 //                 multiplier data prepration
@@ -714,7 +734,7 @@ begin
   if(!cpurst_b)
   begin
     ex2_dst_vreg[6:0]  <= 7'b0;
-    ex2_rm[2:0]        <= 3'b0; 
+    ex2_rm[2:0]        <= 3'b0;
     ex2_single         <= 1'b0;
     ex2_double         <= 1'b0;
     ex2_half           <= 1'b0;
@@ -722,8 +742,11 @@ begin
     ex2_sub            <= 1'b0;
     ex2_neg            <= 1'b0;
     ex2_mult_id        <= 1'b0;
+    ex2_fadd_mode      <= 1'b0;  //Modifed for RVV 1.0: Add floating-point add mode
+    ex2_fcmp_mode       <= 1'b0;  //Modifed for RVV 1.0: Add floating-point compare mode
+    ex2_fminmax_mode    <= 1'b0;  //Modifed for RVV 1.0: Add floating-point min/max mode
   end
- else if(ctrl_ex1_inst_vld) 
+ else if(ctrl_ex1_inst_vld)
  begin
     ex2_dst_vreg[6:0]  <= ex1_dst_vreg[6:0];
     ex2_rm[2:0]        <= ex1_rm[2:0];
@@ -734,6 +757,9 @@ begin
     ex2_sub            <= ex1_sub;
     ex2_neg            <= ex1_neg;
     ex2_mult_id        <= ex1_mult_id;
+    ex2_fadd_mode      <= ex1_fadd_mode;  //Modifed for RVV 1.0: Add floating-point add mode
+    ex2_fcmp_mode       <= ex1_fcmp_mode;   //Modifed for RVV 1.0: Add floating-point compare mode
+    ex2_fminmax_mode    <= ex1_fminmax_mode;  //Modifed for RVV 1.0: Add floating-point min/max mode
   end
   else
   begin
@@ -746,6 +772,9 @@ begin
     ex2_sub            <= ex2_sub;
     ex2_neg            <= ex2_neg;
     ex2_mult_id        <= ex2_mult_id;
+    ex2_fadd_mode      <= ex2_fadd_mode;    //Modifed for RVV 1.0: Add floating-point add mode
+    ex2_fcmp_mode       <= ex2_fcmp_mode;   //Modifed for RVV 1.0: Add floating-point compare mode
+    ex2_fminmax_mode    <= ex2_fminmax_mode;  //Modifed for RVV 1.0: Add floating-point min/max mode
   end
 end
 
@@ -773,11 +802,15 @@ assign dp_xx_ex2_double = ex2_double;
 
 //output to each mult
 assign dp_xx_ex2_half    = ex2_half;
-assign dp_xx_ex2_fma     = ex2_fma;   
+assign dp_xx_ex2_fma     = ex2_fma;
 assign dp_xx_ex2_rm[2:0] = ex2_rm[2:0];
 assign dp_xx_ex2_sub     = ex2_sub;
 assign dp_xx_ex2_neg     = ex2_neg;
 assign dp_xx_ex2_mult_id  = ex2_mult_id;
+//Modifed for RVV 1.0: Add output for new FP modes
+assign dp_xx_ex2_fadd_mode = ex2_fadd_mode;  //Add mode for vfadd/vfsub
+assign dp_xx_ex2_fcmp_mode  = ex2_fcmp_mode;   //Compare mode for vmfeq/vmflt/etc
+assign dp_xx_ex2_fminmax_mode = ex2_fminmax_mode;  //Min/max mode for vfmax/vfmin
 
 //==========================================================
 //                    EX3  Stage

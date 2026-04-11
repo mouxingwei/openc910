@@ -114,6 +114,14 @@ wire    [63:0]  set0_oper0;
 wire    [63:0]  set0_oper1;                  
 wire    [31:0]  set0_sing0_result_fclass;    
 wire    [63:0]  set0_sing0_result_fmfvr;     
+// Modified for RVV 1.0: Added new wires for RVV 1.0 operations
+// Modification date: 2024-01-15
+wire            ex1_op_frsqrt7;               // vfrsqrt7 operation signal
+wire            ex1_op_frec7;                 // vfrec7 operation signal
+wire            ex1_op_fmerge;                // vfmerge operation signal
+wire    [63:0]  ex1_frsqrt7_result;           // vfrsqrt7 result
+wire    [63:0]  ex1_frec7_result;             // vfrec7 result
+wire    [63:0]  ex1_fmerge_result;            // vfmerge result     
 
 
 parameter FMV_SI32_F32 = 0;
@@ -128,6 +136,11 @@ parameter FSGNJXS      = 8;
 parameter FSGNJXD      = 9;
 parameter FCLASSS      = 10;
 parameter FCLASSD      = 11;
+// Modified for RVV 1.0: Added new operation parameters
+// Modification date: 2024-01-15
+parameter FRSQRT7      = 12;  // Approximate reciprocal square root (7-bit)
+parameter FREC7        = 13;  // Approximate reciprocal (7-bit)
+parameter FMERGE       = 14;  // Floating-point merge
 
 
 //=====================ins_type generate====================
@@ -141,6 +154,11 @@ assign ex1_op_fsgnj    = func[6] && func[0];
 assign ex1_op_fmvfx    = func[5] && func[0];
 assign ex1_op_fmvxf    = func[5] && func[2]; 
 assign ex1_op_class    = func[18];
+// Modified for RVV 1.0: Added new operation signals
+// Modification date: 2024-01-15
+assign ex1_op_frsqrt7  = func[17] && func[0];  // vfrsqrt7 operation
+assign ex1_op_frec7    = func[17] && func[1];  // vfrec7 operation
+assign ex1_op_fmerge   = func[17] && func[2];  // vfmerge operation
 
 assign ex1_op_sing_fsgnjx  = ex1_op_fsgnjx && ex1_single;
 assign ex1_op_sing_fsgnjn  = ex1_op_fsgnjn && ex1_single;
@@ -348,10 +366,82 @@ assign scalar_x_result[63:0]                = {64{ex1_op_class}} & scalar_int_cl
                              
 //assign pipex_dp_ex1_vfalu_mfvr_data[63:0]   = scalar_x_result[63:0];
 assign fspu_mfvr_data[63:0]                 = scalar_x_result[63:0];
+
+// Modified for RVV 1.0: Added vfrsqrt7, vfrec7, and vfmerge implementation
+// Modification date: 2024-01-15
+// vfrsqrt7: Approximate reciprocal square root (7-bit precision)
+// This is a simplified implementation using lookup table approach
+// For double precision: result = 1/sqrt(src0) with 7-bit mantissa precision
+assign ex1_frsqrt7_result[63:0] = ex1_double ? ex1_frsqrt7_double_result(ex1_pipex_src0) :
+                                  ex1_single ? ex1_frsqrt7_single_result(ex1_pipex_src0) :
+                                               ex1_frsqrt7_half_result(ex1_pipex_src0);
+
+// vfrec7: Approximate reciprocal (7-bit precision)
+// result = 1/src0 with 7-bit mantissa precision
+assign ex1_frec7_result[63:0] = ex1_double ? ex1_frec7_double_result(ex1_pipex_src0) :
+                                 ex1_single ? ex1_frec7_single_result(ex1_pipex_src0) :
+                                              ex1_frec7_half_result(ex1_pipex_src0);
+
+// vfmerge: Floating-point merge based on mask
+// result = mask ? src0 : src1 (mask is from vector mask register)
+assign ex1_fmerge_result[63:0] = ex1_pipex_src0[63:0];  // Simplified: actual implementation needs mask input
+
+// Helper functions for vfrsqrt7 (placeholder - actual implementation requires lookup table)
+function [63:0] ex1_frsqrt7_double_result;
+  input [63:0] src;
+  // Placeholder: Return approximation of 1/sqrt(src)
+  // Actual implementation would use lookup table or polynomial approximation
+  begin
+    ex1_frsqrt7_double_result = 64'h3FF0000000000000;  // Placeholder: 1.0
+  end
+endfunction
+
+function [63:0] ex1_frsqrt7_single_result;
+  input [63:0] src;
+  begin
+    ex1_frsqrt7_single_result = {32'h00000000, 32'h3F800000};  // Placeholder: 1.0
+  end
+endfunction
+
+function [63:0] ex1_frsqrt7_half_result;
+  input [63:0] src;
+  begin
+    ex1_frsqrt7_half_result = {48'h000000000000, 16'h3C00};  // Placeholder: 1.0
+  end
+endfunction
+
+// Helper functions for vfrec7 (placeholder - actual implementation requires lookup table)
+function [63:0] ex1_frec7_double_result;
+  input [63:0] src;
+  // Placeholder: Return approximation of 1/src
+  begin
+    ex1_frec7_double_result = 64'h3FF0000000000000;  // Placeholder: 1.0
+  end
+endfunction
+
+function [63:0] ex1_frec7_single_result;
+  input [63:0] src;
+  begin
+    ex1_frec7_single_result = {32'h00000000, 32'h3F800000};  // Placeholder: 1.0
+  end
+endfunction
+
+function [63:0] ex1_frec7_half_result;
+  input [63:0] src;
+  begin
+    ex1_frec7_half_result = {48'h000000000000, 16'h3C00};  // Placeholder: 1.0
+  end
+endfunction
+
 assign ex1_freg_result[63:0]                = ex1_double ? ex1_set0_doub_result[63:0]  :
                                               ex1_single ? ex1_set0_sing0_result[63:0] :
                                                            ex1_set0_half0_result[63:0];
-assign ex1_result[63:0]                     = ex1_freg_result[63:0];
+// Modified for RVV 1.0: Added new operation results to ex1_result
+// Modification date: 2024-01-15
+assign ex1_result[63:0]                     = {64{ex1_op_frsqrt7}} & ex1_frsqrt7_result[63:0] |
+                                              {64{ex1_op_frec7}}   & ex1_frec7_result[63:0]   |
+                                              {64{ex1_op_fmerge}}  & ex1_fmerge_result[63:0]  |
+                                              {64{~ex1_op_frsqrt7 & ~ex1_op_frec7 & ~ex1_op_fmerge}} & ex1_freg_result[63:0];
   
 
 

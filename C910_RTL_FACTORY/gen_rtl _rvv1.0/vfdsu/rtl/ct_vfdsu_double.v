@@ -22,6 +22,9 @@ module ct_vfdsu_double(
   ex1_div,
   ex1_double,
   ex1_pipedown,
+  ex1_rdiv,            // Modified 2026-04-11: 新增反向除法信号
+  ex1_rsqrt7,          // Modified 2026-04-11: 新增近似平方根倒数信号
+  ex1_rec7,            // Modified 2026-04-11: 新增近似倒数信号
   ex1_scalar,
   ex1_single,
   ex1_sqrt,
@@ -50,6 +53,9 @@ input           cpurst_b;
 input           ex1_div;                              
 input           ex1_double;                           
 input           ex1_pipedown;                         
+input           ex1_rdiv;            // Modified 2026-04-11: 新增反向除法端口
+input           ex1_rsqrt7;          // Modified 2026-04-11: 新增近似平方根倒数端口
+input           ex1_rec7;            // Modified 2026-04-11: 新增近似倒数端口
 input           ex1_scalar;                           
 input           ex1_single;                           
 input           ex1_sqrt;                             
@@ -81,6 +87,9 @@ wire    [52:0]  ex1_divisor;
 wire            ex1_double;                           
 wire            ex1_pipedown;                         
 wire    [59:0]  ex1_remainder;                        
+wire            ex1_rdiv;           // Modified 2026-04-11: 新增反向除法信号
+wire            ex1_rsqrt7;         // Modified 2026-04-11: 新增近似平方根倒数信号
+wire            ex1_rec7;           // Modified 2026-04-11: 新增近似倒数信号
 wire            ex1_scalar;                           
 wire            ex1_single;                           
 wire            ex1_sqrt;                             
@@ -178,6 +187,9 @@ ct_vfdsu_prepare  x_ct_vfdsu_prepare (
   .ex1_divisor           (ex1_divisor          ),
   .ex1_double            (ex1_double           ),
   .ex1_pipedown          (ex1_pipedown         ),
+  .ex1_rdiv              (ex1_rdiv             ), // Modified 2026-04-11: 新增反向除法
+  .ex1_rsqrt7            (ex1_rsqrt7           ), // Modified 2026-04-11: 新增近似平方根倒数
+  .ex1_rec7              (ex1_rec7             ), // Modified 2026-04-11: 新增近似倒数
   .ex1_remainder         (ex1_remainder        ),
   .ex1_scalar            (ex1_scalar           ),
   .ex1_single            (ex1_single           ),

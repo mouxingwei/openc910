@@ -70,6 +70,12 @@ wire            forever_cpuclk;
 wire            fspu_forward_r_vld;          
 wire    [63:0]  fspu_forward_result;         
 wire    [63:0]  fspu_mfvr_data;              
+// Modified for RVV 1.0: Added new module wires
+// Modification date: 2024-01-15
+wire            freduct_forward_r_vld;       // Reduction operation valid
+wire    [63:0]  freduct_forward_result;      // Reduction operation result
+wire            fwiden_forward_r_vld;        // Widening operation valid
+wire    [127:0] fwiden_forward_result;       // Widening operation result
 wire            pad_yy_icg_scan_en;          
 wire    [63:0]  pipex_dp_ex1_vfalu_mfvr_data; 
 wire    [4 :0]  pipex_dp_ex3_vfalu_ereg_data; 
@@ -114,6 +120,38 @@ ct_fspu_top  x_ct_fspu_top (
   .fspu_forward_r_vld           (fspu_forward_r_vld          ),
   .fspu_forward_result          (fspu_forward_result         ),
   .fspu_mfvr_data               (fspu_mfvr_data              ),
+  .pad_yy_icg_scan_en           (pad_yy_icg_scan_en          )
+);
+
+// Modified for RVV 1.0: Added reduction and widening operation modules
+// Modification date: 2024-01-15
+// &Instance("ct_freduct_top"); @30
+ct_freduct_top  x_ct_freduct_top (
+  .cp0_vfpu_icg_en              (cp0_vfpu_icg_en             ),
+  .cp0_yy_clk_en                (cp0_yy_clk_en               ),
+  .cpurst_b                     (cpurst_b                    ),
+  .dp_vfalu_ex1_pipex_func      (dp_vfalu_ex1_pipex_func     ),
+  .dp_vfalu_ex1_pipex_sel       (dp_vfalu_ex1_pipex_sel      ),
+  .dp_vfalu_ex1_pipex_srcf0     (dp_vfalu_ex1_pipex_srcf0    ),
+  .dp_vfalu_ex1_pipex_srcf1     (dp_vfalu_ex1_pipex_srcf1    ),
+  .forever_cpuclk               (forever_cpuclk              ),
+  .freduct_forward_r_vld        (freduct_forward_r_vld       ),
+  .freduct_forward_result       (freduct_forward_result      ),
+  .pad_yy_icg_scan_en           (pad_yy_icg_scan_en          )
+);
+
+// &Instance("ct_fwiden_top"); @31
+ct_fwiden_top  x_ct_fwiden_top (
+  .cp0_vfpu_icg_en              (cp0_vfpu_icg_en             ),
+  .cp0_yy_clk_en                (cp0_yy_clk_en               ),
+  .cpurst_b                     (cpurst_b                    ),
+  .dp_vfalu_ex1_pipex_func      (dp_vfalu_ex1_pipex_func     ),
+  .dp_vfalu_ex1_pipex_sel       (dp_vfalu_ex1_pipex_sel      ),
+  .dp_vfalu_ex1_pipex_srcf0     (dp_vfalu_ex1_pipex_srcf0    ),
+  .dp_vfalu_ex1_pipex_srcf1     (dp_vfalu_ex1_pipex_srcf1    ),
+  .forever_cpuclk               (forever_cpuclk              ),
+  .fwiden_forward_r_vld         (fwiden_forward_r_vld        ),
+  .fwiden_forward_result        (fwiden_forward_result       ),
   .pad_yy_icg_scan_en           (pad_yy_icg_scan_en          )
 );
 

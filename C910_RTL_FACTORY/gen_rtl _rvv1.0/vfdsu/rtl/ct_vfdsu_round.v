@@ -34,6 +34,7 @@ module ct_vfdsu_round(
   vfdsu_ex3_potnt_uf,
   vfdsu_ex3_qnan_f,
   vfdsu_ex3_qnan_sign,
+  vfdsu_ex3_rec7,            // Modified 2026-04-11: 新增近似倒数信号
   vfdsu_ex3_rem_sign,
   vfdsu_ex3_rem_zero,
   vfdsu_ex3_result_denorm_round_add_num,
@@ -43,6 +44,7 @@ module ct_vfdsu_round(
   vfdsu_ex3_result_sign,
   vfdsu_ex3_result_zero,
   vfdsu_ex3_rm,
+  vfdsu_ex3_rsqrt7,          // Modified 2026-04-11: 新增近似平方根倒数信号
   vfdsu_ex3_rslt_denorm,
   vfdsu_ex3_sing_expnt_rst,
   vfdsu_ex3_single,
@@ -61,12 +63,14 @@ module ct_vfdsu_round(
   vfdsu_ex4_potnt_uf,
   vfdsu_ex4_qnan_f,
   vfdsu_ex4_qnan_sign,
+  vfdsu_ex4_rec7,            // Modified 2026-04-11: 新增近似倒数信号
   vfdsu_ex4_result_inf,
   vfdsu_ex4_result_lfn,
   vfdsu_ex4_result_nor,
   vfdsu_ex4_result_qnan,
   vfdsu_ex4_result_sign,
   vfdsu_ex4_result_zero,
+  vfdsu_ex4_rsqrt7,          // Modified 2026-04-11: 新增近似平方根倒数信号
   vfdsu_ex4_rslt_denorm,
   vfdsu_ex4_single,
   vfdsu_ex4_uf
@@ -92,6 +96,7 @@ input           vfdsu_ex3_potnt_of;
 input           vfdsu_ex3_potnt_uf;                   
 input   [51:0]  vfdsu_ex3_qnan_f;                     
 input           vfdsu_ex3_qnan_sign;                  
+input           vfdsu_ex3_rec7;          // Modified 2026-04-11: 新增近似倒数端口
 input           vfdsu_ex3_rem_sign;                   
 input           vfdsu_ex3_rem_zero;                   
 input   [52:0]  vfdsu_ex3_result_denorm_round_add_num; 
@@ -101,6 +106,7 @@ input           vfdsu_ex3_result_qnan;
 input           vfdsu_ex3_result_sign;                
 input           vfdsu_ex3_result_zero;                
 input   [2 :0]  vfdsu_ex3_rm;                         
+input           vfdsu_ex3_rsqrt7;        // Modified 2026-04-11: 新增近似平方根倒数端口
 input           vfdsu_ex3_rslt_denorm;                
 input   [8 :0]  vfdsu_ex3_sing_expnt_rst;             
 input           vfdsu_ex3_single;                     
@@ -119,12 +125,14 @@ output          vfdsu_ex4_potnt_of;
 output          vfdsu_ex4_potnt_uf;                   
 output  [51:0]  vfdsu_ex4_qnan_f;                     
 output          vfdsu_ex4_qnan_sign;                  
+output          vfdsu_ex4_rec7;          // Modified 2026-04-11: 新增近似倒数端口
 output          vfdsu_ex4_result_inf;                 
 output          vfdsu_ex4_result_lfn;                 
 output          vfdsu_ex4_result_nor;                 
 output          vfdsu_ex4_result_qnan;                
 output          vfdsu_ex4_result_sign;                
 output          vfdsu_ex4_result_zero;                
+output          vfdsu_ex4_rsqrt7;        // Modified 2026-04-11: 新增近似平方根倒数端口
 output          vfdsu_ex4_rslt_denorm;                
 output          vfdsu_ex4_single;                     
 output          vfdsu_ex4_uf;                         
@@ -156,12 +164,14 @@ reg             vfdsu_ex4_potnt_of;
 reg             vfdsu_ex4_potnt_uf;                   
 reg     [51:0]  vfdsu_ex4_qnan_f;                     
 reg             vfdsu_ex4_qnan_sign;                  
+reg             vfdsu_ex4_rec7;          // Modified 2026-04-11: 新增近似倒数寄存器
 reg             vfdsu_ex4_result_inf;                 
 reg             vfdsu_ex4_result_lfn;                 
 reg             vfdsu_ex4_result_nor;                 
 reg             vfdsu_ex4_result_qnan;                
 reg             vfdsu_ex4_result_sign;                
 reg             vfdsu_ex4_result_zero;                
+reg             vfdsu_ex4_rsqrt7;        // Modified 2026-04-11: 新增近似平方根倒数寄存器
 reg             vfdsu_ex4_rslt_denorm;                
 reg             vfdsu_ex4_single;                     
 reg             vfdsu_ex4_uf;                         
@@ -948,6 +958,8 @@ begin
     vfdsu_ex4_frac[54:0]      <= 55'b0;
     vfdsu_ex4_qnan_sign       <=  1'b0;    
     vfdsu_ex4_qnan_f[51:0]    <= 52'b0;
+    vfdsu_ex4_rec7            <=  1'b0;    // Modified 2026-04-11: 近似倒数复位
+    vfdsu_ex4_rsqrt7          <=  1'b0;    // Modified 2026-04-11: 近似平方根倒数复位
     vfdsu_ex4_rslt_denorm     <= 1'b0;
     vfdsu_ex4_denorm_to_tiny_frac
                               <= 1'b0;
@@ -976,6 +988,8 @@ begin
     vfdsu_ex4_frac[54:0]      <= frac_final_rst[54:0];
     vfdsu_ex4_qnan_sign       <= vfdsu_ex3_qnan_sign;    
     vfdsu_ex4_qnan_f[51:0]    <= vfdsu_ex3_qnan_f[51:0];
+    vfdsu_ex4_rec7            <= vfdsu_ex3_rec7;    // Modified 2026-04-11: 近似倒数传递
+    vfdsu_ex4_rsqrt7          <= vfdsu_ex3_rsqrt7;  // Modified 2026-04-11: 近似平方根倒数传递
     vfdsu_ex4_rslt_denorm     <= ex3_rslt_denorm;
     vfdsu_ex4_denorm_to_tiny_frac 
                               <= denorm_to_tiny_frac;
@@ -1003,6 +1017,8 @@ begin
     vfdsu_ex4_frac[54:0]      <= vfdsu_ex4_frac[54:0];
     vfdsu_ex4_qnan_sign       <= vfdsu_ex4_qnan_sign;
     vfdsu_ex4_qnan_f[51:0]    <= vfdsu_ex4_qnan_f[51:0];
+    vfdsu_ex4_rec7            <= vfdsu_ex4_rec7;      // Modified 2026-04-11: 近似倒数保持
+    vfdsu_ex4_rsqrt7          <= vfdsu_ex4_rsqrt7;    // Modified 2026-04-11: 近似平方根倒数保持
     vfdsu_ex4_rslt_denorm     <= vfdsu_ex4_rslt_denorm;
     vfdsu_ex4_denorm_to_tiny_frac 
                               <= vfdsu_ex4_denorm_to_tiny_frac;

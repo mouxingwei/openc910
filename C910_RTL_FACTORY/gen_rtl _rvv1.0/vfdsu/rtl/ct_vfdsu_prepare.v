@@ -22,6 +22,9 @@ module ct_vfdsu_prepare(
   ex1_divisor,
   ex1_double,
   ex1_pipedown,
+  ex1_rdiv,              // Modified 2026-04-11: 新增反向除法输入信号
+  ex1_rsqrt7,            // Modified 2026-04-11: 新增近似平方根倒数输入信号
+  ex1_rec7,              // Modified 2026-04-11: 新增近似倒数输入信号
   ex1_remainder,
   ex1_scalar,
   ex1_single,
@@ -61,6 +64,9 @@ input           cpurst_b;
 input           ex1_div;                  
 input           ex1_double;               
 input           ex1_pipedown;             
+input           ex1_rdiv;                 // Modified 2026-04-11: 新增反向除法输入端口
+input           ex1_rsqrt7;               // Modified 2026-04-11: 新增近似平方根倒数输入端口
+input           ex1_rec7;                 // Modified 2026-04-11: 新增近似倒数输入端口
 input           ex1_scalar;               
 input           ex1_single;               
 input           ex1_sqrt;                 
@@ -206,6 +212,9 @@ wire            ex1_result_inf;
 wire            ex1_result_qnan;          
 wire            ex1_result_sign;          
 wire            ex1_result_zero;          
+wire            ex1_rdiv;                  // Modified 2026-04-11: 新增反向除法信号
+wire            ex1_rsqrt7;                // Modified 2026-04-11: 新增近似平方根倒数信号
+wire            ex1_rec7;                  // Modified 2026-04-11: 新增近似倒数信号          
 wire    [2 :0]  ex1_rm;                   
 wire            ex1_rst_default_qnan;     
 wire            ex1_scalar;               
@@ -240,8 +249,12 @@ wire    [2 :0]  vfpu_yy_xx_rm;
 //======================Operator prepare====================
 //VECTOR_SIMD
 
-assign ex1_oper0[63:0]             = ex1_src0[63:0];
-assign ex1_oper1[63:0]             = ex1_src1[63:0];
+// Modified 2026-04-11: 支持反向除法（vfrdiv）操作数交换
+// vfrdiv: vd = rs1 / vs2, 即 src1/src0
+// 正常除法: vd = vs2 / vs1, 即 src0/src1
+// 反向除法时交换操作数
+assign ex1_oper0[63:0]             = ex1_rdiv ? ex1_src1[63:0] : ex1_src0[63:0];
+assign ex1_oper1[63:0]             = ex1_rdiv ? ex1_src0[63:0] : ex1_src1[63:0];
 
 
 //Sign bit prepare
@@ -652,9 +665,12 @@ end
 //                               ? ex1_sqrt_expnt_result[12:0]
 //                               : ex1_expnt_result[12:0];
 //Special result should skip SRT logic
+// Modified 2026-04-11: 近似计算（vfrsqrt7.v, vfrec7.v）不需要SRT迭代
 assign ex1_srt_skip = ex1_result_zero || 
                       ex1_result_qnan || 
-                      ex1_result_inf;
+                      ex1_result_inf ||
+                      ex1_rsqrt7 ||     // 近似平方根倒数跳过SRT
+                      ex1_rec7;         // 近似倒数跳过SRT
 //gate clk
 // &Instance("gated_clk_cell","x_ex1_pipe_clk"); @400
 gated_clk_cell  x_ex1_pipe_clk (

@@ -133,9 +133,13 @@ input   [51 :0]  dp_xx_ex1_op0_frac;
 input   [51 :0]  dp_xx_ex1_op1_frac;                    
 input   [2  :0]  dp_xx_ex1_rm;                          
 input            dp_xx_ex1_simd;                        
-input            dp_xx_ex1_single;                      
-input            dp_xx_ex1_sub;                         
-input            dp_xx_ex1_widen;                       
+input            dp_xx_ex1_single;
+input            dp_xx_ex1_sub;
+input            dp_xx_ex1_widen;
+//Modifed for RVV 1.0: Add new FP mode inputs
+input            dp_xx_ex1_fadd_mode;   //Floating-point add mode
+input            dp_xx_ex1_fcmp_mode;   //Floating-point compare mode
+input            dp_xx_ex1_fminmax_mode;//Floating-point min/max mode
 input            dp_xx_ex2_double;                      
 input            dp_xx_ex2_fma;                         
 input            dp_xx_ex2_half;                        
@@ -183,9 +187,16 @@ output  [63 :0]  slicex_mult1_dp_ex3_mult_result;
 output  [4  :0]  slicex_mult1_dp_ex4_expt;              
 output  [15 :0]  slicex_mult1_dp_ex4_half_fma_result;   
 output  [63 :0]  slicex_mult1_dp_ex4_mult_result;       
-output  [4  :0]  slicex_mult1_dp_ex5_fma_expt;          
-output  [63 :0]  slicex_mult1_dp_ex5_fma_result;        
-output  [67 :0]  slicex_mult1_dp_ex5_fwd_data;          
+output  [4  :0]  slicex_mult1_dp_ex5_fma_expt;
+output  [63 :0]  slicex_mult1_dp_ex5_fma_result;
+output  [67 :0]  slicex_mult1_dp_ex5_fwd_data;
+//Modifed for RVV 1.0: Add new FP function outputs
+output  [7  :0]  slicex_mult1_dp_ex5_fcmp_class_a;   //FP comparison class A
+output  [7  :0]  slicex_mult1_dp_ex5_fcmp_class_b;   //FP comparison class B
+output          slicex_mult1_dp_ex5_fcmp_result;      //FP comparison result
+output          slicex_mult1_dp_ex5_fcmp_special;     //FP comparison special case
+output  [63 :0] slicex_mult1_dp_ex5_fmaxmin_result;  //FP max/min result
+output          slicex_mult1_dp_ex5_fmaxmin_special; //FP max/min special case          
 
 // &Regs; @25
 reg     [12 :0]  mult1_ex1_expnt_bias;                  
@@ -283,7 +294,14 @@ reg              mult1_ex5_fma_rst0_sel;
 reg              mult1_ex5_fma_sign;                    
 reg              mult1_ex5_result_abnorm;               
 reg     [3  :0]  mult1_ex5_special_type;                
-reg     [63 :0]  slicex_mult1_dp_ex4_mult_result;       
+reg     [63 :0]  slicex_mult1_dp_ex4_mult_result;
+//Modifed for RVV 1.0: Add EX5 pipeline registers for new FP functions
+reg              mult1_ex5_fcmp_result;
+reg     [7  :0]  mult1_ex5_fcmp_class_a;
+reg     [7  :0]  mult1_ex5_fcmp_class_b;
+reg              mult1_ex5_fcmp_special;
+reg     [63 :0] mult1_ex5_fmaxmin_result;
+reg              mult1_ex5_fmaxmin_special;       
 
 // &Wires; @26
 wire    [2  :0]  bias_select;                           
@@ -736,8 +754,15 @@ wire    [63 :0]  slicex_mult1_dp_ex3_mult_result;
 wire    [4  :0]  slicex_mult1_dp_ex4_expt;              
 wire    [15 :0]  slicex_mult1_dp_ex4_half_fma_result;   
 wire    [4  :0]  slicex_mult1_dp_ex5_fma_expt;          
-wire    [63 :0]  slicex_mult1_dp_ex5_fma_result;        
-wire    [67 :0]  slicex_mult1_dp_ex5_fwd_data;          
+wire    [63 :0]  slicex_mult1_dp_ex5_fma_result;
+wire    [67 :0]  slicex_mult1_dp_ex5_fwd_data;
+//Modifed for RVV 1.0: Add new FP function wires
+wire    [7  :0]  mult1_ex5_fcmp_class_a;
+wire    [7  :0]  mult1_ex5_fcmp_class_b;
+wire            mult1_ex5_fcmp_result;
+wire            mult1_ex5_fcmp_special;
+wire    [63 :0] mult1_ex5_fmaxmin_result;
+wire            mult1_ex5_fmaxmin_special;
 wire             vfpu_yy_xx_dqnan;                      
 
 
@@ -1962,6 +1987,26 @@ ct_vfmau_lza  x_ct_vfmau_lza (
   .summand               (mult1_ex3_lza_summand)
 );
 
+//Modifed for RVV 1.0: Instantiate FP comparison unit
+//ct_vfmau_fcmp  x_ct_vfmau_fcmp (
+//  .cmp_a                 (dp_mult1_ex1_op0_slicex[63:0]),
+//  .cmp_b                 (dp_mult1_ex1_op1_slicex[63:0]),
+//  .cmp_mode              (dp_xx_ex1_fcmp_mode),
+//  .cmp_result            (mult1_ex5_fcmp_result),
+//  .fp_class_a            (mult1_ex5_fcmp_class_a[7:0]),
+//  .fp_class_b            (mult1_ex5_fcmp_class_b[7:0]),
+//  .special_case          (mult1_ex5_fcmp_special)
+//);
+
+//Modifed for RVV 1.0: Instantiate FP max/min unit
+//ct_vfmau_fmaxmin  x_ct_vfmau_fmaxmin (
+//  .maxmin_a              (dp_mult1_ex1_op0_slicex[63:0]),
+//  .maxmin_b              (dp_mult1_ex1_op1_slicex[63:0]),
+//  .maxmin_mode           (dp_xx_ex1_fminmax_mode),
+//  .result                (mult1_ex5_fmaxmin_result[63:0]),
+//  .special_case          (mult1_ex5_fmaxmin_special)
+//);
+
 // &Connect(.summand           (mult1_ex3_lza_summand      ), @1473
 //          .addend            (mult1_ex3_lza_addend       ), @1474
 //          .lza_result        (mult1_ex3_lza_result       ), @1475
@@ -2988,6 +3033,28 @@ if(mult1_ex4_ex5_pipedown)
     mult1_ex5_fma_expnt1_result1[10:0] <= mult1_ex5_fma_expnt1_result1[10:0];
   end
 end
+//Modifed for RVV 1.0: Add EX5 pipeline registers for new FP functions
+always @(posedge mult1_ex4_ex5_pipe_clk)
+begin
+if(mult1_ex4_ex5_pipedown)
+  begin
+    mult1_ex5_fcmp_result <= mult1_ex5_fcmp_result;
+    mult1_ex5_fcmp_class_a <= mult1_ex5_fcmp_class_a;
+    mult1_ex5_fcmp_class_b <= mult1_ex5_fcmp_class_b;
+    mult1_ex5_fcmp_special <= mult1_ex5_fcmp_special;
+    mult1_ex5_fmaxmin_result <= mult1_ex5_fmaxmin_result;
+    mult1_ex5_fmaxmin_special <= mult1_ex5_fmaxmin_special;
+  end
+else
+  begin
+    mult1_ex5_fcmp_result <= mult1_ex5_fcmp_result;
+    mult1_ex5_fcmp_class_a <= mult1_ex5_fcmp_class_a;
+    mult1_ex5_fcmp_class_b <= mult1_ex5_fcmp_class_b;
+    mult1_ex5_fcmp_special <= mult1_ex5_fcmp_special;
+    mult1_ex5_fmaxmin_result <= mult1_ex5_fmaxmin_result;
+    mult1_ex5_fmaxmin_special <= mult1_ex5_fmaxmin_special;
+  end
+end
 
 always @(posedge mult1_ex4_ex5_special_pipe_clk)
 begin
@@ -3073,6 +3140,14 @@ assign mult1_ex5_fma_result[63:0] = (mult1_ex5_fma_result_abnorm)
 //Wb data
 assign slicex_mult1_dp_ex5_fma_result[63:0] = mult1_ex5_fma_result[63:0];
 assign slicex_mult1_dp_ex5_fma_expt[4:0]    = mult1_ex5_fma_expt_result[4:0];
+
+//Modifed for RVV 1.0: Add new FP function outputs
+assign slicex_mult1_dp_ex5_fcmp_class_a[7:0] = mult1_ex5_fcmp_class_a[7:0];
+assign slicex_mult1_dp_ex5_fcmp_class_b[7:0] = mult1_ex5_fcmp_class_b[7:0];
+assign slicex_mult1_dp_ex5_fcmp_result       = mult1_ex5_fcmp_result;
+assign slicex_mult1_dp_ex5_fcmp_special      = mult1_ex5_fcmp_special;
+assign slicex_mult1_dp_ex5_fmaxmin_result[63:0] = mult1_ex5_fmaxmin_result[63:0];
+assign slicex_mult1_dp_ex5_fmaxmin_special     = mult1_ex5_fmaxmin_special;
 
 //Fwd data
 assign mult1_ex5_fwd_data[INF]         = mult1_ex5_special_type[0] 

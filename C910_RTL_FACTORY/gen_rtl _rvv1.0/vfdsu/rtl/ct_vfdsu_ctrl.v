@@ -24,6 +24,7 @@ module ct_vfdsu_ctrl(
   dp_vfdsu_idu_fdiv_issue,
   ex1_data_clk,
   ex1_double,
+  ex1_is_vector,             // Modified 2026-04-11: 新增向量操作指示信号
   ex1_pipedown,
   ex1_single,
   ex2_data_clk,
@@ -39,6 +40,7 @@ module ct_vfdsu_ctrl(
   srt_ctrl_skip_srt,
   srt_secd_round,
   srt_sm_on,
+  vector_done,               // Modified 2026-04-11: 新增向量操作完成信号
   vfdsu_dp_fdiv_busy,
   vfdsu_dp_inst_wb_req,
   vfdsu_ex2_double,
@@ -56,6 +58,7 @@ input          dp_vfdsu_ex1_pipex_sel;
 input          dp_vfdsu_fdiv_gateclk_issue; 
 input          dp_vfdsu_idu_fdiv_issue;    
 input          ex1_double;                 
+input          ex1_is_vector;              // Modified 2026-04-11: 新增向量操作指示端口
 input          ex1_single;                 
 input          forever_cpuclk;             
 input          pad_yy_icg_scan_en;         
@@ -64,6 +67,7 @@ input          srt_ctrl_rem_zero;
 input          srt_ctrl_skip_srt;          
 input          vfdsu_ex2_double;           
 input          vfdsu_ex2_single;           
+input          vector_done;                // Modified 2026-04-11: 新增向量操作完成端口
 output         ex1_data_clk;               
 output         ex1_pipedown;               
 output         ex2_data_clk;               
@@ -141,6 +145,8 @@ wire           vfdsu_ex2_vld;
 wire           vfdsu_ifu_debug_ex2_wait;   
 wire           vfdsu_ifu_debug_idle;       
 wire           vfdsu_ifu_debug_pipe_busy;  
+wire           ex1_is_vector;               // Modified 2026-04-11: 新增向量操作指示信号
+wire           vector_done;                 // Modified 2026-04-11: 新增向量操作完成信号  
 
 
 //==========================================================
@@ -362,12 +368,14 @@ assign ex4_pipedown = vfdsu_ex4_vld;
 
 
 //Div Write Back State Machine
+// Modified 2026-04-11: 新增VEC_ITER状态用于向量迭代
 parameter IDLE      = 4'b0000;
 parameter RF        = 4'b0100;
 parameter EX1       = 4'b0101;
 parameter EX2       = 4'b0110;
 parameter WB_REQ    = 4'b0111;
 parameter WB        = 4'b1000;
+parameter VEC_ITER  = 4'b1001;  // Modified 2026-04-11: 新增向量迭代状态
 
 //GateClk
 // &Instance("gated_clk_cell","x_div_sm_clk"); @284
@@ -401,10 +409,13 @@ begin
     div_cur_state[3:0] <= div_next_state[3:0];
 end
 // &CombBeg; @304
+// Modified 2026-04-11: 修改状态转换逻辑支持向量迭代
 always @( dp_vfdsu_idu_fdiv_issue
        or dp_vfdsu_ex1_pipex_sel
+       or ex1_is_vector
        or ex4_pipedown
        or srt_last_round
+       or vector_done
        or div_cur_state[3:0])
 begin
   case(div_cur_state[3:0])
@@ -414,9 +425,14 @@ begin
                  div_next_state[3:0] = IDLE;
   RF         : div_next_state[3:0] = EX1;
   EX1        : if(dp_vfdsu_ex1_pipex_sel) 
-                  div_next_state[3:0] = EX2;
+                  // Modified 2026-04-11: 向量操作进入VEC_ITER状态
+                  div_next_state[3:0] = ex1_is_vector ? VEC_ITER : EX2;
                else
                  div_next_state[3:0] = IDLE;
+  VEC_ITER   : if(vector_done)  // Modified 2026-04-11: 向量迭代完成
+                 div_next_state[3:0] = EX2;
+               else
+                 div_next_state[3:0] = VEC_ITER;
   EX2        : if(srt_last_round)
                  div_next_state[3:0] = WB_REQ;
                else 

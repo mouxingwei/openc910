@@ -23,9 +23,14 @@ module ct_vfdsu_top(
   dp_vfdsu_ex1_pipex_dst_vreg,
   dp_vfdsu_ex1_pipex_iid,
   dp_vfdsu_ex1_pipex_imm0,
+  dp_vfdsu_ex1_pipex_is_vector,   // Modified 2026-04-11: 新增向量操作指示信号
+  dp_vfdsu_ex1_pipex_mask,        // Modified 2026-04-11: 新增向量掩码信号
   dp_vfdsu_ex1_pipex_sel,
   dp_vfdsu_ex1_pipex_srcf0,
   dp_vfdsu_ex1_pipex_srcf1,
+  dp_vfdsu_ex1_pipex_vm,          // Modified 2026-04-11: 新增掩码使能信号
+  dp_vfdsu_ex1_pipex_vl,          // Modified 2026-04-11: 新增向量长度信号
+  dp_vfdsu_ex1_pipex_vstart,      // Modified 2026-04-11: 新增向量起始位置信号
   dp_vfdsu_fdiv_gateclk_issue,
   dp_vfdsu_idu_fdiv_issue,
   forever_cpuclk,
@@ -55,9 +60,14 @@ input   [4 :0]  dp_vfdsu_ex1_pipex_dst_ereg;
 input   [6 :0]  dp_vfdsu_ex1_pipex_dst_vreg;  
 input   [6 :0]  dp_vfdsu_ex1_pipex_iid;       
 input   [2 :0]  dp_vfdsu_ex1_pipex_imm0;      
+input           dp_vfdsu_ex1_pipex_is_vector; // Modified 2026-04-11: 新增向量操作指示端口
+input   [63:0]  dp_vfdsu_ex1_pipex_mask;      // Modified 2026-04-11: 新增向量掩码端口
 input           dp_vfdsu_ex1_pipex_sel;       
 input   [63:0]  dp_vfdsu_ex1_pipex_srcf0;     
 input   [63:0]  dp_vfdsu_ex1_pipex_srcf1;     
+input           dp_vfdsu_ex1_pipex_vm;        // Modified 2026-04-11: 新增掩码使能端口
+input   [6 :0]  dp_vfdsu_ex1_pipex_vl;        // Modified 2026-04-11: 新增向量长度端口
+input   [6 :0]  dp_vfdsu_ex1_pipex_vstart;    // Modified 2026-04-11: 新增向量起始位置端口
 input           dp_vfdsu_fdiv_gateclk_issue;  
 input           dp_vfdsu_idu_fdiv_issue;      
 input           forever_cpuclk;               
@@ -133,6 +143,18 @@ wire            vfdsu_ifu_debug_idle;
 wire            vfdsu_ifu_debug_pipe_busy;    
 wire            vfpu_yy_xx_dqnan;             
 wire    [2 :0]  vfpu_yy_xx_rm;                
+// Modified 2026-04-11: 新增向量相关信号声明
+wire            dp_vfdsu_ex1_pipex_is_vector; 
+wire    [63:0]  dp_vfdsu_ex1_pipex_mask;      
+wire            dp_vfdsu_ex1_pipex_vm;        
+wire    [6 :0]  dp_vfdsu_ex1_pipex_vl;        
+wire    [6 :0]  dp_vfdsu_ex1_pipex_vstart;    
+wire            ex1_rdiv;                     // 反向除法信号
+wire            ex1_rsqrt7;                   // 近似平方根倒数信号
+wire            ex1_rec7;                     // 近似倒数信号
+wire            vector_done;                  // 向量操作完成信号
+wire    [6 :0]  element_idx;                  // 当前元素索引
+wire            element_active;               // 当前元素是否活跃                
 
 // &Instance("ct_vfdsu_ctrl"); @28
 // &Instance("ct_vfdsu_dp"); @29
@@ -232,6 +254,7 @@ ct_vfdsu_ctrl  x_ct_vfdsu_ctrl (
   .dp_vfdsu_idu_fdiv_issue     (dp_vfdsu_idu_fdiv_issue    ),
   .ex1_data_clk                (ex1_data_clk               ),
   .ex1_double                  (ex1_double                 ),
+  .ex1_is_vector               (dp_vfdsu_ex1_pipex_is_vector), // Modified 2026-04-11: 新增向量操作指示
   .ex1_pipedown                (ex1_pipedown               ),
   .ex1_single                  (ex1_single                 ),
   .ex2_data_clk                (ex2_data_clk               ),
@@ -247,6 +270,7 @@ ct_vfdsu_ctrl  x_ct_vfdsu_ctrl (
   .srt_ctrl_skip_srt           (srt_ctrl_skip_srt          ),
   .srt_secd_round              (srt_secd_round             ),
   .srt_sm_on                   (srt_sm_on                  ),
+  .vector_done                 (vector_done                ), // Modified 2026-04-11: 新增向量操作完成
   .vfdsu_dp_fdiv_busy          (vfdsu_dp_fdiv_busy         ),
   .vfdsu_dp_inst_wb_req        (vfdsu_dp_inst_wb_req       ),
   .vfdsu_ex2_double            (vfdsu_ex2_double           ),
@@ -264,6 +288,9 @@ ct_vfdsu_double  x_ct_vfdsu_double (
   .ex1_div             (ex1_div            ),
   .ex1_double          (ex1_double         ),
   .ex1_pipedown        (ex1_pipedown       ),
+  .ex1_rdiv            (ex1_rdiv           ), // Modified 2026-04-11: 新增反向除法
+  .ex1_rsqrt7          (ex1_rsqrt7         ), // Modified 2026-04-11: 新增近似平方根倒数
+  .ex1_rec7            (ex1_rec7           ), // Modified 2026-04-11: 新增近似倒数
   .ex1_scalar          (ex1_scalar         ),
   .ex1_single          (ex1_single         ),
   .ex1_sqrt            (ex1_sqrt           ),
@@ -299,6 +326,9 @@ ct_vfdsu_scalar_dp  x_ct_vfdsu_scalar_dp (
   .ex1_data_clk                  (ex1_data_clk                 ),
   .ex1_div                       (ex1_div                      ),
   .ex1_double                    (ex1_double                   ),
+  .ex1_rdiv                      (ex1_rdiv                     ), // Modified 2026-04-11: 新增反向除法
+  .ex1_rsqrt7                    (ex1_rsqrt7                   ), // Modified 2026-04-11: 新增近似平方根倒数
+  .ex1_rec7                      (ex1_rec7                     ), // Modified 2026-04-11: 新增近似倒数
   .ex1_pipedown                  (ex1_pipedown                 ),
   .ex1_scalar                    (ex1_scalar                   ),
   .ex1_single                    (ex1_single                   ),
@@ -322,6 +352,31 @@ ct_vfdsu_scalar_dp  x_ct_vfdsu_scalar_dp (
   .pipex_dp_vfdsu_vreg           (pipex_dp_vfdsu_vreg          ),
   .vfdsu_ex2_double              (vfdsu_ex2_double             ),
   .vfdsu_ex2_single              (vfdsu_ex2_single             )
+);
+
+// Modified 2026-04-11: 新增向量控制模块实例化
+// &Instance("ct_vfdsu_vector_ctrl"); @new
+ct_vfdsu_vector_ctrl  x_ct_vfdsu_vector_ctrl (
+  .cp0_vfpu_icg_en     (cp0_vfpu_icg_en           ),
+  .cp0_yy_clk_en       (cp0_yy_clk_en             ),
+  .cpurst_b            (cpurst_b                  ),
+  .element_done        (1'b1                      ), // 暂时固定为1，后续需要连接实际信号
+  .element_exception   (1'b0                      ), // 暂时固定为0，后续需要连接实际信号
+  .ex1_is_vector       (dp_vfdsu_ex1_pipex_is_vector),
+  .ex1_mask            (dp_vfdsu_ex1_pipex_mask   ),
+  .ex1_pipedown        (ex1_pipedown              ),
+  .ex1_vm              (dp_vfdsu_ex1_pipex_vm     ),
+  .ex1_vl              (dp_vfdsu_ex1_pipex_vl     ),
+  .ex1_vstart          (dp_vfdsu_ex1_pipex_vstart ),
+  .forever_cpuclk      (forever_cpuclk            ),
+  .pad_yy_icg_scan_en  (pad_yy_icg_scan_en        ),
+  .rtu_yy_xx_flush     (rtu_yy_xx_flush           ),
+  .element_active      (element_active            ),
+  .element_idx         (element_idx               ),
+  .element_mask        (                          ), // 暂时未使用
+  .next_vstart         (                          ), // 暂时未使用
+  .vector_done         (vector_done               ),
+  .vector_ctrl_clk     (                          )  // 暂时未使用
 );
 
 

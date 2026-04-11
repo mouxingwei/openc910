@@ -31,12 +31,14 @@ module ct_vfdsu_pack(
   vfdsu_ex4_potnt_uf,
   vfdsu_ex4_qnan_f,
   vfdsu_ex4_qnan_sign,
+  vfdsu_ex4_rec7,            // Modified 2026-04-11: 新增近似倒数信号
   vfdsu_ex4_result_inf,
   vfdsu_ex4_result_lfn,
   vfdsu_ex4_result_nor,
   vfdsu_ex4_result_qnan,
   vfdsu_ex4_result_sign,
   vfdsu_ex4_result_zero,
+  vfdsu_ex4_rsqrt7,          // Modified 2026-04-11: 新增近似平方根倒数信号
   vfdsu_ex4_rslt_denorm,
   vfdsu_ex4_single,
   vfdsu_ex4_uf
@@ -57,12 +59,14 @@ input           vfdsu_ex4_potnt_of;
 input           vfdsu_ex4_potnt_uf;           
 input   [51:0]  vfdsu_ex4_qnan_f;             
 input           vfdsu_ex4_qnan_sign;          
+input           vfdsu_ex4_rec7;            // Modified 2026-04-11: 新增近似倒数端口
 input           vfdsu_ex4_result_inf;         
 input           vfdsu_ex4_result_lfn;         
 input           vfdsu_ex4_result_nor;         
 input           vfdsu_ex4_result_qnan;        
 input           vfdsu_ex4_result_sign;        
 input           vfdsu_ex4_result_zero;        
+input           vfdsu_ex4_rsqrt7;          // Modified 2026-04-11: 新增近似平方根倒数端口
 input           vfdsu_ex4_rslt_denorm;        
 input           vfdsu_ex4_single;             
 input           vfdsu_ex4_uf;                 
