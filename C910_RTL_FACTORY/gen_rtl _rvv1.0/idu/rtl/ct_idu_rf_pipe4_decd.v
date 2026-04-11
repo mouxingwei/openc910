@@ -24,9 +24,11 @@ module ct_idu_rf_pipe4_decd(
   pipe4_decd_icc,
   pipe4_decd_inst_fls,
   pipe4_decd_inst_flush,
+  pipe4_decd_inst_indexed,
   pipe4_decd_inst_mode,
   pipe4_decd_inst_share,
   pipe4_decd_inst_size,
+  pipe4_decd_inst_stride,
   pipe4_decd_inst_str,
   pipe4_decd_inst_type,
   pipe4_decd_lsfifo,
@@ -41,50 +43,54 @@ module ct_idu_rf_pipe4_decd(
 );
 
 // &Ports; @28
-input           cp0_lsu_fencei_broad_dis; 
-input           cp0_lsu_fencerw_broad_dis; 
-input           cp0_lsu_tlb_broad_dis;    
-input   [6 :0]  pipe4_decd_dst_preg;      
-input   [31:0]  pipe4_decd_opcode;        
-output          pipe4_decd_atomic;        
-output  [3 :0]  pipe4_decd_fence_mode;    
-output          pipe4_decd_icc;           
-output          pipe4_decd_inst_fls;      
-output          pipe4_decd_inst_flush;    
-output  [1 :0]  pipe4_decd_inst_mode;     
-output          pipe4_decd_inst_share;    
-output  [1 :0]  pipe4_decd_inst_size;     
-output          pipe4_decd_inst_str;      
-output  [1 :0]  pipe4_decd_inst_type;     
-output          pipe4_decd_lsfifo;        
-output          pipe4_decd_mmu_req;       
-output          pipe4_decd_off_0_extend;  
-output  [11:0]  pipe4_decd_offset;        
-output  [12:0]  pipe4_decd_offset_plus;   
-output  [3 :0]  pipe4_decd_shift;         
-output          pipe4_decd_st;            
-output          pipe4_decd_sync_fence;    
+input           cp0_lsu_fencei_broad_dis;
+input           cp0_lsu_fencerw_broad_dis;
+input           cp0_lsu_tlb_broad_dis;
+input   [6 :0]  pipe4_decd_dst_preg;
+input   [31:0]  pipe4_decd_opcode;
+output          pipe4_decd_atomic;
+output  [3 :0]  pipe4_decd_fence_mode;
+output          pipe4_decd_icc;
+output          pipe4_decd_inst_fls;
+output          pipe4_decd_inst_flush;
+output  [1 :0]  pipe4_decd_inst_mode;
+output          pipe4_decd_inst_share;
+output  [1 :0]  pipe4_decd_inst_size;
+output          pipe4_decd_inst_indexed;
+output          pipe4_decd_inst_stride;
+output          pipe4_decd_inst_str;
+output  [1 :0]  pipe4_decd_inst_type;
+output          pipe4_decd_lsfifo;
+output          pipe4_decd_mmu_req;
+output          pipe4_decd_off_0_extend;
+output  [11:0]  pipe4_decd_offset;
+output  [12:0]  pipe4_decd_offset_plus;
+output  [3 :0]  pipe4_decd_shift;
+output          pipe4_decd_st;
+output          pipe4_decd_sync_fence;
 
 // &Regs; @29
-reg             pipe4_decd_atomic;        
-reg     [3 :0]  pipe4_decd_fence_mode;    
-reg             pipe4_decd_icc;           
-reg             pipe4_decd_inst_fls;      
-reg             pipe4_decd_inst_flush;    
-reg     [1 :0]  pipe4_decd_inst_mode;     
-reg             pipe4_decd_inst_share;    
-reg     [1 :0]  pipe4_decd_inst_size;     
-reg             pipe4_decd_inst_str;      
-reg     [1 :0]  pipe4_decd_inst_type;     
-reg             pipe4_decd_inst_vls;      
-reg             pipe4_decd_lsfifo;        
-reg             pipe4_decd_mmu_req;       
-reg             pipe4_decd_off_0_extend;  
-reg     [11:0]  pipe4_decd_offset;        
-reg     [3 :0]  pipe4_decd_shift;         
-reg             pipe4_decd_st;            
-reg             pipe4_decd_sync_fence;    
-reg     [1 :0]  sfence_inst_mode;         
+reg             pipe4_decd_atomic;
+reg     [3 :0]  pipe4_decd_fence_mode;
+reg             pipe4_decd_icc;
+reg             pipe4_decd_inst_fls;
+reg             pipe4_decd_inst_flush;
+reg     [1 :0]  pipe4_decd_inst_mode;
+reg             pipe4_decd_inst_share;
+reg     [1 :0]  pipe4_decd_inst_size;
+reg             pipe4_decd_inst_indexed;
+reg             pipe4_decd_inst_stride;
+reg             pipe4_decd_inst_str;
+reg     [1 :0]  pipe4_decd_inst_type;
+reg             pipe4_decd_inst_vls;
+reg             pipe4_decd_lsfifo;
+reg             pipe4_decd_mmu_req;
+reg             pipe4_decd_off_0_extend;
+reg     [11:0]  pipe4_decd_offset;
+reg     [3 :0]  pipe4_decd_shift;
+reg             pipe4_decd_st;
+reg             pipe4_decd_sync_fence;
+reg     [1 :0]  sfence_inst_mode;
 reg     [3 :0]  str_shift;                
 
 // &Wires; @30
@@ -1450,12 +1456,315 @@ casez(decd_op[31:0])
     pipe4_decd_fence_mode[3:0]= 4'b1111;
     pipe4_decd_inst_fls       = 1'b0;
     pipe4_decd_inst_vls       = 1'b0;
+    pipe4_decd_inst_indexed    = 1'b0;
+    pipe4_decd_inst_stride     = 1'b0;
     pipe4_decd_offset[11:0]   = 12'b0;
     pipe4_decd_shift[3:0]     = 4'b1;
     pipe4_decd_inst_str       = 1'b0;
     pipe4_decd_off_0_extend   = 1'b0;
     pipe4_decd_lsfifo         = 1'b0;
   end
+
+//------------------------RVV Vector Store---------------------------
+// Modified for RVV 1.0: Added indexed and stride store support
+// Modification date: 2026-04-10
+// Vector store encoding (RISC-V Vector Spec 1.0):
+//   opcode[6:0] = 0100111 (VSX)
+//   Unit-stride: funct6[5:0] = 000000~000011 (vse8~vse64)
+//   Stride:      funct6[5:0] = 010000~010011 (vsse8~vsse64)
+//   Indexed:     funct6[5:0] = 011000~011011 (vsuxei8~vsuxei64)
+//   Mask:        funct6[5:0] = 000111 (vsm.v)
+//   funct3[2:0] = EEW (000=8b, 001=16b, 010=32b, 011=64b)
+
+  //  ..31..26..20..16..12...8...4...0
+  32'b000000_?????_000_?????_0100111:  //vse8.v (unit-stride)
+  begin
+    pipe4_decd_atomic         = 1'b0;
+    pipe4_decd_sync_fence     = 1'b0;
+    pipe4_decd_inst_flush     = 1'b0;
+    pipe4_decd_inst_share     = 1'b0;
+    pipe4_decd_icc            = 1'b0;
+    pipe4_decd_st             = 1'b1;
+    pipe4_decd_mmu_req        = 1'b1;
+    pipe4_decd_inst_type[1:0] = 2'b10;  //VLS type
+    pipe4_decd_inst_size[1:0] = 2'b00;  //EEW=8
+    pipe4_decd_inst_mode[1:0] = 2'b00;
+    pipe4_decd_fence_mode[3:0]= 4'b0000;
+    pipe4_decd_inst_fls       = 1'b0;
+    pipe4_decd_inst_vls       = 1'b1;
+    pipe4_decd_inst_indexed   = 1'b0;
+    pipe4_decd_inst_stride    = 1'b0;
+    pipe4_decd_offset[11:0]   = decd_op[31:20];
+    pipe4_decd_shift[3:0]     = 4'b0;
+    pipe4_decd_inst_str       = 1'b0;
+    pipe4_decd_off_0_extend   = 1'b0;
+    pipe4_decd_lsfifo         = 1'b1;
+  end
+  //  ..31..26..20..16..12...8...4...0
+  32'b000001_?????_001_?????_0100111:  //vse16.v (unit-stride)
+  begin
+    pipe4_decd_atomic         = 1'b0;
+    pipe4_decd_sync_fence     = 1'b0;
+    pipe4_decd_inst_flush     = 1'b0;
+    pipe4_decd_inst_share     = 1'b0;
+    pipe4_decd_icc            = 1'b0;
+    pipe4_decd_st             = 1'b1;
+    pipe4_decd_mmu_req        = 1'b1;
+    pipe4_decd_inst_type[1:0] = 2'b10;
+    pipe4_decd_inst_size[1:0] = 2'b01;  //EEW=16
+    pipe4_decd_inst_mode[1:0] = 2'b00;
+    pipe4_decd_fence_mode[3:0]= 4'b0000;
+    pipe4_decd_inst_fls       = 1'b0;
+    pipe4_decd_inst_vls       = 1'b1;
+    pipe4_decd_inst_indexed   = 1'b0;
+    pipe4_decd_inst_stride    = 1'b0;
+    pipe4_decd_offset[11:0]   = decd_op[31:20];
+    pipe4_decd_shift[3:0]     = 4'b1;
+    pipe4_decd_inst_str       = 1'b0;
+    pipe4_decd_off_0_extend   = 1'b0;
+    pipe4_decd_lsfifo         = 1'b1;
+  end
+  //  ..31..26..20..16..12...8...4...0
+  32'b000010_?????_010_?????_0100111:  //vse32.v (unit-stride)
+  begin
+    pipe4_decd_atomic         = 1'b0;
+    pipe4_decd_sync_fence     = 1'b0;
+    pipe4_decd_inst_flush     = 1'b0;
+    pipe4_decd_inst_share     = 1'b0;
+    pipe4_decd_icc            = 1'b0;
+    pipe4_decd_st             = 1'b1;
+    pipe4_decd_mmu_req        = 1'b1;
+    pipe4_decd_inst_type[1:0] = 2'b10;
+    pipe4_decd_inst_size[1:0] = 2'b10;  //EEW=32
+    pipe4_decd_inst_mode[1:0] = 2'b00;
+    pipe4_decd_fence_mode[3:0]= 4'b0000;
+    pipe4_decd_inst_fls       = 1'b0;
+    pipe4_decd_inst_vls       = 1'b1;
+    pipe4_decd_inst_indexed   = 1'b0;
+    pipe4_decd_inst_stride    = 1'b0;
+    pipe4_decd_offset[11:0]   = decd_op[31:20];
+    pipe4_decd_shift[3:0]     = 4'b10;
+    pipe4_decd_inst_str       = 1'b0;
+    pipe4_decd_off_0_extend   = 1'b0;
+    pipe4_decd_lsfifo         = 1'b1;
+  end
+  //  ..31..26..20..16..12...8...4...0
+  32'b000011_?????_011_?????_0100111:  //vse64.v (unit-stride)
+  begin
+    pipe4_decd_atomic         = 1'b0;
+    pipe4_decd_sync_fence     = 1'b0;
+    pipe4_decd_inst_flush     = 1'b0;
+    pipe4_decd_inst_share     = 1'b0;
+    pipe4_decd_icc            = 1'b0;
+    pipe4_decd_st             = 1'b1;
+    pipe4_decd_mmu_req        = 1'b1;
+    pipe4_decd_inst_type[1:0] = 2'b10;
+    pipe4_decd_inst_size[1:0] = 2'b11;  //EEW=64
+    pipe4_decd_inst_mode[1:0] = 2'b00;
+    pipe4_decd_fence_mode[3:0]= 4'b0000;
+    pipe4_decd_inst_fls       = 1'b0;
+    pipe4_decd_inst_vls       = 1'b1;
+    pipe4_decd_inst_indexed   = 1'b0;
+    pipe4_decd_inst_stride    = 1'b0;
+    pipe4_decd_offset[11:0]   = decd_op[31:20];
+    pipe4_decd_shift[3:0]     = 4'b11;
+    pipe4_decd_inst_str       = 1'b0;
+    pipe4_decd_off_0_extend   = 1'b0;
+    pipe4_decd_lsfifo         = 1'b1;
+  end
+  //  ..31..26..20..16..12...8...4...0
+  32'b010000_?????_000_?????_0100111:  //vsse8.v (stride)
+  begin
+    pipe4_decd_atomic         = 1'b0;
+    pipe4_decd_sync_fence     = 1'b0;
+    pipe4_decd_inst_flush     = 1'b0;
+    pipe4_decd_inst_share     = 1'b0;
+    pipe4_decd_icc            = 1'b0;
+    pipe4_decd_st             = 1'b1;
+    pipe4_decd_mmu_req        = 1'b1;
+    pipe4_decd_inst_type[1:0] = 2'b10;
+    pipe4_decd_inst_size[1:0] = 2'b00;  //EEW=8
+    pipe4_decd_inst_mode[1:0] = 2'b00;
+    pipe4_decd_fence_mode[3:0]= 4'b0000;
+    pipe4_decd_inst_fls       = 1'b0;
+    pipe4_decd_inst_vls       = 1'b1;
+    pipe4_decd_inst_indexed   = 1'b0;
+    pipe4_decd_inst_stride    = 1'b1;  //stride store
+    pipe4_decd_offset[11:0]   = decd_op[31:20];
+    pipe4_decd_shift[3:0]     = 4'b0;
+    pipe4_decd_inst_str       = 1'b0;
+    pipe4_decd_off_0_extend   = 1'b0;
+    pipe4_decd_lsfifo         = 1'b1;
+  end
+  //  ..31..26..20..16..12...8...4...0
+  32'b010001_?????_000_?????_0100111:  //vsse16.v (stride)
+  begin
+    pipe4_decd_atomic         = 1'b0;
+    pipe4_decd_sync_fence     = 1'b0;
+    pipe4_decd_inst_flush     = 1'b0;
+    pipe4_decd_inst_share     = 1'b0;
+    pipe4_decd_icc            = 1'b0;
+    pipe4_decd_st             = 1'b1;
+    pipe4_decd_mmu_req        = 1'b1;
+    pipe4_decd_inst_type[1:0] = 2'b10;
+    pipe4_decd_inst_size[1:0] = 2'b01;  //EEW=16
+    pipe4_decd_inst_mode[1:0] = 2'b00;
+    pipe4_decd_fence_mode[3:0]= 4'b0000;
+    pipe4_decd_inst_fls       = 1'b0;
+    pipe4_decd_inst_vls       = 1'b1;
+    pipe4_decd_inst_indexed   = 1'b0;
+    pipe4_decd_inst_stride    = 1'b1;  //stride store
+    pipe4_decd_offset[11:0]   = decd_op[31:20];
+    pipe4_decd_shift[3:0]     = 4'b1;
+    pipe4_decd_inst_str       = 1'b0;
+    pipe4_decd_off_0_extend   = 1'b0;
+    pipe4_decd_lsfifo         = 1'b1;
+  end
+  //  ..31..26..20..16..12...8...4...0
+  32'b010010_?????_000_?????_0100111:  //vsse32.v (stride)
+  begin
+    pipe4_decd_atomic         = 1'b0;
+    pipe4_decd_sync_fence     = 1'b0;
+    pipe4_decd_inst_flush     = 1'b0;
+    pipe4_decd_inst_share     = 1'b0;
+    pipe4_decd_icc            = 1'b0;
+    pipe4_decd_st             = 1'b1;
+    pipe4_decd_mmu_req        = 1'b1;
+    pipe4_decd_inst_type[1:0] = 2'b10;
+    pipe4_decd_inst_size[1:0] = 2'b10;  //EEW=32
+    pipe4_decd_inst_mode[1:0] = 2'b00;
+    pipe4_decd_fence_mode[3:0]= 4'b0000;
+    pipe4_decd_inst_fls       = 1'b0;
+    pipe4_decd_inst_vls       = 1'b1;
+    pipe4_decd_inst_indexed   = 1'b0;
+    pipe4_decd_inst_stride    = 1'b1;  //stride store
+    pipe4_decd_offset[11:0]   = decd_op[31:20];
+    pipe4_decd_shift[3:0]     = 4'b10;
+    pipe4_decd_inst_str       = 1'b0;
+    pipe4_decd_off_0_extend   = 1'b0;
+    pipe4_decd_lsfifo         = 1'b1;
+  end
+  //  ..31..26..20..16..12...8...4...0
+  32'b010011_?????_000_?????_0100111:  //vsse64.v (stride)
+  begin
+    pipe4_decd_atomic         = 1'b0;
+    pipe4_decd_sync_fence     = 1'b0;
+    pipe4_decd_inst_flush     = 1'b0;
+    pipe4_decd_inst_share     = 1'b0;
+    pipe4_decd_icc            = 1'b0;
+    pipe4_decd_st             = 1'b1;
+    pipe4_decd_mmu_req        = 1'b1;
+    pipe4_decd_inst_type[1:0] = 2'b10;
+    pipe4_decd_inst_size[1:0] = 2'b11;  //EEW=64
+    pipe4_decd_inst_mode[1:0] = 2'b00;
+    pipe4_decd_fence_mode[3:0]= 4'b0000;
+    pipe4_decd_inst_fls       = 1'b0;
+    pipe4_decd_inst_vls       = 1'b1;
+    pipe4_decd_inst_indexed   = 1'b0;
+    pipe4_decd_inst_stride    = 1'b1;  //stride store
+    pipe4_decd_offset[11:0]   = decd_op[31:20];
+    pipe4_decd_shift[3:0]     = 4'b11;
+    pipe4_decd_inst_str       = 1'b0;
+    pipe4_decd_off_0_extend   = 1'b0;
+    pipe4_decd_lsfifo         = 1'b1;
+  end
+  //  ..31..26..20..16..12...8...4...0
+  32'b011000_?????_000_?????_0100111:  //vsuxei8.v (indexed)
+  begin
+    pipe4_decd_atomic         = 1'b0;
+    pipe4_decd_sync_fence     = 1'b0;
+    pipe4_decd_inst_flush     = 1'b0;
+    pipe4_decd_inst_share     = 1'b0;
+    pipe4_decd_icc            = 1'b0;
+    pipe4_decd_st             = 1'b1;
+    pipe4_decd_mmu_req        = 1'b1;
+    pipe4_decd_inst_type[1:0] = 2'b10;
+    pipe4_decd_inst_size[1:0] = 2'b00;  //EEW=8
+    pipe4_decd_inst_mode[1:0] = 2'b00;
+    pipe4_decd_fence_mode[3:0]= 4'b0000;
+    pipe4_decd_inst_fls       = 1'b0;
+    pipe4_decd_inst_vls       = 1'b1;
+    pipe4_decd_inst_indexed   = 1'b1;  //indexed store
+    pipe4_decd_inst_stride    = 1'b0;
+    pipe4_decd_offset[11:0]   = decd_op[31:20];
+    pipe4_decd_shift[3:0]     = 4'b0;
+    pipe4_decd_inst_str       = 1'b0;
+    pipe4_decd_off_0_extend   = 1'b0;
+    pipe4_decd_lsfifo         = 1'b1;
+  end
+  //  ..31..26..20..16..12...8...4...0
+  32'b011001_?????_000_?????_0100111:  //vsuxei16.v (indexed)
+  begin
+    pipe4_decd_atomic         = 1'b0;
+    pipe4_decd_sync_fence     = 1'b0;
+    pipe4_decd_inst_flush     = 1'b0;
+    pipe4_decd_inst_share     = 1'b0;
+    pipe4_decd_icc            = 1'b0;
+    pipe4_decd_st             = 1'b1;
+    pipe4_decd_mmu_req        = 1'b1;
+    pipe4_decd_inst_type[1:0] = 2'b10;
+    pipe4_decd_inst_size[1:0] = 2'b01;  //EEW=16
+    pipe4_decd_inst_mode[1:0] = 2'b00;
+    pipe4_decd_fence_mode[3:0]= 4'b0000;
+    pipe4_decd_inst_fls       = 1'b0;
+    pipe4_decd_inst_vls       = 1'b1;
+    pipe4_decd_inst_indexed   = 1'b1;  //indexed store
+    pipe4_decd_inst_stride    = 1'b0;
+    pipe4_decd_offset[11:0]   = decd_op[31:20];
+    pipe4_decd_shift[3:0]     = 4'b1;
+    pipe4_decd_inst_str       = 1'b0;
+    pipe4_decd_off_0_extend   = 1'b0;
+    pipe4_decd_lsfifo         = 1'b1;
+  end
+  //  ..31..26..20..16..12...8...4...0
+  32'b011010_?????_000_?????_0100111:  //vsuxei32.v (indexed)
+  begin
+    pipe4_decd_atomic         = 1'b0;
+    pipe4_decd_sync_fence     = 1'b0;
+    pipe4_decd_inst_flush     = 1'b0;
+    pipe4_decd_inst_share     = 1'b0;
+    pipe4_decd_icc            = 1'b0;
+    pipe4_decd_st             = 1'b1;
+    pipe4_decd_mmu_req        = 1'b1;
+    pipe4_decd_inst_type[1:0] = 2'b10;
+    pipe4_decd_inst_size[1:0] = 2'b10;  //EEW=32
+    pipe4_decd_inst_mode[1:0] = 2'b00;
+    pipe4_decd_fence_mode[3:0]= 4'b0000;
+    pipe4_decd_inst_fls       = 1'b0;
+    pipe4_decd_inst_vls       = 1'b1;
+    pipe4_decd_inst_indexed   = 1'b1;  //indexed store
+    pipe4_decd_inst_stride    = 1'b0;
+    pipe4_decd_offset[11:0]   = decd_op[31:20];
+    pipe4_decd_shift[3:0]     = 4'b10;
+    pipe4_decd_inst_str       = 1'b0;
+    pipe4_decd_off_0_extend   = 1'b0;
+    pipe4_decd_lsfifo         = 1'b1;
+  end
+  //  ..31..26..20..16..12...8...4...0
+  32'b011011_?????_000_?????_0100111:  //vsuxei64.v (indexed)
+  begin
+    pipe4_decd_atomic         = 1'b0;
+    pipe4_decd_sync_fence     = 1'b0;
+    pipe4_decd_inst_flush     = 1'b0;
+    pipe4_decd_inst_share     = 1'b0;
+    pipe4_decd_icc            = 1'b0;
+    pipe4_decd_st             = 1'b1;
+    pipe4_decd_mmu_req        = 1'b1;
+    pipe4_decd_inst_type[1:0] = 2'b10;
+    pipe4_decd_inst_size[1:0] = 2'b11;  //EEW=64
+    pipe4_decd_inst_mode[1:0] = 2'b00;
+    pipe4_decd_fence_mode[3:0]= 4'b0000;
+    pipe4_decd_inst_fls       = 1'b0;
+    pipe4_decd_inst_vls       = 1'b1;
+    pipe4_decd_inst_indexed   = 1'b1;  //indexed store
+    pipe4_decd_inst_stride    = 1'b0;
+    pipe4_decd_offset[11:0]   = decd_op[31:20];
+    pipe4_decd_shift[3:0]     = 4'b11;
+    pipe4_decd_inst_str       = 1'b0;
+    pipe4_decd_off_0_extend   = 1'b0;
+    pipe4_decd_lsfifo         = 1'b1;
+  end
+
   default:
   begin
     pipe4_decd_atomic         = 1'bx;
@@ -1471,6 +1780,8 @@ casez(decd_op[31:0])
     pipe4_decd_fence_mode[3:0]= {4{1'bx}};
     pipe4_decd_inst_fls       = 1'bx;
     pipe4_decd_inst_vls       = 1'bx;
+    pipe4_decd_inst_indexed   = 1'bx;
+    pipe4_decd_inst_stride    = 1'bx;
     pipe4_decd_offset[11:0]   = {12{1'bx}};
     pipe4_decd_shift[3:0]     = {4{1'bx}};
     pipe4_decd_inst_str       = 1'bx;

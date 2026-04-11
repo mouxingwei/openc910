@@ -51,39 +51,43 @@ module ct_idu_ir_decd(
 );
 
 // &Ports; @27
-input           x_illegal;             
-input   [31:0]  x_opcode;              
-input           x_type_alu;            
-input           x_type_staddr;         
-input           x_type_vload;          
-input   [2 :0]  x_vsew;                
-output          x_alu_short;           
-output          x_bar;                 
-output  [3 :0]  x_bar_type;            
-output          x_csr;                 
-output          x_ecall;               
-output          x_fp;                  
-output          x_load;                
-output          x_mfvr;                
-output          x_mtvr;                
-output          x_pcall;               
-output          x_pcfifo;              
-output          x_rts;                 
-output          x_store;               
-output          x_str;                 
-output          x_sync;                
-output          x_unit_stride;         
-output          x_vamo;                
-output          x_vdiv;                
-output          x_vec;                 
-output          x_viq_srcv12_switch;   
-output          x_vmla_short;          
-output  [2 :0]  x_vmla_type;           
-output          x_vmul;                
-output          x_vmul_unsplit;        
-output          x_vsetvl;              
+input           x_illegal;
+input   [31:0]  x_opcode;
+input           x_type_alu;
+input           x_type_staddr;
+input           x_type_vload;
+input   [2 :0]  x_vsew;
+output          x_alu_short;
+output          x_bar;
+output  [3 :0]  x_bar_type;
+output          x_csr;
+output          x_ecall;
+output          x_fp;
+output          x_illegal;
+output          x_load;
+output          x_mfvr;
+output          x_mtvr;
+output          x_pcall;
+output          x_pcfifo;
+output          x_reduction;
+output          x_rts;
+output          x_store;
+output          x_str;
+output          x_sync;
+output          x_unit_stride;
+output          x_vamo;
+output          x_vdiv;
+output          x_vec;
+output          x_vill;
+output          x_viq_srcv12_switch;
+output          x_vmla_short;
+output  [2 :0]  x_vmla_type;
+output          x_vmul;
+output          x_vmul_unsplit;
+output          x_vsetvl;
 output          x_vsetvli;
-output          x_vsetivli;             
+output          x_vsetivli;
+output          x_vsew;
 
 // &Regs; @28
 
@@ -175,10 +179,18 @@ wire            x_vmla_short;
 wire    [2 :0]  x_vmla_type;           
 wire            x_vmul;                
 wire            x_vmul_unsplit;        
-wire            x_vsetvl;              
+wire            x_vsetvl;
 wire            x_vsetvli;
-wire            x_vsetivli;             
-wire    [2 :0]  x_vsew;                
+wire            x_vsetivli;
+wire    [2 :0]  x_vsew;
+wire            x_reduction;
+wire            x_vill;
+wire            decd_reduction;
+wire            decd_vill;
+wire    [6 :0]  decd_vtypei;
+wire    [2 :0]  decd_vtypei_sew;
+wire    [2 :0]  decd_vtypei_lmul;
+wire    [4 :0]  decd_vlmax;                
 
 
 
@@ -215,6 +227,8 @@ assign x_fp                = !x_illegal && decd_fp_inst;
 assign x_csr               = !x_illegal && decd_csr;
 assign x_sync              = !x_illegal && decd_sync;
 assign x_ecall             = !x_illegal && decd_ecall;
+assign x_reduction         = !x_illegal && decd_reduction;
+assign x_vill              = !x_illegal && decd_vill;
 
 //==========================================================
 //                      Short ALU
@@ -672,6 +686,49 @@ assign decd_vsetvli  = (x_opcode[31]== 1'b0) && (x_opcode[14:12]==3'b111) && (x_
 assign decd_vsetivli = (x_opcode[31:30]==2'b11) && (x_opcode[14:12]==3'b111) && (x_opcode[6:0]==7'b1010111);
 
 assign decd_vsetvl   = (x_opcode[31:25]== 7'b100_0000) && (x_opcode[14:12]==3'b111) && (x_opcode[6:0]==7'b1010111);
+
+// Modified for RVV 1.0: Added reduction instruction decode
+// Modification date: 2026-04-10
+// Integer reduction instructions (vred*): OP-IVV, funct6[5:0]
+// vredsum: funct6=000000, vd=vs1, vs2=vector
+// vredand/vredor/vredxor: funct6=000001/000010/000011
+// vredminu/vredmin/vredmaxu/vredmax: funct6=000100-000111
+// Wide reduction (vwredusum/vwredusumu): funct6=000000, OP-MVV
+assign decd_reduction =
+     (x_opcode[31:26]== 6'b000000)        //vredsum, vwredusum, vwredusm
+     && decd_opivv && decd_vec_inst
+  || (x_opcode[31:26]== 6'b000001)        //vredand
+     && decd_opivv && decd_vec_inst
+  || (x_opcode[31:26]== 6'b000010)        //vredor
+     && decd_opivv && decd_vec_inst
+  || (x_opcode[31:26]== 6'b000011)        //vredxor
+     && decd_opivv && decd_vec_inst
+  || (x_opcode[31:28]== 4'b0001)          //vredminu, vredmin, vredmaxu, vredmax
+     && decd_opmvv && decd_vec_inst;
+
+// Modified for RVV 1.0: Added vtypei parsing and vill detection
+// Modification date: 2026-04-10
+// vtypei[6:0] encoding in vsetvli/vsetivli:
+//   vtypei[6]: vill (1=illegal vtype, reserved bits invalid)
+//   vtypei[5:3]: vsew[2:0] (element width: 000=E8, 001=E16, 010=E32, 011=E64, 100=E128)
+//   vtypei[2:0]: vlmul[2:0] (LMUL: 000=1, 001=2, 010=4, 011=8, 100=1/8, 101=1/4, 110=1/2)
+// For vsetvli: vtypei = x_opcode[31:26] (rs1 field contains vtypei)
+// For vsetivli: vtypei = x_opcode[31:26] (upper 6 bits of immediate)
+// For vsetvl: no vtypei field (uses vtype register)
+assign decd_vtypei[6:0] = (decd_vsetvli || decd_vsetivli) ? x_opcode[31:25] : 7'b0;
+
+assign decd_vill = decd_vtypei[6];
+
+assign decd_vtypei_sew[2:0] = decd_vtypei[5:3];
+
+assign decd_vtypei_lmul[2:0] = decd_vtypei[2:0];
+
+// vlmax = (8 * LMUL) / SEW, where LMUL and SEW are in encoded form
+// LMUL = 2^(lmul[2:0]), SEW = 8 * 2^(sew[2:0])
+// decd_vlmax[4:0] = (8 * (1 << lmul[2:0])) / (8 * (1 << (sew[2:0])))
+//                 = (1 << lmul[2:0]) / (1 << sew[2:0])
+//                 = 1 << (lmul[2:0] - sew[2:0])
+assign decd_vlmax[4:0] = 5'b10000; // Default to 32 (mvl=8, sew=3)
 
 assign decd_viq_srcv12_switch = ((x_opcode[31:26]== 6'b101001)||(x_opcode[31:26]== 6'b101011)) //vmadd vmnsub
                                 &&  (decd_opmvv || decd_opmvx) && decd_vec_inst                //vfmadd

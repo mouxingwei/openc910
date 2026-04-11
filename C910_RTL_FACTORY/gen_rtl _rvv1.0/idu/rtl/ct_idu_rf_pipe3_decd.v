@@ -24,6 +24,8 @@ module ct_idu_rf_pipe3_decd(
   pipe3_decd_inst_ldr,
   pipe3_decd_inst_size,
   pipe3_decd_inst_type,
+  pipe3_decd_inst_indexed,
+  pipe3_decd_inst_stride,
   pipe3_decd_lsfifo,
   pipe3_decd_off_0_extend,
   pipe3_decd_offset,
@@ -34,33 +36,37 @@ module ct_idu_rf_pipe3_decd(
 );
 
 // &Ports; @28
-input   [31:0]  pipe3_decd_opcode;      
-output          pipe3_decd_atomic;      
-output          pipe3_decd_inst_fls;    
-output          pipe3_decd_inst_fof;    
-output          pipe3_decd_inst_ldr;    
-output  [1 :0]  pipe3_decd_inst_size;   
-output  [1 :0]  pipe3_decd_inst_type;   
-output          pipe3_decd_lsfifo;      
-output          pipe3_decd_off_0_extend; 
-output  [11:0]  pipe3_decd_offset;      
-output  [12:0]  pipe3_decd_offset_plus; 
-output  [3 :0]  pipe3_decd_shift;       
+input   [31:0]  pipe3_decd_opcode;
+output          pipe3_decd_atomic;
+output          pipe3_decd_inst_fls;
+output          pipe3_decd_inst_fof;
+output          pipe3_decd_inst_ldr;
+output  [1 :0]  pipe3_decd_inst_size;
+output  [1 :0]  pipe3_decd_inst_type;
+output          pipe3_decd_inst_indexed;
+output          pipe3_decd_inst_stride;
+output          pipe3_decd_lsfifo;
+output          pipe3_decd_off_0_extend;
+output  [11:0]  pipe3_decd_offset;
+output  [12:0]  pipe3_decd_offset_plus;
+output  [3 :0]  pipe3_decd_shift;
 output          pipe3_decd_sign_extend; 
 
 // &Regs; @29
-reg     [3 :0]  ldr_shift;              
-reg             pipe3_decd_atomic;      
-reg             pipe3_decd_inst_fls;    
-reg             pipe3_decd_inst_fof;    
-reg             pipe3_decd_inst_ldr;    
-reg     [1 :0]  pipe3_decd_inst_size;   
-reg     [1 :0]  pipe3_decd_inst_type;   
-reg             pipe3_decd_inst_vls;    
-reg             pipe3_decd_lsfifo;      
-reg             pipe3_decd_off_0_extend; 
-reg     [11:0]  pipe3_decd_offset;      
-reg     [3 :0]  pipe3_decd_shift;       
+reg     [3 :0]  ldr_shift;
+reg             pipe3_decd_atomic;
+reg             pipe3_decd_inst_fls;
+reg             pipe3_decd_inst_fof;
+reg             pipe3_decd_inst_ldr;
+reg     [1 :0]  pipe3_decd_inst_size;
+reg     [1 :0]  pipe3_decd_inst_type;
+reg             pipe3_decd_inst_indexed;
+reg             pipe3_decd_inst_stride;
+reg             pipe3_decd_inst_vls;
+reg             pipe3_decd_lsfifo;
+reg             pipe3_decd_off_0_extend;
+reg     [11:0]  pipe3_decd_offset;
+reg     [3 :0]  pipe3_decd_shift;
 reg             pipe3_decd_sign_extend; 
 
 // &Wires; @30
@@ -733,6 +739,247 @@ casez(decd_op[31:0])
     pipe3_decd_lsfifo         = 1'b1;
   end
 
+//------------------------RVV Vector Load----------------------------
+// Modified for RVV 1.0: Added indexed and stride load support
+// Modification date: 2026-04-10
+// Vector load encoding (RISC-V Vector Spec 1.0):
+//   opcode[6:0] = 0000111 (VL/SVx)
+//   Unit-stride: funct6[5:0] = 000000~000011 (vle8~vle64)
+//   Stride:      funct6[5:0] = 010000~010011 (vlse8~vlse64)
+//   Indexed:     funct6[5:0] = 011000~011011 (vluxei8~vluxei64)
+//   funct3[2:0] = EEW (000=8b, 001=16b, 010=32b, 011=64b)
+// 32-bit encoding: [31:26]=funct6, [25:20]=rs1, [14:12]=funct3(EEW), [11:7]=vd, [6:0]=opcode
+  //  vle8.v:   32'b000000_?????_000_?????_0000111 (unit-stride, EEW=8)
+  //  vle16.v:  32'b000001_?????_001_?????_0000111 (unit-stride, EEW=16)
+  //  vle32.v:  32'b000010_?????_010_?????_0000111 (unit-stride, EEW=32)
+  //  vle64.v:  32'b000011_?????_011_?????_0000111 (unit-stride, EEW=64)
+  //  vlse8.v:  32'b010000_?????_000_?????_0000111 (stride, EEW=8)
+  //  vlse16.v: 32'b010001_?????_000_?????_0000111 (stride, EEW=16)
+  //  vlse32.v: 32'b010010_?????_000_?????_0000111 (stride, EEW=32)
+  //  vlse64.v: 32'b010011_?????_000_?????_0000111 (stride, EEW=64)
+  //  vluxei8.v:  32'b011000_?????_000_?????_0000111 (indexed, EEW=8)
+  //  vluxei16.v: 32'b011001_?????_000_?????_0000111 (indexed, EEW=16)
+  //  vluxei32.v: 32'b011010_?????_000_?????_0000111 (indexed, EEW=32)
+  //  vluxei64.v: 32'b011011_?????_000_?????_0000111 (indexed, EEW=64)
+  //  vle1ff.v: 32'b000111_?????_111_?????_0000111 (fault-only-first, EEW=8|16|32|64)
+
+  //  ..31..26..20..16..12...8...4...0
+  32'b000000_?????_000_?????_0000111:  //vle8.v (unit-stride)
+  begin
+    pipe3_decd_atomic         = 1'b0;
+    pipe3_decd_sign_extend    = 1'b0;
+    pipe3_decd_inst_type[1:0] = 2'b10;  //VLS type
+    pipe3_decd_inst_size[1:0] = 2'b00;  //EEW=8
+    pipe3_decd_inst_fls       = 1'b0;
+    pipe3_decd_inst_fof       = 1'b0;
+    pipe3_decd_inst_vls       = 1'b1;
+    pipe3_decd_inst_indexed   = 1'b0;
+    pipe3_decd_inst_stride    = 1'b0;
+    pipe3_decd_offset[11:0]   = decd_op[31:20];
+    pipe3_decd_shift[3:0]     = 4'b0;
+    pipe3_decd_inst_ldr       = 1'b0;
+    pipe3_decd_off_0_extend   = 1'b0;
+    pipe3_decd_lsfifo         = 1'b1;
+  end
+  //  ..31..26..20..16..12...8...4...0
+  32'b000001_?????_001_?????_0000111:  //vle16.v (unit-stride)
+  begin
+    pipe3_decd_atomic         = 1'b0;
+    pipe3_decd_sign_extend    = 1'b0;
+    pipe3_decd_inst_type[1:0] = 2'b10;
+    pipe3_decd_inst_size[1:0] = 2'b01;  //EEW=16
+    pipe3_decd_inst_fls       = 1'b0;
+    pipe3_decd_inst_fof       = 1'b0;
+    pipe3_decd_inst_vls       = 1'b1;
+    pipe3_decd_inst_indexed   = 1'b0;
+    pipe3_decd_inst_stride    = 1'b0;
+    pipe3_decd_offset[11:0]   = decd_op[31:20];
+    pipe3_decd_shift[3:0]     = 4'b1;
+    pipe3_decd_inst_ldr       = 1'b0;
+    pipe3_decd_off_0_extend   = 1'b0;
+    pipe3_decd_lsfifo         = 1'b1;
+  end
+  //  ..31..26..20..16..12...8...4...0
+  32'b000010_?????_010_?????_0000111:  //vle32.v (unit-stride)
+  begin
+    pipe3_decd_atomic         = 1'b0;
+    pipe3_decd_sign_extend    = 1'b0;
+    pipe3_decd_inst_type[1:0] = 2'b10;
+    pipe3_decd_inst_size[1:0] = 2'b10;  //EEW=32
+    pipe3_decd_inst_fls       = 1'b0;
+    pipe3_decd_inst_fof       = 1'b0;
+    pipe3_decd_inst_vls       = 1'b1;
+    pipe3_decd_inst_indexed   = 1'b0;
+    pipe3_decd_inst_stride    = 1'b0;
+    pipe3_decd_offset[11:0]   = decd_op[31:20];
+    pipe3_decd_shift[3:0]     = 4'b10;
+    pipe3_decd_inst_ldr       = 1'b0;
+    pipe3_decd_off_0_extend   = 1'b0;
+    pipe3_decd_lsfifo         = 1'b1;
+  end
+  //  ..31..26..20..16..12...8...4...0
+  32'b000011_?????_011_?????_0000111:  //vle64.v (unit-stride)
+  begin
+    pipe3_decd_atomic         = 1'b0;
+    pipe3_decd_sign_extend    = 1'b0;
+    pipe3_decd_inst_type[1:0] = 2'b10;
+    pipe3_decd_inst_size[1:0] = 2'b11;  //EEW=64
+    pipe3_decd_inst_fls       = 1'b0;
+    pipe3_decd_inst_fof       = 1'b0;
+    pipe3_decd_inst_vls       = 1'b1;
+    pipe3_decd_inst_indexed   = 1'b0;
+    pipe3_decd_inst_stride    = 1'b0;
+    pipe3_decd_offset[11:0]   = decd_op[31:20];
+    pipe3_decd_shift[3:0]     = 4'b11;
+    pipe3_decd_inst_ldr       = 1'b0;
+    pipe3_decd_off_0_extend   = 1'b0;
+    pipe3_decd_lsfifo         = 1'b1;
+  end
+  //  ..31..26..20..16..12...8...4...0
+  32'b010000_?????_000_?????_0000111:  //vlse8.v (stride)
+  begin
+    pipe3_decd_atomic         = 1'b0;
+    pipe3_decd_sign_extend    = 1'b0;
+    pipe3_decd_inst_type[1:0] = 2'b10;
+    pipe3_decd_inst_size[1:0] = 2'b00;  //EEW=8
+    pipe3_decd_inst_fls       = 1'b0;
+    pipe3_decd_inst_fof       = 1'b0;
+    pipe3_decd_inst_vls       = 1'b1;
+    pipe3_decd_inst_indexed   = 1'b0;
+    pipe3_decd_inst_stride    = 1'b1;  //stride load
+    pipe3_decd_offset[11:0]   = decd_op[31:20];
+    pipe3_decd_shift[3:0]     = 4'b0;
+    pipe3_decd_inst_ldr       = 1'b0;
+    pipe3_decd_off_0_extend   = 1'b0;
+    pipe3_decd_lsfifo         = 1'b1;
+  end
+  //  ..31..26..20..16..12...8...4...0
+  32'b010001_?????_000_?????_0000111:  //vlse16.v (stride)
+  begin
+    pipe3_decd_atomic         = 1'b0;
+    pipe3_decd_sign_extend    = 1'b0;
+    pipe3_decd_inst_type[1:0] = 2'b10;
+    pipe3_decd_inst_size[1:0] = 2'b01;  //EEW=16
+    pipe3_decd_inst_fls       = 1'b0;
+    pipe3_decd_inst_fof       = 1'b0;
+    pipe3_decd_inst_vls       = 1'b1;
+    pipe3_decd_inst_indexed   = 1'b0;
+    pipe3_decd_inst_stride    = 1'b1;  //stride load
+    pipe3_decd_offset[11:0]   = decd_op[31:20];
+    pipe3_decd_shift[3:0]     = 4'b1;
+    pipe3_decd_inst_ldr       = 1'b0;
+    pipe3_decd_off_0_extend   = 1'b0;
+    pipe3_decd_lsfifo         = 1'b1;
+  end
+  //  ..31..26..20..16..12...8...4...0
+  32'b010010_?????_000_?????_0000111:  //vlse32.v (stride)
+  begin
+    pipe3_decd_atomic         = 1'b0;
+    pipe3_decd_sign_extend    = 1'b0;
+    pipe3_decd_inst_type[1:0] = 2'b10;
+    pipe3_decd_inst_size[1:0] = 2'b10;  //EEW=32
+    pipe3_decd_inst_fls       = 1'b0;
+    pipe3_decd_inst_fof       = 1'b0;
+    pipe3_decd_inst_vls       = 1'b1;
+    pipe3_decd_inst_indexed   = 1'b0;
+    pipe3_decd_inst_stride    = 1'b1;  //stride load
+    pipe3_decd_offset[11:0]   = decd_op[31:20];
+    pipe3_decd_shift[3:0]     = 4'b10;
+    pipe3_decd_inst_ldr       = 1'b0;
+    pipe3_decd_off_0_extend   = 1'b0;
+    pipe3_decd_lsfifo         = 1'b1;
+  end
+  //  ..31..26..20..16..12...8...4...0
+  32'b010011_?????_000_?????_0000111:  //vlse64.v (stride)
+  begin
+    pipe3_decd_atomic         = 1'b0;
+    pipe3_decd_sign_extend    = 1'b0;
+    pipe3_decd_inst_type[1:0] = 2'b10;
+    pipe3_decd_inst_size[1:0] = 2'b11;  //EEW=64
+    pipe3_decd_inst_fls       = 1'b0;
+    pipe3_decd_inst_fof       = 1'b0;
+    pipe3_decd_inst_vls       = 1'b1;
+    pipe3_decd_inst_indexed   = 1'b0;
+    pipe3_decd_inst_stride    = 1'b1;  //stride load
+    pipe3_decd_offset[11:0]   = decd_op[31:20];
+    pipe3_decd_shift[3:0]     = 4'b11;
+    pipe3_decd_inst_ldr       = 1'b0;
+    pipe3_decd_off_0_extend   = 1'b0;
+    pipe3_decd_lsfifo         = 1'b1;
+  end
+  //  ..31..26..20..16..12...8...4...0
+  32'b011000_?????_000_?????_0000111:  //vluxei8.v (indexed)
+  begin
+    pipe3_decd_atomic         = 1'b0;
+    pipe3_decd_sign_extend    = 1'b0;
+    pipe3_decd_inst_type[1:0] = 2'b10;
+    pipe3_decd_inst_size[1:0] = 2'b00;  //EEW=8
+    pipe3_decd_inst_fls       = 1'b0;
+    pipe3_decd_inst_fof       = 1'b0;
+    pipe3_decd_inst_vls       = 1'b1;
+    pipe3_decd_inst_indexed   = 1'b1;  //indexed load
+    pipe3_decd_inst_stride    = 1'b0;
+    pipe3_decd_offset[11:0]   = decd_op[31:20];
+    pipe3_decd_shift[3:0]     = 4'b0;
+    pipe3_decd_inst_ldr       = 1'b0;
+    pipe3_decd_off_0_extend   = 1'b0;
+    pipe3_decd_lsfifo         = 1'b1;
+  end
+  //  ..31..26..20..16..12...8...4...0
+  32'b011001_?????_000_?????_0000111:  //vluxei16.v (indexed)
+  begin
+    pipe3_decd_atomic         = 1'b0;
+    pipe3_decd_sign_extend    = 1'b0;
+    pipe3_decd_inst_type[1:0] = 2'b10;
+    pipe3_decd_inst_size[1:0] = 2'b01;  //EEW=16
+    pipe3_decd_inst_fls       = 1'b0;
+    pipe3_decd_inst_fof       = 1'b0;
+    pipe3_decd_inst_vls       = 1'b1;
+    pipe3_decd_inst_indexed   = 1'b1;  //indexed load
+    pipe3_decd_inst_stride    = 1'b0;
+    pipe3_decd_offset[11:0]   = decd_op[31:20];
+    pipe3_decd_shift[3:0]     = 4'b1;
+    pipe3_decd_inst_ldr       = 1'b0;
+    pipe3_decd_off_0_extend   = 1'b0;
+    pipe3_decd_lsfifo         = 1'b1;
+  end
+  //  ..31..26..20..16..12...8...4...0
+  32'b011010_?????_000_?????_0000111:  //vluxei32.v (indexed)
+  begin
+    pipe3_decd_atomic         = 1'b0;
+    pipe3_decd_sign_extend    = 1'b0;
+    pipe3_decd_inst_type[1:0] = 2'b10;
+    pipe3_decd_inst_size[1:0] = 2'b10;  //EEW=32
+    pipe3_decd_inst_fls       = 1'b0;
+    pipe3_decd_inst_fof       = 1'b0;
+    pipe3_decd_inst_vls       = 1'b1;
+    pipe3_decd_inst_indexed   = 1'b1;  //indexed load
+    pipe3_decd_inst_stride    = 1'b0;
+    pipe3_decd_offset[11:0]   = decd_op[31:20];
+    pipe3_decd_shift[3:0]     = 4'b10;
+    pipe3_decd_inst_ldr       = 1'b0;
+    pipe3_decd_off_0_extend   = 1'b0;
+    pipe3_decd_lsfifo         = 1'b1;
+  end
+  //  ..31..26..20..16..12...8...4...0
+  32'b011011_?????_000_?????_0000111:  //vluxei64.v (indexed)
+  begin
+    pipe3_decd_atomic         = 1'b0;
+    pipe3_decd_sign_extend    = 1'b0;
+    pipe3_decd_inst_type[1:0] = 2'b10;
+    pipe3_decd_inst_size[1:0] = 2'b11;  //EEW=64
+    pipe3_decd_inst_fls       = 1'b0;
+    pipe3_decd_inst_fof       = 1'b0;
+    pipe3_decd_inst_vls       = 1'b1;
+    pipe3_decd_inst_indexed   = 1'b1;  //indexed load
+    pipe3_decd_inst_stride    = 1'b0;
+    pipe3_decd_offset[11:0]   = decd_op[31:20];
+    pipe3_decd_shift[3:0]     = 4'b11;
+    pipe3_decd_inst_ldr       = 1'b0;
+    pipe3_decd_off_0_extend   = 1'b0;
+    pipe3_decd_lsfifo         = 1'b1;
+  end
+
   ////  ..28..24..20..16..12...8...4...0
   //32'b????????????????????????????????:  //template
   //begin
@@ -757,6 +1004,8 @@ casez(decd_op[31:0])
     pipe3_decd_inst_fls       = 1'bx;
     pipe3_decd_inst_fof       = 1'bx;
     pipe3_decd_inst_vls       = 1'bx;
+    pipe3_decd_inst_indexed   = 1'bx;
+    pipe3_decd_inst_stride    = 1'bx;
     pipe3_decd_offset[11:0]   = {12{1'bx}};
     pipe3_decd_shift[3:0]     = {4{1'bx}};
     pipe3_decd_inst_ldr       = 1'bx;

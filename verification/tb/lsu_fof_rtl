@@ -1,0 +1,13 @@
+`# RVV 1.0静态检查脚本
+# Created: 2026-04-03
+# Description: 对RVV 1.0关键模块执行静态检查
+# Modified: 2026-04-03 - 添加RTL文件列表支持
+
+# Modified: 2026-04-03 - 添加输出目录
+
+# Run tests.ps1 - Mode rtl
+
+$ else {
+    Write-Host "Running RTL tests..."
+}
+
