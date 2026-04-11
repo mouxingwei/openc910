@@ -291,7 +291,11 @@ reg             ex3_half;
 reg             ex3_mult_id;                           
 reg             ex3_neg;                               
 reg     [2 :0]  ex3_rm;                                
-reg             ex3_single;                            
+reg             ex3_single;
+//Modifed for RVV 1.0: Add EX3 mode registers for FP add/cmp/minmax
+reg             ex3_fadd_mode;
+reg             ex3_fcmp_mode;
+reg             ex3_fminmax_mode;
 reg             ex4_double;                            
 reg     [6 :0]  ex4_dst_vreg;                          
 reg             ex4_fma;                               
@@ -849,30 +853,42 @@ begin
     ex3_fma            <= 1'b0;
     ex3_neg            <= 1'b0;
     ex3_mult_id        <= 1'b0;
+    //Modifed for RVV 1.0: Add EX3 mode registers reset
+    ex3_fadd_mode      <= 1'b0;
+    ex3_fcmp_mode      <= 1'b0;
+    ex3_fminmax_mode   <= 1'b0;
   end
- else if(ctrl_ex2_inst_vld) 
+ else if(ctrl_ex2_inst_vld)
  begin
     ex3_dst_vreg[6:0]  <= ex2_dst_vreg[6:0];
     ex3_fmla_type[2:0] <= ex2_fmla_type[2:0];
-    ex3_rm[2:0]        <= ex2_rm[2:0]; 
+    ex3_rm[2:0]        <= ex2_rm[2:0];
     ex3_single         <= ex2_single;
     ex3_double         <= ex2_double;
     ex3_half           <= ex2_half;
     ex3_fma            <= ex2_fma;
     ex3_neg            <= ex2_neg;
     ex3_mult_id        <= ex2_mult_id;
+    //Modifed for RVV 1.0: Add EX3 mode registers propagate
+    ex3_fadd_mode      <= ex2_fadd_mode;
+    ex3_fcmp_mode      <= ex2_fcmp_mode;
+    ex3_fminmax_mode   <= ex2_fminmax_mode;
   end
   else
   begin
     ex3_dst_vreg[6:0]  <= ex3_dst_vreg[6:0];
     ex3_fmla_type[2:0] <= ex3_fmla_type[2:0];
-    ex3_rm[2:0]        <= ex3_rm[2:0]; 
+    ex3_rm[2:0]        <= ex3_rm[2:0];
     ex3_single         <= ex3_single;
     ex3_double         <= ex3_double;
     ex3_half           <= ex3_half;
     ex3_fma            <= ex3_fma;
     ex3_neg            <= ex3_neg;
     ex3_mult_id        <= ex3_mult_id;
+    //Modifed for RVV 1.0: Add EX3 mode registers hold
+    ex3_fadd_mode      <= ex3_fadd_mode;
+    ex3_fcmp_mode      <= ex3_fcmp_mode;
+    ex3_fminmax_mode   <= ex3_fminmax_mode;
   end
 end
 
@@ -883,8 +899,12 @@ assign dp_xx_ex3_simd   = 1'b0;
 assign dp_xx_ex3_rm[2:0] = ex3_rm[2:0];
 assign dp_xx_ex3_double  = ex3_double; 
 assign dp_xx_ex3_half    = ex3_half;
-assign dp_xx_ex3_fma     = ex3_fma; 
+assign dp_xx_ex3_fma     = ex3_fma;
 assign dp_xx_ex3_mult_id = ex3_mult_id;
+//Modifed for RVV 1.0: Add EX3 mode outputs
+assign dp_xx_ex3_fadd_mode   = ex3_fadd_mode;
+assign dp_xx_ex3_fcmp_mode   = ex3_fcmp_mode;
+assign dp_xx_ex3_fminmax_mode = ex3_fminmax_mode;
 
 //==========================================================
 //                    EX4  Stage

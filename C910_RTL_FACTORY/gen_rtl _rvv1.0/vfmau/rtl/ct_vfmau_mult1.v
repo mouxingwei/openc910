@@ -150,7 +150,11 @@ input            dp_xx_ex2_simd;
 input            dp_xx_ex2_sub;                         
 input            dp_xx_ex2_widen;                       
 input            dp_xx_ex3_double;                      
-input            dp_xx_ex3_fma;                         
+input            dp_xx_ex3_fma;
+//Modifed for RVV 1.0: Add new FP mode inputs from dp
+input            dp_xx_ex3_fadd_mode;
+input            dp_xx_ex3_fcmp_mode;
+input            dp_xx_ex3_fminmax_mode;
 input            dp_xx_ex3_half;                        
 input            dp_xx_ex3_mult_id;                     
 input   [2  :0]  dp_xx_ex3_rm;                          
@@ -1987,25 +1991,25 @@ ct_vfmau_lza  x_ct_vfmau_lza (
   .summand               (mult1_ex3_lza_summand)
 );
 
-//Modifed for RVV 1.0: Instantiate FP comparison unit
-//ct_vfmau_fcmp  x_ct_vfmau_fcmp (
-//  .cmp_a                 (dp_mult1_ex1_op0_slicex[63:0]),
-//  .cmp_b                 (dp_mult1_ex1_op1_slicex[63:0]),
-//  .cmp_mode              (dp_xx_ex1_fcmp_mode),
-//  .cmp_result            (mult1_ex5_fcmp_result),
-//  .fp_class_a            (mult1_ex5_fcmp_class_a[7:0]),
-//  .fp_class_b            (mult1_ex5_fcmp_class_b[7:0]),
-//  .special_case          (mult1_ex5_fcmp_special)
-//);
+//Modifed for RVV 1.0: Instantiate FP comparison unit at EX3 stage
+ct_vfmau_fcmp  x_ct_vfmau_fcmp (
+  .cmp_a                 (dp_mult1_ex1_op0_slicex[63:0]),
+  .cmp_b                 (dp_mult1_ex1_op1_slicex[63:0]),
+  .cmp_mode              (dp_xx_ex3_fcmp_mode),
+  .cmp_result            (mult1_ex5_fcmp_result),
+  .fp_class_a            (mult1_ex5_fcmp_class_a[7:0]),
+  .fp_class_b            (mult1_ex5_fcmp_class_b[7:0]),
+  .special_case          (mult1_ex5_fcmp_special)
+);
 
-//Modifed for RVV 1.0: Instantiate FP max/min unit
-//ct_vfmau_fmaxmin  x_ct_vfmau_fmaxmin (
-//  .maxmin_a              (dp_mult1_ex1_op0_slicex[63:0]),
-//  .maxmin_b              (dp_mult1_ex1_op1_slicex[63:0]),
-//  .maxmin_mode           (dp_xx_ex1_fminmax_mode),
-//  .result                (mult1_ex5_fmaxmin_result[63:0]),
-//  .special_case          (mult1_ex5_fmaxmin_special)
-//);
+//Modifed for RVV 1.0: Instantiate FP max/min unit at EX3 stage
+ct_vfmau_fmaxmin  x_ct_vfmau_fmaxmin (
+  .maxmin_a              (dp_mult1_ex1_op0_slicex[63:0]),
+  .maxmin_b              (dp_mult1_ex1_op1_slicex[63:0]),
+  .maxmin_mode           (dp_xx_ex3_fminmax_mode),
+  .result                (mult1_ex5_fmaxmin_result[63:0]),
+  .special_case          (mult1_ex5_fmaxmin_special)
+);
 
 // &Connect(.summand           (mult1_ex3_lza_summand      ), @1473
 //          .addend            (mult1_ex3_lza_addend       ), @1474
