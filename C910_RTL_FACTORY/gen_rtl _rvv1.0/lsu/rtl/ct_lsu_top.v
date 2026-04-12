@@ -791,6 +791,9 @@ output           lsu_biu_w_vict_wns;
 output           lsu_cp0_dcache_done;                    
 output  [127:0]  lsu_cp0_dcache_read_data;               
 output           lsu_cp0_dcache_read_data_vld;           
+// RVV 1.0 FOF signals - Added 2026-04-12
+output           lsu_cp0_vl_update;                       // VL update enable for FOF
+output  [6  :0]  lsu_cp0_new_vl;                          // New VL value for FOF
 output  [183:0]  lsu_had_debug_info;                     
 output  [39 :0]  lsu_had_ld_addr;                        
 output  [63 :0]  lsu_had_ld_data;                        
@@ -1451,7 +1454,10 @@ wire             ld_da_wb_no_spec_hit;
 wire             ld_da_wb_no_spec_mispred;               
 wire             ld_da_wb_no_spec_miss;                  
 wire             ld_da_wb_spec_fail;                     
-wire    [1  :0]  ld_da_wb_vreg_sign_sel;                 
+wire    [1  :0]  ld_da_wb_vreg_sign_sel;
+// RVV 1.0 FOF signals - Added 2026-04-12
+wire             ld_da_wb_inst_fof;
+wire    [6  :0]  ld_da_wb_ff_element_index;                 
 wire             ld_da_wmb_discard_vld;                  
 wire    [39 :0]  ld_dc_addr0;                            
 wire    [39 :0]  ld_dc_addr1;                            
@@ -4149,6 +4155,9 @@ ct_lsu_ld_da  x_ct_lsu_ld_da (
   .ld_da_wb_no_spec_miss                (ld_da_wb_no_spec_miss               ),
   .ld_da_wb_spec_fail                   (ld_da_wb_spec_fail                  ),
   .ld_da_wb_vreg_sign_sel               (ld_da_wb_vreg_sign_sel              ),
+  // RVV 1.0 FOF signals - Added 2026-04-12
+  .ld_da_wb_inst_fof                    (ld_da_wb_inst_fof                   ),
+  .ld_da_wb_ff_element_index            (ld_da_wb_ff_element_index           ),
   .ld_da_wmb_discard_vld                (ld_da_wmb_discard_vld               ),
   .ld_dc_addr0                          (ld_dc_addr0                         ),
   .ld_dc_ahead_predict                  (ld_dc_ahead_predict                 ),
@@ -5083,7 +5092,12 @@ ct_lsu_ld_wb  x_ct_lsu_ld_wb (
   .wmb_ld_wb_preg                      (wmb_ld_wb_preg                     ),
   .wmb_ld_wb_preg_sign_sel             (wmb_ld_wb_preg_sign_sel            ),
   .wmb_ld_wb_vreg                      (wmb_ld_wb_vreg                     ),
-  .wmb_ld_wb_vreg_sign_sel             (wmb_ld_wb_vreg_sign_sel            )
+  .wmb_ld_wb_vreg_sign_sel             (wmb_ld_wb_vreg_sign_sel            ),
+  // RVV 1.0 FOF signals - Added 2026-04-12
+  .ld_da_wb_inst_fof                   (ld_da_wb_inst_fof                  ),
+  .ld_da_wb_ff_element_index           (ld_da_wb_ff_element_index          ),
+  .lsu_cp0_vl_update                   (lsu_cp0_vl_update                  ),
+  .lsu_cp0_new_vl                      (lsu_cp0_new_vl                     )
 );
 
 // &Instance("ct_lsu_st_wb","x_ct_lsu_st_wb"); @115

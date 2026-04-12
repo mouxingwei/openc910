@@ -500,6 +500,9 @@ output           ld_da_wb_no_spec_mispred;
 output           ld_da_wb_no_spec_miss;               
 output           ld_da_wb_spec_fail;                  
 output  [1  :0]  ld_da_wb_vreg_sign_sel;              
+// RVV 1.0 FOF signals - Added 2026-04-12
+output           ld_da_wb_inst_fof;                   // FOF instruction flag
+output  [6  :0]  ld_da_wb_ff_element_index;           // Element index that triggered exception
 output           ld_da_wmb_discard_vld;               
 output           lsu_hpcp_ld_cache_access;            
 output           lsu_hpcp_ld_cache_miss;              
@@ -1596,6 +1599,18 @@ assign ld_da_fof_not_first = 1'b0;
 // Modified for RVV 1.0: FOF signal now comes from input
 // Original: assign ld_da_inst_fof = 1'b0;
 assign ld_da_inst_fof = ld_dc_inst_fof;
+
+//==========================================================
+//        RVV 1.0 FOF (Fault-Only-First) Output Signals
+//  Added 2026-04-12: Pass FOF signals to WB stage
+//==========================================================
+// Pass FOF instruction flag to WB stage
+assign ld_da_wb_inst_fof = ld_da_inst_fof;
+
+// Element index for FOF exception handling
+// TODO: This should be the actual element index being processed when exception occurs
+// For now, set to 0 as placeholder - needs to be connected to vector element counter
+assign ld_da_wb_ff_element_index[6:0] = 7'd0;
 //==========================================================
 //        Generate inst type
 //==========================================================

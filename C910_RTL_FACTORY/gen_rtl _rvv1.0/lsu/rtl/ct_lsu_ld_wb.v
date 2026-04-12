@@ -133,7 +133,12 @@ module ct_lsu_ld_wb(
   wmb_ld_wb_preg,
   wmb_ld_wb_preg_sign_sel,
   wmb_ld_wb_vreg,
-  wmb_ld_wb_vreg_sign_sel
+  wmb_ld_wb_vreg_sign_sel,
+  // RVV 1.0 FOF signals - Added 2026-04-12
+  ld_da_wb_inst_fof,
+  ld_da_wb_ff_element_index,
+  lsu_cp0_vl_update,
+  lsu_cp0_new_vl
 );
 
 // &Ports; @28
@@ -165,6 +170,9 @@ input           ld_da_wb_no_spec_mispred;
 input           ld_da_wb_no_spec_miss;              
 input           ld_da_wb_spec_fail;                 
 input   [1 :0]  ld_da_wb_vreg_sign_sel;             
+// RVV 1.0 FOF signals - Added 2026-04-12
+input           ld_da_wb_inst_fof;                 // FOF instruction flag
+input   [6 :0]  ld_da_wb_ff_element_index;         // Element index that triggered exception
 input           pad_yy_icg_scan_en;                 
 input           rb_ld_wb_bkpta_data;                
 input           rb_ld_wb_bkptb_data;                
@@ -256,6 +264,9 @@ output          lsu_rtu_wb_pipe3_wb_preg_vld;
 output  [63:0]  lsu_rtu_wb_pipe3_wb_vreg_expand;    
 output          lsu_rtu_wb_pipe3_wb_vreg_fr_vld;    
 output          lsu_rtu_wb_pipe3_wb_vreg_vr_vld;    
+// RVV 1.0 FOF signals - Added 2026-04-12
+output          lsu_cp0_vl_update;                  // VL update enable for FOF
+output  [6 :0]  lsu_cp0_new_vl;                     // New VL value for FOF
 
 // &Regs; @29
 reg             ld_wb_bkpta_data;                   
@@ -529,8 +540,7 @@ assign ld_wb_pre_flush          = ld_wb_pre_spec_fail
                                      && !ld_wb_pre_expt_vld
                                   || ld_wb_pre_vsetvl;
 
-assign ld_wb_pre_expt_vld       = ld_wb_da_cmplt_grnt &&  ld_da_wb_expt_vld
-                                  || ld_wb_rb_cmplt_grnt &&  rb_ld_wb_expt_vld;
+// ld_wb_pre_expt_vld is defined in FOF Logic section below
 
 assign ld_wb_pre_expt_gateclk   = ld_wb_da_cmplt_grnt &&  (ld_da_wb_expt_vld || ld_da_wb_vsetvl)
                                   || ld_wb_rb_cmplt_grnt &&  rb_ld_wb_expt_gateclk;
@@ -545,6 +555,33 @@ assign ld_wb_pre_mt_value[`PA_WIDTH-1:0]    = ld_da_wb_mt_value[`PA_WIDTH-1:0];
 assign ld_wb_pre_vstart_vld                 = 1'b0;
 assign ld_wb_pre_vsetvl                     = 1'b0;
 assign ld_da_wb_vsetvl                      = 1'b0;
+
+//==========================================================
+//            RVV 1.0 FOF (Fault-Only-First) Logic
+//  Added 2026-04-12: Support for RVV 1.0 FOF load instructions
+//  When FOF instruction has exception at element > 0:
+//    - Do NOT trigger exception trap
+//    - Update VL to current element index
+//==========================================================
+// FOF exception at element > 0 (not element 0)
+wire  ld_wb_fof_expt_element_gt0 = ld_wb_da_cmplt_grnt 
+                                   && ld_da_wb_inst_fof 
+                                   && ld_da_wb_expt_vld 
+                                   && (|ld_da_wb_ff_element_index[6:0]);
+
+// FOF exception at element 0 - normal exception handling
+wire  ld_wb_fof_expt_element0 = ld_wb_da_cmplt_grnt 
+                                 && ld_da_wb_inst_fof 
+                                 && ld_da_wb_expt_vld 
+                                 && (ld_da_wb_ff_element_index[6:0] == 7'd0);
+
+// VL update for FOF: update when exception at element > 0
+assign lsu_cp0_vl_update = ld_wb_fof_expt_element_gt0;
+assign lsu_cp0_new_vl[6:0] = ld_da_wb_ff_element_index[6:0];
+
+// Modify exception valid for FOF: suppress exception when element > 0
+assign ld_wb_pre_expt_vld       = (ld_wb_da_cmplt_grnt &&  ld_da_wb_expt_vld && !ld_wb_fof_expt_element_gt0)
+                                  || ld_wb_rb_cmplt_grnt &&  rb_ld_wb_expt_vld;
 
 //------------------data part-------------------------------
 //-----------grant signal---------------

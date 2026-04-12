@@ -76,6 +76,14 @@ wire            freduct_forward_r_vld;       // Reduction operation valid
 wire    [63:0]  freduct_forward_result;      // Reduction operation result
 wire            fwiden_forward_r_vld;        // Widening operation valid
 wire    [127:0] fwiden_forward_result;       // Widening operation result
+// Added for RVV 1.0 VMISC/VPERM
+// Modification date: 2026-04-12
+wire            vmisc_forward_r_vld;         // VMISC operation valid
+wire    [63:0]  vmisc_forward_result;       // VMISC operation result
+wire    [63:0]  vmisc_mfvr_data;            // VMISC MFVR data
+wire            vperm_forward_r_vld;         // VPERM operation valid
+wire    [63:0]  vperm_forward_result;       // VPERM operation result
+wire    [63:0]  vperm_mfvr_data;            // VPERM MFVR data
 wire            pad_yy_icg_scan_en;          
 wire    [63:0]  pipex_dp_ex1_vfalu_mfvr_data; 
 wire    [4 :0]  pipex_dp_ex3_vfalu_ereg_data; 
@@ -155,6 +163,43 @@ ct_fwiden_top  x_ct_fwiden_top (
   .pad_yy_icg_scan_en           (pad_yy_icg_scan_en          )
 );
 
+// Added for RVV 1.0 VMISC unit
+// Modification date: 2026-04-12
+// &Instance("ct_vmisc_top"); @32
+ct_vmisc_top  x_ct_vmisc_top (
+  .cp0_vfpu_icg_en              (cp0_vfpu_icg_en             ),
+  .cp0_yy_clk_en                (cp0_yy_clk_en               ),
+  .cpurst_b                     (cpurst_b                    ),
+  .dp_vfalu_ex1_pipex_func      (dp_vfalu_ex1_pipex_func     ),
+  .dp_vfalu_ex1_pipex_sel       (dp_vfalu_ex1_pipex_sel      ),
+  .dp_vfalu_ex1_pipex_srcf0     (dp_vfalu_ex1_pipex_srcf0    ),
+  .dp_vfalu_ex1_pipex_srcf1     (dp_vfalu_ex1_pipex_srcf1    ),
+  .forever_cpuclk               (forever_cpuclk              ),
+  .pad_yy_icg_scan_en           (pad_yy_icg_scan_en          ),
+  .vmisc_forward_r_vld          (vmisc_forward_r_vld         ),
+  .vmisc_forward_result         (vmisc_forward_result        ),
+  .vmisc_mfvr_data             (vmisc_mfvr_data            )
+);
+
+// Added for RVV 1.0 VPERM unit
+// Modification date: 2026-04-12
+// &Instance("ct_vperm_top"); @33
+ct_vperm_top  x_ct_vperm_top (
+  .cp0_vfpu_icg_en              (cp0_vfpu_icg_en             ),
+  .cp0_yy_clk_en                (cp0_yy_clk_en               ),
+  .cpurst_b                     (cpurst_b                    ),
+  .dp_vfalu_ex1_pipex_func      (dp_vfalu_ex1_pipex_func     ),
+  .dp_vfalu_ex1_pipex_mtvr_src0 (dp_vfalu_ex1_pipex_mtvr_src0),
+  .dp_vfalu_ex1_pipex_sel       (dp_vfalu_ex1_pipex_sel      ),
+  .dp_vfalu_ex1_pipex_srcf0     (dp_vfalu_ex1_pipex_srcf0    ),
+  .dp_vfalu_ex1_pipex_srcf1     (dp_vfalu_ex1_pipex_srcf1    ),
+  .forever_cpuclk               (forever_cpuclk              ),
+  .pad_yy_icg_scan_en           (pad_yy_icg_scan_en          ),
+  .vperm_forward_r_vld          (vperm_forward_r_vld         ),
+  .vperm_forward_result         (vperm_forward_result        ),
+  .vperm_mfvr_data             (vperm_mfvr_data            )
+);
+
 // &Instance("ct_vfalu_dp_pipe6"); @30
 ct_vfalu_dp_pipe6  x_ct_vfalu_dp_pipe6 (
   .dp_vfalu_ex1_pipex_sel       (dp_vfalu_ex1_pipex_sel      ),
@@ -166,6 +211,12 @@ ct_vfalu_dp_pipe6  x_ct_vfalu_dp_pipe6 (
   .fspu_forward_r_vld           (fspu_forward_r_vld          ),
   .fspu_forward_result          (fspu_forward_result         ),
   .fspu_mfvr_data               (fspu_mfvr_data              ),
+  .vmisc_forward_r_vld          (vmisc_forward_r_vld         ),
+  .vmisc_forward_result         (vmisc_forward_result        ),
+  .vmisc_mfvr_data             (vmisc_mfvr_data            ),
+  .vperm_forward_r_vld          (vperm_forward_r_vld         ),
+  .vperm_forward_result         (vperm_forward_result        ),
+  .vperm_mfvr_data             (vperm_mfvr_data            ),
   .pipex_dp_ex1_vfalu_mfvr_data (pipex_dp_ex1_vfalu_mfvr_data),
   .pipex_dp_ex3_vfalu_ereg_data (pipex_dp_ex3_vfalu_ereg_data),
   .pipex_dp_ex3_vfalu_freg_data (pipex_dp_ex3_vfalu_freg_data)
