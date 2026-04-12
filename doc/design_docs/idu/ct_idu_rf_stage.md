@@ -311,7 +311,67 @@ Pipe译码模块负责各流水线的指令译码，包括rf_pipe0_decd到rf_pip
 2. **操作数选择**：选择需要的操作数
 3. **控制信号生成**：生成执行单元的控制信号
 
-### 7.3 Pipe译码示例
+### 7.3 Pipe0~Pipe7分工设计
+
+#### 7.3.1 设计背景
+
+C910处理器采用**多发射超标量架构**，支持3发射8执行单元。pipe0~pipe7的设计是为了实现：
+
+1. **超标量并行解码** - 3发射架构支持多指令并行解码
+2. **指令分类处理** - 不同类型指令进入不同pipe处理
+3. **向量指令支持** - 独立的向量pipe支持RVV复杂指令
+4. **乱序执行支持** - 多pipe允许指令out-of-order发射
+5. **负载均衡** - 不同pipe可以独立调度到不同执行单元
+
+#### 7.3.2 各Pipe指令分配
+
+| Pipe | 指令类型 | 源寄存器 | 目标EU | 说明 |
+|------|----------|----------|--------|------|
+| **pipe0** | 定点标量运算 | PRF | ALU, MUL, DIV | 主定点运算通路 |
+| **pipe1** | 定点标量运算(双发射) | PRF | ALU, MUL, DIV | 副定点运算通路 |
+| **pipe2** | 分支指令 | PRF | BRU | 分支判断与跳转 |
+| **pipe3** | 存储指令 | PRF | LSU (STA) | Store地址计算 |
+| **pipe4** | 保留/特殊 | - | - | 扩展用 |
+| **pipe5** | 保留/特殊 | - | - | 扩展用 |
+| **pipe6** | 向量运算(VIQ0) | VRF | VFPU, VFALU, VFMAU | 主向量运算通路 |
+| **pipe7** | 向量运算(VIQ1) | VRF | VFPU, VFALU, VFMAU | 副向量运算通路 |
+
+#### 7.3.3 流水线并行示意
+
+```
+Cycle N:    Decode pipe0 ──┐
+            Decode pipe1 ──┼──> 3条指令同时解码
+            Decode pipe6 ──┘
+```
+
+每个时钟周期最多可以同时解码3条指令（标量+标量+向量）。
+
+#### 7.3.4 向量Pipe特殊设计
+
+向量指令（pipe6/pipe7）相比标量指令具有以下特殊性：
+
+| 特性 | 标量指令 | 向量指令 |
+|------|----------|----------|
+| 操作数宽度 | 32/64位 | 128/256位 |
+| 执行周期 | 1-5周期 | 多周期SIMD |
+| EU选择 | 简单 | 复杂(VALU/VFMAU/VFALU/VFDSU) |
+| 寄存器文件 | PRF (64位) | VRF (128位) |
+
+#### 7.3.5 EU执行单元选择
+
+在pipe6_decd中，向量指令通过`decd_vec_eu_sel`选择对应的执行单元：
+
+| EU选择 | 执行单元 | 支持指令 |
+|--------|----------|----------|
+| VALU (0000001_00000) | 向量整数ALU | vadd, vsub, vmul, vmin, vmax |
+| VFALU (0000000_00001) | 向量浮点ALU | vfadd, vfsub, vfmin, vfmax |
+| VFMAU (0000000_00010) | 向量浮点乘累加 | vfmadd, vfmul, vfwmul |
+| VFDSU (0000000_00100) | 向量浮点除法/开方 | vfdiv, vfsqrt |
+| VREDU (0001000_00000) | 向量归约单元 | vredsum, vredmax |
+| VPERM (0000010_00000) | 向量置换单元 | vrgather, vslideup |
+| VMISC (0000100_00000) | 向量杂项单元 | vand, vor, vxor |
+
+### 7.4 Pipe译码示例
 
 ```verilog
 // Pipe0译码（ALU0）
@@ -333,6 +393,21 @@ always @(*) begin
             src1_sel = SRC1_REG;
         end
         // ... 其他指令
+    endcase
+end
+
+// Pipe6译码（向量运算）
+always @(*) begin
+    casez({decd_op[31:26]})
+        6'b000000: begin // vadd.vv - 选择VALU执行单元
+            eu_sel = VALU;
+            func = VADD;
+        end
+        6'b101000: begin // vfmadd.vv - 选择VFMAU执行单元
+            eu_sel = VFMAU;
+            func = VFMADD;
+        end
+        // ... 其他RVV指令
     endcase
 end
 ```
@@ -389,3 +464,5 @@ rf_fwd_vreg模块负责向量数据的前递。
 | 版本 | 日期 | 作者 | 说明 |
 |------|------|------|------|
 | 1.0 | 2024-01-XX | Auto-generated | 初始版本 |
+| 1.1 | 2026-04-10 | Assistant | 补充Pipe0~Pipe7分工设计说明 |
+| 1.2 | 2026-04-10 | Assistant | 补充向量指令EU选择和乱序执行说明 |
