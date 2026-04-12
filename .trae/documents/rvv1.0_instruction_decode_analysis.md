@@ -295,7 +295,24 @@
 1. **vfslide1up/vfslide1down**: 确认参数定义是否与译码逻辑匹配
 2. **测试验证**: 建议创建测试用例验证所有RVV 1.0指令的译码正确性
 
-## 8. 后续任务
+## 8. 已完成任务
+
+### 8.1 文件更新
+1. **JSON文件更新**: `d:\code\openc910\doc\Instruction_Set\riscv-v-spec-1.0\rvv_instructions.json`
+   - 为每个指令添加了 `decode_status` 字段
+   - 包含: `implemented`, `decode_pipe`, `execution_unit`, `analysis_date`
+
+2. **Excel报告生成**: `d:\code\openc910\doc\Instruction_Set\riscv-v-spec-1.0\rvv_instructions.xlsx`
+   - 包含所有RVV 1.0指令的译码状态
+   - 颜色标识: 绿色=已实现, 红色=未实现, 黄色=待验证
+   - 包含统计汇总表
+
+### 8.2 译码状态统计
+- **总指令数**: 359条
+- **已实现**: 大部分RVV 1.0指令已在pipe6_decd.v和pipe7_decd.v中实现译码
+- **关键新增指令**: vfrsqrt7.v, vfrec7.v 已在Pipe6中实现
+
+## 9. 后续建议
 
 1. 验证vfrsqrt7/vfrec7在FSPU模块中的执行逻辑
 2. 确认vfslide1up/vfslide1down的完整译码链路

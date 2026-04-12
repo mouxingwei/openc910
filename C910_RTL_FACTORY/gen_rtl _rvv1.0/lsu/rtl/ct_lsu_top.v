@@ -86,6 +86,9 @@ module ct_lsu_top(
   idu_lsu_rf_pipe3_gateclk_sel,
   idu_lsu_rf_pipe3_iid,
   idu_lsu_rf_pipe3_inst_fls,
+  // RVV 1.0 whole register load - Added 2026-04-12
+  idu_lsu_rf_pipe3_inst_vlwhole,
+  idu_lsu_rf_pipe3_nf,
   idu_lsu_rf_pipe3_inst_ldr,
   idu_lsu_rf_pipe3_inst_size,
   idu_lsu_rf_pipe3_inst_type,
@@ -166,6 +169,8 @@ module ct_lsu_top(
   idu_lsu_vmb_create0_vl,
   idu_lsu_vmb_create0_vreg,
   idu_lsu_vmb_create0_vsew,
+  // RVV 1.0 vlmul support - Added 2026-04-12
+  idu_lsu_vmb_create0_vlmul,
   idu_lsu_vmb_create1_dp_en,
   idu_lsu_vmb_create1_dst_ready,
   idu_lsu_vmb_create1_en,
@@ -177,6 +182,8 @@ module ct_lsu_top(
   idu_lsu_vmb_create1_vl,
   idu_lsu_vmb_create1_vreg,
   idu_lsu_vmb_create1_vsew,
+  // RVV 1.0 vlmul support - Added 2026-04-12
+  idu_lsu_vmb_create1_vlmul,
   ifu_lsu_icache_inv_done,
   lsu_biu_ac_empty,
   lsu_biu_ac_ready,
@@ -583,6 +590,9 @@ input            idu_lsu_rf_pipe3_bkptb_data;
 input            idu_lsu_rf_pipe3_gateclk_sel;           
 input   [6  :0]  idu_lsu_rf_pipe3_iid;                   
 input            idu_lsu_rf_pipe3_inst_fls;              
+// RVV 1.0 whole register load - Added 2026-04-12
+input            idu_lsu_rf_pipe3_inst_vlwhole;           // Whole register load instruction
+input   [2  :0]  idu_lsu_rf_pipe3_nf;                     // NF field (number of registers - 1)
 input            idu_lsu_rf_pipe3_inst_ldr;              
 input   [1  :0]  idu_lsu_rf_pipe3_inst_size;             
 input   [1  :0]  idu_lsu_rf_pipe3_inst_type;             
@@ -2840,6 +2850,9 @@ ct_lsu_ld_ag  x_ct_lsu_ld_ag (
   .idu_lsu_rf_pipe3_gateclk_sel      (idu_lsu_rf_pipe3_gateclk_sel     ),
   .idu_lsu_rf_pipe3_iid              (idu_lsu_rf_pipe3_iid             ),
   .idu_lsu_rf_pipe3_inst_fls         (idu_lsu_rf_pipe3_inst_fls        ),
+  // RVV 1.0 whole register load - Added 2026-04-12
+  .idu_lsu_rf_pipe3_inst_vlwhole     (idu_lsu_rf_pipe3_inst_vlwhole    ),
+  .idu_lsu_rf_pipe3_nf               (idu_lsu_rf_pipe3_nf              ),
   .idu_lsu_rf_pipe3_inst_ldr         (idu_lsu_rf_pipe3_inst_ldr        ),
   .idu_lsu_rf_pipe3_inst_size        (idu_lsu_rf_pipe3_inst_size       ),
   .idu_lsu_rf_pipe3_inst_type        (idu_lsu_rf_pipe3_inst_type       ),
