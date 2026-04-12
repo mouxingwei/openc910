@@ -42,6 +42,9 @@ module ct_lsu_ld_ag(
   idu_lsu_rf_pipe3_iid,
   idu_lsu_rf_pipe3_inst_fls,
   idu_lsu_rf_pipe3_inst_fof,
+  // RVV 1.0 whole register load - Added 2026-04-12
+  idu_lsu_rf_pipe3_inst_vlwhole,
+  idu_lsu_rf_pipe3_nf,
   idu_lsu_rf_pipe3_inst_ldr,
   idu_lsu_rf_pipe3_inst_size,
   idu_lsu_rf_pipe3_inst_type,
@@ -83,6 +86,9 @@ module ct_lsu_ld_ag(
   ld_ag_dc_vload_ahead_inst_vld,
   ld_ag_dc_vload_inst_vld,
   ld_ag_dc_inst_fof,
+  // RVV 1.0 whole register load - Added 2026-04-12
+  ld_ag_dc_inst_vlwhole,
+  ld_ag_dc_nf,
   ld_ag_expt_access_fault_with_page,
   ld_ag_expt_ldamo_not_ca,
   ld_ag_expt_misalign_no_page,
@@ -181,6 +187,9 @@ input           idu_lsu_rf_pipe3_gateclk_sel;
 input   [6 :0]  idu_lsu_rf_pipe3_iid;               
 input           idu_lsu_rf_pipe3_inst_fls;          
 input           idu_lsu_rf_pipe3_inst_fof;          
+// RVV 1.0 whole register load - Added 2026-04-12
+input           idu_lsu_rf_pipe3_inst_vlwhole;       // Whole register load instruction
+input   [2 :0]  idu_lsu_rf_pipe3_nf;                 // NF field (number of registers - 1)
 input           idu_lsu_rf_pipe3_inst_ldr;          
 input   [1 :0]  idu_lsu_rf_pipe3_inst_size;         
 input   [1 :0]  idu_lsu_rf_pipe3_inst_type;         
@@ -247,6 +256,9 @@ output  [3 :0]  ld_ag_dc_rot_sel;
 output          ld_ag_dc_vload_ahead_inst_vld;      
 output          ld_ag_dc_vload_inst_vld;            
 output          ld_ag_dc_inst_fof;                  
+// RVV 1.0 whole register load - Added 2026-04-12
+output          ld_ag_dc_inst_vlwhole;               // Whole register load instruction
+output  [2 :0]  ld_ag_dc_nf;                         // NF field (number of registers - 1)
 output          ld_ag_expt_access_fault_with_page;  
 output          ld_ag_expt_ldamo_not_ca;            
 output          ld_ag_expt_misalign_no_page;        
@@ -318,6 +330,9 @@ reg     [2 :0]  ld_ag_dc_access_size;
 reg     [6 :0]  ld_ag_iid;                          
 reg             ld_ag_inst_fls;                     
 reg             ld_ag_inst_fof;                     
+// RVV 1.0 whole register load - Added 2026-04-12
+reg             ld_ag_inst_vlwhole;                  // Whole register load instruction
+reg     [2 :0]  ld_ag_nf;                            // NF field (number of registers - 1)
 reg             ld_ag_inst_ldr;                     
 reg     [1 :0]  ld_ag_inst_size;                    
 reg     [1 :0]  ld_ag_inst_type;                    
@@ -442,6 +457,9 @@ wire    [3 :0]  ld_ag_dc_rot_sel;
 wire            ld_ag_dc_vload_ahead_inst_vld;      
 wire            ld_ag_dc_vload_inst_vld;            
 wire            ld_ag_dc_inst_fof;                  
+// RVV 1.0 whole register load - Added 2026-04-12
+wire            ld_ag_dc_inst_vlwhole;               // Whole register load instruction
+wire    [2 :0]  ld_ag_dc_nf;                         // NF field
 wire            ld_ag_dcache_stall_req;             
 wire            ld_ag_dcache_stall_unmask;          
 wire            ld_ag_expt_access_fault_with_page;  
@@ -661,6 +679,9 @@ begin
     ld_ag_inst_ldr              <=  1'b0;
     ld_ag_inst_fls              <=  1'b0;
     ld_ag_inst_fof              <=  1'b0;
+    // RVV 1.0 whole register load - Added 2026-04-12
+    ld_ag_inst_vlwhole          <=  1'b0;
+    ld_ag_nf[2:0]               <=  3'b0;
     ld_ag_lsfifo                <=  1'b0;
     ld_ag_no_spec               <=  1'b0;
     ld_ag_no_spec_exist         <=  1'b0;
@@ -694,6 +715,9 @@ begin
     ld_ag_inst_ldr              <=  idu_lsu_rf_pipe3_inst_ldr;
     ld_ag_inst_fls              <=  idu_lsu_rf_pipe3_inst_fls;
     ld_ag_inst_fof              <=  idu_lsu_rf_pipe3_inst_fof;
+    // RVV 1.0 whole register load - Added 2026-04-12
+    ld_ag_inst_vlwhole          <=  idu_lsu_rf_pipe3_inst_vlwhole;
+    ld_ag_nf[2:0]               <=  idu_lsu_rf_pipe3_nf[2:0];
     ld_ag_lsfifo                <=  idu_lsu_rf_pipe3_lsfifo;
     ld_ag_no_spec               <=  idu_lsu_rf_pipe3_no_spec;
     ld_ag_no_spec_exist         <=  idu_lsu_rf_pipe3_no_spec_exist;
@@ -1394,6 +1418,11 @@ assign ld_ag_dc_vload_ahead_inst_vld = 1'b0;
 
 // Modified for RVV 1.0: FOF signal output to DC stage
 assign ld_ag_dc_inst_fof = ld_ag_inst_fof;
+
+// RVV 1.0 whole register load - Added 2026-04-12
+// Output whole register load signals to DC stage
+assign ld_ag_dc_inst_vlwhole = ld_ag_inst_vlwhole;
+assign ld_ag_dc_nf[2:0] = ld_ag_nf[2:0];
 
 //-----------for timing--------------------------
 //compare iid ahead for dc restart timing

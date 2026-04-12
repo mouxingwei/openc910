@@ -173,6 +173,9 @@ input   [1 :0]  ld_da_wb_vreg_sign_sel;
 // RVV 1.0 FOF signals - Added 2026-04-12
 input           ld_da_wb_inst_fof;                 // FOF instruction flag
 input   [6 :0]  ld_da_wb_ff_element_index;         // Element index that triggered exception
+// RVV 1.0 vstart support - Added 2026-04-12
+input   [6 :0]  ld_da_wb_vstart;                   // vstart from DA stage
+input           ld_da_wb_vstart_vld;                // vstart valid
 input           pad_yy_icg_scan_en;                 
 input           rb_ld_wb_bkpta_data;                
 input           rb_ld_wb_bkptb_data;                
@@ -267,6 +270,9 @@ output          lsu_rtu_wb_pipe3_wb_vreg_vr_vld;
 // RVV 1.0 FOF signals - Added 2026-04-12
 output          lsu_cp0_vl_update;                  // VL update enable for FOF
 output  [6 :0]  lsu_cp0_new_vl;                     // New VL value for FOF
+// RVV 1.0 vstart support - Added 2026-04-12
+output          lsu_rtu_wb_pipe3_vstart_vld;        // vstart valid to RTU
+output  [6 :0]  lsu_rtu_wb_pipe3_vstart;            // vstart value to RTU
 
 // &Regs; @29
 reg             ld_wb_bkpta_data;                   
@@ -582,6 +588,18 @@ assign lsu_cp0_new_vl[6:0] = ld_da_wb_ff_element_index[6:0];
 // Modify exception valid for FOF: suppress exception when element > 0
 assign ld_wb_pre_expt_vld       = (ld_wb_da_cmplt_grnt &&  ld_da_wb_expt_vld && !ld_wb_fof_expt_element_gt0)
                                   || ld_wb_rb_cmplt_grnt &&  rb_ld_wb_expt_vld;
+
+//==========================================================
+//        RVV 1.0 vstart Output Logic
+//  Added 2026-04-12: Output vstart to RTU for exception handling
+//==========================================================
+// vstart output is valid when:
+// 1. Vector load instruction completes with exception
+// 2. vstart value is non-zero (indicating partial completion)
+assign lsu_rtu_wb_pipe3_vstart_vld = ld_wb_da_cmplt_grnt 
+                                      && ld_da_wb_vstart_vld 
+                                      && ld_da_wb_expt_vld;
+assign lsu_rtu_wb_pipe3_vstart[6:0] = ld_da_wb_vstart[6:0];
 
 //------------------data part-------------------------------
 //-----------grant signal---------------

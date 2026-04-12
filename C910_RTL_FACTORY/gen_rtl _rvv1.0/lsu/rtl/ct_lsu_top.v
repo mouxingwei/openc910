@@ -1307,6 +1307,9 @@ wire    [3  :0]  ld_ag_dc_rot_sel;
 wire             ld_ag_dc_vload_ahead_inst_vld;          
 wire             ld_ag_dc_vload_inst_vld;                
 wire             ld_ag_dc_inst_fof;                      
+// RVV 1.0 whole register load - Added 2026-04-12
+wire             ld_ag_dc_inst_vlwhole;                   // Whole register load instruction
+wire    [2  :0]  ld_ag_dc_nf;                             // NF field
 wire             ld_ag_expt_access_fault_with_page;      
 wire             ld_ag_expt_ldamo_not_ca;                
 wire             ld_ag_expt_misalign_no_page;            
@@ -1457,7 +1460,10 @@ wire             ld_da_wb_spec_fail;
 wire    [1  :0]  ld_da_wb_vreg_sign_sel;
 // RVV 1.0 FOF signals - Added 2026-04-12
 wire             ld_da_wb_inst_fof;
-wire    [6  :0]  ld_da_wb_ff_element_index;                 
+wire    [6  :0]  ld_da_wb_ff_element_index;
+// RVV 1.0 vstart support - Added 2026-04-12
+wire    [6  :0]  ld_da_wb_vstart;                       // vstart from DA to WB
+wire             ld_da_wb_vstart_vld;                    // vstart valid                 
 wire             ld_da_wmb_discard_vld;                  
 wire    [39 :0]  ld_dc_addr0;                            
 wire    [39 :0]  ld_dc_addr1;                            
@@ -1502,6 +1508,9 @@ wire             ld_dc_da_page_share;
 wire             ld_dc_da_page_so;                       
 wire             ld_dc_da_pf_inst;                       
 wire    [26 :0]  ld_dc_da_tag_read;                      
+// RVV 1.0 vstart support - Added 2026-04-12
+wire    [6  :0]  ld_dc_da_vstart;                        // vstart from DC to DA
+wire             ld_dc_da_vstart_vld;                     // vstart valid                      
 wire             ld_dc_dcache_hit;                       
 wire             ld_dc_expt_access_fault_extra;          
 wire             ld_dc_expt_access_fault_mask;           
@@ -2787,8 +2796,10 @@ assign lsu_idu_vmb_create0_entry[7:0] = 8'b0;
 assign lsu_idu_vmb_create1_entry[7:0] = 8'b0;
 
 assign lsu_rtu_wb_pipe3_vsetvl = 1'b0;
-assign lsu_rtu_wb_pipe3_vstart[6:0] = 7'b0;
-assign lsu_rtu_wb_pipe3_vstart_vld = 1'b0;
+// RVV 1.0 vstart support - Modified 2026-04-12
+// vstart signals are now driven by ld_wb module
+// assign lsu_rtu_wb_pipe3_vstart[6:0] = 7'b0;
+// assign lsu_rtu_wb_pipe3_vstart_vld = 1'b0;
 assign lsu_rtu_wb_pipe4_vstart[6:0] = 7'b0;
 assign lsu_rtu_wb_pipe4_vstart_vld = 1'b0;
 
@@ -2870,6 +2881,9 @@ ct_lsu_ld_ag  x_ct_lsu_ld_ag (
   .ld_ag_dc_vload_ahead_inst_vld     (ld_ag_dc_vload_ahead_inst_vld    ),
   .ld_ag_dc_vload_inst_vld           (ld_ag_dc_vload_inst_vld          ),
   .ld_ag_dc_inst_fof                 (ld_ag_dc_inst_fof                ),
+  // RVV 1.0 whole register load - Added 2026-04-12
+  .ld_ag_dc_inst_vlwhole             (ld_ag_dc_inst_vlwhole            ),
+  .ld_ag_dc_nf                       (ld_ag_dc_nf                      ),
   .ld_ag_expt_access_fault_with_page (ld_ag_expt_access_fault_with_page),
   .ld_ag_expt_ldamo_not_ca           (ld_ag_expt_ldamo_not_ca          ),
   .ld_ag_expt_misalign_no_page       (ld_ag_expt_misalign_no_page      ),
@@ -3467,6 +3481,9 @@ ct_lsu_ld_dc  x_ct_lsu_ld_dc (
   .ld_ag_dc_vload_ahead_inst_vld           (ld_ag_dc_vload_ahead_inst_vld          ),
   .ld_ag_dc_vload_inst_vld                 (ld_ag_dc_vload_inst_vld                ),
   .ld_ag_dc_inst_fof                       (ld_ag_dc_inst_fof                      ),
+  // RVV 1.0 whole register load - Added 2026-04-12
+  .ld_ag_dc_inst_vlwhole                   (ld_ag_dc_inst_vlwhole                  ),
+  .ld_ag_dc_nf                             (ld_ag_dc_nf                            ),
   .ld_ag_expt_access_fault_with_page       (ld_ag_expt_access_fault_with_page      ),
   .ld_ag_expt_ldamo_not_ca                 (ld_ag_expt_ldamo_not_ca                ),
   .ld_ag_expt_misalign_no_page             (ld_ag_expt_misalign_no_page            ),
@@ -3642,7 +3659,11 @@ ct_lsu_ld_dc  x_ct_lsu_ld_dc (
   .wmb_fwd_bytes_vld                       (wmb_fwd_bytes_vld                      ),
   .wmb_ld_dc_cancel_acc_req                (wmb_ld_dc_cancel_acc_req               ),
   .wmb_ld_dc_discard_req                   (wmb_ld_dc_discard_req                  ),
-  .wmb_ld_dc_fwd_req                       (wmb_ld_dc_fwd_req                      )
+  .wmb_ld_dc_fwd_req                       (wmb_ld_dc_fwd_req                      ),
+  // RVV 1.0 vstart support - Added 2026-04-12
+  .cp0_lsu_vstart                          (cp0_lsu_vstart                         ),
+  .ld_dc_da_vstart                         (ld_dc_da_vstart                        ),
+  .ld_dc_da_vstart_vld                     (ld_dc_da_vstart_vld                    )
 );
 
 // &Instance("ct_lsu_st_dc","x_ct_lsu_st_dc"); @97
@@ -4158,6 +4179,9 @@ ct_lsu_ld_da  x_ct_lsu_ld_da (
   // RVV 1.0 FOF signals - Added 2026-04-12
   .ld_da_wb_inst_fof                    (ld_da_wb_inst_fof                   ),
   .ld_da_wb_ff_element_index            (ld_da_wb_ff_element_index           ),
+  // RVV 1.0 vstart support - Added 2026-04-12
+  .ld_da_wb_vstart                      (ld_da_wb_vstart                     ),
+  .ld_da_wb_vstart_vld                  (ld_da_wb_vstart_vld                 ),
   .ld_da_wmb_discard_vld                (ld_da_wmb_discard_vld               ),
   .ld_dc_addr0                          (ld_dc_addr0                         ),
   .ld_dc_ahead_predict                  (ld_dc_ahead_predict                 ),
@@ -4191,6 +4215,9 @@ ct_lsu_ld_da  x_ct_lsu_ld_da (
   .ld_dc_da_page_so                     (ld_dc_da_page_so                    ),
   .ld_dc_da_pf_inst                     (ld_dc_da_pf_inst                    ),
   .ld_dc_da_tag_read                    (ld_dc_da_tag_read                   ),
+  // RVV 1.0 vstart support - Added 2026-04-12
+  .ld_dc_da_vstart                      (ld_dc_da_vstart                     ),
+  .ld_dc_da_vstart_vld                  (ld_dc_da_vstart_vld                 ),
   .ld_dc_dcache_hit                     (ld_dc_dcache_hit                    ),
   .ld_dc_expt_access_fault_extra        (ld_dc_expt_access_fault_extra       ),
   .ld_dc_expt_access_fault_mask         (ld_dc_expt_access_fault_mask        ),
@@ -5097,7 +5124,12 @@ ct_lsu_ld_wb  x_ct_lsu_ld_wb (
   .ld_da_wb_inst_fof                   (ld_da_wb_inst_fof                  ),
   .ld_da_wb_ff_element_index           (ld_da_wb_ff_element_index          ),
   .lsu_cp0_vl_update                   (lsu_cp0_vl_update                  ),
-  .lsu_cp0_new_vl                      (lsu_cp0_new_vl                     )
+  .lsu_cp0_new_vl                      (lsu_cp0_new_vl                     ),
+  // RVV 1.0 vstart support - Added 2026-04-12
+  .ld_da_wb_vstart                     (ld_da_wb_vstart                    ),
+  .ld_da_wb_vstart_vld                 (ld_da_wb_vstart_vld                ),
+  .lsu_rtu_wb_pipe3_vstart_vld         (lsu_rtu_wb_pipe3_vstart_vld        ),
+  .lsu_rtu_wb_pipe3_vstart             (lsu_rtu_wb_pipe3_vstart            )
 );
 
 // &Instance("ct_lsu_st_wb","x_ct_lsu_st_wb"); @115

@@ -178,6 +178,9 @@ module ct_lsu_ld_da(
   ld_dc_da_page_so,
   ld_dc_da_pf_inst,
   ld_dc_da_tag_read,
+  // RVV 1.0 vstart support - Added 2026-04-12
+  ld_dc_da_vstart,
+  ld_dc_da_vstart_vld,
   ld_dc_dcache_hit,
   ld_dc_expt_access_fault_extra,
   ld_dc_expt_access_fault_mask,
@@ -319,6 +322,9 @@ input            ld_dc_da_page_share;
 input            ld_dc_da_page_so;                    
 input            ld_dc_da_pf_inst;                    
 input   [26 :0]  ld_dc_da_tag_read;                   
+// RVV 1.0 vstart support - Added 2026-04-12
+input   [6  :0]  ld_dc_da_vstart;                      // vstart from DC stage
+input            ld_dc_da_vstart_vld;                   // vstart valid
 input            ld_dc_dcache_hit;                    
 input            ld_dc_expt_access_fault_extra;       
 input            ld_dc_expt_access_fault_mask;        
@@ -503,6 +509,9 @@ output  [1  :0]  ld_da_wb_vreg_sign_sel;
 // RVV 1.0 FOF signals - Added 2026-04-12
 output           ld_da_wb_inst_fof;                   // FOF instruction flag
 output  [6  :0]  ld_da_wb_ff_element_index;           // Element index that triggered exception
+// RVV 1.0 vstart support - Added 2026-04-12
+output  [6  :0]  ld_da_wb_vstart;                     // vstart value to WB stage
+output           ld_da_wb_vstart_vld;                  // vstart valid
 output           ld_da_wmb_discard_vld;               
 output           lsu_hpcp_ld_cache_access;            
 output           lsu_hpcp_ld_cache_miss;              
@@ -1611,6 +1620,15 @@ assign ld_da_wb_inst_fof = ld_da_inst_fof;
 // TODO: This should be the actual element index being processed when exception occurs
 // For now, set to 0 as placeholder - needs to be connected to vector element counter
 assign ld_da_wb_ff_element_index[6:0] = 7'd0;
+
+//==========================================================
+//        RVV 1.0 vstart Support
+//  Added 2026-04-12: Pass vstart to WB stage for exception handling
+//==========================================================
+// Pass vstart value to WB stage
+assign ld_da_wb_vstart[6:0] = ld_dc_da_vstart[6:0];
+assign ld_da_wb_vstart_vld  = ld_dc_da_vstart_vld;
+
 //==========================================================
 //        Generate inst type
 //==========================================================

@@ -59,6 +59,9 @@ module ct_lsu_ld_dc(
   ld_ag_dc_vload_ahead_inst_vld,
   ld_ag_dc_vload_inst_vld,
   ld_ag_dc_inst_fof,
+  // RVV 1.0 whole register load - Added 2026-04-12
+  ld_ag_dc_inst_vlwhole,
+  ld_ag_dc_nf,
   ld_ag_expt_access_fault_with_page,
   ld_ag_expt_ldamo_not_ca,
   ld_ag_expt_misalign_no_page,
@@ -233,7 +236,11 @@ module ct_lsu_ld_dc(
   wmb_fwd_bytes_vld,
   wmb_ld_dc_cancel_acc_req,
   wmb_ld_dc_discard_req,
-  wmb_ld_dc_fwd_req
+  wmb_ld_dc_fwd_req,
+  // RVV 1.0 vstart support - Added 2026-04-12
+  cp0_lsu_vstart,
+  ld_dc_da_vstart,
+  ld_dc_da_vstart_vld
 );
 
 // &Ports; @28
@@ -281,6 +288,9 @@ input   [3 :0]  ld_ag_dc_rot_sel;
 input           ld_ag_dc_vload_ahead_inst_vld;          
 input           ld_ag_dc_vload_inst_vld;                
 input           ld_ag_dc_inst_fof;                      
+// RVV 1.0 whole register load - Added 2026-04-12
+input           ld_ag_dc_inst_vlwhole;                   // Whole register load instruction
+input   [2 :0]  ld_ag_dc_nf;                             // NF field (number of registers - 1)
 input           ld_ag_expt_access_fault_with_page;      
 input           ld_ag_expt_ldamo_not_ca;                
 input           ld_ag_expt_misalign_no_page;            
@@ -342,6 +352,8 @@ input   [15:0]  wmb_fwd_bytes_vld;
 input           wmb_ld_dc_cancel_acc_req;               
 input           wmb_ld_dc_discard_req;                  
 input           wmb_ld_dc_fwd_req;                      
+// RVV 1.0 vstart support - Added 2026-04-12
+input   [6 :0]  cp0_lsu_vstart;                          // Vector start element index
 output  [39:0]  ld_dc_addr0;                            
 output  [39:0]  ld_dc_addr1;                            
 output  [7 :0]  ld_dc_addr1_11to4;                      
@@ -433,6 +445,9 @@ output          ld_dc_vector_nop;
 output  [5 :0]  ld_dc_vreg;                             
 output          ld_dc_vreg_sign_sel;                    
 output          ld_dc_wait_fence;                       
+// RVV 1.0 vstart support - Added 2026-04-12
+output  [6 :0]  ld_dc_da_vstart;                        // vstart value to DA stage
+output          ld_dc_da_vstart_vld;                     // vstart valid
 output          lsu_idu_dc_pipe3_load_fwd_inst_vld_dup1; 
 output          lsu_idu_dc_pipe3_load_fwd_inst_vld_dup2; 
 output          lsu_idu_dc_pipe3_load_fwd_inst_vld_dup3; 
@@ -491,6 +506,12 @@ reg     [1 :0]  ld_dc_inst_type;
 reg             ld_dc_inst_vfls;                        
 reg             ld_dc_inst_vld;                         
 reg             ld_dc_inst_fof;                         
+// RVV 1.0 vstart support - Added 2026-04-12
+reg     [6 :0]  ld_dc_vstart;                            // vstart register
+reg             ld_dc_vstart_vld;                        // vstart valid
+// RVV 1.0 whole register load - Added 2026-04-12
+reg             ld_dc_inst_vlwhole;                      // Whole register load instruction
+reg     [2 :0]  ld_dc_nf;                                // NF field (number of registers - 1)
 reg     [14:0]  ld_dc_ldfifo_pc;                        
 reg             ld_dc_load_ahead_inst_vld_dup1;         
 reg             ld_dc_load_ahead_inst_vld_dup2;         
@@ -899,6 +920,12 @@ begin
     ld_dc_vload_inst_vld_dup3        <=  1'b0;
     ld_dc_vload_ahead_inst_vld       <=  1'b0;
     ld_dc_inst_fof                   <=  1'b0;
+    // RVV 1.0 vstart support - Added 2026-04-12
+    ld_dc_vstart                     <=  7'b0;
+    ld_dc_vstart_vld                 <=  1'b0;
+    // RVV 1.0 whole register load - Added 2026-04-12
+    ld_dc_inst_vlwhole               <=  1'b0;
+    ld_dc_nf[2:0]                    <=  3'b0;
   end
   else if(rtu_yy_xx_flush)
   begin
@@ -918,6 +945,12 @@ begin
     ld_dc_vload_inst_vld_dup3        <=  1'b0;
     ld_dc_vload_ahead_inst_vld       <=  1'b0;
     ld_dc_inst_fof                   <=  1'b0;
+    // RVV 1.0 vstart support - Added 2026-04-12
+    ld_dc_vstart                     <=  7'b0;
+    ld_dc_vstart_vld                 <=  1'b0;
+    // RVV 1.0 whole register load - Added 2026-04-12
+    ld_dc_inst_vlwhole               <=  1'b0;
+    ld_dc_nf[2:0]                    <=  3'b0;
   end
   else if(ld_ag_dc_inst_vld)
   begin
@@ -937,6 +970,13 @@ begin
     ld_dc_vload_inst_vld_dup3        <=  ld_ag_dc_vload_inst_vld;
     ld_dc_vload_ahead_inst_vld       <=  ld_ag_dc_vload_ahead_inst_vld;
     ld_dc_inst_fof                   <=  ld_ag_dc_inst_fof;
+    // RVV 1.0 vstart support - Added 2026-04-12
+    // Capture vstart from CP0 when vector load instruction is valid
+    ld_dc_vstart                     <=  cp0_lsu_vstart;
+    ld_dc_vstart_vld                 <=  ld_ag_dc_vload_inst_vld && (|cp0_lsu_vstart);
+    // RVV 1.0 whole register load - Added 2026-04-12
+    ld_dc_inst_vlwhole               <=  ld_ag_dc_inst_vlwhole;
+    ld_dc_nf[2:0]                    <=  ld_ag_dc_nf[2:0];
   end
   else
   begin
@@ -1848,6 +1888,13 @@ assign lsu_idu_dc_pipe3_vreg_dup3[6:0]         = {ld_dc_inst_vls_dup3,ld_dc_vreg
 //        for mmu power
 //==========================================================
 assign lsu_mmu_vabuf0[27:0] = ld_dc_vpn[27:0];
+
+//==========================================================
+//        RVV 1.0 vstart support
+//  Added 2026-04-12: Output vstart to DA stage
+//==========================================================
+assign ld_dc_da_vstart[6:0] = ld_dc_vstart[6:0];
+assign ld_dc_da_vstart_vld  = ld_dc_vstart_vld;
 
 // &ModuleEnd; @1234
 endmodule
