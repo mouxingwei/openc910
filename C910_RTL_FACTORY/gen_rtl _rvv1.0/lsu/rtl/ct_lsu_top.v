@@ -673,6 +673,10 @@ input            idu_lsu_vmb_create0_vamo;
 input   [7  :0]  idu_lsu_vmb_create0_vl;                 
 input   [5  :0]  idu_lsu_vmb_create0_vreg;               
 input   [1  :0]  idu_lsu_vmb_create0_vsew;               
+// RVV 1.0 vlmul support - Added 2026-04-12
+// Note: RVV 1.0 requires 3-bit vlmul for fractional LMUL support
+// Currently using 2-bit for backward compatibility, will expand to 3-bit later
+input   [1  :0]  idu_lsu_vmb_create0_vlmul;              // vlmul (will expand to 3-bit for RVV 1.0)
 input            idu_lsu_vmb_create1_dp_en;              
 input            idu_lsu_vmb_create1_dst_ready;          
 input            idu_lsu_vmb_create1_en;                 
@@ -684,6 +688,10 @@ input            idu_lsu_vmb_create1_vamo;
 input   [7  :0]  idu_lsu_vmb_create1_vl;                 
 input   [5  :0]  idu_lsu_vmb_create1_vreg;               
 input   [1  :0]  idu_lsu_vmb_create1_vsew;               
+// RVV 1.0 vlmul support - Added 2026-04-12
+// Note: RVV 1.0 requires 3-bit vlmul for fractional LMUL support
+// Currently using 2-bit for backward compatibility, will expand to 3-bit later
+input   [1  :0]  idu_lsu_vmb_create1_vlmul;              // vlmul (will expand to 3-bit for RVV 1.0)
 input            ifu_lsu_icache_inv_done;                
 input            mmu_lsu_access_fault0;                  
 input            mmu_lsu_access_fault1;                  

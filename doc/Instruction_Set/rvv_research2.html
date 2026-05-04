@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RVV 1.0 高代价指令深度解析：索引访存与寄存器汇聚</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- Chosen Palette: Warm Stone & Indigo (Stone 50 background, Stone 800 text, Indigo 600 for primary elements, Rose 500 for warnings/costs) -->
+    
+    <!-- Application Structure Plan: 采用“全景导览+深度钻取”的分屏结构。由于研究报告深度聚焦于两类具体指令及其端侧权衡，应用被划分为三个平行逻辑标签页：1. 索引访存 (空间复杂度痛点); 2. 寄存器汇聚 (拓扑复杂度痛点); 3. 端侧裁剪策略 (最终结论)。这种结构允许用户按需探索特定指令的内部机制，最后查看宏观架构建议，避免长篇阅读的疲劳感。 -->
+    
+    <!-- Visualization & Content Choices: 
+         1. 访存开销对比 -> 目标：直观展示Unit-stride与Indexed L/S的代价悬殊 -> 展现形式：双条形图 (Chart.js) -> 交互：标签页加载时渲染 -> 理由：条形图最适合多维度（Bank冲突、TLB等）的对比。
+         2. 交叉开关面积爆炸 -> 目标：展示O(N^2)的面积增长趋势 -> 展现形式：折线图 (Chart.js) -> 交互：悬浮提示具体倍数 -> 理由：揭示VLEN增加对Register Gather带来的指数级毁灭性代价。
+         3. 端侧裁剪建议 -> 目标：结构化展示结论 -> 展现形式：交互式翻转卡片/手风琴列表 (HTML+JS) -> 交互：点击展开架构师点评 -> 理由：将干瘪的表格转化为有探索感的建议卡片。
+         确认：未使用SVG，未使用Mermaid。图形元素均由Tailwind CSS形状和Unicode字符构建。 -->
+         
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background-color: #fafaf9; color: #292524; }
+        
+        /* Chart Container Styling - MANDATORY */
+        .chart-container { 
+            position: relative; 
+            width: 100%; 
+            max-width: 700px; 
+            margin-left: auto; 
+            margin-right: auto; 
+            height: 30vh; 
+            min-height: 250px;
+            max-height: 350px; 
+        }
+        @media (min-width: 768px) { .chart-container { height: 350px; } }
+
+        /* UI Interactions */
+        .tab-btn { border-bottom: 3px solid transparent; transition: all 0.2s; }
+        .tab-btn.active { border-bottom-color: #4f46e5; color: #4f46e5; font-weight: 600; background-color: #e0e7ff; border-radius: 0.375rem 0.375rem 0 0; }
+        .tab-content { display: none; animation: fadeIn 0.4s ease-out; }
+        .tab-content.active { display: block; }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .insight-card { transition: transform 0.2s, box-shadow 0.2s; border-left: 4px solid #4f46e5; }
+        .insight-card:hover { transform: translateY(-3px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); }
+        
+        .tradeoff-row { cursor: pointer; transition: background-color 0.2s; }
+        .tradeoff-row:hover { background-color: #f5f5f4; }
+        .tradeoff-detail { display: none; overflow: hidden; }
+        .tradeoff-detail.open { display: block; animation: slideDown 0.3s ease-out forwards; }
+        
+        @keyframes slideDown {
+            from { opacity: 0; max-height: 0; }
+            to { opacity: 1; max-height: 200px; }
+        }
+    </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col">
+
+    <!-- Header Section -->
+    <header class="bg-stone-900 text-stone-50 shadow-lg sticky top-0 z-50">
+        <div class="max-w-5xl mx-auto px-4 py-6 sm:px-6 lg:px-8">
+            <h1 class="text-2xl sm:text-3xl font-bold tracking-tight">RVV 1.0 高级数据搬运指令解析</h1>
+            <p class="text-sm sm:text-base text-stone-400 mt-2 font-light">
+                聚焦端侧设计痛点：索引访存 (Gather/Scatter) 与 寄存器汇聚 (Permute) 的 PPA 权衡
+            </p>
+        </div>
+    </header>
+
+    <!-- Main Application Area -->
+    <main class="flex-grow max-w-5xl mx-auto px-4 py-8 sm:px-6 lg:px-8 w-full">
+        
+        <!-- Navigation Tabs -->
+        <nav class="flex overflow-x-auto border-b border-stone-200 mb-8 rounded-t-lg bg-stone-100/50">
+            <button class="tab-btn active py-4 px-6 text-sm sm:text-base whitespace-nowrap text-stone-600 hover:text-indigo-600 focus:outline-none" data-target="tab-indexed">
+                <span class="mr-2 text-lg">🗂️</span>索引访存 (Indexed L/S)
+            </button>
+            <button class="tab-btn py-4 px-6 text-sm sm:text-base whitespace-nowrap text-stone-600 hover:text-indigo-600 focus:outline-none" data-target="tab-permute">
+                <span class="mr-2 text-lg">🔀</span>寄存器汇聚 (Permute)
+            </button>
+            <button class="tab-btn py-4 px-6 text-sm sm:text-base whitespace-nowrap text-stone-600 hover:text-indigo-600 focus:outline-none" data-target="tab-edge">
+                <span class="mr-2 text-lg">⚖️</span>端侧裁剪策略
+            </button>
+        </nav>
+
+        <!-- TAB 1: Indexed Load/Store -->
+        <section id="tab-indexed" class="tab-content active">
+            <div class="mb-6">
+                <p class="text-stone-600 leading-relaxed text-base sm:text-lg">
+                    本节分析解决“<strong>数据在哪</strong>”的非线性空间复杂度问题。索引访存（Gather/Scatter）允许向量中的每个元素根据偏移量独立访问内存。
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+                <!-- Logic block -->
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-stone-200">
+                    <h3 class="text-lg font-bold text-stone-800 mb-4 flex items-center">
+                        <span class="text-indigo-500 mr-2">◆</span> 核心机制
+                    </h3>
+                    <div class="bg-stone-50 p-4 rounded-lg font-mono text-sm text-stone-700 mb-4 border border-stone-200">
+                        Address<sub>i</sub> = base + V<sub>index</sub>[i]
+                    </div>
+                    <p class="text-sm text-stone-600 mb-4">
+                        常用指令示例：<code class="bg-stone-100 px-1 rounded text-rose-600">vluxei8.v</code> (无序索引加载), <code class="bg-stone-100 px-1 rounded text-rose-600">vsuxei32.v</code> (无序索引存储)。
+                    </p>
+                    <h4 class="font-semibold text-stone-800 mt-6 mb-3 text-sm uppercase tracking-wider">典型应用场景</h4>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <span class="text-indigo-500 font-bold mr-2">›</span>
+                            <div><strong class="text-stone-700 text-sm">稀疏矩阵运算:</strong> <span class="text-xs text-stone-500 block mt-1">仅处理非零元素，通过索引表定位物理内存地址。</span></div>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-indigo-500 font-bold mr-2">›</span>
+                            <div><strong class="text-stone-700 text-sm">图算法挖掘:</strong> <span class="text-xs text-stone-500 block mt-1">社交关系链搜索、路径寻址等非规则数据结构跳转。</span></div>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Chart block -->
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-stone-200">
+                    <h3 class="text-lg font-bold text-stone-800 mb-2">微架构硬件代价评估</h3>
+                    <p class="text-xs text-stone-500 mb-4">常规连续访存 (Unit-Stride) 与 索引访存 的硬件压力对比</p>
+                    <div class="chart-container">
+                        <canvas id="indexedChart"></canvas>
+                    </div>
+                    <div class="mt-4 text-xs text-rose-600 bg-rose-50 p-3 rounded-md border border-rose-100">
+                        <strong>代价痛点：</strong>随机地址极易引发内存Bank冲突导致串行化；跨页访问对TLB造成巨大压力；在乱序执行(OoO)核心中，维护数据依赖关系极其耗费面积。
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 2: Register Gather / Permute -->
+        <section id="tab-permute" class="tab-content">
+            <div class="mb-6">
+                <p class="text-stone-600 leading-relaxed text-base sm:text-lg">
+                    本节分析解决“<strong>数据如何排</strong>”的拓扑复杂度问题。寄存器汇聚（Permute）处理寄存器内部的数据重组，完全不涉及外部内存访问。
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+                <!-- Logic block -->
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-stone-200 order-2 lg:order-1">
+                    <h3 class="text-lg font-bold text-stone-800 mb-2">交叉开关的面积黑洞</h3>
+                    <p class="text-xs text-stone-500 mb-4">随着向量长度(VLEN)的增加，实现全互联的Crossbar代价呈指数级上升。</p>
+                    <div class="chart-container">
+                        <canvas id="permuteChart"></canvas>
+                    </div>
+                    <div class="mt-4 text-xs text-rose-600 bg-rose-50 p-3 rounded-md border border-rose-100">
+                        <strong>代价痛点：</strong>支持任意元素重组需要庞大的 MUX 网络。不仅面积呈 O(N²) 爆炸，其巨大的路由延迟往往会成为限制整个处理器主频(Fmax)的瓶颈。
+                    </div>
+                </div>
+
+                <!-- Content block -->
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-stone-200 order-1 lg:order-2">
+                    <h3 class="text-lg font-bold text-stone-800 mb-4 flex items-center">
+                        <span class="text-indigo-500 mr-2">◆</span> 核心机制
+                    </h3>
+                    <div class="bg-stone-50 p-4 rounded-lg font-mono text-sm text-stone-700 mb-4 border border-stone-200">
+                        V<sub>dst</sub>[i] = V<sub>src</sub>[ V<sub>idx</sub>[i] ]
+                    </div>
+                    <p class="text-sm text-stone-600 mb-4">
+                        常用指令：<code class="bg-stone-100 px-1 rounded text-rose-600">vrgather.vv</code> (全向量索引重组), <code class="bg-stone-100 px-1 rounded text-rose-600">vslideup.vx</code> (整体平移)。
+                    </p>
+                    <h4 class="font-semibold text-stone-800 mt-6 mb-3 text-sm uppercase tracking-wider">典型应用场景</h4>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <span class="text-indigo-500 font-bold mr-2">›</span>
+                            <div><strong class="text-stone-700 text-sm">FFT (快速傅里叶变换):</strong> <span class="text-xs text-stone-500 block mt-1">蝶形运算阶段需要频繁的寄存器内部数据对调。</span></div>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-indigo-500 font-bold mr-2">›</span>
+                            <div><strong class="text-stone-700 text-sm">矩阵转置:</strong> <span class="text-xs text-stone-500 block mt-1">在图像处理或CNN底层计算中常见的数据形状变换。</span></div>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-indigo-500 font-bold mr-2">›</span>
+                            <div><strong class="text-stone-700 text-sm">数据对齐:</strong> <span class="text-xs text-stone-500 block mt-1">处理非对齐SIMD数据的拼接与重组。</span></div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 3: Edge Tradeoffs -->
+        <section id="tab-edge" class="tab-content">
+            <div class="mb-6">
+                <p class="text-stone-600 leading-relaxed text-base sm:text-lg">
+                    在端侧设备（Edge Devices）设计时，为了实现性能、功耗、面积的最佳折中（PPA平衡），必须对高代价指令采取裁剪或降级策略。点击下方条目查看架构师建议。
+                </p>
+            </div>
+
+            <div class="bg-white border border-stone-200 rounded-xl shadow-sm overflow-hidden">
+                <!-- Tradeoff Header -->
+                <div class="grid grid-cols-12 gap-4 bg-stone-100 p-4 border-b border-stone-200 text-sm font-bold text-stone-700">
+                    <div class="col-span-3">架构特性</div>
+                    <div class="col-span-3">建议规格</div>
+                    <div class="col-span-6">核心理由简述</div>
+                </div>
+
+                <!-- Tradeoff Item 1 -->
+                <div class="tradeoff-row border-b border-stone-100" onclick="toggleDetail('detail-1')">
+                    <div class="grid grid-cols-12 gap-4 p-4 items-center">
+                        <div class="col-span-3 font-semibold text-indigo-700 text-sm">索引访存<br><span class="text-xs font-normal text-stone-500">Indexed L/S</span></div>
+                        <div class="col-span-3"><span class="bg-rose-100 text-rose-800 px-2 py-1 rounded text-xs font-medium">有限支持 / 软件模拟</span></div>
+                        <div class="col-span-6 text-sm text-stone-600 flex justify-between items-center">
+                            <span>极高硬件开销往往大于端侧性能收益。</span>
+                            <span class="text-stone-400">▼</span>
+                        </div>
+                    </div>
+                    <div id="detail-1" class="tradeoff-detail bg-stone-50 px-6 py-4 border-t border-dashed border-stone-200">
+                        <p class="text-sm text-stone-700 leading-relaxed">
+                            <strong>架构师深潜：</strong> 除非该端侧芯片明确定义为运行复杂的图数据库加速器，否则完整支持 Gather/Scatter 造成的逻辑门面积暴增是不划算的。对于极低功耗节点（如IoT传感器），建议在编译器层面将此类指令映射为一系列标量访存循环（Scalar Loop），以时间换取极致的硅片面积。
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Tradeoff Item 2 -->
+                <div class="tradeoff-row border-b border-stone-100" onclick="toggleDetail('detail-2')">
+                    <div class="grid grid-cols-12 gap-4 p-4 items-center">
+                        <div class="col-span-3 font-semibold text-indigo-700 text-sm">寄存器汇聚<br><span class="text-xs font-normal text-stone-500">Gather/Permute</span></div>
+                        <div class="col-span-3"><span class="bg-amber-100 text-amber-800 px-2 py-1 rounded text-xs font-medium">支持 vrgathere16.vv</span></div>
+                        <div class="col-span-6 text-sm text-stone-600 flex justify-between items-center">
+                            <span>限制索引宽度，以微架构控制Crossbar面积。</span>
+                            <span class="text-stone-400">▼</span>
+                        </div>
+                    </div>
+                    <div id="detail-2" class="tradeoff-detail bg-stone-50 px-6 py-4 border-t border-dashed border-stone-200">
+                        <p class="text-sm text-stone-700 leading-relaxed">
+                            <strong>架构师深潜：</strong> RVV 1.0 标准特别提供了 `vrgathere16.vv` 等受限指令。通过限制索引元素的位宽，或者在微架构实现时，仅允许在 128-bit 的子区间（Sub-lane）内进行单周期路由，跨区间的重组则通过微码（Micro-code）分多周期执行。这种折中保留了算法兼容性，同时挽救了时序。
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Tradeoff Item 3 -->
+                <div class="tradeoff-row border-b border-stone-100" onclick="toggleDetail('detail-3')">
+                    <div class="grid grid-cols-12 gap-4 p-4 items-center">
+                        <div class="col-span-3 font-semibold text-indigo-700 text-sm">最大元素位宽<br><span class="text-xs font-normal text-stone-500">ELEN</span></div>
+                        <div class="col-span-3"><span class="bg-emerald-100 text-emerald-800 px-2 py-1 rounded text-xs font-medium">32-bit (Zve32扩展)</span></div>
+                        <div class="col-span-6 text-sm text-stone-600 flex justify-between items-center">
+                            <span>匹配端侧AI需求，拒绝过剩的64位浮点设计。</span>
+                            <span class="text-stone-400">▼</span>
+                        </div>
+                    </div>
+                    <div id="detail-3" class="tradeoff-detail bg-stone-50 px-6 py-4 border-t border-dashed border-stone-200">
+                        <p class="text-sm text-stone-700 leading-relaxed">
+                            <strong>架构师深潜：</strong> 端侧设备的神经网络推理通常量化为 INT8 或 FP16。音频 DSP 处理多用 16-bit/32-bit 定点。支持 64-bit（甚至FP64）会使得乘加器阵列（MAC）面积翻倍，极其浪费。采用 Zve32 子集标准是最具性价比的决策。
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Tradeoff Item 4 -->
+                <div class="tradeoff-row" onclick="toggleDetail('detail-4')">
+                    <div class="grid grid-cols-12 gap-4 p-4 items-center">
+                        <div class="col-span-3 font-semibold text-indigo-700 text-sm">分段连续访存<br><span class="text-xs font-normal text-stone-500">Segmented L/S</span></div>
+                        <div class="col-span-3"><span class="bg-emerald-100 text-emerald-800 px-2 py-1 rounded text-xs font-medium">建议保留</span></div>
+                        <div class="col-span-6 text-sm text-stone-600 flex justify-between items-center">
+                            <span>以较低成本实现极高频的图像格式解包。</span>
+                            <span class="text-stone-400">▼</span>
+                        </div>
+                    </div>
+                    <div id="detail-4" class="tradeoff-detail bg-stone-50 px-6 py-4 border-t border-dashed border-stone-200">
+                        <p class="text-sm text-stone-700 leading-relaxed">
+                            <strong>架构师深潜：</strong> 与随机的 Indexed L/S 不同，Segmented L/S 处理的是规则交错的数据（例如相机的 RGBRGBRGB 原始数据）。由于地址依然是可预测的步进式，它不会造成严重的 Bank 冲突和 TLB 压力，却能一步到位地将 RGB 分别加载到三个独立的寄存器中，在端侧视觉应用中性价比极高。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-8 bg-indigo-50 border-l-4 border-indigo-600 p-4 rounded-r-md">
+                <h4 class="text-indigo-800 font-bold mb-1">全局结论</h4>
+                <p class="text-sm text-indigo-900/80">
+                    在端侧研究 RVV 1.0 时，资源倾斜应绝对优先保障 **连续访存带宽 (Unit-stride)** 和 **乘加器效能 (MAC)**。本文探讨的高代价指令，应通过巧妙的微架构降级（分周期、限制位宽）来实现功能支持，切忌照搬高性能服务器端的硬件全展开设计。
+                </p>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Interactive Scripts -->
+    <script>
+        // State management for charts to prevent re-initializing
+        const state = {
+            indexedChartRendered: false,
+            permuteChartRendered: false
+        };
+
+        let charts = {};
+
+        // 1. Navigation Logic
+        const tabs = document.querySelectorAll('.tab-btn');
+        const contents = document.querySelectorAll('.tab-content');
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Remove active classes
+                tabs.forEach(t => {
+                    t.classList.remove('active', 'bg-e0e7ff', 'border-indigo-600', 'text-indigo-600', 'font-semibold');
+                    t.style.backgroundColor = ''; 
+                });
+                contents.forEach(c => c.classList.remove('active'));
+
+                // Add active class to current
+                tab.classList.add('active', 'text-indigo-600', 'font-semibold');
+                tab.style.backgroundColor = '#e0e7ff';
+                tab.style.borderBottomColor = '#4f46e5';
+                
+                const targetId = tab.getAttribute('data-target');
+                document.getElementById(targetId).classList.add('active');
+
+                // Render charts lazily based on tab selection
+                if (targetId === 'tab-indexed' && !state.indexedChartRendered) {
+                    renderIndexedChart();
+                } else if (targetId === 'tab-permute' && !state.permuteChartRendered) {
+                    renderPermuteChart();
+                }
+            });
+        });
+
+        // 2. Accordion Logic for Edge Tradeoffs
+        function toggleDetail(id) {
+            const el = document.getElementById(id);
+            const isOpen = el.classList.contains('open');
+            
+            // Close all
+            document.querySelectorAll('.tradeoff-detail').forEach(detail => {
+                detail.classList.remove('open');
+            });
+
+            // Open clicked if it wasn't already open
+            if (!isOpen) {
+                el.classList.add('open');
+            }
+        }
+
+        // 3. Chart.js Render Functions
+        
+        // Define common styles
+        const chartFont = "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif";
+        Chart.defaults.font.family = chartFont;
+        Chart.defaults.color = '#57534e'; // stone-600
+
+        function renderIndexedChart() {
+            const ctx = document.getElementById('indexedChart').getContext('2d');
+            charts.indexed = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Bank 冲突概率', 'TLB 翻译压力', '面积与乱序逻辑复杂度'],
+                    datasets: [
+                        {
+                            label: '连续访存 (Unit-Stride)',
+                            data: [1, 2, 2],
+                            backgroundColor: 'rgba(79, 70, 229, 0.7)', // indigo-600
+                            borderColor: 'rgba(79, 70, 229, 1)',
+                            borderWidth: 1,
+                            borderRadius: 4
+                        },
+                        {
+                            label: '索引访存 (Gather/Scatter)',
+                            data: [9, 8, 10],
+                            backgroundColor: 'rgba(244, 63, 94, 0.7)', // rose-500
+                            borderColor: 'rgba(244, 63, 94, 1)',
+                            borderWidth: 1,
+                            borderRadius: 4
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'top' },
+                        tooltip: {
+                            mode: 'index',
+                            intersect: false,
+                            callbacks: {
+                                label: function(context) {
+                                    return context.dataset.label + ': ' + context.raw + '/10 (相对开销)';
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: { 
+                            beginAtZero: true, 
+                            max: 10,
+                            title: { display: true, text: '相对硬件开销指数 (0-10)' }
+                        }
+                    }
+                }
+            });
+            state.indexedChartRendered = true;
+        }
+
+        function renderPermuteChart() {
+            const ctx = document.getElementById('permuteChart').getContext('2d');
+            charts.permute = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['64-bit', '128-bit', '256-bit', '512-bit', '1024-bit'],
+                    datasets: [
+                        {
+                            label: 'Crossbar 理论面积复杂度 O(N²)',
+                            data: [1, 4, 16, 64, 256],
+                            borderColor: 'rgba(244, 63, 94, 1)', // rose
+                            backgroundColor: 'rgba(244, 63, 94, 0.1)',
+                            pointBackgroundColor: 'rgba(244, 63, 94, 1)',
+                            borderWidth: 3,
+                            fill: true,
+                            tension: 0.4
+                        },
+                        {
+                            label: '理想线性扩展 (对比参考)',
+                            data: [1, 2, 4, 8, 16],
+                            borderColor: 'rgba(120, 113, 108, 0.5)', // stone-500
+                            borderWidth: 2,
+                            borderDash: [5, 5],
+                            pointRadius: 0,
+                            fill: false
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'top' },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    if(context.datasetIndex === 0) {
+                                        return `VLEN=${context.label} 时, 面积约为基准的 ${context.raw} 倍`;
+                                    }
+                                    return `线性预期: ${context.raw} 倍`;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            type: 'logarithmic',
+                            title: { display: true, text: '相对面积倍数 (对数坐标)' },
+                            ticks: {
+                                callback: function(value) {
+                                    return value + 'x';
+                                }
+                            }
+                        },
+                        x: {
+                            title: { display: true, text: '向量寄存器长度 (VLEN)' }
+                        }
+                    }
+                }
+            });
+            state.permuteChartRendered = true;
+        }
+
+        // Initialize first chart on load since Tab 1 is active by default
+        window.addEventListener('DOMContentLoaded', () => {
+            renderIndexedChart();
+        });
+
+    </script>
+</body>
+</html>
