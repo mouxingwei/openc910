@@ -21,7 +21,9 @@ module ct_freduct_top(
   cp0_vfpu_icg_en,
   cp0_yy_clk_en,
   cpurst_b,
+  dp_vfalu_ex1_pipex_eu_sel,
   dp_vfalu_ex1_pipex_func,
+  dp_vfalu_ex1_pipex_iid,
   dp_vfalu_ex1_pipex_sel,
   dp_vfalu_ex1_pipex_srcf0,
   dp_vfalu_ex1_pipex_srcf1,
@@ -35,7 +37,9 @@ module ct_freduct_top(
 input           cp0_vfpu_icg_en;
 input           cp0_yy_clk_en;
 input           cpurst_b;
+input   [11:0]  dp_vfalu_ex1_pipex_eu_sel;
 input   [19:0]  dp_vfalu_ex1_pipex_func;
+input   [6:0]   dp_vfalu_ex1_pipex_iid;
 input   [2:0]   dp_vfalu_ex1_pipex_sel;
 input   [63:0]  dp_vfalu_ex1_pipex_srcf0;
 input   [63:0]  dp_vfalu_ex1_pipex_srcf1;
@@ -54,6 +58,7 @@ ct_freduct_ctrl x_ct_freduct_ctrl (
   .cp0_vfpu_icg_en        (cp0_vfpu_icg_en       ),
   .cp0_yy_clk_en          (cp0_yy_clk_en         ),
   .cpurst_b               (cpurst_b              ),
+  .dp_vfalu_ex1_pipex_eu_sel(dp_vfalu_ex1_pipex_eu_sel),
   .dp_vfalu_ex1_pipex_sel (dp_vfalu_ex1_pipex_sel),
   .ex1_pipedown           (ex1_pipedown          ),
   .ex2_pipedown           (ex2_pipedown          ),
@@ -67,7 +72,9 @@ ct_freduct_dp x_ct_freduct_dp (
   .cp0_vfpu_icg_en          (cp0_vfpu_icg_en         ),
   .cp0_yy_clk_en            (cp0_yy_clk_en           ),
   .cpurst_b                 (cpurst_b                ),
+  .dp_vfalu_ex1_pipex_eu_sel(dp_vfalu_ex1_pipex_eu_sel),
   .dp_vfalu_ex1_pipex_func  (dp_vfalu_ex1_pipex_func ),
+  .dp_vfalu_ex1_pipex_iid   (dp_vfalu_ex1_pipex_iid  ),
   .dp_vfalu_ex1_pipex_srcf0 (dp_vfalu_ex1_pipex_srcf0),
   .dp_vfalu_ex1_pipex_srcf1 (dp_vfalu_ex1_pipex_srcf1),
   .ex1_pipedown             (ex1_pipedown            ),

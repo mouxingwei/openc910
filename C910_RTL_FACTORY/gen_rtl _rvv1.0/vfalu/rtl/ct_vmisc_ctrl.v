@@ -22,6 +22,7 @@ module ct_vmisc_ctrl(
   cp0_vfpu_icg_en,
   cp0_yy_clk_en,
   cpurst_b,
+  dp_vfalu_ex1_pipex_eu_sel,
   dp_vfalu_ex1_pipex_sel,
   ex1_pipedown,
   ex2_pipedown,
@@ -34,6 +35,7 @@ module ct_vmisc_ctrl(
 input          cp0_vfpu_icg_en;
 input          cp0_yy_clk_en;
 input          cpurst_b;
+input   [11:0] dp_vfalu_ex1_pipex_eu_sel;
 input   [2:0]  dp_vfalu_ex1_pipex_sel;
 input          forever_cpuclk;
 input          pad_yy_icg_scan_en;
@@ -49,6 +51,7 @@ reg            ex3_pipedown;
 wire           cp0_vfpu_icg_en;
 wire           cp0_yy_clk_en;
 wire           cpurst_b;
+wire    [11:0] dp_vfalu_ex1_pipex_eu_sel;
 wire    [2:0]  dp_vfalu_ex1_pipex_sel;
 wire           ex1_pipedown;
 wire           ex1_vld_clk;
@@ -60,7 +63,7 @@ wire           pad_yy_icg_scan_en;
 
 
 //EX1 Control
-assign ex1_pipedown = dp_vfalu_ex1_pipex_sel[0];
+assign ex1_pipedown = dp_vfalu_ex1_pipex_eu_sel[7];
 
 
 //EX2 Control

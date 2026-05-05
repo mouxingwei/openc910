@@ -486,14 +486,16 @@ assign decd_fpu_ready_stage[2:0] = (decd_op[4:2] == 3'b100)
                                   ? decd_ready_stage[2:0]
                                   : decd_fmau_ready_stage[2:0];
 
-assign decd_vec_inst = 1'b0;
+assign decd_vec_inst = (decd_op[6:0] == 7'b1010111)
+                       && (decd_op[14:12] != 3'b111);
 assign decd_sew[1:0] = pipe6_decd_vsew[1:0];
 
 assign pipe6_decd_eu_sel[VEC_EU_WIDTH-1:0] = decd_vec_inst ? decd_vec_eu_sel[VEC_EU_WIDTH-1:0]
                                                            : { {7{1'b0}},decd_fpu_eu_sel[EU_WIDTH-1:0] };
 
-assign pipe6_decd_func[FUNC_WIDTH-1:0]  = decd_vec_inst ? decd_vec_func[FUNC_WIDTH-1:0]
-                                                        : decd_fpu_func[FUNC_WIDTH-1:0];
+assign pipe6_decd_func[FUNC_WIDTH-1:0]  = decd_vec_inst ? {decd_sew[1:0],
+                                                           decd_vec_func[17:0]}
+                                                       : decd_fpu_func[FUNC_WIDTH-1:0];
 
 assign pipe6_decd_ready_stage[2:0]      = decd_vec_inst ? decd_vec_ready_stage[2:0]
                                                         : decd_fpu_ready_stage[2:0]; 
@@ -1064,6 +1066,7 @@ parameter VNSRL      = 20'b0000_0000_0000_0000_0010;
 parameter VNSRA      = 20'b0000_0000_0000_0000_1010;
 parameter VNCLIPU    = 20'b0000_0000_0000_0000_0110;
 parameter VNCLIP     = 20'b0000_0000_0000_0000_1110;
+parameter VSHIFT_MARK= 20'b0010_0000_0000_0000_0000;
 
 //-------------------------------------------------------------------------------------
 //|  11  |  10  |  9   |  8   |  7   |  6   |  5   |  4   |  3   |  2   |  1   |  0   |
@@ -1149,17 +1152,17 @@ decd_vec_ready_stage_0[VEC_READY_WIDTH-1:0]  = {VEC_READY_WIDTH{1'b0}};
       decd_vec_ready_stage_0[VEC_READY_WIDTH-1:0]  = EX3_READY;
       end
     6'b001001:begin //vand.vv
-      decd_vec_eu_sel_0[VEC_EU_WIDTH-1:0]          = VMISC;
+      decd_vec_eu_sel_0[VEC_EU_WIDTH-1:0]          = VALU;
       decd_vec_func_0[VEC_FUNC_WIDTH-1:0]          = VAND;
       decd_vec_ready_stage_0[VEC_READY_WIDTH-1:0]  = EX3_READY;
       end
     6'b001010:begin //vor.vv
-      decd_vec_eu_sel_0[VEC_EU_WIDTH-1:0]          = VMISC;
+      decd_vec_eu_sel_0[VEC_EU_WIDTH-1:0]          = VALU;
       decd_vec_func_0[VEC_FUNC_WIDTH-1:0]          = VORR;
       decd_vec_ready_stage_0[VEC_READY_WIDTH-1:0]  = EX3_READY;
       end
     6'b001011:begin //vxor.vv
-      decd_vec_eu_sel_0[VEC_EU_WIDTH-1:0]          = VMISC;
+      decd_vec_eu_sel_0[VEC_EU_WIDTH-1:0]          = VALU;
       decd_vec_func_0[VEC_FUNC_WIDTH-1:0]          = VXOR;
       decd_vec_ready_stage_0[VEC_READY_WIDTH-1:0]  = EX3_READY;
       end
@@ -1199,7 +1202,7 @@ decd_vec_ready_stage_0[VEC_READY_WIDTH-1:0]  = {VEC_READY_WIDTH{1'b0}};
       decd_vec_ready_stage_0[VEC_READY_WIDTH-1:0]  = EX3_READY;
       end
     6'b010111:begin //vmerge/vmv.vv
-      decd_vec_eu_sel_0[VEC_EU_WIDTH-1:0]          = VMISC;
+      decd_vec_eu_sel_0[VEC_EU_WIDTH-1:0]          = VALU;
       decd_vec_func_0[VEC_FUNC_WIDTH-1:0]          = decd_op[25] ? VMOV : VMGE;
       decd_vec_ready_stage_0[VEC_READY_WIDTH-1:0]  = EX3_READY;
       end
@@ -1269,8 +1272,8 @@ decd_vec_ready_stage_0[VEC_READY_WIDTH-1:0]  = {VEC_READY_WIDTH{1'b0}};
       decd_vec_ready_stage_0[VEC_READY_WIDTH-1:0]  = EX3_READY;
       end
     6'b100101:begin //vsll.vv
-      decd_vec_eu_sel_0[VEC_EU_WIDTH-1:0]          = VSHIFT;
-      decd_vec_func_0[VEC_FUNC_WIDTH-1:0]          = VSLL;
+      decd_vec_eu_sel_0[VEC_EU_WIDTH-1:0]          = VALU;
+      decd_vec_func_0[VEC_FUNC_WIDTH-1:0]          = VSHIFT_MARK | VSLL;
       decd_vec_ready_stage_0[VEC_READY_WIDTH-1:0]  = EX3_READY;
       end
     6'b100110:begin //vasub.vv
@@ -1284,13 +1287,13 @@ decd_vec_ready_stage_0[VEC_READY_WIDTH-1:0]  = {VEC_READY_WIDTH{1'b0}};
  //     decd_vec_ready_stage_0[VEC_READY_WIDTH-1:0]  = decd_sew[1] ? EX4_READY : EX3_READY;
  //     end
     6'b101000:begin //vsrl.vv
-      decd_vec_eu_sel_0[VEC_EU_WIDTH-1:0]          = VSHIFT;
-      decd_vec_func_0[VEC_FUNC_WIDTH-1:0]          = VSRL;
+      decd_vec_eu_sel_0[VEC_EU_WIDTH-1:0]          = VALU;
+      decd_vec_func_0[VEC_FUNC_WIDTH-1:0]          = VSHIFT_MARK | VSRL;
       decd_vec_ready_stage_0[VEC_READY_WIDTH-1:0]  = EX3_READY;
       end
     6'b101001:begin //vsra.vv
-      decd_vec_eu_sel_0[VEC_EU_WIDTH-1:0]          = VSHIFT;
-      decd_vec_func_0[VEC_FUNC_WIDTH-1:0]          = VSRA;
+      decd_vec_eu_sel_0[VEC_EU_WIDTH-1:0]          = VALU;
+      decd_vec_func_0[VEC_FUNC_WIDTH-1:0]          = VSHIFT_MARK | VSRA;
       decd_vec_ready_stage_0[VEC_READY_WIDTH-1:0]  = EX3_READY;
       end
     6'b101010:begin //vssrl.vv
@@ -1463,42 +1466,42 @@ decd_vec_ready_stage_1[VEC_READY_WIDTH-1:0]  = {VEC_READY_WIDTH{1'b0}};
       decd_vec_ready_stage_1[VEC_READY_WIDTH-1:0]  = EX3_READY;
       end
     6'b011000:begin //vmandnot
-      decd_vec_eu_sel_1[VEC_EU_WIDTH-1:0]          = VMISC;
+      decd_vec_eu_sel_1[VEC_EU_WIDTH-1:0]          = VALU;
       decd_vec_func_1[VEC_FUNC_WIDTH-1:0]          = VMANDN;
       decd_vec_ready_stage_1[VEC_READY_WIDTH-1:0]  = EX3_READY;
       end
     6'b011001:begin //vmand
-      decd_vec_eu_sel_1[VEC_EU_WIDTH-1:0]          = VMISC;
+      decd_vec_eu_sel_1[VEC_EU_WIDTH-1:0]          = VALU;
       decd_vec_func_1[VEC_FUNC_WIDTH-1:0]          = VMAND;
       decd_vec_ready_stage_1[VEC_READY_WIDTH-1:0]  = EX3_READY;
       end
     6'b011010:begin //vmor
-      decd_vec_eu_sel_1[VEC_EU_WIDTH-1:0]          = VMISC;
+      decd_vec_eu_sel_1[VEC_EU_WIDTH-1:0]          = VALU;
       decd_vec_func_1[VEC_FUNC_WIDTH-1:0]          = VMORR;
       decd_vec_ready_stage_1[VEC_READY_WIDTH-1:0]  = EX3_READY;
       end
     6'b011011:begin //vmxor
-      decd_vec_eu_sel_1[VEC_EU_WIDTH-1:0]          = VMISC;
+      decd_vec_eu_sel_1[VEC_EU_WIDTH-1:0]          = VALU;
       decd_vec_func_1[VEC_FUNC_WIDTH-1:0]          = VMXOR;
       decd_vec_ready_stage_1[VEC_READY_WIDTH-1:0]  = EX3_READY;
       end
     6'b011100:begin //vmornot
-      decd_vec_eu_sel_1[VEC_EU_WIDTH-1:0]          = VMISC;
+      decd_vec_eu_sel_1[VEC_EU_WIDTH-1:0]          = VALU;
       decd_vec_func_1[VEC_FUNC_WIDTH-1:0]          = VMORRN;
       decd_vec_ready_stage_1[VEC_READY_WIDTH-1:0]  = EX3_READY;
       end
     6'b011101:begin //vmnand
-      decd_vec_eu_sel_1[VEC_EU_WIDTH-1:0]          = VMISC;
+      decd_vec_eu_sel_1[VEC_EU_WIDTH-1:0]          = VALU;
       decd_vec_func_1[VEC_FUNC_WIDTH-1:0]          = VMNAND;
       decd_vec_ready_stage_1[VEC_READY_WIDTH-1:0]  = EX3_READY;
       end
     6'b011110:begin //vmnor
-      decd_vec_eu_sel_1[VEC_EU_WIDTH-1:0]          = VMISC;
+      decd_vec_eu_sel_1[VEC_EU_WIDTH-1:0]          = VALU;
       decd_vec_func_1[VEC_FUNC_WIDTH-1:0]          = VMNORR;
       decd_vec_ready_stage_1[VEC_READY_WIDTH-1:0]  = EX3_READY;
       end
     6'b011111:begin //vmxnor
-      decd_vec_eu_sel_1[VEC_EU_WIDTH-1:0]          = VMISC;
+      decd_vec_eu_sel_1[VEC_EU_WIDTH-1:0]          = VALU;
       decd_vec_func_1[VEC_FUNC_WIDTH-1:0]          = VMNXOR;
       decd_vec_ready_stage_1[VEC_READY_WIDTH-1:0]  = EX3_READY;
       end

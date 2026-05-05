@@ -14,17 +14,17 @@
 
 从 `riscv-v-spec-v1.0-extracted.json` 可提取到以下对 IR/RF 有直接影响的要求：
 
-| 规范主题 | RVV 1.0 要求 | 对 IR/RF 的影响 |
-| --- | --- | --- |
-| `vtype` | 包含 `vill`、`vma`、`vta`、`vsew[2:0]`、`vlmul[2:0]` | 指令包必须携带完整 `vsew/vlmul/vma/vta/vill` 或可由后级可靠取得 |
-| `vsetvli/vsetivli/vsetvl` | 三类配置指令均为标准配置指令 | IR 解码需区分 `vsetivli`，RF/后级需获得 zimm/uimm/rs1/rs2 形式 |
-| `vsew` | RVV 1.0 标准 SEW 编码为 8/16/32/64，`100-111` 保留 | 现有 RF pipe6/7 只接收 2 位 `vsew`，无法完整表达保留值和未来扩展 |
-| `vlmul` | 3 位有符号编码，支持 1/2、1/4、1/8、1、2、4、8，`100` reserved | 现有若只传 2 位 LMUL，将丢失 fractional LMUL 和 reserved 判断信息 |
-| `vta/vma` | tail/mask agnostic/undisturbed 四种组合，汇编中 flags 已强制显式 | IR/RF 需要把 policy 随指令传给执行/写回，尤其影响旧目的读、mask/tail merge |
-| mask | 指令 bit25 `vm` 定义 mask enabled/disabled，mask 寄存器总是单寄存器 | IR/RF 需要准确生成 `srcvm_vld`，并处理 mask 目的和 tail-agnostic 例外 |
-| load/store | `mew/mop/vm/nf/lumop/sumop/width` 覆盖 unit/strided/indexed/segment/whole/fault-only-first | IR 需更细分类到 LSIQ/SDIQ/VMB，RF pipe3/4 需传递完整 LSU 控制 |
-| 算术清单 | RVV 1.0 包含 OPIVV/OPIVX/OPIVI、OPMVV/OPMVX、OPFVV/OPFVF 的完整 funct6 清单 | RF pipe6/7 需要打开并校验完整向量 decode，而不是只保留参数和 case |
-| V extension profile | V profile 要求 Zvl128b、EEW 8/16/32/64、全部 load/store、全部整数/定点/浮点相关指令 | RF/PRF/VRT 需确认物理向量寄存器宽度、分组、读写端口和前递能力 |
+| 规范主题                      | RVV 1.0 要求                                                                               | 对 IR/RF 的影响                                            |
+| ------------------------- | ---------------------------------------------------------------------------------------- | ------------------------------------------------------ |
+| `vtype`                   | 包含 `vill`、`vma`、`vta`、`vsew[2:0]`、`vlmul[2:0]`                                           | 指令包必须携带完整 `vsew/vlmul/vma/vta/vill` 或可由后级可靠取得          |
+| `vsetvli/vsetivli/vsetvl` | 三类配置指令均为标准配置指令                                                                           | IR 解码需区分 `vsetivli`，RF/后级需获得 zimm/uimm/rs1/rs2 形式      |
+| `vsew`                    | RVV 1.0 标准 SEW 编码为 8/16/32/64，`100-111` 保留                                               | 现有 RF pipe6/7 只接收 2 位 `vsew`，无法完整表达保留值和未来扩展            |
+| `vlmul`                   | 3 位有符号编码，支持 1/2、1/4、1/8、1、2、4、8，`100` reserved                                           | 现有若只传 2 位 LMUL，将丢失 fractional LMUL 和 reserved 判断信息     |
+| `vta/vma`                 | tail/mask agnostic/undisturbed 四种组合，汇编中 flags 已强制显式                                      | IR/RF 需要把 policy 随指令传给执行/写回，尤其影响旧目的读、mask/tail merge   |
+| mask                      | 指令 bit25 `vm` 定义 mask enabled/disabled，mask 寄存器总是单寄存器                                    | IR/RF 需要准确生成 `srcvm_vld`，并处理 mask 目的和 tail-agnostic 例外 |
+| load/store                | `mew/mop/vm/nf/lumop/sumop/width` 覆盖 unit/strided/indexed/segment/whole/fault-only-first | IR 需更细分类到 LSIQ/SDIQ/VMB，RF pipe3/4 需传递完整 LSU 控制        |
+| 算术清单                      | RVV 1.0 包含 OPIVV/OPIVX/OPIVI、OPMVV/OPMVX、OPFVV/OPFVF 的完整 funct6 清单                       | RF pipe6/7 需要打开并校验完整向量 decode，而不是只保留参数和 case           |
+| V extension profile       | V profile 要求 Zvl128b、EEW 8/16/32/64、全部 load/store、全部整数/定点/浮点相关指令                         | RF/PRF/VRT 需确认物理向量寄存器宽度、分组、读写端口和前递能力                   |
 
 ## 3. 当前 RTL 现状判断
 

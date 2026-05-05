@@ -43,6 +43,10 @@ module ct_vfpu_top(
   idu_vfpu_rf_pipe6_srcv0_fr,
   idu_vfpu_rf_pipe6_srcv1_fr,
   idu_vfpu_rf_pipe6_srcv2_fr,
+  idu_vfpu_rf_pipe6_srcvm_vr0,
+  idu_vfpu_rf_pipe6_srcvm_vr1,
+  idu_vfpu_rf_pipe6_vimm,
+  idu_vfpu_rf_pipe6_vimm_vld,
   idu_vfpu_rf_pipe6_vmla_type,
   idu_vfpu_rf_pipe7_dst_ereg,
   idu_vfpu_rf_pipe7_dst_preg,
@@ -63,6 +67,10 @@ module ct_vfpu_top(
   idu_vfpu_rf_pipe7_srcv0_fr,
   idu_vfpu_rf_pipe7_srcv1_fr,
   idu_vfpu_rf_pipe7_srcv2_fr,
+  idu_vfpu_rf_pipe7_srcvm_vr0,
+  idu_vfpu_rf_pipe7_srcvm_vr1,
+  idu_vfpu_rf_pipe7_vimm,
+  idu_vfpu_rf_pipe7_vimm_vld,
   idu_vfpu_rf_pipe7_vmla_type,
   iu_vfpu_ex1_pipe0_mtvr_inst,
   iu_vfpu_ex1_pipe0_mtvr_vl,
@@ -288,6 +296,10 @@ input           idu_vfpu_rf_pipe6_sel;
 input   [63:0]  idu_vfpu_rf_pipe6_srcv0_fr;            
 input   [63:0]  idu_vfpu_rf_pipe6_srcv1_fr;            
 input   [63:0]  idu_vfpu_rf_pipe6_srcv2_fr;            
+input   [63:0]  idu_vfpu_rf_pipe6_srcvm_vr0;           
+input   [63:0]  idu_vfpu_rf_pipe6_srcvm_vr1;           
+input   [4 :0]  idu_vfpu_rf_pipe6_vimm;                
+input           idu_vfpu_rf_pipe6_vimm_vld;            
 input   [2 :0]  idu_vfpu_rf_pipe6_vmla_type;           
 input   [4 :0]  idu_vfpu_rf_pipe7_dst_ereg;            
 input   [6 :0]  idu_vfpu_rf_pipe7_dst_preg;            
@@ -308,6 +320,10 @@ input           idu_vfpu_rf_pipe7_sel;
 input   [63:0]  idu_vfpu_rf_pipe7_srcv0_fr;            
 input   [63:0]  idu_vfpu_rf_pipe7_srcv1_fr;            
 input   [63:0]  idu_vfpu_rf_pipe7_srcv2_fr;            
+input   [63:0]  idu_vfpu_rf_pipe7_srcvm_vr0;           
+input   [63:0]  idu_vfpu_rf_pipe7_srcvm_vr1;           
+input   [4 :0]  idu_vfpu_rf_pipe7_vimm;                
+input           idu_vfpu_rf_pipe7_vimm_vld;            
 input   [2 :0]  idu_vfpu_rf_pipe7_vmla_type;           
 input   [4 :0]  iu_vfpu_ex1_pipe0_mtvr_inst;           
 input   [7 :0]  iu_vfpu_ex1_pipe0_mtvr_vl;             
@@ -615,18 +631,29 @@ wire    [6 :0]  dp_rbus_pipe7_ex3_vreg_dup0;
 wire    [6 :0]  dp_rbus_pipe7_ex3_vreg_dup1;           
 wire    [6 :0]  dp_rbus_pipe7_ex3_vreg_dup2;           
 wire    [6 :0]  dp_rbus_pipe7_ex3_vreg_dup3;           
+wire    [11:0]  dp_vfalu_ex1_pipe6_eu_sel;             
 wire    [19:0]  dp_vfalu_ex1_pipe6_func;               
+wire    [6 :0]  dp_vfalu_ex1_pipe6_iid;                
 wire    [2 :0]  dp_vfalu_ex1_pipe6_imm0;               
+wire    [63:0]  dp_vfalu_ex1_pipe6_mask;               
 wire    [63:0]  dp_vfalu_ex1_pipe6_mtvr_src0;          
 wire    [2 :0]  dp_vfalu_ex1_pipe6_sel;                
 wire    [63:0]  dp_vfalu_ex1_pipe6_srcf0;              
 wire    [63:0]  dp_vfalu_ex1_pipe6_srcf1;              
+wire    [63:0]  dp_vfalu_ex1_pipe6_srcf2;              
+wire    [4 :0]  dp_vfalu_ex1_pipe6_vimm;               
+wire            dp_vfalu_ex1_pipe6_vimm_vld;           
+wire    [11:0]  dp_vfalu_ex1_pipe7_eu_sel;             
 wire    [19:0]  dp_vfalu_ex1_pipe7_func;               
 wire    [2 :0]  dp_vfalu_ex1_pipe7_imm0;               
+wire    [63:0]  dp_vfalu_ex1_pipe7_mask;               
 wire    [63:0]  dp_vfalu_ex1_pipe7_mtvr_src0;          
 wire    [2 :0]  dp_vfalu_ex1_pipe7_sel;                
 wire    [63:0]  dp_vfalu_ex1_pipe7_srcf0;              
 wire    [63:0]  dp_vfalu_ex1_pipe7_srcf1;              
+wire    [63:0]  dp_vfalu_ex1_pipe7_srcf2;              
+wire    [4 :0]  dp_vfalu_ex1_pipe7_vimm;               
+wire            dp_vfalu_ex1_pipe7_vimm_vld;           
 wire    [4 :0]  dp_vfdsu_ex1_pipe6_dst_ereg;           
 wire    [6 :0]  dp_vfdsu_ex1_pipe6_dst_vreg;           
 wire    [6 :0]  dp_vfdsu_ex1_pipe6_iid;                
@@ -678,6 +705,10 @@ wire            idu_vfpu_rf_pipe6_sel;
 wire    [63:0]  idu_vfpu_rf_pipe6_srcv0_fr;            
 wire    [63:0]  idu_vfpu_rf_pipe6_srcv1_fr;            
 wire    [63:0]  idu_vfpu_rf_pipe6_srcv2_fr;            
+wire    [63:0]  idu_vfpu_rf_pipe6_srcvm_vr0;           
+wire    [63:0]  idu_vfpu_rf_pipe6_srcvm_vr1;           
+wire    [4 :0]  idu_vfpu_rf_pipe6_vimm;                
+wire            idu_vfpu_rf_pipe6_vimm_vld;            
 wire    [2 :0]  idu_vfpu_rf_pipe6_vmla_type;           
 wire    [4 :0]  idu_vfpu_rf_pipe7_dst_ereg;            
 wire    [6 :0]  idu_vfpu_rf_pipe7_dst_preg;            
@@ -698,6 +729,10 @@ wire            idu_vfpu_rf_pipe7_sel;
 wire    [63:0]  idu_vfpu_rf_pipe7_srcv0_fr;            
 wire    [63:0]  idu_vfpu_rf_pipe7_srcv1_fr;            
 wire    [63:0]  idu_vfpu_rf_pipe7_srcv2_fr;            
+wire    [63:0]  idu_vfpu_rf_pipe7_srcvm_vr0;           
+wire    [63:0]  idu_vfpu_rf_pipe7_srcvm_vr1;           
+wire    [4 :0]  idu_vfpu_rf_pipe7_vimm;                
+wire            idu_vfpu_rf_pipe7_vimm_vld;            
 wire    [2 :0]  idu_vfpu_rf_pipe7_vmla_type;           
 wire    [4 :0]  iu_vfpu_ex1_pipe0_mtvr_inst;           
 wire            iu_vfpu_ex1_pipe0_mtvr_vld;            
@@ -775,6 +810,7 @@ wire    [15:0]  pipe7_vfmau_ex4_fmla_slice0_half0_data;
 wire    [67:0]  pipe7_vfmau_ex5_fmla_slice0_data;      
 wire            rtu_yy_xx_flush;                       
 wire    [6 :0]  vdivu_vfpu_ex1_pipe6_dst_vreg;         
+wire    [63:0]  vdivu_vfpu_ex1_pipe6_result;           
 wire            vdivu_vfpu_ex1_pipe6_result_vld;       
 wire            vdivu_vfpu_pipe6_req_for_bubble;       
 wire            vdivu_vfpu_pipe6_vdiv_busy;            
@@ -1003,10 +1039,24 @@ wire    [2 :0]  vfpu_yy_xx_rm;
 // &Force("bus","cp0_vfpu_vl",7,0); @58
 
 //assign vdivu_vfpu_pipe6_gateclk_en       = 1'b0;
-assign vdivu_vfpu_ex1_pipe6_dst_vreg[6:0]={7{1'b0}};
-assign vdivu_vfpu_ex1_pipe6_result_vld   = 1'b0;
-assign vdivu_vfpu_pipe6_req_for_bubble   = 1'b0;
-assign vdivu_vfpu_pipe6_vdiv_busy        = 1'b0;
+ct_ara_simd_div_wrap  x_ct_ara_simd_div_wrap (
+  .cpurst_b                              (cpurst_b                             ),
+  .ctrl_ex1_pipe6_eu_sel                 (ctrl_ex1_pipe6_eu_sel                ),
+  .ctrl_ex1_pipe6_inst_vld               (ctrl_ex1_pipe6_inst_vld              ),
+  .dp_vfalu_ex1_pipe6_func               (dp_vfalu_ex1_pipe6_func              ),
+  .dp_vfalu_ex1_pipe6_imm0               (dp_vfalu_ex1_pipe6_imm0              ),
+  .dp_vfalu_ex1_pipe6_mtvr_src0          (dp_vfalu_ex1_pipe6_mtvr_src0         ),
+  .dp_vfalu_ex1_pipe6_srcf0              (dp_vfalu_ex1_pipe6_srcf0             ),
+  .dp_vfalu_ex1_pipe6_srcf1              (dp_vfalu_ex1_pipe6_srcf1             ),
+  .dp_vfdsu_ex1_pipe6_dst_vreg           (dp_vfdsu_ex1_pipe6_dst_vreg          ),
+  .forever_cpuclk                        (forever_cpuclk                       ),
+  .rtu_yy_xx_flush                       (rtu_yy_xx_flush                      ),
+  .vdivu_vfpu_ex1_pipe6_dst_vreg         (vdivu_vfpu_ex1_pipe6_dst_vreg        ),
+  .vdivu_vfpu_ex1_pipe6_result           (vdivu_vfpu_ex1_pipe6_result          ),
+  .vdivu_vfpu_ex1_pipe6_result_vld       (vdivu_vfpu_ex1_pipe6_result_vld      ),
+  .vdivu_vfpu_pipe6_req_for_bubble       (vdivu_vfpu_pipe6_req_for_bubble      ),
+  .vdivu_vfpu_pipe6_vdiv_busy            (vdivu_vfpu_pipe6_vdiv_busy           )
+);
 
 assign vdsp_vfpu_pipe6_inside_fwd_aval   = 1'b0;
 assign vdsp_vfpu_pipe7_inside_fwd_aval   = 1'b0;
@@ -1214,18 +1264,29 @@ ct_vfpu_dp  x_ct_vfpu_dp (
   .dp_rbus_pipe7_ex3_vreg_dup1           (dp_rbus_pipe7_ex3_vreg_dup1          ),
   .dp_rbus_pipe7_ex3_vreg_dup2           (dp_rbus_pipe7_ex3_vreg_dup2          ),
   .dp_rbus_pipe7_ex3_vreg_dup3           (dp_rbus_pipe7_ex3_vreg_dup3          ),
+  .dp_vfalu_ex1_pipe6_eu_sel             (dp_vfalu_ex1_pipe6_eu_sel            ),
   .dp_vfalu_ex1_pipe6_func               (dp_vfalu_ex1_pipe6_func              ),
+  .dp_vfalu_ex1_pipe6_iid                (dp_vfalu_ex1_pipe6_iid               ),
   .dp_vfalu_ex1_pipe6_imm0               (dp_vfalu_ex1_pipe6_imm0              ),
+  .dp_vfalu_ex1_pipe6_mask               (dp_vfalu_ex1_pipe6_mask              ),
   .dp_vfalu_ex1_pipe6_mtvr_src0          (dp_vfalu_ex1_pipe6_mtvr_src0         ),
   .dp_vfalu_ex1_pipe6_sel                (dp_vfalu_ex1_pipe6_sel               ),
   .dp_vfalu_ex1_pipe6_srcf0              (dp_vfalu_ex1_pipe6_srcf0             ),
   .dp_vfalu_ex1_pipe6_srcf1              (dp_vfalu_ex1_pipe6_srcf1             ),
+  .dp_vfalu_ex1_pipe6_srcf2              (dp_vfalu_ex1_pipe6_srcf2             ),
+  .dp_vfalu_ex1_pipe6_vimm               (dp_vfalu_ex1_pipe6_vimm              ),
+  .dp_vfalu_ex1_pipe6_vimm_vld           (dp_vfalu_ex1_pipe6_vimm_vld          ),
+  .dp_vfalu_ex1_pipe7_eu_sel             (dp_vfalu_ex1_pipe7_eu_sel            ),
   .dp_vfalu_ex1_pipe7_func               (dp_vfalu_ex1_pipe7_func              ),
   .dp_vfalu_ex1_pipe7_imm0               (dp_vfalu_ex1_pipe7_imm0              ),
+  .dp_vfalu_ex1_pipe7_mask               (dp_vfalu_ex1_pipe7_mask              ),
   .dp_vfalu_ex1_pipe7_mtvr_src0          (dp_vfalu_ex1_pipe7_mtvr_src0         ),
   .dp_vfalu_ex1_pipe7_sel                (dp_vfalu_ex1_pipe7_sel               ),
   .dp_vfalu_ex1_pipe7_srcf0              (dp_vfalu_ex1_pipe7_srcf0             ),
   .dp_vfalu_ex1_pipe7_srcf1              (dp_vfalu_ex1_pipe7_srcf1             ),
+  .dp_vfalu_ex1_pipe7_srcf2              (dp_vfalu_ex1_pipe7_srcf2             ),
+  .dp_vfalu_ex1_pipe7_vimm               (dp_vfalu_ex1_pipe7_vimm              ),
+  .dp_vfalu_ex1_pipe7_vimm_vld           (dp_vfalu_ex1_pipe7_vimm_vld          ),
   .dp_vfdsu_ex1_pipe6_dst_ereg           (dp_vfdsu_ex1_pipe6_dst_ereg          ),
   .dp_vfdsu_ex1_pipe6_dst_vreg           (dp_vfdsu_ex1_pipe6_dst_vreg          ),
   .dp_vfdsu_ex1_pipe6_iid                (dp_vfdsu_ex1_pipe6_iid               ),
@@ -1273,6 +1334,11 @@ ct_vfpu_dp  x_ct_vfpu_dp (
   .idu_vfpu_rf_pipe6_ready_stage         (idu_vfpu_rf_pipe6_ready_stage        ),
   .idu_vfpu_rf_pipe6_srcv0_fr            (idu_vfpu_rf_pipe6_srcv0_fr           ),
   .idu_vfpu_rf_pipe6_srcv1_fr            (idu_vfpu_rf_pipe6_srcv1_fr           ),
+  .idu_vfpu_rf_pipe6_srcv2_fr            (idu_vfpu_rf_pipe6_srcv2_fr           ),
+  .idu_vfpu_rf_pipe6_srcvm_vr0           (idu_vfpu_rf_pipe6_srcvm_vr0          ),
+  .idu_vfpu_rf_pipe6_srcvm_vr1           (idu_vfpu_rf_pipe6_srcvm_vr1          ),
+  .idu_vfpu_rf_pipe6_vimm                (idu_vfpu_rf_pipe6_vimm               ),
+  .idu_vfpu_rf_pipe6_vimm_vld            (idu_vfpu_rf_pipe6_vimm_vld           ),
   .idu_vfpu_rf_pipe6_vmla_type           (idu_vfpu_rf_pipe6_vmla_type          ),
   .idu_vfpu_rf_pipe7_dst_ereg            (idu_vfpu_rf_pipe7_dst_ereg           ),
   .idu_vfpu_rf_pipe7_dst_preg            (idu_vfpu_rf_pipe7_dst_preg           ),
@@ -1290,6 +1356,11 @@ ct_vfpu_dp  x_ct_vfpu_dp (
   .idu_vfpu_rf_pipe7_ready_stage         (idu_vfpu_rf_pipe7_ready_stage        ),
   .idu_vfpu_rf_pipe7_srcv0_fr            (idu_vfpu_rf_pipe7_srcv0_fr           ),
   .idu_vfpu_rf_pipe7_srcv1_fr            (idu_vfpu_rf_pipe7_srcv1_fr           ),
+  .idu_vfpu_rf_pipe7_srcv2_fr            (idu_vfpu_rf_pipe7_srcv2_fr           ),
+  .idu_vfpu_rf_pipe7_srcvm_vr0           (idu_vfpu_rf_pipe7_srcvm_vr0          ),
+  .idu_vfpu_rf_pipe7_srcvm_vr1           (idu_vfpu_rf_pipe7_srcvm_vr1          ),
+  .idu_vfpu_rf_pipe7_vimm                (idu_vfpu_rf_pipe7_vimm               ),
+  .idu_vfpu_rf_pipe7_vimm_vld            (idu_vfpu_rf_pipe7_vimm_vld           ),
   .idu_vfpu_rf_pipe7_vmla_type           (idu_vfpu_rf_pipe7_vmla_type          ),
   .iu_vfpu_ex1_pipe0_mtvr_inst           (iu_vfpu_ex1_pipe0_mtvr_inst          ),
   .iu_vfpu_ex1_pipe0_mtvr_vld            (iu_vfpu_ex1_pipe0_mtvr_vld           ),
@@ -1322,6 +1393,7 @@ ct_vfpu_dp  x_ct_vfpu_dp (
   .pipe7_dp_ex4_vfmau_ereg_data          (pipe7_dp_ex4_vfmau_ereg_data         ),
   .pipe7_dp_ex4_vfmau_freg_data          (pipe7_dp_ex4_vfmau_freg_data         ),
   .vdivu_vfpu_ex1_pipe6_dst_vreg         (vdivu_vfpu_ex1_pipe6_dst_vreg        ),
+  .vdivu_vfpu_ex1_pipe6_result           (vdivu_vfpu_ex1_pipe6_result          ),
   .vdivu_vfpu_ex1_pipe6_result_vld       (vdivu_vfpu_ex1_pipe6_result_vld      ),
   .vdivu_vfpu_pipe6_req_for_bubble       (vdivu_vfpu_pipe6_req_for_bubble      ),
   .vdivu_vfpu_pipe6_vdiv_busy            (vdivu_vfpu_pipe6_vdiv_busy           ),
@@ -1640,12 +1712,18 @@ ct_vfalu_top_pipe6  x_ct_vfalu_top_pipe6 (
   .cp0_vfpu_icg_en              (cp0_vfpu_icg_en             ),
   .cp0_yy_clk_en                (cp0_yy_clk_en               ),
   .cpurst_b                     (cpurst_b                    ),
+  .dp_vfalu_ex1_pipex_eu_sel    (dp_vfalu_ex1_pipe6_eu_sel   ),
   .dp_vfalu_ex1_pipex_func      (dp_vfalu_ex1_pipe6_func     ),
+  .dp_vfalu_ex1_pipex_iid       (dp_vfalu_ex1_pipe6_iid      ),
   .dp_vfalu_ex1_pipex_imm0      (dp_vfalu_ex1_pipe6_imm0     ),
+  .dp_vfalu_ex1_pipex_mask      (dp_vfalu_ex1_pipe6_mask     ),
   .dp_vfalu_ex1_pipex_mtvr_src0 (dp_vfalu_ex1_pipe6_mtvr_src0),
   .dp_vfalu_ex1_pipex_sel       (dp_vfalu_ex1_pipe6_sel      ),
   .dp_vfalu_ex1_pipex_srcf0     (dp_vfalu_ex1_pipe6_srcf0    ),
   .dp_vfalu_ex1_pipex_srcf1     (dp_vfalu_ex1_pipe6_srcf1    ),
+  .dp_vfalu_ex1_pipex_srcf2     (dp_vfalu_ex1_pipe6_srcf2    ),
+  .dp_vfalu_ex1_pipex_vimm      (dp_vfalu_ex1_pipe6_vimm     ),
+  .dp_vfalu_ex1_pipex_vimm_vld  (dp_vfalu_ex1_pipe6_vimm_vld ),
   .forever_cpuclk               (forever_cpuclk              ),
   .pad_yy_icg_scan_en           (pad_yy_icg_scan_en          ),
   .pipex_dp_ex1_vfalu_mfvr_data (pipe6_dp_ex1_vfalu_mfvr_data),
@@ -1662,12 +1740,17 @@ ct_vfalu_top_pipe7  x_ct_vfalu_top_pipe7 (
   .cp0_vfpu_icg_en              (cp0_vfpu_icg_en             ),
   .cp0_yy_clk_en                (cp0_yy_clk_en               ),
   .cpurst_b                     (cpurst_b                    ),
+  .dp_vfalu_ex1_pipex_eu_sel    (dp_vfalu_ex1_pipe7_eu_sel   ),
   .dp_vfalu_ex1_pipex_func      (dp_vfalu_ex1_pipe7_func     ),
   .dp_vfalu_ex1_pipex_imm0      (dp_vfalu_ex1_pipe7_imm0     ),
+  .dp_vfalu_ex1_pipex_mask      (dp_vfalu_ex1_pipe7_mask     ),
   .dp_vfalu_ex1_pipex_mtvr_src0 (dp_vfalu_ex1_pipe7_mtvr_src0),
   .dp_vfalu_ex1_pipex_sel       (dp_vfalu_ex1_pipe7_sel      ),
   .dp_vfalu_ex1_pipex_srcf0     (dp_vfalu_ex1_pipe7_srcf0    ),
   .dp_vfalu_ex1_pipex_srcf1     (dp_vfalu_ex1_pipe7_srcf1    ),
+  .dp_vfalu_ex1_pipex_srcf2     (dp_vfalu_ex1_pipe7_srcf2    ),
+  .dp_vfalu_ex1_pipex_vimm      (dp_vfalu_ex1_pipe7_vimm     ),
+  .dp_vfalu_ex1_pipex_vimm_vld  (dp_vfalu_ex1_pipe7_vimm_vld ),
   .forever_cpuclk               (forever_cpuclk              ),
   .pad_yy_icg_scan_en           (pad_yy_icg_scan_en          ),
   .pipex_dp_ex1_vfalu_mfvr_data (pipe7_dp_ex1_vfalu_mfvr_data),

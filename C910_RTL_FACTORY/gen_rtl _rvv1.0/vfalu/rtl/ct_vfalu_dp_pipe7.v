@@ -15,6 +15,8 @@ limitations under the License.
 
 // &ModuleBeg; @22
 module ct_vfalu_dp_pipe7(
+  ara_alu_forward_r_vld,
+  ara_alu_forward_result,
   dp_vfalu_ex1_pipex_sel,
   fadd_ereg_ex3_forward_r_vld,
   fadd_ereg_ex3_result,
@@ -35,6 +37,8 @@ module ct_vfalu_dp_pipe7(
 
 // &Ports; @23
 input   [2 :0]  dp_vfalu_ex1_pipex_sel;      
+input           ara_alu_forward_r_vld;
+input   [63:0]  ara_alu_forward_result;
 input           fadd_ereg_ex3_forward_r_vld; 
 input   [4 :0]  fadd_ereg_ex3_result;        
 input           fadd_forward_r_vld;          
@@ -56,6 +60,8 @@ reg     [63:0]  pipex_dp_ex3_vfalu_freg_data;
 
 // &Wires; @25
 wire    [2 :0]  dp_vfalu_ex1_pipex_sel;      
+wire            ara_alu_forward_r_vld;
+wire    [63:0]  ara_alu_forward_result;
 wire            fadd_ereg_ex3_forward_r_vld; 
 wire    [4 :0]  fadd_ereg_ex3_result;        
 wire            fadd_forward_r_vld;          
@@ -77,7 +83,8 @@ wire    [4 :0]  pipex_dp_ex3_vfalu_ereg_data;
 assign pipex_dp_ex3_vfalu_ereg_data[4:0]   = {5{fadd_ereg_ex3_forward_r_vld}}  & fadd_ereg_ex3_result[4:0] | 
                                              {5{fcnvt_ereg_forward_r_vld}} & fcnvt_ereg_forward_result[4:0];
 assign pipex_dp_ex1_vfalu_mfvr_data[63:0]  = {64{dp_vfalu_ex1_pipex_sel[1]}} & fadd_mfvr_cmp_result[63:0] |
-                                             {64{dp_vfalu_ex1_pipex_sel[0]}} & fspu_mfvr_data[63:0];
+                                             {64{dp_vfalu_ex1_pipex_sel[0]}} & fspu_mfvr_data[63:0] |
+                                             {64{ara_alu_forward_r_vld}} & ara_alu_forward_result[63:0];
 // &Force("bus","dp_vfalu_ex1_pipex_sel",2,0);                                              @33
 // &CombBeg; @35
 // &CombEnd; @42
@@ -89,13 +96,16 @@ always @( fspu_forward_result[63:0]
        or fspu_forward_r_vld
        or fadd_forward_r_vld
        or fadd_forward_result[63:0]
+       or ara_alu_forward_r_vld
+       or ara_alu_forward_result[63:0]
        or fcnvt_forward_result[63:0]
        or fcnvt_forward_r_vld)
 begin
-case({fadd_forward_r_vld,fcnvt_forward_r_vld,fspu_forward_r_vld})
-  3'b100  : pipex_dp_ex3_vfalu_freg_data[63:0] = fadd_forward_result[63:0];
-  3'b010  : pipex_dp_ex3_vfalu_freg_data[63:0] = fcnvt_forward_result[63:0];
-  3'b001  : pipex_dp_ex3_vfalu_freg_data[63:0] = fspu_forward_result[63:0];
+case({fadd_forward_r_vld,fcnvt_forward_r_vld,fspu_forward_r_vld,ara_alu_forward_r_vld})
+  4'b1000 : pipex_dp_ex3_vfalu_freg_data[63:0] = fadd_forward_result[63:0];
+  4'b0100 : pipex_dp_ex3_vfalu_freg_data[63:0] = fcnvt_forward_result[63:0];
+  4'b0010 : pipex_dp_ex3_vfalu_freg_data[63:0] = fspu_forward_result[63:0];
+  4'b0001 : pipex_dp_ex3_vfalu_freg_data[63:0] = ara_alu_forward_result[63:0];
   default : pipex_dp_ex3_vfalu_freg_data[63:0] = {64{1'bx}};
 endcase
 // &CombEnd;   @64

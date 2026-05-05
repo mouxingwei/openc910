@@ -13,19 +13,27 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-// Created for RVV 1.0 VPERM (Vector Permutation) unit
-// VPERM handles gather, slide, extract, compress operations
-// Modification date: 2026-04-12
+//==========================================================
+//              RVV 1.0 VPERM Data Path
+//==========================================================
+// Element-level implementation for the 64-bit VFALU slice.  P2 state keeps
+// one previous slice and a small compress carry so slide/gather/compress can
+// cross the local 64-bit slice boundary while preserving the existing pipe.
 
-// &ModuleBeg; @22
 module ct_vperm_dp(
   cp0_vfpu_icg_en,
   cp0_yy_clk_en,
   cpurst_b,
   dp_vfalu_ex1_pipex_func,
+  dp_vfalu_ex1_pipex_iid,
+  dp_vfalu_ex1_pipex_imm0,
+  dp_vfalu_ex1_pipex_mask,
   dp_vfalu_ex1_pipex_mtvr_src0,
   dp_vfalu_ex1_pipex_srcf0,
   dp_vfalu_ex1_pipex_srcf1,
+  dp_vfalu_ex1_pipex_srcf2,
+  dp_vfalu_ex1_pipex_vimm,
+  dp_vfalu_ex1_pipex_vimm_vld,
   ex1_pipedown,
   ex2_pipedown,
   ex3_pipedown,
@@ -37,14 +45,19 @@ module ct_vperm_dp(
   vperm_mfvr_data
 );
 
-// &Ports; @23
 input           cp0_vfpu_icg_en;
 input           cp0_yy_clk_en;
 input           cpurst_b;
 input   [19:0]  dp_vfalu_ex1_pipex_func;
+input   [6 :0]  dp_vfalu_ex1_pipex_iid;
+input   [2 :0]  dp_vfalu_ex1_pipex_imm0;
+input   [63:0]  dp_vfalu_ex1_pipex_mask;
 input   [63:0]  dp_vfalu_ex1_pipex_mtvr_src0;
 input   [63:0]  dp_vfalu_ex1_pipex_srcf0;
 input   [63:0]  dp_vfalu_ex1_pipex_srcf1;
+input   [63:0]  dp_vfalu_ex1_pipex_srcf2;
+input   [4 :0]  dp_vfalu_ex1_pipex_vimm;
+input           dp_vfalu_ex1_pipex_vimm_vld;
 input           ex1_pipedown;
 input           ex2_pipedown;
 input           ex3_pipedown;
@@ -55,304 +68,511 @@ output          vperm_forward_r_vld;
 output  [63:0]  vperm_forward_result;
 output  [63:0]  vperm_mfvr_data;
 
-// &Regs; @24
+parameter VEXT        = 18'h00001;
+parameter VSLIDEUP    = 18'h00048;
+parameter VSLIDEDOWN  = 18'h00028;
+parameter VSLIDE1UP   = 18'h00050;
+parameter VSLIDE1DOWN = 18'h00030;
+parameter VRGATHERVV  = 18'h00008;
+parameter VRGATHERVK  = 18'h04008;
+parameter VCOMPRESS   = 18'h0000c;
+
 reg     [63:0]  vperm_ex2_result;
 reg     [63:0]  vperm_ex3_result;
 reg     [63:0]  vperm_ex4_result;
+reg     [63:0]  prev_src0;
+reg     [17:0]  prev_func_op;
+reg     [6 :0]  prev_iid;
+reg     [1 :0]  prev_sew;
+reg             prev_vld;
+reg     [63:0]  compress_carry;
+reg     [3 :0]  compress_carry_cnt;
 
-// &Wires; @25
-wire            cp0_vfpu_icg_en;
-wire            cp0_yy_clk_en;
-wire            cpurst_b;
-wire    [19:0]  dp_vfalu_ex1_pipex_func;
-wire    [63:0]  dp_vfalu_ex1_pipex_mtvr_src0;
-wire    [63:0]  dp_vfalu_ex1_pipex_srcf0;
-wire    [63:0]  dp_vfalu_ex1_pipex_srcf1;
-wire    [19:0]  func;
-
-// VPERM operation decode signals
-wire            ex1_op_vext;
-wire            ex1_op_vslideup;
-wire            ex1_op_vslidedown;
-wire            ex1_op_vslide1up;
-wire            ex1_op_vslide1down;
-wire            ex1_op_vrgathervv;
-wire            ex1_op_vrgathervk;
-wire            ex1_op_vcompress;
-
-wire            ex1_pipe_clk;
-wire            ex1_pipe_clk_en;
-wire            ex1_pipedown;
-wire    [63:0]  ex1_pipex_src0;
-wire    [63:0]  ex1_pipex_src1;
-wire    [63:0]  ex1_pipex_mtvr_src0;
+wire    [17:0]  func_op;
+wire    [1 :0]  sew;
+wire    [3 :0]  elem_cnt;
+wire    [5 :0]  scalar_index;
+wire            new_stream;
+wire            op_vext;
+wire            op_vslideup;
+wire            op_vslidedown;
+wire            op_vslide1up;
+wire            op_vslide1down;
+wire            op_vrgathervv;
+wire            op_vrgathervk;
+wire            op_vcompress;
+wire    [63:0]  prev_src0_for_calc;
+wire    [63:0]  compress_result_next;
+wire    [63:0]  compress_carry_next;
+wire    [3 :0]  compress_carry_cnt_next;
 wire    [63:0]  ex1_result;
-wire    [63:0]  ex2_pipex_src0;
-wire    [63:0]  ex2_pipex_src1;
-wire            ex2_pipe_clk;
-wire            ex2_pipe_clk_en;
-wire            ex2_pipedown;
-wire            ex3_pipe_clk;
-wire            ex3_pipe_clk_en;
-wire            ex3_pipedown;
-wire            ex4_pipedown;
-wire            forever_cpuclk;
-wire            vperm_forward_r_vld;
-wire    [63:0]  vperm_forward_result;
-wire    [63:0]  vperm_mfvr_data;
-wire            pad_yy_icg_scan_en;
 
-// Intermediate result wires
-wire    [63:0]  ex1_vext_result;
-wire    [63:0]  ex1_vslideup_result;
-wire    [63:0]  ex1_vslidedown_result;
-wire    [63:0]  ex1_vslide1up_result;
-wire    [63:0]  ex1_vslide1down_result;
-wire    [63:0]  ex1_vrgathervv_result;
-wire    [63:0]  ex1_vrgathervk_result;
-wire    [63:0]  ex1_vcompress_result;
+assign func_op[17:0] = dp_vfalu_ex1_pipex_func[17:0];
+assign sew[1:0]      = dp_vfalu_ex1_pipex_func[19:18];
+assign elem_cnt[3:0] = elems_per_slice(sew[1:0]);
+assign scalar_index[5:0] = dp_vfalu_ex1_pipex_vimm_vld
+                         ? {1'b0, dp_vfalu_ex1_pipex_vimm[4:0]}
+                         : dp_vfalu_ex1_pipex_mtvr_src0[5:0];
 
-// Operation parameters (matching IDU definitions)
-parameter VEXT        = 20'b0000_0000_0000_0000_0001;
-parameter VSLIDEUP    = 20'b0000_0000_0000_0100_1000;
-parameter VSLIDEDOWN = 20'b0000_0000_0000_0010_1000;
-parameter VSLIDE1UP   = 20'b0000_0000_0000_0101_0000;
-parameter VSLIDE1DOWN = 20'b0000_0000_0000_0011_0000;
-parameter VRGATHERVV  = 20'b0000_0000_0000_0000_1000;
-parameter VRGATHERVK  = 20'b0000_0000_0100_0000_1000;
-parameter VCOMPRESS   = 20'b0000_0000_0000_0000_1100;
+assign op_vext        = (func_op[17:0] == VEXT);
+assign op_vslideup    = (func_op[17:0] == VSLIDEUP);
+assign op_vslidedown  = (func_op[17:0] == VSLIDEDOWN);
+assign op_vslide1up   = (func_op[17:0] == VSLIDE1UP);
+assign op_vslide1down = (func_op[17:0] == VSLIDE1DOWN);
+assign op_vrgathervv  = (func_op[17:0] == VRGATHERVV);
+assign op_vrgathervk  = (func_op[17:0] == VRGATHERVK);
+assign op_vcompress   = (func_op[17:0] == VCOMPRESS);
 
-//=====================ins_type generate====================
-assign func[19:0] = dp_vfalu_ex1_pipex_func[19:0];
+assign new_stream = !prev_vld
+                  || (prev_iid[6:0] != dp_vfalu_ex1_pipex_iid[6:0])
+                  || (prev_func_op[17:0] != func_op[17:0])
+                  || (prev_sew[1:0] != sew[1:0]);
+assign prev_src0_for_calc[63:0] = new_stream ? 64'b0 : prev_src0[63:0];
 
-// Slide operations
-assign ex1_op_vslideup    = func[10] && func[6] && !func[8] && !func[9];
-assign ex1_op_vslidedown  = func[9] && func[6] && !func[8] && !func[10];
-assign ex1_op_vslide1up   = func[10] && func[8] && !func[9];
-assign ex1_op_vslide1down = func[9] && func[8] && !func[10];
+assign compress_result_next[63:0] =
+  compress_pack(dp_vfalu_ex1_pipex_srcf0[63:0],
+                dp_vfalu_ex1_pipex_mask[63:0],
+                new_stream ? 64'b0 : compress_carry[63:0],
+                new_stream ? 4'b0  : compress_carry_cnt[3:0],
+                sew[1:0]);
+assign compress_carry_next[63:0] =
+  compress_tail(dp_vfalu_ex1_pipex_srcf0[63:0],
+                dp_vfalu_ex1_pipex_mask[63:0],
+                new_stream ? 64'b0 : compress_carry[63:0],
+                new_stream ? 4'b0  : compress_carry_cnt[3:0],
+                sew[1:0]);
+assign compress_carry_cnt_next[3:0] =
+  compress_tail_count(dp_vfalu_ex1_pipex_srcf0[63:0],
+                      dp_vfalu_ex1_pipex_mask[63:0],
+                      new_stream ? 4'b0 : compress_carry_cnt[3:0],
+                      sew[1:0]);
 
-// Gather operations
-assign ex1_op_vrgathervv  = func[8] && !func[12];
-assign ex1_op_vrgathervk  = func[12] && func[8];
-
-// Extract and compress
-assign ex1_op_vext        = func[0];
-assign ex1_op_vcompress   = func[9] && func[8] && func[2];
-
-// Input operands
-assign ex1_pipex_src0[63:0] = dp_vfalu_ex1_pipex_srcf0[63:0];
-assign ex1_pipex_src1[63:0] = dp_vfalu_ex1_pipex_srcf1[63:0];
-assign ex1_pipex_mtvr_src0[63:0] = dp_vfalu_ex1_pipex_mtvr_src0[63:0];
-
-//===================== Extract Operation ====================
-// VEXT: vd = vs2[rs1] (extract element at index rs1)
-assign ex1_vext_result[63:0] = extract_element(ex1_pipex_src1[63:0],
-                                                 ex1_pipex_mtvr_src0[5:0]);
-
-//===================== Slide Operations ====================
-// VSLIDEUP: vd[i+offset] = vs2[i] for i < VLMAX-offset
-// offset is from vs1 (or immediate)
-assign ex1_vslideup_result[63:0] = slideup(ex1_pipex_src0, ex1_pipex_src1, 16'h0);
-
-// VSLIDEDOWN: vd[i] = vs2[i+offset] for i < VLMAX-offset
-assign ex1_vslidedown_result[63:0] = slidedown(ex1_pipex_src0, ex1_pipex_src1, 16'h0);
-
-// VSLIDE1UP: vd[i+1] = vs2[i] for i < VLMAX-1
-assign ex1_vslide1up_result[63:0] = slideup(ex1_pipex_src0, 64'h1, 16'h0);
-
-// VSLIDE1DOWN: vd[i] = vs2[i+1] for i < VLMAX-1
-assign ex1_vslide1down_result[63:0] = slidedown(ex1_pipex_src0, 64'h1, 16'h0);
-
-//===================== Gather Operations ====================
-// VRGATHERVV: vd[i] = vs2[vs1[i]]
-assign ex1_vrgathervv_result[63:0] = gather_vv(ex1_pipex_src0, ex1_pipex_src1);
-
-// VRGATHERVK: vd[i] = vs2[vs1] (scalar index)
-assign ex1_vrgathervk_result[63:0] = gather_vk(ex1_pipex_src0, ex1_pipex_mtvr_src0[5:0]);
-
-//===================== Compress Operation ====================
-// VCOMPRESS: compress elements according to mask
-// Simplified - actual needs mask input
-assign ex1_vcompress_result[63:0] = ex1_pipex_src0[63:0];
-
-//===================== Result Selection ====================
 assign ex1_result[63:0] =
-    {64{ex1_op_vext}}        & ex1_vext_result[63:0]        |
-    {64{ex1_op_vslideup}}    & ex1_vslideup_result[63:0]    |
-    {64{ex1_op_vslidedown}}  & ex1_vslidedown_result[63:0]  |
-    {64{ex1_op_vslide1up}}   & ex1_vslide1up_result[63:0]   |
-    {64{ex1_op_vslide1down}} & ex1_vslide1down_result[63:0]|
-    {64{ex1_op_vrgathervv}}  & ex1_vrgathervv_result[63:0] |
-    {64{ex1_op_vrgathervk}}  & ex1_vrgathervk_result[63:0] |
-    {64{ex1_op_vcompress}}   & ex1_vcompress_result[63:0];
+    ({64{op_vext}}        & extract_scalar(dp_vfalu_ex1_pipex_srcf0[63:0],
+                                           scalar_index[5:0], sew[1:0])) |
+    ({64{op_vslideup}}    & slideup_cross(dp_vfalu_ex1_pipex_srcf0[63:0],
+                                          prev_src0_for_calc[63:0],
+                                          scalar_index[5:0], sew[1:0],
+                                          64'b0)) |
+    ({64{op_vslidedown}}  & slidedown_cross(dp_vfalu_ex1_pipex_srcf0[63:0],
+                                            prev_src0_for_calc[63:0],
+                                            scalar_index[5:0], sew[1:0],
+                                            64'b0)) |
+    ({64{op_vslide1up}}   & slideup_cross(dp_vfalu_ex1_pipex_srcf0[63:0],
+                                          prev_src0_for_calc[63:0],
+                                          6'd1, sew[1:0],
+                                          dp_vfalu_ex1_pipex_mtvr_src0[63:0])) |
+    ({64{op_vslide1down}} & slidedown_cross(dp_vfalu_ex1_pipex_srcf0[63:0],
+                                            prev_src0_for_calc[63:0],
+                                            6'd1, sew[1:0],
+                                            dp_vfalu_ex1_pipex_mtvr_src0[63:0])) |
+    ({64{op_vrgathervv}}  & gather_vv_window(dp_vfalu_ex1_pipex_srcf0[63:0],
+                                             prev_src0_for_calc[63:0],
+                                             dp_vfalu_ex1_pipex_srcf1[63:0],
+                                             sew[1:0])) |
+    ({64{op_vrgathervk}}  & gather_scalar_window(dp_vfalu_ex1_pipex_srcf0[63:0],
+                                                 prev_src0_for_calc[63:0],
+                                                 scalar_index[5:0],
+                                                 sew[1:0])) |
+    ({64{op_vcompress}}   & compress_result_next[63:0]);
 
-// MFVR data output (for scalar read)
 assign vperm_mfvr_data[63:0] = ex1_result[63:0];
 
-//=======================Pipe to EX2========================
-gated_clk_cell  x_ex1_pipe_clk (
-  .clk_in             (forever_cpuclk    ),
-  .clk_out            (ex1_pipe_clk      ),
-  .external_en        (1'b0              ),
-  .global_en          (cp0_yy_clk_en     ),
-  .local_en           (ex1_pipe_clk_en   ),
-  .module_en          (cp0_vfpu_icg_en   ),
-  .pad_yy_icg_scan_en (pad_yy_icg_scan_en)
-);
-
-assign ex1_pipe_clk_en = ex1_pipedown;
-
-always @(posedge ex1_pipe_clk or negedge cpurst_b)
+always @(posedge forever_cpuclk or negedge cpurst_b)
 begin
   if(!cpurst_b)
   begin
-    vperm_ex2_result[63:0] <= 64'b0;
+    prev_src0[63:0]        <= 64'b0;
+    prev_func_op[17:0]     <= 18'b0;
+    prev_iid[6:0]          <= 7'b0;
+    prev_sew[1:0]          <= 2'b0;
+    prev_vld               <= 1'b0;
+    compress_carry[63:0]   <= 64'b0;
+    compress_carry_cnt[3:0]<= 4'b0;
   end
   else if(ex1_pipedown)
   begin
-    vperm_ex2_result[63:0] <= ex1_result[63:0];
-  end
-  else
-  begin
-    vperm_ex2_result[63:0] <= vperm_ex2_result[63:0];
+    prev_src0[63:0]        <= dp_vfalu_ex1_pipex_srcf0[63:0];
+    prev_func_op[17:0]     <= func_op[17:0];
+    prev_iid[6:0]          <= dp_vfalu_ex1_pipex_iid[6:0];
+    prev_sew[1:0]          <= sew[1:0];
+    prev_vld               <= 1'b1;
+    if(op_vcompress)
+    begin
+      compress_carry[63:0]    <= compress_carry_next[63:0];
+      compress_carry_cnt[3:0] <= compress_carry_cnt_next[3:0];
+    end
+    else if(new_stream)
+    begin
+      compress_carry[63:0]    <= 64'b0;
+      compress_carry_cnt[3:0] <= 4'b0;
+    end
   end
 end
 
-//=======================Pipe to EX3========================
-gated_clk_cell  x_ex2_pipe_clk (
-  .clk_in             (forever_cpuclk    ),
-  .clk_out            (ex2_pipe_clk      ),
-  .external_en        (1'b0              ),
-  .global_en          (cp0_yy_clk_en     ),
-  .local_en           (ex2_pipe_clk_en   ),
-  .module_en          (cp0_vfpu_icg_en   ),
-  .pad_yy_icg_scan_en (pad_yy_icg_scan_en)
-);
+always @(posedge forever_cpuclk or negedge cpurst_b)
+begin
+  if(!cpurst_b)
+    vperm_ex2_result[63:0] <= 64'b0;
+  else if(ex1_pipedown)
+    vperm_ex2_result[63:0] <= ex1_result[63:0];
+end
 
-assign ex2_pipe_clk_en = ex2_pipedown;
-
-always @(posedge ex2_pipe_clk or negedge cpurst_b)
+always @(posedge forever_cpuclk or negedge cpurst_b)
 begin
   if(!cpurst_b)
     vperm_ex3_result[63:0] <= 64'b0;
   else if(ex2_pipedown)
     vperm_ex3_result[63:0] <= vperm_ex2_result[63:0];
-  else
-    vperm_ex3_result[63:0] <= vperm_ex3_result[63:0];
 end
 
-//=======================Pipe to EX4========================
-gated_clk_cell  x_ex3_pipe_clk (
-  .clk_in             (forever_cpuclk    ),
-  .clk_out            (ex3_pipe_clk      ),
-  .external_en        (1'b0              ),
-  .global_en          (cp0_yy_clk_en     ),
-  .local_en           (ex3_pipe_clk_en   ),
-  .module_en          (cp0_vfpu_icg_en   ),
-  .pad_yy_icg_scan_en (pad_yy_icg_scan_en)
-);
-
-assign ex3_pipe_clk_en = ex3_pipedown;
-
-always @(posedge ex3_pipe_clk or negedge cpurst_b)
+always @(posedge forever_cpuclk or negedge cpurst_b)
 begin
   if(!cpurst_b)
     vperm_ex4_result[63:0] <= 64'b0;
   else if(ex3_pipedown)
     vperm_ex4_result[63:0] <= vperm_ex3_result[63:0];
-  else
-    vperm_ex4_result[63:0] <= vperm_ex4_result[63:0];
 end
 
 assign vperm_forward_result[63:0] = vperm_ex4_result[63:0];
 assign vperm_forward_r_vld        = ex4_pipedown;
 
-//===================== Helper Functions ====================
-// extract_element: Extract element at index from 64-bit vector (4x16-bit elements)
-function [63:0] extract_element;
-  input [63:0] src;
-  input [5:0] index;
+function [3:0] elems_per_slice;
+  input [1:0] sew;
   begin
-    case(index[5:2])
-      4'b0000: extract_element = {48'b0, src[15:0]};
-      4'b0001: extract_element = {48'b0, src[31:16]};
-      4'b0010: extract_element = {48'b0, src[47:32]};
-      4'b0011: extract_element = {48'b0, src[63:48]};
-      default: extract_element = 64'b0;
+    case(sew[1:0])
+      2'b00: elems_per_slice[3:0] = 4'd8;
+      2'b01: elems_per_slice[3:0] = 4'd4;
+      2'b10: elems_per_slice[3:0] = 4'd2;
+      default: elems_per_slice[3:0] = 4'd1;
     endcase
   end
 endfunction
 
-// slideup: Shift elements up by offset, fill lower with zeros
-function [63:0] slideup;
-  input [63:0] src;
-  input [63:0] offset;
-  input [15:0] vl;
-  reg [63:0] result;
-  integer i;
+function [63:0] get_elem;
+  input [63:0] data;
+  input [2 :0] idx;
+  input [1 :0] sew;
   begin
-    result = 64'b0;
-    for (i = 0; i < 64; i = i + 1) begin
-      if ((i + offset[5:0]) < 64) begin
-        result[i] = src[i + offset[5:0]];
-      end
-    end
-    slideup = result;
+    case(sew[1:0])
+      2'b00: get_elem[63:0] = {56'b0, get8(data[63:0], idx[2:0])};
+      2'b01: get_elem[63:0] = {48'b0, get16(data[63:0], idx[1:0])};
+      2'b10: get_elem[63:0] = {32'b0, get32(data[63:0], idx[0])};
+      default: get_elem[63:0] = data[63:0];
+    endcase
   end
 endfunction
 
-// slidedown: Shift elements down by offset, fill upper with zeros
-function [63:0] slidedown;
-  input [63:0] src;
-  input [63:0] offset;
-  input [15:0] vl;
-  reg [63:0] result;
-  integer i;
+function [63:0] set_elem;
+  input [63:0] base;
+  input [63:0] elem;
+  input [2 :0] idx;
+  input [1 :0] sew;
+  reg   [63:0] result;
   begin
-    result = 64'b0;
-    for (i = 0; i < 64; i = i + 1) begin
-      if ((i >= offset[5:0]) && (i < 64)) begin
-        result[i] = src[i - offset[5:0]];
-      end
-    end
-    slidedown = result;
+    result[63:0] = base[63:0];
+    case(sew[1:0])
+      2'b00:
+        case(idx[2:0])
+          3'd0: result[7 :0 ] = elem[7:0];
+          3'd1: result[15:8 ] = elem[7:0];
+          3'd2: result[23:16] = elem[7:0];
+          3'd3: result[31:24] = elem[7:0];
+          3'd4: result[39:32] = elem[7:0];
+          3'd5: result[47:40] = elem[7:0];
+          3'd6: result[55:48] = elem[7:0];
+          default: result[63:56] = elem[7:0];
+        endcase
+      2'b01:
+        case(idx[1:0])
+          2'd0: result[15:0 ] = elem[15:0];
+          2'd1: result[31:16] = elem[15:0];
+          2'd2: result[47:32] = elem[15:0];
+          default: result[63:48] = elem[15:0];
+        endcase
+      2'b10:
+        if(idx[0])
+          result[63:32] = elem[31:0];
+        else
+          result[31:0] = elem[31:0];
+      default:
+        result[63:0] = elem[63:0];
+    endcase
+    set_elem[63:0] = result[63:0];
   end
 endfunction
 
-// gather_vv: Vector-vector gather - vd[i] = vs2[vs1[i]]
-// vs1 contains indices, vs2 is source
-function [63:0] gather_vv;
-  input [63:0] vs2;
-  input [63:0] vs1;
-  reg [63:0] result;
+function [63:0] extract_scalar;
+  input [63:0] src;
+  input [5 :0] idx;
+  input [1 :0] sew;
+  begin
+    if(idx[5:0] < elems_per_slice(sew[1:0]))
+      extract_scalar[63:0] = get_elem(src[63:0], idx[2:0], sew[1:0]);
+    else
+      extract_scalar[63:0] = 64'b0;
+  end
+endfunction
+
+function [63:0] slideup_cross;
+  input [63:0] cur_src;
+  input [63:0] prev_src;
+  input [5 :0] offset;
+  input [1 :0] sew;
+  input [63:0] scalar_fill;
+  reg   [63:0] result;
+  integer i;
+  integer src_idx;
+  integer elems;
+  begin
+    result = 64'b0;
+    elems = elems_per_slice(sew[1:0]);
+    for(i = 0; i < 8; i = i + 1)
+    begin
+      if(i < elems)
+      begin
+        if(offset[5:0] == 6'd1 && i == 0)
+          result = set_elem(result, scalar_fill, i[2:0], sew);
+        else
+        begin
+          src_idx = i - offset;
+          if(src_idx >= 0)
+            result = set_elem(result, get_elem(cur_src, src_idx[2:0], sew), i[2:0], sew);
+          else if((src_idx + elems) >= 0)
+            result = set_elem(result, get_elem(prev_src, (src_idx + elems) & 3'h7, sew), i[2:0], sew);
+        end
+      end
+    end
+    slideup_cross[63:0] = result[63:0];
+  end
+endfunction
+
+function [63:0] slidedown_cross;
+  input [63:0] cur_src;
+  input [63:0] prev_src;
+  input [5 :0] offset;
+  input [1 :0] sew;
+  input [63:0] scalar_fill;
+  reg   [63:0] result;
+  integer i;
+  integer src_idx;
+  integer elems;
+  begin
+    result = 64'b0;
+    elems = elems_per_slice(sew[1:0]);
+    for(i = 0; i < 8; i = i + 1)
+    begin
+      if(i < elems)
+      begin
+        src_idx = i + offset;
+        if(src_idx < elems)
+          result = set_elem(result, get_elem(cur_src, src_idx[2:0], sew), i[2:0], sew);
+        else if(offset[5:0] == 6'd1 && i == (elems - 1))
+          result = set_elem(result, scalar_fill, i[2:0], sew);
+        else if((src_idx - elems) < elems)
+          result = set_elem(result, get_elem(prev_src, (src_idx - elems) & 3'h7, sew), i[2:0], sew);
+      end
+    end
+    slidedown_cross[63:0] = result[63:0];
+  end
+endfunction
+
+function [63:0] gather_vv_window;
+  input [63:0] cur_src;
+  input [63:0] prev_src;
+  input [63:0] index_src;
+  input [1 :0] sew;
+  reg   [63:0] result;
   integer i;
   integer idx;
+  integer elems;
   begin
     result = 64'b0;
-    for (i = 0; i < 16; i = i + 1) begin
-      idx = vs1[i*4 +: 4];
-      if (idx < 16) begin
-        result[i*4 +: 4] = vs2[idx*4 +: 4];
+    elems = elems_per_slice(sew[1:0]);
+    for(i = 0; i < 8; i = i + 1)
+    begin
+      if(i < elems)
+      begin
+        idx = get_elem(index_src, i[2:0], sew);
+        if(idx < elems)
+          result = set_elem(result, get_elem(cur_src, idx[2:0], sew), i[2:0], sew);
+        else if((idx - elems) < elems)
+          result = set_elem(result, get_elem(prev_src, (idx - elems) & 3'h7, sew), i[2:0], sew);
       end
     end
-    gather_vv = result;
+    gather_vv_window[63:0] = result[63:0];
   end
 endfunction
 
-// gather_vk: Vector-scalar gather - vd[i] = vs2[index]
-function [63:0] gather_vk;
-  input [63:0] vs2;
-  input [5:0] index;
+function [63:0] gather_scalar_window;
+  input [63:0] cur_src;
+  input [63:0] prev_src;
+  input [5 :0] index;
+  input [1 :0] sew;
+  reg   [63:0] result;
+  integer i;
+  integer elems;
   begin
-    case(index[5:2])
-      4'b0000: gather_vk = {48'b0, vs2[15:0]};
-      4'b0001: gather_vk = {48'b0, vs2[31:16]};
-      4'b0010: gather_vk = {48'b0, vs2[47:32]};
-      4'b0011: gather_vk = {48'b0, vs2[63:48]};
-      default: gather_vk = 64'b0;
+    result = 64'b0;
+    elems = elems_per_slice(sew[1:0]);
+    for(i = 0; i < 8; i = i + 1)
+    begin
+      if(i < elems)
+      begin
+        if(index < elems)
+          result = set_elem(result, get_elem(cur_src, index[2:0], sew), i[2:0], sew);
+        else if((index - elems) < elems)
+          result = set_elem(result, get_elem(prev_src, (index - elems) & 3'h7, sew), i[2:0], sew);
+      end
+    end
+    gather_scalar_window[63:0] = result[63:0];
+  end
+endfunction
+
+function [63:0] compress_pack;
+  input [63:0] src;
+  input [63:0] mask;
+  input [63:0] carry;
+  input [3 :0] carry_cnt;
+  input [1 :0] sew;
+  reg   [63:0] result;
+  integer i;
+  integer out_idx;
+  integer elems;
+  begin
+    result = 64'b0;
+    elems = elems_per_slice(sew[1:0]);
+    out_idx = 0;
+    for(i = 0; i < 8; i = i + 1)
+    begin
+      if(i < carry_cnt && i < elems)
+      begin
+        result = set_elem(result, get_elem(carry, i[2:0], sew), out_idx[2:0], sew);
+        out_idx = out_idx + 1;
+      end
+    end
+    for(i = 0; i < 8; i = i + 1)
+    begin
+      if(i < elems && elem_mask_bit(mask, i[2:0], sew) && out_idx < elems)
+      begin
+        result = set_elem(result, get_elem(src, i[2:0], sew), out_idx[2:0], sew);
+        out_idx = out_idx + 1;
+      end
+    end
+    compress_pack[63:0] = result[63:0];
+  end
+endfunction
+
+function [63:0] compress_tail;
+  input [63:0] src;
+  input [63:0] mask;
+  input [63:0] carry;
+  input [3 :0] carry_cnt;
+  input [1 :0] sew;
+  reg   [63:0] tail;
+  integer i;
+  integer stream_idx;
+  integer tail_idx;
+  integer elems;
+  begin
+    tail = 64'b0;
+    elems = elems_per_slice(sew[1:0]);
+    stream_idx = 0;
+    tail_idx = 0;
+    for(i = 0; i < 8; i = i + 1)
+    begin
+      if(i < carry_cnt)
+      begin
+        if(stream_idx >= elems)
+        begin
+          tail = set_elem(tail, get_elem(carry, i[2:0], sew), tail_idx[2:0], sew);
+          tail_idx = tail_idx + 1;
+        end
+        stream_idx = stream_idx + 1;
+      end
+    end
+    for(i = 0; i < 8; i = i + 1)
+    begin
+      if(i < elems && elem_mask_bit(mask, i[2:0], sew))
+      begin
+        if(stream_idx >= elems)
+        begin
+          tail = set_elem(tail, get_elem(src, i[2:0], sew), tail_idx[2:0], sew);
+          tail_idx = tail_idx + 1;
+        end
+        stream_idx = stream_idx + 1;
+      end
+    end
+    compress_tail[63:0] = tail[63:0];
+  end
+endfunction
+
+function [3:0] compress_tail_count;
+  input [63:0] src;
+  input [63:0] mask;
+  input [3 :0] carry_cnt;
+  input [1 :0] sew;
+  integer i;
+  integer selected;
+  integer elems;
+  begin
+    elems = elems_per_slice(sew[1:0]);
+    selected = carry_cnt;
+    for(i = 0; i < 8; i = i + 1)
+      if(i < elems && elem_mask_bit(mask, i[2:0], sew))
+        selected = selected + 1;
+    if(selected > elems)
+      compress_tail_count[3:0] = selected - elems;
+    else
+      compress_tail_count[3:0] = 4'b0;
+  end
+endfunction
+
+function elem_mask_bit;
+  input [63:0] mask;
+  input [2 :0] idx;
+  input [1 :0] sew;
+  begin
+    elem_mask_bit = mask[idx];
+  end
+endfunction
+
+function [7:0] get8;
+  input [63:0] data;
+  input [2 :0] idx;
+  begin
+    case(idx[2:0])
+      3'd0: get8[7:0] = data[7 :0 ];
+      3'd1: get8[7:0] = data[15:8 ];
+      3'd2: get8[7:0] = data[23:16];
+      3'd3: get8[7:0] = data[31:24];
+      3'd4: get8[7:0] = data[39:32];
+      3'd5: get8[7:0] = data[47:40];
+      3'd6: get8[7:0] = data[55:48];
+      default: get8[7:0] = data[63:56];
     endcase
   end
 endfunction
 
-// &ModuleEnd; @380
+function [15:0] get16;
+  input [63:0] data;
+  input [1 :0] idx;
+  begin
+    case(idx[1:0])
+      2'd0: get16[15:0] = data[15:0 ];
+      2'd1: get16[15:0] = data[31:16];
+      2'd2: get16[15:0] = data[47:32];
+      default: get16[15:0] = data[63:48];
+    endcase
+  end
+endfunction
+
+function [31:0] get32;
+  input [63:0] data;
+  input        idx;
+  begin
+    get32[31:0] = idx ? data[63:32] : data[31:0];
+  end
+endfunction
+
 endmodule

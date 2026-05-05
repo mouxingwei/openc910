@@ -394,6 +394,10 @@ module ct_idu_rf_dp(
   idu_vfpu_rf_pipe6_srcv0_fr,
   idu_vfpu_rf_pipe6_srcv1_fr,
   idu_vfpu_rf_pipe6_srcv2_fr,
+  idu_vfpu_rf_pipe6_srcvm_vr0,
+  idu_vfpu_rf_pipe6_srcvm_vr1,
+  idu_vfpu_rf_pipe6_vimm,
+  idu_vfpu_rf_pipe6_vimm_vld,
   idu_vfpu_rf_pipe6_vmla_type,
   idu_vfpu_rf_pipe7_dst_ereg,
   idu_vfpu_rf_pipe7_dst_preg,
@@ -412,6 +416,10 @@ module ct_idu_rf_dp(
   idu_vfpu_rf_pipe7_srcv0_fr,
   idu_vfpu_rf_pipe7_srcv1_fr,
   idu_vfpu_rf_pipe7_srcv2_fr,
+  idu_vfpu_rf_pipe7_srcvm_vr0,
+  idu_vfpu_rf_pipe7_srcvm_vr1,
+  idu_vfpu_rf_pipe7_vimm,
+  idu_vfpu_rf_pipe7_vimm_vld,
   idu_vfpu_rf_pipe7_vmla_type,
   lsiq_dp_pipe3_issue_entry,
   lsiq_dp_pipe3_issue_read_data,
@@ -919,6 +927,10 @@ output  [2  :0]  idu_vfpu_rf_pipe6_ready_stage;
 output  [63 :0]  idu_vfpu_rf_pipe6_srcv0_fr;            
 output  [63 :0]  idu_vfpu_rf_pipe6_srcv1_fr;            
 output  [63 :0]  idu_vfpu_rf_pipe6_srcv2_fr;            
+output  [63 :0]  idu_vfpu_rf_pipe6_srcvm_vr0;           
+output  [63 :0]  idu_vfpu_rf_pipe6_srcvm_vr1;           
+output  [4  :0]  idu_vfpu_rf_pipe6_vimm;                
+output           idu_vfpu_rf_pipe6_vimm_vld;            
 output  [2  :0]  idu_vfpu_rf_pipe6_vmla_type;           
 output  [4  :0]  idu_vfpu_rf_pipe7_dst_ereg;            
 output  [6  :0]  idu_vfpu_rf_pipe7_dst_preg;            
@@ -937,6 +949,10 @@ output  [2  :0]  idu_vfpu_rf_pipe7_ready_stage;
 output  [63 :0]  idu_vfpu_rf_pipe7_srcv0_fr;            
 output  [63 :0]  idu_vfpu_rf_pipe7_srcv1_fr;            
 output  [63 :0]  idu_vfpu_rf_pipe7_srcv2_fr;            
+output  [63 :0]  idu_vfpu_rf_pipe7_srcvm_vr0;           
+output  [63 :0]  idu_vfpu_rf_pipe7_srcvm_vr1;           
+output  [4  :0]  idu_vfpu_rf_pipe7_vimm;                
+output           idu_vfpu_rf_pipe7_vimm_vld;            
 output  [2  :0]  idu_vfpu_rf_pipe7_vmla_type;           
 
 // &Regs; @28

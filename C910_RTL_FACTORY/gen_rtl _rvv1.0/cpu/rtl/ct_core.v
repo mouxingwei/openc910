@@ -1515,6 +1515,10 @@ wire             idu_vfpu_rf_pipe6_sel;
 wire    [63 :0]  idu_vfpu_rf_pipe6_srcv0_fr;             
 wire    [63 :0]  idu_vfpu_rf_pipe6_srcv1_fr;             
 wire    [63 :0]  idu_vfpu_rf_pipe6_srcv2_fr;             
+wire    [63 :0]  idu_vfpu_rf_pipe6_srcvm_vr0;            
+wire    [63 :0]  idu_vfpu_rf_pipe6_srcvm_vr1;            
+wire    [4  :0]  idu_vfpu_rf_pipe6_vimm;                 
+wire             idu_vfpu_rf_pipe6_vimm_vld;             
 wire    [2  :0]  idu_vfpu_rf_pipe6_vmla_type;            
 wire    [4  :0]  idu_vfpu_rf_pipe7_dst_ereg;             
 wire    [6  :0]  idu_vfpu_rf_pipe7_dst_preg;             
@@ -1535,6 +1539,10 @@ wire             idu_vfpu_rf_pipe7_sel;
 wire    [63 :0]  idu_vfpu_rf_pipe7_srcv0_fr;             
 wire    [63 :0]  idu_vfpu_rf_pipe7_srcv1_fr;             
 wire    [63 :0]  idu_vfpu_rf_pipe7_srcv2_fr;             
+wire    [63 :0]  idu_vfpu_rf_pipe7_srcvm_vr0;            
+wire    [63 :0]  idu_vfpu_rf_pipe7_srcvm_vr1;            
+wire    [4  :0]  idu_vfpu_rf_pipe7_vimm;                 
+wire             idu_vfpu_rf_pipe7_vimm_vld;             
 wire    [2  :0]  idu_vfpu_rf_pipe7_vmla_type;            
 wire             ifu_biu_r_ready;                        
 wire    [39 :0]  ifu_biu_rd_addr;                        
@@ -3051,6 +3059,10 @@ ct_idu_top  x_ct_idu_top (
   .idu_vfpu_rf_pipe6_srcv0_fr              (idu_vfpu_rf_pipe6_srcv0_fr             ),
   .idu_vfpu_rf_pipe6_srcv1_fr              (idu_vfpu_rf_pipe6_srcv1_fr             ),
   .idu_vfpu_rf_pipe6_srcv2_fr              (idu_vfpu_rf_pipe6_srcv2_fr             ),
+  .idu_vfpu_rf_pipe6_srcvm_vr0             (idu_vfpu_rf_pipe6_srcvm_vr0            ),
+  .idu_vfpu_rf_pipe6_srcvm_vr1             (idu_vfpu_rf_pipe6_srcvm_vr1            ),
+  .idu_vfpu_rf_pipe6_vimm                  (idu_vfpu_rf_pipe6_vimm                 ),
+  .idu_vfpu_rf_pipe6_vimm_vld              (idu_vfpu_rf_pipe6_vimm_vld             ),
   .idu_vfpu_rf_pipe6_vmla_type             (idu_vfpu_rf_pipe6_vmla_type            ),
   .idu_vfpu_rf_pipe7_dst_ereg              (idu_vfpu_rf_pipe7_dst_ereg             ),
   .idu_vfpu_rf_pipe7_dst_preg              (idu_vfpu_rf_pipe7_dst_preg             ),
@@ -3071,6 +3083,10 @@ ct_idu_top  x_ct_idu_top (
   .idu_vfpu_rf_pipe7_srcv0_fr              (idu_vfpu_rf_pipe7_srcv0_fr             ),
   .idu_vfpu_rf_pipe7_srcv1_fr              (idu_vfpu_rf_pipe7_srcv1_fr             ),
   .idu_vfpu_rf_pipe7_srcv2_fr              (idu_vfpu_rf_pipe7_srcv2_fr             ),
+  .idu_vfpu_rf_pipe7_srcvm_vr0             (idu_vfpu_rf_pipe7_srcvm_vr0            ),
+  .idu_vfpu_rf_pipe7_srcvm_vr1             (idu_vfpu_rf_pipe7_srcvm_vr1            ),
+  .idu_vfpu_rf_pipe7_vimm                  (idu_vfpu_rf_pipe7_vimm                 ),
+  .idu_vfpu_rf_pipe7_vimm_vld              (idu_vfpu_rf_pipe7_vimm_vld             ),
   .idu_vfpu_rf_pipe7_vmla_type             (idu_vfpu_rf_pipe7_vmla_type            ),
   .ifu_idu_ib_inst0_data                   (ifu_idu_ib_inst0_data                  ),
   .ifu_idu_ib_inst0_vld                    (ifu_idu_ib_inst0_vld                   ),
@@ -3759,6 +3775,10 @@ ct_vfpu_top  x_ct_vfpu_top (
   .idu_vfpu_rf_pipe6_srcv0_fr            (idu_vfpu_rf_pipe6_srcv0_fr           ),
   .idu_vfpu_rf_pipe6_srcv1_fr            (idu_vfpu_rf_pipe6_srcv1_fr           ),
   .idu_vfpu_rf_pipe6_srcv2_fr            (idu_vfpu_rf_pipe6_srcv2_fr           ),
+  .idu_vfpu_rf_pipe6_srcvm_vr0           (idu_vfpu_rf_pipe6_srcvm_vr0          ),
+  .idu_vfpu_rf_pipe6_srcvm_vr1           (idu_vfpu_rf_pipe6_srcvm_vr1          ),
+  .idu_vfpu_rf_pipe6_vimm                (idu_vfpu_rf_pipe6_vimm               ),
+  .idu_vfpu_rf_pipe6_vimm_vld            (idu_vfpu_rf_pipe6_vimm_vld           ),
   .idu_vfpu_rf_pipe6_vmla_type           (idu_vfpu_rf_pipe6_vmla_type          ),
   .idu_vfpu_rf_pipe7_dst_ereg            (idu_vfpu_rf_pipe7_dst_ereg           ),
   .idu_vfpu_rf_pipe7_dst_preg            (idu_vfpu_rf_pipe7_dst_preg           ),
@@ -3779,6 +3799,10 @@ ct_vfpu_top  x_ct_vfpu_top (
   .idu_vfpu_rf_pipe7_srcv0_fr            (idu_vfpu_rf_pipe7_srcv0_fr           ),
   .idu_vfpu_rf_pipe7_srcv1_fr            (idu_vfpu_rf_pipe7_srcv1_fr           ),
   .idu_vfpu_rf_pipe7_srcv2_fr            (idu_vfpu_rf_pipe7_srcv2_fr           ),
+  .idu_vfpu_rf_pipe7_srcvm_vr0           (idu_vfpu_rf_pipe7_srcvm_vr0          ),
+  .idu_vfpu_rf_pipe7_srcvm_vr1           (idu_vfpu_rf_pipe7_srcvm_vr1          ),
+  .idu_vfpu_rf_pipe7_vimm                (idu_vfpu_rf_pipe7_vimm               ),
+  .idu_vfpu_rf_pipe7_vimm_vld            (idu_vfpu_rf_pipe7_vimm_vld           ),
   .idu_vfpu_rf_pipe7_vmla_type           (idu_vfpu_rf_pipe7_vmla_type          ),
   .iu_vfpu_ex1_pipe0_mtvr_inst           (iu_vfpu_ex1_pipe0_mtvr_inst          ),
   .iu_vfpu_ex1_pipe0_mtvr_vl             (iu_vfpu_ex1_pipe0_mtvr_vl            ),
